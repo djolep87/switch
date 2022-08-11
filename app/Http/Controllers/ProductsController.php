@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\ProductUser;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -64,12 +65,22 @@ class ProductsController extends Controller
         }
 
         $product = new Product;
+        $product->user_id = Auth()->user()->id;
         $product->category_id = $request->input('category_id');
         $product->name = $request->input('name');
         $product->condition = $request->input('condition');
         $product->description = $request->input('description');
         $product->image = $fileNameToStore;
         $product->save();
+
+        // $product->users()->attach($request->user_id);
+
+        ProductUser::create([
+            'product_id' => $product->id,
+            'user_id' => Auth()->user()->id,
+            'city' => Auth()->user()->city,
+            'firstName' => Auth()->user()->firstName,
+        ]);
 
         if ($request->hasfile('images')) {
             $images = $request->file('images');
@@ -104,7 +115,7 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('products.show')->with('product', $product);
+        return view('/home')->with('product', $product);
     }
 
     /**
@@ -117,6 +128,8 @@ class ProductsController extends Controller
     {
         // 
     }
+
+   
 
     /**
      * Update the specified resource in storage.

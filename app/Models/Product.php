@@ -12,6 +12,8 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $fillable = ['user_id', 'category_id', 'name', 'condition', 'description', 'image'];
+
     public $primaryKey = 'id';
 
     public $timestamps = true;
@@ -24,5 +26,10 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

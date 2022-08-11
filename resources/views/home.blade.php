@@ -1,5 +1,7 @@
 @extends('layouts.master')
+
 @section('title', 'Switch')
+
 @section('content')
 <div class="wrapper">
     <!--start page wrapper -->
@@ -73,22 +75,27 @@
                                     <div>	<a href="shop-list-left-sidebar.html" class="btn btn-light rounded-0"><i class='bx bx-list-ul me-0'></i></a>
                                     </div>
                                 </div>
-                                @forelse ($products as $product)
+                                @forelse ($products as $key => $product)
+                                
                                     <div class="product-grid">
                                         <div class="card rounded-0 product-card">
                                             <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
-                                                <a href="javascript:;">
-                                                    <div class="product-compare"><span><i class="bx bx-git-compare"></i> Compare</span>
+                                                
+                                                    <div class="product">
+                                                        <label for="views">Viđen : </label>
+                                                        <Span><b>{{$product->views}}</b></Span>
                                                     </div>
-                                                </a>
+                                                
                                                 <a href="javascript:;">
                                                     <div class="product-wishlist"> <i class="bx bx-heart"></i>
                                                     </div>
                                                 </a>
+                                                    <div>{{$product->user->city}}</div>
+                                                    <div>{{$product->user->firstName}}</div>
                                             </div>
                                             <div class="row g-0">
                                                 <div class="col-md-4">
-                                                    <a href="/products.show/{{$product->id}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="..."></a> 
+                                                    <a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="..."></a> 
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
@@ -97,23 +104,33 @@
                                                                 <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
                                                             </a>
                                                             <a href="/products.show/{{$product->id}}">
-                                                                <h6 class="product-name mb-2">{{$product->name}}</h6>
+                                                                <h4 class="product-name mb-2">{{$product->name}}</h4>
+                                                                <h6>({{$product->condition}})</h6>
                                                             </a>
-                                                            <p class="card-text">{{$product->description}}</p>
+                                                            <p class="card-text">{{ Str::limit($product->description, 250) }}</p>
                                                             <div class="d-flex align-items-center">
-                                                                <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span>
-                                                                    <span class="fs-5">$49.00</span>
-                                                                </div>
-                                                                <div class="cursor-pointer ms-auto"> <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i>
-                                                                </div>
+                                                                {{-- <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span> --}}
+                                                                    {{-- <span class="fs-5">$49.00</span> --}}
+                                                                {{-- </div> --}}
+                                                               {{-- @foreach ($products as $item) --}}
+                                                               {{-- <div class="cursor-pointer ms-auto"> <i class="bx bxs-star text-warning"></i> --}}
+                                                                   {{-- <i class="bx bxs-star text-warning"></i>
+                                                                   <i class="bx bxs-star text-warning"></i>
+                                                                   <i class="bx bxs-star text-warning"></i>
+                                                                   <i class="bx bxs-star text-warning"></i> --}}
+                                                                   
+                                                                  
+
+                                                               {{-- </div> --}}
+                                                                   
+                                                               {{-- @endforeach --}}
+                                                                                                                                
+                                                                    
+                                                                
                                                             </div>
                                                             <div class="product-action mt-2">
                                                                 <div class="d-flex gap-2">
-                                                                    <a href="javascript:;" class="btn btn-dark btn-ecomm"> <i class="bx bxs-cart-add"></i>Add to Cart</a> <a href="{{$product->id}}" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in btnQuickView"></i>Quick View</a>
+                                                                    <a href="javascript:;" class="btn btn-dark btn-ecomm"> <i class="bx bxs-cart-add"></i>Posalji zahtev za zamenu</a> <a href="{{$product->id}}" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in btnQuickView"></i>Quick View</a>
                                                                 </div>
                                                             </div>
                                                         </div>
