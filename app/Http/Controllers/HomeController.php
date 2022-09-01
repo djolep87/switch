@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -57,10 +59,15 @@ class HomeController extends Controller
     }
 
 
-    public function view($id)
+    public function view(Product $product, $id)
     {
+        // $images = DB::table('images')->where('product_id', $product->id)->get();
+        // $images = Image::where('product_id', $product)->get();
+        // $images = Image::with('products')->get();
+        // dd($images);
         Product::find($id)->increment('views');
         $product = Product::find($id);
-        return view('products.view', compact('product'));
+        $images = $product->images;
+        return view('products.view', compact('product', 'images'));
     }
 }

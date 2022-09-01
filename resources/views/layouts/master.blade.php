@@ -33,7 +33,7 @@
 								<div class="mobile-toggle-menu d-lg-none px-lg-2" data-trigger="#navbar_main"><i class='bx bx-menu'></i>
 								</div>
 								<div class="logo d-none d-lg-flex">
-									<a href="index.html">
+									<a href="/home">
 										<img src="assets/images/logo-icon.png" class="logo-icon" alt="" />
 									</a>
 								</div>

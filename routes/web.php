@@ -20,10 +20,9 @@ use Illuminate\Support\Facades\Route;
 // });
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/home', 'HomeController');
-// Route::get('/products.show/{product}', 'HomeController@show')->name('products.show');
+
 Route::get('/products.view/{id}', 'HomeController@view')->name('products.view');
-// Route::get('/products.show/{product}', 'ProductsController@show');
-// Route::get('/products', 'HomeController@show');
+
 
 Auth::routes();
 

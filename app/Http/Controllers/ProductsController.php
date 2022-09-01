@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -64,6 +65,17 @@ class ProductsController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
+        if ($request->has('images')) {
+            $imagesname = '';
+            foreach ($request->images as $key => $image) {
+                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $image->storeAs('public/Product_images', $imgName);
+                $imagesname = $imagesname . ',' . $imgName;
+            }
+            // $product->images = $imagesname;
+        }
+
+
         $product = new Product;
         $product->user_id = Auth()->user()->id;
         $product->category_id = $request->input('category_id');
@@ -71,6 +83,7 @@ class ProductsController extends Controller
         $product->condition = $request->input('condition');
         $product->description = $request->input('description');
         $product->image = $fileNameToStore;
+        $product->images = $imagesname;
         $product->save();
 
         // $product->users()->attach($request->user_id);
@@ -82,10 +95,8 @@ class ProductsController extends Controller
             'firstName' => Auth()->user()->firstName,
         ]);
 
-        if ($request->hasfile('images')) {
-            $images = $request->file('images');
-
-            foreach ($images as $image) {
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
                 $name = $image->getClientOriginalName();
                 $path = $image->storeAs('Product_images', $name, 'public');
 
@@ -95,12 +106,33 @@ class ProductsController extends Controller
                     'path' => '/storage/' . $path
                 ]);
             }
-        } else {
-            Image::create([
-                'product_id' => $product->id,
-                'name' => 'noimage.jpg',
-            ]);
         }
+        // else {
+        //     Image::create([
+        //         'product_id' => $product->id,
+        //         'name' => 'noimage.jpg',
+        //     ]);
+        // }
+
+        // if ($request->hasfile('images')) {
+        //     $images = $request->file('images');
+
+        //     foreach ($images as $image) {
+        //         $name = $image->getClientOriginalName();
+        //         $path = $image->storeAs('Product_images', $name, 'public');
+
+        //         Image::create([
+        //             'product_id' => $product->id,
+        //             'name' => $name,
+        //             'path' => '/storage/' . $path
+        //         ]);
+        //     }
+        // } else {
+        //     Image::create([
+        //         'product_id' => $product->id,
+        //         'name' => 'noimage.jpg',
+        //     ]);
+        // }
         $product->categories()->attach(request('category_id'));
 
         return back();
@@ -129,7 +161,7 @@ class ProductsController extends Controller
         // 
     }
 
-   
+
 
     /**
      * Update the specified resource in storage.

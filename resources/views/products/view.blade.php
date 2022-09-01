@@ -3,6 +3,9 @@
 @section('title', 'Proizvod')
 
 @section('content')
+@php
+    $images = explode(",",$product->images)
+@endphp
 <div class="page-wrapper">
     <div class="page-content"
         <!--start product detail-->
@@ -17,8 +20,25 @@
                                         <div class="item">
                                             <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
                                         </div>
-                                      
+                                        @foreach ( $images as $image)
+                                            <div class="item">
+                                                <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                            </div>
+                                        @endforeach                                      
                                     </div>
+                                        
+                                    <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
+                                        <button class="owl-thumb-item">
+                                            <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
+                                        </button>
+                                        @foreach ( $images as $image)
+                                            <button class="owl-thumb-item">
+                                                <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                            </button>
+                                        @endforeach
+                                    </div>
+                                      
+                                    
                                     
                                 </div>
                             </div>
@@ -44,7 +64,7 @@
                                     </div>
 
                                     <div class="d-flex gap-2 mt-3">
-                                        <a href="javascript:;" class="btn btn-white btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a> <a href="javascript:;" class="btn btn-light btn-ecomm"><i class="bx bx-heart"></i>Add to Wishlist</a>
+                                        <a href="javascript:;" class="btn btn-white btn-ecomm">	<i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a> <a href="javascript:;" class="btn btn-light btn-ecomm"><i class="bx bx-heart"></i>Sačuvaj</a>
                                     </div>
                                     <hr/>
                                 </div>

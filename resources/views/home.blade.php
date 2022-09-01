@@ -76,61 +76,62 @@
                                     </div>
                                 </div>
                                 @forelse ($products as $key => $product)
-                                
-                                    <div class="product-grid">
-                                        <div class="card rounded-0 product-card">
-                                            <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
-                                                
-                                                    <div class="product">
-                                                        <label for="views">Viđen : </label>
-                                                        <Span><b>{{$product->views}}</b></Span>
-                                                    </div>
-                                                
-                                                <a href="javascript:;">
-                                                    <div class="product-wishlist"> <i class="bx bx-heart"></i>
-                                                    </div>
-                                                </a>
-                                                    <div>{{$product->user->city}}</div>
-                                                    <div>{{$product->user->firstName}}</div>
-                                            </div>
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="..."></a> 
+                                    
+                                        <div class="product-grid">
+                                            <div class="card rounded-0 product-card">
+                                                <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
+                                                    
+                                                        <div class="product">
+                                                            <label for="views">Viđen : </label>
+                                                            <Span><b>{{$product->views}}</b></Span>
+                                                        </div>
+                                                    
+                                                    <a href="javascript:;">
+                                                        <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                        <div>{{$product->user->city}}</div>
+                                                        <div>{{$product->user->firstName}}</div>
                                                 </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <div class="product-info">
-                                                            <a href="javascript:;">
-                                                                <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
-                                                            </a>
-                                                            <a href="/products.show/{{$product->id}}">
-                                                                <h4 class="product-name mb-2">{{$product->name}}</h4>
-                                                                <h6>({{$product->condition}})</h6>
-                                                            </a>
-                                                            <p class="card-text">{{ Str::limit($product->description, 250) }}</p>
-                                                            <div class="d-flex align-items-center">
-                                                                {{-- <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span> --}}
-                                                                    {{-- <span class="fs-5">$49.00</span> --}}
-                                                                {{-- </div> --}}
-                                                               {{-- @foreach ($products as $item) --}}
-                                                               {{-- <div class="cursor-pointer ms-auto"> <i class="bx bxs-star text-warning"></i> --}}
-                                                                   {{-- <i class="bx bxs-star text-warning"></i>
-                                                                   <i class="bx bxs-star text-warning"></i>
-                                                                   <i class="bx bxs-star text-warning"></i>
-                                                                   <i class="bx bxs-star text-warning"></i> --}}
-                                                                   
-                                                                  
-
-                                                               {{-- </div> --}}
-                                                                   
-                                                               {{-- @endforeach --}}
-                                                                                                                                
+                                                <div class="row g-0">
+                                                    <div class="col-md-4">
+                                                        <a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="..."></a> 
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <div class="product-info">
+                                                                <a href="javascript:;">
+                                                                    <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
+                                                                </a>
+                                                                <a href="/products.show/{{$product->id}}">
+                                                                    <h4 class="product-name mb-2">{{$product->name}}</h4>
+                                                                    <h6>({{$product->condition}})</h6>
+                                                                </a>
+                                                                <p class="card-text">{{ Str::limit($product->description, 250) }}</p>
+                                                                <div class="d-flex align-items-center">
+                                                                    {{-- <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span> --}}
+                                                                        {{-- <span class="fs-5">$49.00</span> --}}
+                                                                    {{-- </div> --}}
+                                                                {{-- @foreach ($products as $item) --}}
+                                                                {{-- <div class="cursor-pointer ms-auto"> <i class="bx bxs-star text-warning"></i> --}}
+                                                                    {{-- <i class="bx bxs-star text-warning"></i>
+                                                                    <i class="bx bxs-star text-warning"></i>
+                                                                    <i class="bx bxs-star text-warning"></i>
+                                                                    <i class="bx bxs-star text-warning"></i> --}}
                                                                     
-                                                                
-                                                            </div>
-                                                            <div class="product-action mt-2">
-                                                                <div class="d-flex gap-2">
-                                                                    <a href="javascript:;" class="btn btn-dark btn-ecomm"> <i class="bx bxs-cart-add"></i>Posalji zahtev za zamenu</a> <a href="{{$product->id}}" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in btnQuickView"></i>Quick View</a>
+                                                                    
+
+                                                                {{-- </div> --}}
+                                                                    
+                                                                {{-- @endforeach --}}
+                                                                                                                                    
+                                                                        
+                                                                    
+                                                                </div>
+                                                                <div class="product-action mt-2">
+                                                                    <div class="d-flex gap-2">
+                                                                        <a href="javascript:;" class="btn btn-dark btn-ecomm"> <i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a> <a href="{{$product->id}}" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in btnQuickView"></i>Quick View</a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -138,10 +139,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="border-top my-3"></div>
-                                @empty
-                                    <div><p>Nema proizvoda.</p></div>    
+                                        <div class="border-top my-3"></div>
+                                    @empty
+                                        <div><p>Nema proizvoda.</p></div>    
                                 @endforelse
                                 
                                 <nav class="d-flex justify-content-between" aria-label="Page navigation">
@@ -190,7 +190,7 @@
                             <div class="image-zoom-section">
                                 <div class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1">
                                     <div class="item">
-                                        <img src="/storage/Product_images/{{ $product->image }}" id="modal-product-image" class="img-fluid" alt="">
+                                        {{-- <img src="/storage/Product_images/{{ $product->image }}" id="modal-product-image" class="img-fluid" alt=""> --}}
                                     </div>
                                     <div class="item">
                                         <img src="assets/images/product-gallery/02.png" class="img-fluid" alt="">
@@ -220,10 +220,10 @@
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="product-info-section p-3">
-                                <h3 class="mt-3 mt-lg-0 mb-0" id="modal-product-name">{{$product->name}}</h3>
+                                {{-- <h3 class="mt-3 mt-lg-0 mb-0" id="modal-product-name">{{$product->name}}</h3> --}}
                                 <div class="mt-3">
                                     <h6>Opis :</h6>
-                                    <p id="id="modal-product-description"" class="mb-0">{{$product->description}}</p>
+                                    {{-- <p id="id="modal-product-description"" class="mb-0">{{$product->description}}</p> --}}
                                 </div>
                                
                                 <div class="d-flex gap-2 mt-3">

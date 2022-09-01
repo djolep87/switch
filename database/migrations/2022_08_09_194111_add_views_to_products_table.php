@@ -14,7 +14,7 @@ class AddViewsToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('views')->default(0)->after('image');
+            $table->integer('views')->default(0)->after('images');
         });
     }
 
