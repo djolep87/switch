@@ -145,7 +145,7 @@
                                         <div class="review-list">
                                             <div class="d-flex align-items-start">
                                                 <div class="review-user">
-                                                    <img src="assets/images/avatars/avatar-1.png" width="65" height="65" class="rounded-circle" alt="" />
+                                                    {{-- <img src="assets/images/avatars/avatar-1.png" width="65" height="65" class="rounded-circle" alt="" /> --}}
                                                 </div>
                                                 <div class="review-content ms-3">
                                                     <div class="rates cursor-pointer fs-6">	<i class="bx bxs-star text-white"></i>
@@ -164,7 +164,7 @@
                                             <hr/>
                                             <div class="d-flex align-items-start">
                                                 <div class="review-user">
-                                                    <img src="assets/images/avatars/avatar-2.png" width="65" height="65" class="rounded-circle" alt="" />
+                                                    {{-- <img src="assets/images/avatars/avatar-2.png" width="65" height="65" class="rounded-circle" alt="" /> --}}
                                                 </div>
                                                 <div class="review-content ms-3">
                                                     <div class="rates cursor-pointer fs-6"> <i class="bx bxs-star text-white"></i>
@@ -183,7 +183,7 @@
                                             <hr/>
                                             <div class="d-flex align-items-start">
                                                 <div class="review-user">
-                                                    <img src="assets/images/avatars/avatar-3.png" width="65" height="65" class="rounded-circle" alt="" />
+                                                    {{-- <img src="assets/images/avatars/avatar-3.png" width="65" height="65" class="rounded-circle" alt="" /> --}}
                                                 </div>
                                                 <div class="review-content ms-3">
                                                     <div class="rates cursor-pointer fs-6">	<i class="bx bxs-star text-white"></i>

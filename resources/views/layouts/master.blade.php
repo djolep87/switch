@@ -34,7 +34,7 @@
 								</div>
 								<div class="logo d-none d-lg-flex">
 									<a href="/home">
-										<img src="assets/images/logo-icon.png" class="logo-icon" alt="" />
+										<img src="/assets/images/Switch.png" class="logo-icon" alt="" />
 									</a>
 								</div>
 							</div>
@@ -47,10 +47,10 @@
 						<div class="col-4 col-md-auto order-3 d-none d-xl-flex align-items-center">
 							<div class="fs-1 text-white"><i class='bx bx-headphone'></i>
 							</div>
-							<div class="ms-2">
+							{{-- <div class="ms-2">
 								<p class="mb-0 font-13">CALL US NOW</p>
 								<h5 class="mb-0">+011 5827918</h5>
-							</div>
+							</div> --}}
 						</div>
 						<div class="col-4 col-md-auto order-2 order-md-4">
 							<div class="top-cart-icons float-end">
@@ -82,7 +82,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/01.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/01.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -97,7 +97,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/05.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/05.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -112,7 +112,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/17.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/17.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -127,7 +127,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/10.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/10.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -142,7 +142,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/08.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/08.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -157,7 +157,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/18.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/18.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -172,7 +172,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/04.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/04.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -187,7 +187,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	<img src="assets/images/products/16.png" class="" alt="product image">
+																	{{-- <img src="assets/images/products/16.png" class="" alt="product image"> --}}
 																</div>
 															</div>
 														</div>
@@ -270,7 +270,7 @@
 										<!-- end col-3 -->
 										<div class="col-md-4">
 											<div class="pramotion-banner1">
-												<img src="assets/images/gallery/menu-img.jpg" class="img-fluid" alt="" />
+												{{-- <img src="assets/images/gallery/menu-img.jpg" class="img-fluid" alt="" /> --}}
 											</div>
 										</div>
 										<!-- end col-3 -->
@@ -371,7 +371,7 @@
                                                 </form>
                                             </ul>
                                         </li>
-                                        <li><a class="dropdown-item" href="/home">Dashboard</a>
+                                        <li><a class="dropdown-item" href="/dashboard">Dashboard</a>
                                         </li>
                                         <li><a class="dropdown-item" href="account-downloads.html">Downloads</a>
                                         </li>

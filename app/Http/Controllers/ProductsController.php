@@ -73,6 +73,8 @@ class ProductsController extends Controller
                 $imagesname = $imagesname . ',' . $imgName;
             }
             // $product->images = $imagesname;
+        } else {
+            $imagesname = 'noimage.jpg';
         }
 
 

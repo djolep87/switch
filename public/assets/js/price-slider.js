@@ -1,16 +1,16 @@
-$(function() {
-	"use strict";
+// $(function() {
+// 	"use strict";
 
-	var slider = document.getElementById('slider');
+// 	var slider = document.getElementById('slider');
 
-		noUiSlider.create(slider, {
-			start: [20, 80],
-			connect: true,
-			range: {
-				'min': 0,
-				'max': 100
-			}
-		});
+// 		noUiSlider.create(slider, {
+// 			start: [20, 80],
+// 			connect: true,
+// 			range: {
+// 				'min': 0,
+// 				'max': 100
+// 			}
+// 		});
 
 
-});
+// });

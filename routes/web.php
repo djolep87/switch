@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/home', 'HomeController');
 
 Route::get('/products.view/{id}', 'HomeController@view')->name('products.view');
+Route::get('/dashboard', 'UserController@index');
 
 
 Auth::routes();

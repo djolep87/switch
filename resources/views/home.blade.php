@@ -95,7 +95,7 @@
                                                 </div>
                                                 <div class="row g-0">
                                                     <div class="col-md-4">
-                                                        <a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="..."></a> 
+                                                        <a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" style="width: 300px; height= 200px;"  alt="..."></a> 
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
