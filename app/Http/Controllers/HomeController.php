@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -41,15 +42,12 @@ class HomeController extends Controller
             $categoryName = '';
         }
 
-        // $users = User::all();
-
-
-        return view('/home')->with([
-            'products' => $products,
-            'categories' => $categories,
-            'categoryName' => $categoryName,
-            // 'users' => $users,
-        ]);
+        if (Auth::check()) {
+            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+        } else {
+            $listproducts = null;
+        }
+        return view('/home', compact('products', 'categories', 'categoryName', 'listproducts'));
     }
 
     public function show($id)
@@ -61,10 +59,6 @@ class HomeController extends Controller
 
     public function view(Product $product, $id)
     {
-        // $images = DB::table('images')->where('product_id', $product->id)->get();
-        // $images = Image::where('product_id', $product)->get();
-        // $images = Image::with('products')->get();
-        // dd($images);
         Product::find($id)->increment('views');
         $product = Product::find($id);
         $images = $product->images;

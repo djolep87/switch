@@ -19,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/home', 'HomeController');
+Route::get('/', 'HomeController@index')->name('home.index');
+
+
+
 
 Route::get('/products.view/{id}', 'HomeController@view')->name('products.view');
 Route::get('/dashboard', 'UserController@index');

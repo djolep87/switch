@@ -109,30 +109,32 @@
                                                                 </a>
                                                                 <p class="card-text">{{ Str::limit($product->description, 250) }}</p>
                                                                 <div class="d-flex align-items-center">
-                                                                    {{-- <div class="mb-1 product-price"> <span class="me-1 text-decoration-line-through">$99.00</span> --}}
-                                                                        {{-- <span class="fs-5">$49.00</span> --}}
-                                                                    {{-- </div> --}}
-                                                                {{-- @foreach ($products as $item) --}}
-                                                                {{-- <div class="cursor-pointer ms-auto"> <i class="bx bxs-star text-warning"></i> --}}
-                                                                    {{-- <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i>
-                                                                    <i class="bx bxs-star text-warning"></i> --}}
-                                                                    
-                                                                    
-
-                                                                {{-- </div> --}}
-                                                                    
-                                                                {{-- @endforeach --}}
-                                                                                                                                    
+                                                                </div>
+                                                                
+                                                                @if (Auth::check())   
+                                                                    <div class="product-action mt-2">
+                                                                        <div class="d-flex gap-2">
+                                                                            <div class="nav-item dropdown">
+                                                                                @if (Auth::user()->id == $product->user_id)
+                                                                                    <p>Moj proizvod!!!</p> 
+                                                                                @else 
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                                                @endif
+                                                                                <ul class="dropdown-menu">
+                                                                                    @foreach ($listproducts as $product)
+                                                                                        <a href="" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            </div>
                                                                         
-                                                                    
-                                                                </div>
-                                                                <div class="product-action mt-2">
-                                                                    <div class="d-flex gap-2">
-                                                                        <a href="javascript:;" class="btn btn-dark btn-ecomm"> <i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a> <a href="{{$product->id}}" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in btnQuickView"></i>Quick View</a>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                @else
+                                                                    <p>Ukoliko želite da zamenite proizvod morate biti ulogovani!</p>
+                                                                    <a href="/login">Login</a>
+                                                                @endif
+                                                               
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
