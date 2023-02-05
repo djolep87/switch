@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OffersController extends Controller
 {
@@ -34,7 +36,16 @@ class OffersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $offers = new Offer;
+        $offers->user_id = Auth()->user()->id;
+        $offers->product_id = $request->input('product_id');
+        $offers->acceptor = $request->input('acceptor');
+        $offers->accepted = 0;
+        // dd($offers);
+        $offers->save();
+        return back();
     }
 
     /**

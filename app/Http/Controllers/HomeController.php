@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Offer;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class HomeController extends Controller
             $categoryName = $categories->where('name', request()->category)->first()->name;
         } else {
             $products = Product::join('users', 'users.id', 'products.user_id')
-                ->select('users.id as user_name', 'products.*')->orderBy('created_at', 'desc')->get();
+                ->select('users.id as user_name', 'products.*')->orderBy('created_at', 'desc')->paginate(48);
             // $products = Product::inRandomOrder()->take(16)->get();
             $categories = Category::withCount('products')->get();
             $categoryName = '';
@@ -63,5 +64,32 @@ class HomeController extends Controller
         $product = Product::find($id);
         $images = $product->images;
         return view('products.view', compact('product', 'images'));
+    }
+
+    public function store(Request $request)
+    {
+        $offers = new Offer;
+        $offers->user_id = Auth()->user()->id;
+        // $offers->product_id = $request->input('product_id');
+        // $offers->acceptor = $request->input('acceptor');
+        // $offers->accepted = 0;
+        // dd($offers);
+        $offers->save();
+        return back();
+    }
+
+    public function offers($id)
+    {
+        $user_requested = Auth::user()->id;
+        // $product_id = Auth::user()->product()->id;
+        $acceptor = $id;
+
+
+        $offers = new Offer();
+        $offers->user_requested = $user_requested;
+        // $offers->product_id = $product_id;
+        $offers->acceptor = $acceptor;
+        $offers->save();
+        return back();
     }
 }

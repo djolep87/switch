@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OffersController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home.index');
 
 
-
+Route::get('/offers{id}/', 'HomeController@offers');
 
 Route::get('/products.view/{id}', 'HomeController@view')->name('products.view');
 Route::get('/dashboard', 'UserController@index');
@@ -32,3 +33,5 @@ Auth::routes();
 
 Route::get('/products.create', 'ProductsController@create');
 Route::post('/products.store', 'ProductsController@store');
+
+Route::post('/', 'OffersController@store')->name('offers.store');

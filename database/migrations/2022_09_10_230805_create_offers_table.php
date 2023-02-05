@@ -17,6 +17,7 @@ class CreateOffersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('product_id')->constrained('users');
+            $table->integer('acceptor');
             $table->integer('accepted')->default(0);
             $table->timestamps();
         });

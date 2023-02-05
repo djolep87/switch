@@ -28,7 +28,7 @@
                                         </div>
                                         <hr class="d-flex d-xl-none" />
                                         <div class="product-categories">
-                                            <h6 class="text-uppercase mb-3"><a href="{{route('home.index')}}">Kategorije</a></h6>
+                                            <h6 class="text-uppercase mb-3"><a href="{{route('home.index')}}">Kategorije <span class="float-end badge rounded-pill bg-primary">{{$products->count()}}</span></a></h6>
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
@@ -103,7 +103,7 @@
                                                                 <a href="javascript:;">
                                                                     <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
                                                                 </a>
-                                                                <a href="/products.show/{{$product->id}}">
+                                                                <a href="{{route('products.view', $product->id)}}">
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
                                                                     <h6>({{$product->condition}})</h6>
                                                                 </a>
@@ -118,20 +118,44 @@
                                                                                 @if (Auth::user()->id == $product->user_id)
                                                                                     <p>Moj proizvod!!!</p> 
                                                                                 @else 
-                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn btn-outline-dark btn-ecomm" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @endif
                                                                                 <ul class="dropdown-menu">
-                                                                                    @foreach ($listproducts as $product)
-                                                                                        <a href="" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a>
-                                                                                    @endforeach
+                                                                                    <form id="offer" action="/" method="POST" enctype="multipart/form-data">
+                                                                                        {{csrf_field()}}
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+                                                                                        {{-- <input type="text" name="product_id" value="{{$product_id}}"> --}}
+                                                                                        <input type="hidden" name="acceptor" value="{{$product->user_id}}">
+                                                                                        @foreach ($listproducts as $product)
+                                                                                            {{-- <a document.getElementById("sendOffer").onclick = function() {
+                                                                                                document.getElementById("offer").submit();
+                                                                                            } id="sendOffer" href="{{url('/'.$product->id.'/')}}" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a> --}}
+
+                                                                                            <div class="col-xl-6 m-4">
+                                                                                                <div class="form-check form-check-inline dropdown-item">
+                                                                                                    <input class="form-check-input" type="radio" name="product_id" id="inlineRadio1"
+                                                                                                        value="{{$product->id}}">
+                                                                                                    <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
+                                                                                                </div>
+                                                                                                
+                                                                                            </div>
+                                                                                        
+
+
+
+                                                                                        @endforeach
+                                                                                        <button class="btn-outline-dark btn-ecomm" href="" type="submit">SEND</button>
+                                                                                        
+                                                                                    </form>
                                                                                 </ul>
                                                                             </div>
                                                                         
                                                                         </div>
                                                                     </div>
                                                                 @else
-                                                                    <p>Ukoliko želite da zamenite proizvod morate biti ulogovani!</p>
-                                                                    <a href="/login">Login</a>
+                                                                    <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p>
+                                                                    <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
                                                                 @endif
                                                                
                                                                 
@@ -145,8 +169,8 @@
                                     @empty
                                         <div><p>Nema proizvoda.</p></div>    
                                 @endforelse
-                                
-                                <nav class="d-flex justify-content-between" aria-label="Page navigation">
+                                {{$products->links('pagination::bootstrap-4')}}
+                                {{-- <nav class="d-flex justify-content-between" aria-label="Page navigation">
                                     <ul class="pagination">
                                         <li class="page-item"><a class="page-link" href="javascript:;"><i class='bx bx-chevron-left'></i> Prev</a>
                                         </li>
@@ -167,7 +191,7 @@
                                         <li class="page-item"><a class="page-link" href="javascript:;" aria-label="Next">Next <i class='bx bx-chevron-right'></i></a>
                                         </li>
                                     </ul>
-                                </nav>
+                                </nav> --}}
                             </div>
                         </div>
                     </div>

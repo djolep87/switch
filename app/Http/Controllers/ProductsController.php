@@ -109,33 +109,7 @@ class ProductsController extends Controller
                 ]);
             }
         }
-        // else {
-        //     Image::create([
-        //         'product_id' => $product->id,
-        //         'name' => 'noimage.jpg',
-        //     ]);
-        // }
-
-        // if ($request->hasfile('images')) {
-        //     $images = $request->file('images');
-
-        //     foreach ($images as $image) {
-        //         $name = $image->getClientOriginalName();
-        //         $path = $image->storeAs('Product_images', $name, 'public');
-
-        //         Image::create([
-        //             'product_id' => $product->id,
-        //             'name' => $name,
-        //             'path' => '/storage/' . $path
-        //         ]);
-        //     }
-        // } else {
-        //     Image::create([
-        //         'product_id' => $product->id,
-        //         'name' => 'noimage.jpg',
-        //     ]);
-        // }
-        $product->categories()->attach(request('category_id'));
+               $product->categories()->attach(request('category_id'));
 
         return back();
     }
