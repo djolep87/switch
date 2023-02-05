@@ -125,28 +125,32 @@
                                                                                         {{csrf_field()}}
                                                                                         @csrf
                                                                                         <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
-                                                                                        {{-- <input type="text" name="product_id" value="{{$product_id}}"> --}}
                                                                                         <input type="hidden" name="acceptor" value="{{$product->user_id}}">
-                                                                                        @foreach ($listproducts as $product)
+                                                                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                                                        @forelse ($listproducts as $product)
                                                                                             {{-- <a document.getElementById("sendOffer").onclick = function() {
                                                                                                 document.getElementById("offer").submit();
                                                                                             } id="sendOffer" href="{{url('/'.$product->id.'/')}}" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a> --}}
 
                                                                                             <div class="col-xl-6 m-4">
                                                                                                 <div class="form-check form-check-inline dropdown-item">
-                                                                                                    <input class="form-check-input" type="radio" name="product_id" id="inlineRadio1"
+                                                                                                    <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
                                                                                                         value="{{$product->id}}">
                                                                                                     <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
                                                                                                 </div>
                                                                                                 
                                                                                             </div>
                                                                                         
+                                                                                        @empty
 
+                                                                                            <div class="col-xl-12 m-4">
+                                                                                                <p>Nemate proizvode za zamenu.</p>
+                                                                                            </div>
 
-
-                                                                                        @endforeach
-                                                                                        <button class="btn-outline-dark btn-ecomm" href="" type="submit">SEND</button>
-                                                                                        
+                                                                                        @endforelse
+                                                                                            @if (Auth::user()->id == $product->user_id)
+                                                                                                <button class="btn-outline-dark btn-ecomm" href="" type="submit">SEND</button>                                                                                
+                                                                                            @endif
                                                                                     </form>
                                                                                 </ul>
                                                                             </div>

@@ -64,7 +64,56 @@
                                     </div>
 
                                     <div class="d-flex gap-2 mt-3">
-                                        <a href="javascript:;" class="btn btn-white btn-ecomm">	<i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a> <a href="javascript:;" class="btn btn-light btn-ecomm"><i class="bx bx-heart"></i>Sačuvaj</a>
+                                        @if (Auth::check())   
+                                            <div class="product-action mt-2">
+                                                <div class="d-flex gap-2">
+                                                    <div class="nav-item dropdown">
+                                                        @if (Auth::user()->id == $product->user_id)
+                                                            <p>Moj proizvod!!!</p> 
+                                                        @else 
+                                                            <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn btn-outline-dark btn-ecomm" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                        @endif
+                                                        <ul class="dropdown-menu">
+                                                            <form id="offer" action="/" method="POST" enctype="multipart/form-data">
+                                                                {{csrf_field()}}
+                                                                @csrf
+                                                                <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+                                                                <input type="hidden" name="acceptor" value="{{$product->user_id}}">
+                                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                                @forelse ($listproducts as $product)
+                                                                    {{-- <a document.getElementById("sendOffer").onclick = function() {
+                                                                        document.getElementById("offer").submit();
+                                                                    } id="sendOffer" href="{{url('/'.$product->id.'/')}}" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a> --}}
+
+                                                                    <div class="col-xl-6 m-4">
+                                                                        <div class="form-check form-check-inline dropdown-item">
+                                                                            <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
+                                                                                value="{{$product->id}}">
+                                                                            <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                
+                                                                @empty
+
+                                                                    <div class="col-xl-12 m-4">
+                                                                        <p>Nemate proizvode za zamenu.</p>
+                                                                    </div>
+
+                                                                @endforelse
+                                                                    @if (Auth::user()->id == $product->user_id)
+                                                                        <button class="btn-outline-dark btn-ecomm" href="" type="submit">SEND</button>                                                                                
+                                                                    @endif
+                                                            </form>
+                                                        </ul>
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                        @else
+                                            <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p>
+                                            <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
+                                        @endif
                                     </div>
                                     <hr/>
                                 </div>

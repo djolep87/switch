@@ -15,7 +15,7 @@ class OffersController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -40,6 +40,7 @@ class OffersController extends Controller
 
         $offers = new Offer;
         $offers->user_id = Auth()->user()->id;
+        $offers->sendproduct_id = $request->input('sendproduct_id');
         $offers->product_id = $request->input('product_id');
         $offers->acceptor = $request->input('acceptor');
         $offers->accepted = 0;

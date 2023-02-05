@@ -60,22 +60,19 @@ class HomeController extends Controller
 
     public function view(Product $product, $id)
     {
+        if (Auth::check()) {
+            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+        } else {
+            $listproducts = null;
+        }
         Product::find($id)->increment('views');
         $product = Product::find($id);
         $images = $product->images;
-        return view('products.view', compact('product', 'images'));
+        return view('products.view', compact('product', 'images', 'listproducts'));
     }
 
     public function store(Request $request)
     {
-        $offers = new Offer;
-        $offers->user_id = Auth()->user()->id;
-        // $offers->product_id = $request->input('product_id');
-        // $offers->acceptor = $request->input('acceptor');
-        // $offers->accepted = 0;
-        // dd($offers);
-        $offers->save();
-        return back();
     }
 
     public function offers($id)
