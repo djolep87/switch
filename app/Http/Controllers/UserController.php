@@ -15,4 +15,6 @@ class UserController extends Controller
         $products = Product::where('user_id', auth()->user()->id)->get();
         return view('dashboard', compact('products'));
     }
+
+   
 }

@@ -149,7 +149,7 @@
 
                                                                                         @endforelse
                                                                                             @if (Auth::user()->id == $product->user_id)
-                                                                                                <button class="btn-outline-dark btn-ecomm" href="" type="submit">SEND</button>                                                                                
+                                                                                                <button class="btn-outline-dark btn-ecomm" href="" type="submit">Pošalji</button>                                                                                
                                                                                             @endif
                                                                                     </form>
                                                                                 </ul>

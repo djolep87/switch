@@ -75,18 +75,5 @@ class HomeController extends Controller
     {
     }
 
-    public function offers($id)
-    {
-        $user_requested = Auth::user()->id;
-        // $product_id = Auth::user()->product()->id;
-        $acceptor = $id;
 
-
-        $offers = new Offer();
-        $offers->user_requested = $user_requested;
-        // $offers->product_id = $product_id;
-        $offers->acceptor = $acceptor;
-        $offers->save();
-        return back();
-    }
 }

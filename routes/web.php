@@ -22,11 +22,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home.index');
 
-
-Route::get('/offers{id}/', 'HomeController@offers');
-
 Route::get('/products.view/{id}', 'HomeController@view')->name('products.view');
 Route::get('/dashboard', 'UserController@index');
+Route::get('/ponude', 'OffersController@index');
 
 
 Auth::routes();

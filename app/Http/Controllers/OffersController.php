@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Models\Category;
 use App\Models\Offer;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +19,40 @@ class OffersController extends Controller
      */
     public function index()
     {
-        
+
+        if (request()->category) {
+            $products = Product::with('categories')->whereHas('categories', function ($query) {
+                $query->where('name', request()->category);
+            })->paginate(48);
+            $categories = Category::withCount('products')->get();
+            $categoryName = $categories->where('name', request()->category)->first()->name;
+        } else {
+            $products = Product::join('users', 'users.id', 'products.user_id')
+                ->select('users.id as user_name', 'products.*')->orderBy('created_at', 'desc')->paginate(48);
+            // $products = Product::inRandomOrder()->take(16)->get();
+            $categories = Category::withCount('products')->get();
+            $categoryName = '';
+        }
+
+        if (Auth::check()) {
+            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+        } else {
+            $listproducts = null;
+        }
+
+        // $offers = DB::table('offers')
+        //     ->join('users', 'offers.user_id', '=', 'users.id')
+        //     ->join('products', 'offers.product_id', '=', 'products.id')
+        //     ->select('offers.*', 'users.firstname as user_firstname', 'products.name as product_name')
+        //     ->where('acceptor', auth()->user()->id)
+        // ->get();
+        // Product::find($id)->increment('views');
+        $products = Offer::with(['user', 'product', 'acceptor', 'sendproduct'])
+                ->where('acceptor', auth()->user()->id) 
+                ->get();
+
+
+        return view('offers.index', compact('products', 'listproducts'));
     }
 
     /**

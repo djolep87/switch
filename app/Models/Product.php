@@ -18,6 +18,8 @@ class Product extends Model
 
     public $timestamps = true;
 
+    
+
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category');
@@ -32,4 +34,6 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    
 }
