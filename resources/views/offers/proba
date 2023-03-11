@@ -1,0 +1,79 @@
+<div class="container">
+                        <div class="product-more-info">
+                            <ul class="nav nav-tabs mb-0" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#discription" role="tab" aria-selected="true">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tab-title text-uppercase fw-500">Description</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#more-info" role="tab" aria-selected="false">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tab-title text-uppercase fw-500">More Info</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            <div class="tab-content pt-3">
+                                <div class="tab-pane fade show active" id="discription" role="tabpanel">
+                                    <div class="col-lg-8">
+                                        <div class="card shadow-none mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class="table-light">
+                                                            <tr>
+                                                                <th>Offer id</th>
+                                                                <th>Podnosilac</th>
+                                                                <th>Naziv proizvoda</th>
+                                                                {{-- <th>Ime primaoca zahteva</th> --}}
+                                                                <th>Moj proizvod</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            
+                                                                @foreach ($products as $product)
+                                                                    
+                                                                    <tr>
+                                                                        <td>{{$product->id}}</td>  
+                                                                        <td>{{$product->user->firstName}}</td> <!-- ulogovani user -->
+                                                                        <td><a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->sendproduct->image }}" style="width: 50px; height: 50px" alt="">{{$product->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                        {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
+                                                                        <td><img src="/storage/Product_images/{{ $product->image }}" style="width: 50px; height: 50px" alt="">{{$product->product->name}}</td> <!-- artikal za zamenu -->
+                                                                        <td>
+                                                                            <div class="d-flex gap-2">
+                                                                                <form action="/" method="POST">
+                                                                                    @csrf
+                                                                                    @method('PUT')    
+                                                                                    <input type="hidden" class="btn btn-dark btn-sm rounded-0" data-id="" name="accepted" x>
+                                                                                    <button class="btn btn-dark btn-sm rounded-0" type="submit" >Prihvati</button>
+                                                                                </form>	
+                                                                                {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex gap-2">	
+                                                                                <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="more-info" role="tabpanel">
+                                    <p></p>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>

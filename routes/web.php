@@ -24,7 +24,8 @@ Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::get('/products.view/{id}', 'HomeController@view')->name('products.view');
 Route::get('/dashboard', 'UserController@index');
-Route::get('/ponude', 'OffersController@index');
+Route::get('/offers', 'OffersController@index');
+Route::post('/offers/{offer}', 'OffersController@update');
 
 
 Auth::routes();
@@ -33,3 +34,4 @@ Route::get('/products.create', 'ProductsController@create');
 Route::post('/products.store', 'ProductsController@store');
 
 Route::post('/', 'OffersController@store')->name('offers.store');
+

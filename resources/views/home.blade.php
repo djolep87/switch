@@ -32,7 +32,7 @@
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
-                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} <span class="float-end badge rounded-pill bg-primary">{{$category->products->count()}}</span></a></li>
+                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} <span class="float-end badge bg-primary rounded-pill">{{$category->products->count()}}</span></a></li>
 
                                                 @endforeach
                                             </ul>
@@ -132,7 +132,7 @@
                                                                                                 document.getElementById("offer").submit();
                                                                                             } id="sendOffer" href="{{url('/'.$product->id.'/')}}" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a> --}}
 
-                                                                                            <div class="col-xl-6 m-4">
+                                                                                            <div class="col m-4">
                                                                                                 <div class="form-check form-check-inline dropdown-item">
                                                                                                     <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
                                                                                                         value="{{$product->id}}">
@@ -149,7 +149,7 @@
 
                                                                                         @endforelse
                                                                                             @if (Auth::user()->id == $product->user_id)
-                                                                                                <button class="btn-outline-dark btn-ecomm" href="" type="submit">Pošalji</button>                                                                                
+                                                                                                <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit">Pošalji</button>                                                                                
                                                                                             @endif
                                                                                     </form>
                                                                                 </ul>

@@ -10,7 +10,7 @@ class Offer extends Model
     use HasFactory;
 
     protected $table = 'offers';
-    protected $primaryKey = 'offer_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['user_id', 'sendproduct_id', 'acceptor', 'product_id', 'accepted'];
 
