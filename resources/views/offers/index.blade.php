@@ -3,7 +3,7 @@
 @section('title', 'Ponude')
 
 @section('content')
-<section class="py-4">
+
     <div class="container">
         <h3 class="d-none">Account</h3>
         <div class="card">
@@ -57,9 +57,11 @@
                                                                             <tr>
                                                                                 <th>Ponuda br.</th>
                                                                                 <th>Podnosilac</th>
-                                                                                <th>Naziv proizvoda</th>
-                                                                                {{-- <th>Ime primaoca zahteva</th> --}}
+                                                                                <th>Naziv proizvoda</th>                                                                                
                                                                                 <th>Moj proizvod</th>
+                                                                                <th>Status zahteva</th>
+                                                                                <th>Telefon korisnika</th>
+
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -69,31 +71,38 @@
                                                                                     <tr>
                                                                                         <td>{{$offer->id}}</td>  
                                                                                         <td>{{$offer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                        <td><a href="{{route('products.view', $offer->id)}}"><img src="/storage/Product_images/{{ $offer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.view', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $offer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
                                                                                         {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                        <td><img src="/storage/Product_images/{{ $offer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->product->name}}</td> <!-- artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.view', $offer->product->id)}}"><img src="/storage/Product_images/{{ $offer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->product->name}}</td></a>  <!-- artikal za zamenu -->
                                                                                         @if ($offer->accepted == 0)     
                                                                                             <td>
                                                                                                 <div class="d-flex gap-2">
                                                                                                     <form action="/offers/{{$offer->id}}" method="POST">
                                                                                                         @csrf
                                                                                                         <input type="hidden" name="accepted" value="1">
-                                                                                                        <button class="btn btn-dark btn-sm rounded-0" type="submit">Prihvati</button>
+                                                                                                        <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Prihvati</button>
                                                                                                     </form>
                                                                                                     {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
                                                                                                 </div>
-                                                                                            </td>
-                                                                                            <td>
                                                                                                 <div class="d-flex gap-2">	
                                                                                                     <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a>
                                                                                                 </div>
                                                                                             </td>
+                                                                                            
                                                                                         @else
                                                                                             <td>
-                                                                                                <button btn btn-dark btn-sm rounded-0 >Pošalji poruku</button>
+                                                                                                <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
                                                                                             </td>
+                                                                                           
+                                                                                            <td>
+                                                                                                {{$offer->user->phone ?? 'no client'}}
+                                                                                            </td>
+                                                                                                {{-- <p>Uspešno prihvaćen zahtev! </p> --}}
+                                                                                                {{-- <p>Kontaktirajte korisnika radi uspešne zamene.</p> --}}
+                                                                                                {{-- <button btn btn-dark btn-sm rounded-0 ></button> --}}
                                                                                         @endif
                                                                                     </tr>
+                                                                                    
                                                                                 @endforeach
                                                                             
                                                                         </tbody>
@@ -115,7 +124,10 @@
                                                                                 <th>Podnosilac</th>
                                                                                 <th>Moj proizvod</th>
                                                                                 <th>Zamena za</th>
-                                                                                <th>Profil vlasnika</th>
+                                                                                <th>Prihvacen zahtev</th>
+                                                                                <th>Ime korisnika</th>
+                                                                                <th>Telefon korisnika</th>
+
 
                                                                             </tr>
                                                                         </thead>
@@ -126,10 +138,21 @@
                                                                                     <tr>
                                                                                         <td>{{$sendoffer->id}}</td>  
                                                                                         <td>{{$sendoffer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                        <td><a href="{{route('products.view', $sendoffer->id)}}"><img src="/storage/Product_images/{{ $sendoffer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.view', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendoffer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
                                                                                         {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                        <td><img src="/storage/Product_images/{{ $sendoffer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->product->name}}</td> <!-- artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.view', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $sendoffer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->product->name}}</a> </td> <!-- artikal za zamenu -->
                                                                                         {{-- <td>{{$sendoffer->acceptor->id}}</td> --}}
+                                                                                        {{-- <td>{{$sendoffer->acceptorName}}</td> --}}
+                                                                                        @if($sendoffer->accepted == 1)
+                                                                                            <td>
+                                                                                                <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
+                                                                                            </td>
+                                                                                            <td>{{$sendoffer->acceptorName}}</td>    
+                                                                                            <td>{{$sendoffer->acceptorNumber}}</td>
+                                                                                        @else
+                                                                                               <td><p>Zahtev na čekanju</p></td> 
+                                                                                        @endif
+                                                                                            
                                                                                     </tr>
                                                                                 @endforeach
                                                                             
@@ -154,5 +177,7 @@
             </div>
         </div>
     </div>
-</section>
+    @include('sweetalert::alert')
+  
 @endsection
+

@@ -126,12 +126,10 @@
                                                                                         @csrf
                                                                                         <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
                                                                                         <input type="hidden" name="acceptor" value="{{$product->user_id}}">
+                                                                                        <input type="hidden" name="acceptorName" value="{{$product->user->firstName}}">
+                                                                                        <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
                                                                                         <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                                                        @forelse ($listproducts as $product)
-                                                                                            {{-- <a document.getElementById("sendOffer").onclick = function() {
-                                                                                                document.getElementById("offer").submit();
-                                                                                            } id="sendOffer" href="{{url('/'.$product->id.'/')}}" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a> --}}
-
+                                                                                        @forelse ($listproducts as $product)                                                                                          
                                                                                             <div class="col m-4">
                                                                                                 <div class="form-check form-check-inline dropdown-item">
                                                                                                     <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
@@ -273,5 +271,5 @@
     <!--End Back To Top Button-->
 </div>
 
-
+@include('sweetalert::alert')
 @endsection

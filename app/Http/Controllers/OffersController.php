@@ -9,9 +9,17 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class OffersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +42,7 @@ class OffersController extends Controller
         //     $categoryName = '';
         // }
 
-        
+
 
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();
@@ -44,16 +52,16 @@ class OffersController extends Controller
 
         $offers = Offer::with(['user', 'product', 'acceptor', 'sendproduct'])
             ->orderBy('created_at', 'desc')
-            ->where('acceptor', auth()->user()->id) 
+            ->where('acceptor', auth()->user()->id)
             ->get();
 
         $sendoffers = Offer::with(['user', 'product', 'acceptor', 'sendproduct'])
             ->orderBy('created_at', 'desc')
-            ->where('user_id', auth()->user()->id) 
+            ->where('user_id', auth()->user()->id)
             ->get();
 
 
-        return view('offers.index', compact('offers','sendoffers', 'listproducts'));
+        return view('offers.index', compact('offers', 'sendoffers', 'listproducts'));
     }
 
     /**
@@ -81,11 +89,30 @@ class OffersController extends Controller
         $offers->sendproduct_id = $request->input('sendproduct_id');
         $offers->product_id = $request->input('product_id');
         $offers->acceptor = $request->input('acceptor');
+        $offers->acceptorName = $request->input('acceptorName');
+        $offers->acceptorNumber = $request->input('acceptorNumber');
         $offers->accepted = 0;
         // dd($offers);
         $offers->save();
-        return back();
+        return back()->with('success', 'Vaš zahtev je uspešno poslat!');
     }
+
+    public function processRequest(Request $request)
+{
+    // provera da li je zahtev već poslat
+    if ($request->session()->has('request_sent')) {
+        return redirect()->back()->with('error', 'Zahtev je već poslat.');
+    }
+    
+    // ako zahtev nije poslat, označite da je poslat
+    $request->session()->put('request_sent', true);
+
+    // procesiranje podataka iz zahteva
+    // ...
+
+    // redirekcija na stranicu sa uspešnim odgovorom
+    return redirect()->back()->with('success', 'Zahtev uspešno poslat.');
+}
 
     /**
      * Display the specified resource.
@@ -122,7 +149,7 @@ class OffersController extends Controller
         $offers->accepted =  $request->input('accepted');
         $offers->save();
 
-        return back();
+        return redirect('/offers')->with('success', 'Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!');
     }
 
     /**

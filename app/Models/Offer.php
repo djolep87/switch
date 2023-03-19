@@ -12,7 +12,7 @@ class Offer extends Model
     protected $table = 'offers';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['user_id', 'sendproduct_id', 'acceptor', 'product_id', 'accepted'];
+    protected $fillable = ['user_id', 'sendproduct_id', 'acceptor', 'acceptorName', 'acceptorNumber', 'product_id', 'accepted'];
 
     public function user()
     {

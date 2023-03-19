@@ -60,7 +60,7 @@
                                     <div class="my-3">
                                         {{$product->user->city}}<br/>
                                         {{$product->user->firstName}}<br/>
-                                        {{$product->user->phone}}                                        
+                                        {{-- {{$product->user->phone}}--}}
                                     </div>
 
                                     <div class="d-flex gap-2 mt-3">

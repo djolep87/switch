@@ -21,6 +21,9 @@
 	<link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
 	<title>@yield('title')</title>
 
+
+
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -64,7 +67,7 @@
 											<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">	<span class="alert-count">8</span>
 												<i class='bx bx-shopping-bag'></i>
 											</a>
-											<div class="dropdown-menu dropdown-menu-end">
+											{{-- <div class="dropdown-menu dropdown-menu-end">
 												<a href="javascript:;">
 													<div class="cart-header">
 														<p class="cart-header-title mb-0">8 ITEMS</p>
@@ -82,7 +85,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/01.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/01.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -97,7 +100,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/05.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/05.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -112,7 +115,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/17.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/17.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -127,7 +130,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/10.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/10.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -142,7 +145,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/08.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/08.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -157,7 +160,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/18.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/18.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -172,7 +175,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/04.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/04.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -187,7 +190,7 @@
 																<div class="cart-product-cancel position-absolute"><i class='bx bx-x'></i>
 																</div>
 																<div class="cart-product">
-																	{{-- <img src="assets/images/products/16.png" class="" alt="product image"> --}}
+																	<img src="assets/images/products/16.png" class="" alt="product image">
 																</div>
 															</div>
 														</div>
@@ -201,7 +204,7 @@
 												</a>
 												<div class="d-grid p-3 border-top">	<a href="javascript:;" class="btn btn-dark btn-ecomm">CHECKOUT</a>
 												</div>
-											</div>
+											</div> --}}
 										</li>
 									</ul>
 								</nav>
@@ -219,8 +222,7 @@
 							<h5 class="py-2">Navigation</h5>
 						</div>
 						<ul class="navbar-nav">
-							<li class="nav-item active"> <a class="nav-link" href="/">Home </a> 
-							</li>
+							<li class="nav-item active"> <a class="nav-link" href="/">Početna</a></li>
 							<li class="nav-item dropdown">	<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">Categories <i class='bx bx-chevron-down'></i></a>
 								<div class="dropdown-menu dropdown-large-menu">
 									<div class="row">
@@ -371,16 +373,12 @@
                                                 </form>
                                             </ul>
                                         </li>
-                                        <li><a class="dropdown-item" href="/dashboard">Dashboard</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="account-downloads.html">Downloads</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="account-orders.html">Orders</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="account-payment-methods.html">Payment Methods</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="account-user-details.html">User Details</a>
-                                        </li>
+                                        <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="/offers">Ponude</a></li>
+                                        <li><a class="dropdown-item" href="account-downloads.html">Downloads</a></li>
+                                        <li><a class="dropdown-item" href="account-orders.html">Orders</a></li>
+                                        <li><a class="dropdown-item" href="account-payment-methods.html">Payment Methods</a></li>
+                                        <li><a class="dropdown-item" href="account-user-details.html">User Details</a></li>
                                     @endguest
 								</ul>
 							</li>
