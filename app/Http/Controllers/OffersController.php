@@ -42,7 +42,7 @@ class OffersController extends Controller
         //     $categoryName = '';
         // }
 
-
+       
 
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();
@@ -97,22 +97,7 @@ class OffersController extends Controller
         return back()->with('success', 'Vaš zahtev je uspešno poslat!');
     }
 
-    public function processRequest(Request $request)
-{
-    // provera da li je zahtev već poslat
-    if ($request->session()->has('request_sent')) {
-        return redirect()->back()->with('error', 'Zahtev je već poslat.');
-    }
-    
-    // ako zahtev nije poslat, označite da je poslat
-    $request->session()->put('request_sent', true);
-
-    // procesiranje podataka iz zahteva
-    // ...
-
-    // redirekcija na stranicu sa uspešnim odgovorom
-    return redirect()->back()->with('success', 'Zahtev uspešno poslat.');
-}
+   
 
     /**
      * Display the specified resource.

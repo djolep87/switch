@@ -86,8 +86,8 @@
                                                             <Span><b>{{$product->views}}</b></Span>
                                                         </div>
                                                     
-                                                    <a href="javascript:;">
-                                                        <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                                    <a href="{{url('add/to-wishlist/'.$product->id)}}">
+                                                        <div class="product-wishlist "> <i class="hover bx bx-star "></i>
                                                         </div>
                                                     </a>
                                                         <div>{{$product->user->city}}</div>

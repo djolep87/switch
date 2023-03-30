@@ -20,23 +20,24 @@
                                         <div class="item">
                                             <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
                                         </div>
-                                        @foreach ( $images as $image)
-                                            <div class="item">
-                                                <img src="/storage/Product_images/{{ $image }}" class="" alt="">
-                                            </div>
-                                        @endforeach                                      
-                                    </div>
+                                            @foreach ($images as $image) 
+                                                <div class="owl-thumb-item">
+                                                    <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                                </div>
+                                            @endforeach
                                         
-                                    <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
-                                        <button class="owl-thumb-item">
-                                            <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
-                                        </button>
-                                        @foreach ( $images as $image)
-                                            <button class="owl-thumb-item">
-                                                <img src="/storage/Product_images/{{ $image }}" class="" alt="">
-                                            </button>
-                                        @endforeach
                                     </div>
+                                        <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
+                                            <button class="owl-thumb-item">
+                                                <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
+                                            </button>
+                                            @foreach ( $images as $image)
+                                                <button class="owl-thumb-item">
+                                                    <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                        
                                       
                                     
                                     
@@ -56,6 +57,10 @@
                                         <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
                                         <dd class="col-sm-9">Srbija</dd>
                                     </dl>
+                                    <a href="">
+                                        <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                        </div>
+                                    </a>
 
                                     <div class="my-3">
                                         {{$product->user->city}}<br/>
@@ -79,13 +84,11 @@
                                                                 @csrf
                                                                 <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
                                                                 <input type="hidden" name="acceptor" value="{{$product->user_id}}">
+                                                                <input type="hidden" name="acceptorName" value="{{$product->user->firstName}}">
+                                                                <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
                                                                 <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                                @forelse ($listproducts as $product)
-                                                                    {{-- <a document.getElementById("sendOffer").onclick = function() {
-                                                                        document.getElementById("offer").submit();
-                                                                    } id="sendOffer" href="{{url('/'.$product->id.'/')}}" class="dropdown-item"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }} </a> --}}
-
-                                                                    <div class="col-xl-6 m-4">
+                                                                @forelse ($listproducts as $product)                                                                                          
+                                                                    <div class="col m-4">
                                                                         <div class="form-check form-check-inline dropdown-item">
                                                                             <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
                                                                                 value="{{$product->id}}">
@@ -102,7 +105,7 @@
 
                                                                 @endforelse
                                                                     @if (Auth::user()->id == $product->user_id)
-                                                                        <button class="btn-outline-dark btn-ecomm" href="" type="submit">SEND</button>                                                                                
+                                                                        <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit">Pošalji</button>                                                                                
                                                                     @endif
                                                             </form>
                                                         </ul>

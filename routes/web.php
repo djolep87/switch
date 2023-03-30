@@ -32,6 +32,11 @@ Auth::routes();
 
 Route::get('/products.create', 'ProductsController@create');
 Route::post('/products.store', 'ProductsController@store');
+Route::get('/products.edit/{id}', 'ProductsController@edit');
+Route::put('/products.store/{product}', 'ProductsController@update');
+
+Route::get('add/to-wishlist/{product_id}', 'WishlistController@addToWishlist');
+Route::get('/wishlist', 'WishlistController@index');
 
 Route::post('/', 'OffersController@store')->name('offers.store');
 

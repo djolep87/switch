@@ -76,6 +76,10 @@ File: icons.css
 
 }
 
+.hover :hover{
+	background-color: black;
+}
+
 @-webkit-keyframes spin {
 
 	0% {

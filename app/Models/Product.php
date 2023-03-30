@@ -25,9 +25,14 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Category');
     }
 
-    public function images()
+    public function image()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Images::class);
     }
 
     public function user()
@@ -35,5 +40,9 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+    public function wishlists()
+    {
+        return $this->belongsTo(Wishlist::class);
+    }
+        
 }

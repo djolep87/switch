@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Wishlist;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class WishlistController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index(){
+        $user = Auth::user();
+       
+        // $wishlists = Wishlist::where('user_id', auth()->user()->id)->get();
+
+        $wishlist = Wishlist::where('user_id', auth()->user()->id)->get();
+
+        return view('wishlist.index', compact('wishlist'));
+    }
+
+    public function addToWishlist($product_id){
+        if(Auth::check()){
+            Wishlist::insert([
+                'user_id' => Auth()->user()->id,
+                'product_id' => $product_id,
+                
+    
+            ]);
+            return back()->with('success', 'Zapratili ste oglas!');
+        }else{
+            return redirect('/login');
+        }
+    }
+}

@@ -41,18 +41,7 @@
                             <label class="form-label">Galerija proizvoda</label>
                             <input type="file" name="images[]" class="form-control" multiple>
                         </div>
-                        {{-- <div class="col-12">
-                            <label class="form-label">Current Password</label>
-                            <input type="text" class="form-control" value=".................">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">New Password</label>
-                            <input type="text" class="form-control" value=".................">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Confirm New Password</label>
-                            <input type="text" class="form-control" value=".................">
-                        </div> --}}
+                       
                         <div class="col-12">
                             {{-- <button type="submit" name="submit" class="btn btn-dark btn-ecomm">Sacuvaj</button> --}}
                             <input class="btn btn-dark btn-ecomm" type="submit" name="submit" value="Sačuvaj">

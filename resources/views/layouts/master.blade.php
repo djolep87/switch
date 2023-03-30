@@ -375,7 +375,7 @@
                                         </li>
                                         <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                                         <li><a class="dropdown-item" href="/offers">Ponude</a></li>
-                                        <li><a class="dropdown-item" href="account-downloads.html">Downloads</a></li>
+                                        <li><a class="dropdown-item" href="/wishlist">Oglasi koje pratim</a></li>
                                         <li><a class="dropdown-item" href="account-orders.html">Orders</a></li>
                                         <li><a class="dropdown-item" href="account-payment-methods.html">Payment Methods</a></li>
                                         <li><a class="dropdown-item" href="account-user-details.html">User Details</a></li>
