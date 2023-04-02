@@ -51,11 +51,10 @@
                                                                 <td>
                                                                     <form action="/wishlist.destroy/{{$item->id}} " method="POST">
                                                                         {{ csrf_field() }}
-                                                                        {{method_field('delete')}}
-                                                                        <input type="submit" value="delete">
-                                                                        {{-- <button style="border:none; transparent:none;"  type="submit">
+                                                                        {{method_field('delete')}}                                                                        
+                                                                        <button style="border:none; transparent:none;"  type="submit">
                                                                             <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                        </button>                                                              --}}
+                                                                        </button>                                                             
                                                                     </form> 
                                                                 </td>
                                                                

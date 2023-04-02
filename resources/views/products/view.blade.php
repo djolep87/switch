@@ -57,8 +57,9 @@
                                         <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
                                         <dd class="col-sm-9">Srbija</dd>
                                     </dl>
-                                    <a href="">
-                                        <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                    <a href="{{url('add/to-wishlist/'.$product->id)}}">
+                                        <div class="product-wishlist"> 
+                                            <i class="hover bx bx-star "></i>
                                         </div>
                                     </a>
 
