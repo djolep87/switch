@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -42,7 +43,7 @@ class OffersController extends Controller
         //     $categoryName = '';
         // }
 
-       
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
 
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();
@@ -61,7 +62,7 @@ class OffersController extends Controller
             ->get();
 
 
-        return view('offers.index', compact('offers', 'sendoffers', 'listproducts'));
+        return view('offers.index', compact('offers', 'sendoffers', 'listproducts', 'wishlists'));
     }
 
     /**

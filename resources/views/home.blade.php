@@ -87,7 +87,8 @@
                                                         </div>
                                                     
                                                     <a href="{{url('add/to-wishlist/'.$product->id)}}">
-                                                        <div class="product-wishlist "> <i class="hover bx bx-star "></i>
+                                                        <div class="product-wishlist"> 
+                                                            <i class="hover bx bx-star "></i>
                                                         </div>
                                                     </a>
                                                         <div>{{$product->user->city}}</div>

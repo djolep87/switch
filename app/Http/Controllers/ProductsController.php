@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Images;
 use App\Models\Product;
 use App\Models\ProductUser;
+use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -34,8 +35,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
         $categories = Category::all();
-        return view('/products.create')->with('categories', $categories);
+        return view('/products.create', compact('categories', 'wishlists'));
     }
 
     /**
@@ -135,10 +137,11 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
         $categories = Category::all();
         $product = Product::find($id);
         $images = Images::where('product_id')->get();
-        return view('/products.edit', compact('categories', 'product', 'images'));
+        return view('/products.edit', compact('categories', 'product', 'images', 'wishlists'));
     }
 
 

@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Offer;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,13 +43,14 @@ class HomeController extends Controller
             $categories = Category::withCount('products')->get();
             $categoryName = '';
         }
-
+        $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
+        
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();
         } else {
             $listproducts = null;
         }
-        return view('/home', compact('products', 'categories', 'categoryName', 'listproducts'));
+        return view('/home', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists'));
     }
 
     public function show($id)
@@ -60,6 +62,7 @@ class HomeController extends Controller
 
     public function view(Product $product, $id)
     {
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();
         } else {
@@ -68,7 +71,7 @@ class HomeController extends Controller
         Product::find($id)->increment('views');
         $product = Product::find($id);
         $images = $product->images;
-        return view('products.view', compact('product', 'images', 'listproducts'));
+        return view('products.view', compact('product', 'images', 'listproducts', 'wishlists'));
     }
 
     public function store(Request $request)

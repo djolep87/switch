@@ -37,6 +37,7 @@ Route::put('/products.store/{product}', 'ProductsController@update');
 
 Route::get('add/to-wishlist/{product_id}', 'WishlistController@addToWishlist');
 Route::get('/wishlist', 'WishlistController@index');
+Route::delete('wishlist.destroy/{id}', 'WishlistController@destroy')->name('wishlist.destroy');
 
 Route::post('/', 'OffersController@store')->name('offers.store');
 

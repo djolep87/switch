@@ -40,22 +40,27 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if ($wishlist->count() > 0)
-                                                        @foreach ($wishlist as $item )
+                                                    @if ($wishlists->count() > 0)
+                                                        @foreach ($wishlists as $item )
                                                             <tr>
                                                                 <td>#{{$item->id}}</td>
                                                                 <td>
-                                                                    <div class=""><img src="/storage/Product_images/{{ $item->products->image }}" class="img-fluid rounded = 9"  style="width: 50px; height: 50px;" alt=""></div>
+                                                                    <div class=""><img src="/storage/Product_images/{{ $item->products->image }}" class="img-fluid rounded = 5"  style="width: 50px; height: 50px;" alt=""></div>
                                                                 </td>
                                                                 <td>{{$item->products->name}}</td>
                                                                 <td>
-                                                                    <div class="d-flex gap-2">	
-                                                                        {{-- <a href="{{route('products.view', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a> --}}
-                                                                        {{-- <a href="products.edit/{{$product->id}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
-                                                                        <a href=""><img src="/assets/images/delete.png" alt="" srcset=""></a> --}}
-                                                                    </div>
+                                                                    <form action="/wishlist.destroy/{{$item->id}} " method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        {{method_field('delete')}}
+                                                                        <input type="submit" value="delete">
+                                                                        {{-- <button style="border:none; transparent:none;"  type="submit">
+                                                                            <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                        </button>                                                              --}}
+                                                                    </form> 
                                                                 </td>
-                                                            </tr>                                                        
+                                                               
+                                                            </tr>
+                                                           
                                                         @endforeach
                                                     @else
                                                         <p>Ne pratite oglase.</p>
