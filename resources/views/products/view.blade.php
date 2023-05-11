@@ -27,20 +27,16 @@
                                             @endforeach
                                         
                                     </div>
-                                        <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
+                                    <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
+                                        <button class="owl-thumb-item">
+                                            <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
+                                        </button>
+                                        @foreach ( $images as $image)
                                             <button class="owl-thumb-item">
-                                                <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
+                                                <img src="/storage/Product_images/{{ $image }}" class="" alt="">
                                             </button>
-                                            @foreach ( $images as $image)
-                                                <button class="owl-thumb-item">
-                                                    <img src="/storage/Product_images/{{ $image }}" class="" alt="">
-                                                </button>
-                                            @endforeach
-                                        </div>
-                                        
-                                      
-                                    
-                                    
+                                        @endforeach
+                                    </div>                                  
                                 </div>
                             </div>
                             <div class="col-12 col-lg-7">

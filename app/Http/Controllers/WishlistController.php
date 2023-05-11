@@ -20,11 +20,27 @@ class WishlistController extends Controller
     {
         $user = Auth::user();
 
-        // $wishlists = Wishlist::where('user_id', auth()->user()->id)->get();
-
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
 
         return view('wishlist.index', compact('wishlists'));
+        
+    }
+
+    public function countWishlistItems()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return 0;
+        }
+
+        $wishlist = Wishlist::where('user_id', $user->id)->first();
+
+        if (!$wishlist) {
+            return 0;
+        }
+
+        return $wishlist->items->count();
     }
 
     public function addToWishlist($product_id)

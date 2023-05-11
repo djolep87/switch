@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label">Opis proizvoda</label>
-                            <textarea rows="10" name="description" class="form-control rounded-0"></textarea>
+                            <textarea rows="10" name="description" class="form-control rounded-0" id="example"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Slika proizvoda</label>
@@ -52,5 +52,11 @@
         </div>
     </div>
 </div>
+
+
+    <script>
+		var editor1 = new RichTextEditor("#inp_editor1");    
+	</script>
+
 
 @endsection

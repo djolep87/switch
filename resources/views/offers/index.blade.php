@@ -71,9 +71,9 @@
                                                                                     <tr>
                                                                                         <td>{{$offer->id}}</td>  
                                                                                         <td>{{$offer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                        <td><a href="{{route('products.view', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $offer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.show', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $offer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
                                                                                         {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                        <td><a href="{{route('products.view', $offer->product->id)}}"><img src="/storage/Product_images/{{ $offer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->product->name}}</td></a>  <!-- artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.show', $offer->product->id)}}"><img src="/storage/Product_images/{{ $offer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$offer->product->name}}</td></a>  <!-- artikal za zamenu -->
                                                                                         @if ($offer->accepted == 0)     
                                                                                             <td>
                                                                                                 <div class="d-flex gap-2">
@@ -138,9 +138,9 @@
                                                                                     <tr>
                                                                                         <td>{{$sendoffer->id}}</td>  
                                                                                         <td>{{$sendoffer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                        <td><a href="{{route('products.view', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendoffer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.show', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendoffer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
                                                                                         {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                        <td><a href="{{route('products.view', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $sendoffer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->product->name}}</a> </td> <!-- artikal za zamenu -->
+                                                                                        <td><a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $sendoffer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt="">{{$sendoffer->product->name}}</a> </td> <!-- artikal za zamenu -->
                                                                                         {{-- <td>{{$sendoffer->acceptor->id}}</td> --}}
                                                                                         {{-- <td>{{$sendoffer->acceptorName}}</td> --}}
                                                                                         @if($sendoffer->accepted == 1)

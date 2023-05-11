@@ -3,6 +3,9 @@
 @section('title', 'Proizvod')
 
 @section('content')
+@php
+    $images = explode(",",$product->images)
+@endphp
 <div class="page-wrapper">
     <div class="page-content"
         <!--start product detail-->
@@ -17,26 +20,155 @@
                                         <div class="item">
                                             <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
                                         </div>
-                                      
+                                            @foreach ($images as $image) 
+                                                <div class="owl-thumb-item">
+                                                    <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                                </div>
+                                            @endforeach
+                                        
                                     </div>
-                                    
+                                    <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
+                                        <button class="owl-thumb-item">
+                                            <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
+                                        </button>
+                                        @foreach ( $images as $image)
+                                            <button class="owl-thumb-item">
+                                                <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                            </button>
+                                        @endforeach
+                                    </div>                                  
                                 </div>
                             </div>
                             <div class="col-12 col-lg-7">
                                 <div class="product-info-section p-3">
                                     <h3 class="mt-3 mt-lg-0 mb-0">{{$product->name}}</h3>
+                                    <h6 class="">({{$product->condition}})</h6>
 
                                     <div class="mt-3">
                                         <h6>Opis :</h6>
-                                        <p class="mb-0">{{$product->description}}</p>
+                                        <p class="mb-0">{!! $product->description !!}</p>
                                     </div>
-                                    <dl class="row mt-3">	<dt class="col-sm-3">Product id</dt>
+                                    {{-- <dl class="row mt-3">	<dt class="col-sm-3">Product id</dt>
                                         <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
                                         <dd class="col-sm-9">Srbija</dd>
-                                    </dl>
+                                    </dl> --}}
+                                    @if (optional(Auth::user())->id == $product->user_id)
+                                        <a style="display: none" href="{{url('add/to-wishlist/'.$product->id)}}">
+                                            <div class="product-wishlist"> 
+                                                <i class="hover bx bx-star "></i>
+                                            </div>
+                                        </a>
+                                    @else
+                                        <a href="{{url('add/to-wishlist/'.$product->id)}} ">
+                                            <div class="product-wishlist" style="width:100px; border-radius:20px;" hovered>Prati   
+                                                <i class="hover bx bx-star "></i>
+                                            </div>
+                                        </a>
+                                    @endif
 
+                                    <div class="my-3">
+                                        {{$product->user->city}}<br/>
+                                        {{$product->user->firstName}}<br/>
+                                        {{-- {{$product->user->phone}}--}}
+                                    </div>
+
+                                   
+                                    @if (Auth::check())                                        
+                                         <button onclick="myFunction()" class="btn btn-light btn-ecomm">Napiši komentar</button> 
+                                            <div class="col-lg-12" id="myDIV" style="display: none;">
+                                                <div class="add-review bg-light-1">
+                                                    <div class="form-body p-3">
+                                                        <h4 class="mb-4">Napišite komentar</h4>
+                                                        <form action="/comments.store" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Vaše ime i prezime</label>
+                                                                <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                            </div>
+                                                            <div class="mb-3">                                                      
+                                                                    <input type="hidden" name="product_user_id" value="{{ $product->user_id }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Tekst komentara</label>
+                                                                <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                            </div>
+                                                            <div class="d-grid">                                            
+                                                                <input type="submit" class="btn btn-dark btn-ecomm" value="Postavi">
+                                                            </div>                                            
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>                                           
+                                    @endif
+                                    <h5 class="mb-4">Komentari</h5>
+                                        <div class="review-list">
+                                            @foreach ($comments as $kay => $comment)
+                                                <div class="d-flex align-items-start">
+                                                        <div class="review-user">
+                                                            {{-- <img src="assets/images/avatars/avatar-1.png" width="65" height="65" class="rounded-circle" alt="" /> --}}
+                                                        </div>
+                                                        <div class="review-content ms-3">
+                                                           
+                                                            <div class="d-flex align-items-center mb-2">
+                                                                <h6 class="mb-0">{{$user->firstName}}</h6>
+                                                                <p class="mb-0 ms-auto">{{$comment->created_at->toFormattedDateString()}}</p>
+                                                            </div>
+                                                            <p>{!!$comment->body!!}</p>
+                                                        </div>                                                    
+                                                    </div>
+                                                    <hr/>
+                                            @endforeach
+                                        </div>
+                                   
                                     <div class="d-flex gap-2 mt-3">
-                                        <a href="javascript:;" class="btn btn-white btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a> <a href="javascript:;" class="btn btn-light btn-ecomm"><i class="bx bx-heart"></i>Add to Wishlist</a>
+                                        @if (Auth::check())   
+                                            <div class="product-action mt-2">
+                                                <div class="d-flex gap-2">
+                                                    <div class="nav-item dropdown">
+                                                        @if (Auth::user()->id == $product->user_id)
+                                                            <p>Moj proizvod!!!</p> 
+                                                        @else 
+                                                            <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn btn-outline-dark btn-ecomm" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                        @endif
+                                                        <ul class="dropdown-menu">
+                                                            <form id="offer" action="/" method="POST" enctype="multipart/form-data">
+                                                                {{csrf_field()}}
+                                                                @csrf
+                                                                <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+                                                                <input type="hidden" name="acceptor" value="{{$product->user_id}}">
+                                                                <input type="hidden" name="acceptorName" value="{{$product->user->firstName}}">
+                                                                <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
+                                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                                @forelse ($listproducts as $product)                                                                                          
+                                                                    <div class="col m-4">
+                                                                        <div class="form-check form-check-inline dropdown-item">
+                                                                            <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
+                                                                                value="{{$product->id}}">
+                                                                            <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                
+                                                                @empty
+
+                                                                    <div class="col-xl-12 m-4">
+                                                                        <p>Nemate proizvode za zamenu.</p>
+                                                                    </div>
+
+                                                                @endforelse
+                                                                    @if (Auth::user()->id == $product->user_id)
+                                                                        <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit">Pošalji</button>                                                                                
+                                                                    @endif
+                                                            </form>
+                                                        </ul>
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                        @else
+                                            <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p>
+                                            <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
+                                        @endif
                                     </div>
                                     <hr/>
                                 </div>
@@ -54,7 +186,14 @@
                 <div class="product-more-info">
                     <ul class="nav nav-tabs mb-0" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#discription" role="tab" aria-selected="true">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#reviews" role="tab" aria-selected="true">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-title text-uppercase fw-500">Komentari</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#discription" role="tab" aria-selected="false">
                                 <div class="d-flex align-items-center">
                                     <div class="tab-title text-uppercase fw-500">Description</div>
                                 </div>
@@ -74,17 +213,65 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#reviews" role="tab" aria-selected="false">
-                                <div class="d-flex align-items-center">
-                                    <div class="tab-title text-uppercase fw-500">(3) Reviews</div>
-                                </div>
-                            </a>
-                        </li>
                     </ul>
                     <div class="tab-content pt-3">
-                        <div class="tab-pane fade show active" id="discription" role="tabpanel">
-                            <p>{{$product->description}}</p>
+                        <div class="tab-pane fade show active" id="reviews" role="tabpanel">
+                            <div class="row">
+                                <div class="col col-lg-8">
+                                    <div class="product-review">
+                                        <h5 class="mb-4">Komentari</h5>
+                                        <div class="review-list">
+                                            @foreach ($comments as $kay => $comment)
+                                                <div class="d-flex align-items-start">
+                                                        <div class="review-user">
+                                                            {{-- <img src="assets/images/avatars/avatar-1.png" width="65" height="65" class="rounded-circle" alt="" /> --}}
+                                                        </div>
+                                                        <div class="review-content ms-3">
+                                                           
+                                                            <div class="d-flex align-items-center mb-2">
+                                                                <h6 class="mb-0">{{$user->firstName}}</h6>
+                                                                <p class="mb-0 ms-auto">{{$comment->created_at->toFormattedDateString()}}</p>
+                                                            </div>
+                                                            <p>{{$comment->body}}</p>
+                                                        </div>                                                    
+                                                    </div>
+                                                    <hr/>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (Auth::check())
+                                    {{-- <div class="col col-lg-4">
+                                        <div class="add-review bg-dark-1">
+                                            <div class="form-body p-3">
+                                                <h4 class="mb-4">Napišite komentar</h4>
+                                                <form action="/comments.store" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Vaše ime i prezime</label>
+                                                        <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{$user->firstName }}  {{ $user->lastName}} ">
+                                                    </div>
+                                                    <div class="mb-3">                                                      
+                                                            <input type="hidden" name="productUser" value="{{ $product->user->id }}">
+                                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Tekst komentara</label>
+                                                        <textarea class="form-control rounded-0" name="body" rows="5">{!! old('body') !!}</textarea>
+                                                    </div>
+                                                    <div class="d-grid">                                            
+                                                        <input type="submit" class="btn btn-light btn-ecomm" value="Postavi">
+                                                    </div>                                            
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>                                     --}}
+                                @endif
+                            </div>
+                            <!--end row-->
+                        </div>
+                        <div class="tab-pane fade " id="discription" role="tabpanel">
+                            <p>{!!$product->description!!}</p>
                             
                             <p class="mb-1">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</p>
                             <p class="mb-1">Seitan aliquip quis cardigan american apparel, butcher voluptate nisi.</p>
@@ -109,107 +296,6 @@
                                 <a href="javascript:;" class="tag-link">Shoes</a>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="reviews" role="tabpanel">
-                            <div class="row">
-                                <div class="col col-lg-8">
-                                    <div class="product-review">
-                                        <h5 class="mb-4">3 Reviews For The Product</h5>
-                                        <div class="review-list">
-                                            <div class="d-flex align-items-start">
-                                                <div class="review-user">
-                                                    <img src="assets/images/avatars/avatar-1.png" width="65" height="65" class="rounded-circle" alt="" />
-                                                </div>
-                                                <div class="review-content ms-3">
-                                                    <div class="rates cursor-pointer fs-6">	<i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-light-4"></i>
-                                                    </div>
-                                                    <div class="d-flex align-items-center mb-2">
-                                                        <h6 class="mb-0">James Caviness</h6>
-                                                        <p class="mb-0 ms-auto">February 16, 2021</p>
-                                                    </div>
-                                                    <p>Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan</p>
-                                                </div>
-                                            </div>
-                                            <hr/>
-                                            <div class="d-flex align-items-start">
-                                                <div class="review-user">
-                                                    <img src="assets/images/avatars/avatar-2.png" width="65" height="65" class="rounded-circle" alt="" />
-                                                </div>
-                                                <div class="review-content ms-3">
-                                                    <div class="rates cursor-pointer fs-6"> <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-light-4"></i>
-                                                    </div>
-                                                    <div class="d-flex align-items-center mb-2">
-                                                        <h6 class="mb-0">David Buckley</h6>
-                                                        <p class="mb-0 ms-auto">February 22, 2021</p>
-                                                    </div>
-                                                    <p>Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan</p>
-                                                </div>
-                                            </div>
-                                            <hr/>
-                                            <div class="d-flex align-items-start">
-                                                <div class="review-user">
-                                                    <img src="assets/images/avatars/avatar-3.png" width="65" height="65" class="rounded-circle" alt="" />
-                                                </div>
-                                                <div class="review-content ms-3">
-                                                    <div class="rates cursor-pointer fs-6">	<i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-white"></i>
-                                                        <i class="bx bxs-star text-light-4"></i>
-                                                    </div>
-                                                    <div class="d-flex align-items-center mb-2">
-                                                        <h6 class="mb-0">Peter Costanzo</h6>
-                                                        <p class="mb-0 ms-auto">February 26, 2021</p>
-                                                    </div>
-                                                    <p>Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col col-lg-4">
-                                    <div class="add-review bg-dark-1">
-                                        <div class="form-body p-3">
-                                            <h4 class="mb-4">Write a Review</h4>
-                                            <div class="mb-3">
-                                                <label class="form-label">Your Name</label>
-                                                <input type="text" class="form-control rounded-0">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Your Email</label>
-                                                <input type="text" class="form-control rounded-0">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Rating</label>
-                                                <select class="form-select rounded-0">
-                                                    <option selected>Choose Rating</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="3">4</option>
-                                                    <option value="3">5</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Example textarea</label>
-                                                <textarea class="form-control rounded-0" rows="3"></textarea>
-                                            </div>
-                                            <div class="d-grid">
-                                                <button type="button" class="btn btn-light btn-ecomm">Submit a Review</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end row-->
-                        </div>
                     </div>
                 </div>
             </div>
@@ -217,4 +303,15 @@
         <!--end product more info-->
     </div>
 </div>
+<script>
+    function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 @endsection
+

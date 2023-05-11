@@ -50,7 +50,7 @@
                                                             <td>{{$product->name}}</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">	
-                                                                    <a href="{{route('products.view', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
+                                                                    <a href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
                                                                     <a href="products.edit/{{$product->id}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
                                                                     <a href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
                                                                 </div>

@@ -10,6 +10,7 @@ use App\Models\ProductUser;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -17,6 +18,8 @@ class ProductsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        
     }
     /**
      * Display a listing of the resource.
@@ -123,11 +126,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $product = Product::find($id);
-        return view('/home')->with('product', $product);
-    }
+
 
     /**
      * Show the form for editing the specified resource.

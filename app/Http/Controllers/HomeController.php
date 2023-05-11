@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Offer;
 use App\Models\Product;
@@ -44,7 +45,9 @@ class HomeController extends Controller
             $categoryName = '';
         }
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
-        
+
+
+
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();
         } else {
@@ -53,30 +56,42 @@ class HomeController extends Controller
         return view('/home', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists'));
     }
 
-    public function show($id)
-    {
-        $product = Product::find($id);
-        return view('products.show')->with('product', $product);
-    }
+    // public function show($id)
+    // {
+    //     $product = Product::find($id);
+    //     return view('products.show')->with('product', $product);
+    // }
 
 
-    public function view(Product $product, $id)
+    public function show(Product $product, $id)
     {
-        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
+
+        $comments = Comment::with(['user', 'product'])
+            ->orderBy('created_at', 'desc')
+            ->where('product_user_id', $product->user_id)
+            ->get();
+
+
+        // $comments = Comment::where('product_user_id', $product->user_id)->get();
+        // $comments = Comment::where('product_user_id',)->orderBy('created_at', 'desc')->get();
+
+        $user = Auth::user();
+        $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+            $listproducts = Product::where('user_id', Auth::user()->id)->get();
         } else {
             $listproducts = null;
         }
+
+        $products = Product::find($id);
+
         Product::find($id)->increment('views');
         $product = Product::find($id);
         $images = $product->images;
-        return view('products.view', compact('product', 'images', 'listproducts', 'wishlists'));
+        return view('products.show', compact('product', 'products', 'images', 'listproducts', 'wishlists', 'user', 'comments'));
     }
 
     public function store(Request $request)
     {
     }
-
-
 }

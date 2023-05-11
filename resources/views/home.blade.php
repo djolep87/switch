@@ -28,7 +28,7 @@
                                         </div>
                                         <hr class="d-flex d-xl-none" />
                                         <div class="product-categories">
-                                            <h6 class="text-uppercase mb-3"><a href="{{route('home.index')}}">Kategorije <span class="float-end badge rounded-pill bg-primary">{{$products->count()}}</span></a></h6>
+                                            <h6 class="text-uppercase mb-3"><a href="{{route('home.index')}}">Kategorije <span class="float-end badge rounded-pill bg-primary"></span></a></h6>
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
@@ -75,28 +75,36 @@
                                     <div>	<a href="shop-list-left-sidebar.html" class="btn btn-light rounded-0"><i class='bx bx-list-ul me-0'></i></a>
                                     </div>
                                 </div>
-                                @forelse ($products as $key => $product)
-                                    
+                                @forelse ($products as $key => $product)                                    
                                         <div class="product-grid">
                                             <div class="card rounded-0 product-card">
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
-                                                    
-                                                        <div class="product">
-                                                            <label for="views">Viđen : </label>
-                                                            <Span><b>{{$product->views}}</b></Span>
-                                                        </div>
-                                                    
-                                                    <a href="{{url('add/to-wishlist/'.$product->id)}}">
-                                                        <div class="product-wishlist"> 
-                                                            <i class="hover bx bx-star "></i>
-                                                        </div>
-                                                    </a>
-                                                        <div>{{$product->user->city}}</div>
-                                                        <div>{{$product->user->firstName}}</div>
+                                                    <div class="product">
+                                                        {{-- <img src="/assets/images/eye.png" alt="" srcset=""> --}}
+                                                        Viđen:
+                                                        <Span><b>{{$product->views}}</b></Span>
+                                                    </div>
+                                                    <div class="">
+                                                        @if (optional(Auth::user())->id == $product->user_id)
+                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->id)}}">
+                                                                <div class="product-wishlist"> 
+                                                                    <i class="hover bx bx-star "></i>
+                                                                </div>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{url('add/to-wishlist/'.$product->id)}} ">
+                                                                <div class="product-wishlist"> 
+                                                                    <i class="hover bx bx-star "></i>
+                                                                </div>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div>{{$product->user->city}}</div>
+                                                    <div>{{$product->user->firstName}}</div>
                                                 </div>
                                                 <div class="row g-0">
                                                     <div class="col-md-4">
-                                                        <a href="{{route('products.view', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" style="width: 300px; height= 200px;"  alt="..."></a> 
+                                                        <a href="{{route('products.show', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" style="width: 300px; height= 200px;"  alt="..."></a> 
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
@@ -104,11 +112,12 @@
                                                                 <a href="javascript:;">
                                                                     <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
                                                                 </a>
-                                                                <a href="{{route('products.view', $product->id)}}">
+                                                                <a href="{{route('products.show', $product->id)}}">
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
-                                                                    <h6>({{$product->condition}})</h6>
+                                                                    <h6>({{$product->condition}})</h6>  
                                                                 </a>
-                                                                <p class="card-text">{{ Str::limit($product->description, 250) }}</p>
+                                                                <p class="card-text">{!!$product->description!!}</p>
+                                                                {{-- <p class="card-text">{!!$product->description!!}</p> --}}
                                                                 <div class="d-flex align-items-center">
                                                                 </div>
                                                                 
@@ -156,11 +165,11 @@
                                                                         
                                                                         </div>
                                                                     </div>
+                                                                    
                                                                 @else
                                                                     <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p>
                                                                     <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
                                                                 @endif
-                                                               
                                                                 
                                                             </div>
                                                         </div>

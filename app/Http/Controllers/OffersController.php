@@ -29,20 +29,6 @@ class OffersController extends Controller
     public function index()
     {
 
-        // if (request()->category) {
-        //     $products = Product::with('categories')->whereHas('categories', function ($query) {
-        //         $query->where('name', request()->category);
-        //     })->paginate(48);
-        //     $categories = Category::withCount('products')->get();
-        //     $categoryName = $categories->where('name', request()->category)->first()->name;
-        // } else {
-        //     $products = Product::join('users', 'users.id', 'products.user_id')
-        //         ->select('users.id as user_name', 'products.*')->orderBy('created_at', 'desc')->paginate(48);
-        //     // $products = Product::inRandomOrder()->take(16)->get();
-        //     $categories = Category::withCount('products')->get();
-        //     $categoryName = '';
-        // }
-
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
 
         if (Auth::check()) {
@@ -93,7 +79,7 @@ class OffersController extends Controller
         $offers->acceptorName = $request->input('acceptorName');
         $offers->acceptorNumber = $request->input('acceptorNumber');
         $offers->accepted = 0;
-        // dd($offers);
+    
         $offers->save();
         return back()->with('success', 'Vaš zahtev je uspešno poslat!');
     }
