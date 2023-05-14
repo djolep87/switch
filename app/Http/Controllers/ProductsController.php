@@ -12,14 +12,23 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Comment;
+
+use App\Models\Offer;
+
+use App\Models\User;
+
+
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 class ProductsController extends Controller
 {
 
     public function __construct()
     {
         $this->middleware('auth');
-
-        
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +37,6 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -115,7 +123,7 @@ class ProductsController extends Controller
                 ]);
             }
         }
-               $product->categories()->attach(request('category_id'));
+        $product->categories()->attach(request('category_id'));
 
         return back();
     }
@@ -194,7 +202,7 @@ class ProductsController extends Controller
 
         // $product->users()->attach($request->user_id);
 
-        
+
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
                 $name = $image->getClientOriginalName();
@@ -207,7 +215,7 @@ class ProductsController extends Controller
                 ]);
             }
         }
-              
+
 
         return back();
     }
@@ -221,5 +229,39 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search()
+    {
+
+
+        $search_text = $_GET['query'];
+        $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->get();
+
+        if (request()->category) {
+            $products = Product::with('categories')->whereHas('categories', function ($query) {
+                $query->where('name', request()->category);
+            })->paginate(48);
+            $categories = Category::withCount('products')->get();
+            $categoryName = $categories->where('name', request()->category)->first()->name;
+        } else {
+            $search_text = $_GET['query'];
+            $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->get();
+            // $products = Product::inRandomOrder()->take(16)->get();
+            $categories = Category::withCount('products')->get();
+            $categoryName = '';
+        }
+        $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
+
+
+
+        if (Auth::check()) {
+            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+        } else {
+            $listproducts = null;
+        }
+        return view('products.search', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists'));
+
+        // return view('products.search', compact('products'));
     }
 }

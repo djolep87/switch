@@ -48,7 +48,10 @@
 						</div>
 						<div class="col col-md order-4 order-md-2">
 							<div class="input-group flex-nowrap px-xl-4">
-								<input type="text" class="form-control w-100" placeholder="Pretrazi proizvode"><span class="input-group-text cursor-pointer bg-transparent"><i class='bx bx-search'></i></span>
+								<form class="input-group w-100 my-2 my-lg-0" type="get" action="{{url('/search')}}" >
+									<input type="search" name="query" class="form-control inline mt-sm-2" placeholder="Pretrazi proizvode">
+									<button class="btn btn-inline my-2 my-sm-0" type="submit"><i class='bx bx-search'></i></button>
+								</form>
 							</div>
 						</div>
 						<div class="col-4 col-md-auto order-3 d-none d-xl-flex align-items-center">
