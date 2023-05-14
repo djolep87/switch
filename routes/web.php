@@ -26,7 +26,8 @@ Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');
 Route::get('/dashboard', 'UserController@index');
 Route::get('/offers', 'OffersController@index');
 Route::post('/offers/{offer}', 'OffersController@update');
-ROute::get('search', 'ProductsController@search');
+
+ROute::get('search', 'HomeController@search');
 
 Auth::routes();
 

@@ -12,12 +12,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Comment;
-
-use App\Models\Offer;
-
-use App\Models\User;
-
 
 
 use Illuminate\Support\Facades\DB;
@@ -231,37 +225,5 @@ class ProductsController extends Controller
         //
     }
 
-    public function search()
-    {
-
-
-        $search_text = $_GET['query'];
-        $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->get();
-
-        if (request()->category) {
-            $products = Product::with('categories')->whereHas('categories', function ($query) {
-                $query->where('name', request()->category);
-            })->paginate(48);
-            $categories = Category::withCount('products')->get();
-            $categoryName = $categories->where('name', request()->category)->first()->name;
-        } else {
-            $search_text = $_GET['query'];
-            $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->get();
-            // $products = Product::inRandomOrder()->take(16)->get();
-            $categories = Category::withCount('products')->get();
-            $categoryName = '';
-        }
-        $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
-
-
-
-        if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth()->user()->id)->get();
-        } else {
-            $listproducts = null;
-        }
-        return view('products.search', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists'));
-
-        // return view('products.search', compact('products'));
-    }
+    
 }
