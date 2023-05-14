@@ -2,7 +2,7 @@ $(function() {
 	"use strict";
 
 
-  new PerfectScrollbar('.cart-list');
+  // new PerfectScrollbar('.cart-list');
 
 // Prevent closing from click inside dropdown
 
