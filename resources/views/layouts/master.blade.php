@@ -23,7 +23,7 @@
 	<title>@yield('title')</title>
 
 
-
+	<script src="http://unpkg.com/turbolinks"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
 
@@ -173,7 +173,7 @@
 		</footer> --}}
 		<!--end footer section-->
 
-	
+		
 		
 		<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
 		<script>
