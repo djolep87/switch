@@ -41,7 +41,7 @@
 								</div>
 								<div class="logo d-none d-lg-flex">
 									<a href="/">
-										<img src="/assets/images/Switch.png" class="logo-icon" alt="" />
+										<img src="/assets/images/trangefrangelogo.png" class="logo-icon" alt="" />
 									</a>
 								</div>
 							</div>
