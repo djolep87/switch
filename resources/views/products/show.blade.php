@@ -66,14 +66,31 @@
                                         </a>
                                     @endif
 
-                                    <div class="my-3">
+                                    <div class="my-3 float-right border p-3">
                                         {{$product->user->city}}<br/>
                                         {{$product->user->firstName}}<br/>
                                         {{-- {{$product->user->phone}}--}}
+                                        @if (optional(Auth::user())->id)
+                                            @if (Auth::user()->id == $product->user_id)
+                                                <div class="">
+                                                    <button disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span id="count" class="like-count">{{ $product->user->likes() }}</span></button>
+                                                    <button disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span id="count" class="like-count">{{ $product->user->dislikes() }}</span></button>  
+                                                </div>  
+                                            @else
+                                                <div class="">
+                                                    <button class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span class="like-count">{{ $product->user->likes() }}</span></button>
+                                                    <button class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span class="like-count">{{ $product->user->dislikes() }}</span></button>  
+                                                </div>                                      
+                                                
+                                            @endif                                            
+                                        @endif
                                     </div>
 
                                    
-                                    @if (Auth::check())                                        
+                                   
+                                    
+                                    
+                                    @if (Auth::check())  
                                          <button onclick="myFunction()" class="btn btn-light btn-ecomm">Napiši komentar</button> 
                                             <div class="col-lg-12" id="myDIV" style="display: none;">
                                                 <div class="add-review bg-light-1">
@@ -313,5 +330,55 @@
   }
 }
 </script>
+
+{{--  
+<script>
+    $(document).ready(function() {
+        $('.like-button').click(function(e) {
+            e.preventDefault();
+
+            var userId = $(this).data('user-id');
+
+            $.ajax({
+                url: '{{ route("like") }}',
+                type: 'POST',
+                data: {
+                    user_id: userId,
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function(xhr) {
+                    // Handle error response
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $('.dislike-button').click(function(e) {
+            e.preventDefault();
+
+            var userId = $(this).data('user-id');
+
+            $.ajax({
+                url: '{{ route("dislike") }}',
+                type: 'POST',
+                data: {
+                    user_id: userId,
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function(xhr) {
+                    // Handle error response
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script> --}}
+
 @endsection
 

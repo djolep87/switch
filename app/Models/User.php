@@ -60,5 +60,15 @@ class User extends Authenticatable
     public function comment()
     {
         return $this->hasMany(Comment::class);
+    }   
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'liked_user_id')->where('liked', true)->count();
+    }
+
+    public function dislikes()
+    {
+        return $this->hasMany(Like::class, 'liked_user_id')->where('liked', false)->count();
     }
 }

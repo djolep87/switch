@@ -23,9 +23,9 @@
 	<title>@yield('title')</title>
 
 
-	<script src="http://unpkg.com/turbolinks"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>http://unpkg.com/turbolinks</script>
 
 </head>
 <body>
@@ -173,6 +173,98 @@
 		</footer> --}}
 		<!--end footer section-->
 
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>	
+{{-- <script>
+    $(document).ready(function() {
+        $('.like-button').click(function(e) {
+            e.preventDefault();
+
+            var userId = $(this).data('user-id');
+
+            $.ajax({
+                url: '{{ route("like") }}',
+                type: 'POST',
+                data: {
+                    user_id: userId,
+                },
+                success: function(response) {
+                    // Handle success response
+                    alert('Like operation successful');
+                },
+                error: function(xhr) {
+                    // Handle error response
+                    alert('An error occurred during the like operation');
+                }
+            });
+        });
+
+        $('.dislike-button').click(function(e) {
+            e.preventDefault();
+
+            var userId = $(this).data('user-id');
+
+            $.ajax({
+                url: '{{ route("dislike") }}',
+                type: 'POST',
+                data: {
+                    user_id: userId,
+                },
+                success: function(response) {
+                    // Handle success response
+                    alert('Dislike operation successful');
+                },
+                error: function(xhr) {
+                    // Handle error response
+                    alert('An error occurred during the dislike operation');
+                }
+            });
+        });
+    });
+</script> --}}
+
+<script>
+	$('.like-button').click(function() {
+    var likedUserId = $(this).data('user-id');
+
+    $.ajax({
+        method: 'POST',
+        url: '{{ route("like") }}',
+        data: {
+            liked_user_id: likedUserId,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            // Handle success response
+            console.log(response.message);
+        },
+        error: function(xhr) {
+            // Handle error response
+            console.log(xhr.responseText);
+        }
+    });
+});
+
+$('.dislike-button').click(function() {
+    var likedUserId = $(this).data('user-id');
+
+    $.ajax({
+        method: 'POST',
+        url: '{{ route("dislike") }}',
+        data: {
+            liked_user_id: likedUserId,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            // Handle success response
+            console.log(response.message);
+        },
+        error: function(xhr) {
+            // Handle error response
+            console.log(xhr.responseText);
+        }
+    });
+});
+</script>
 		
 		
 		<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
@@ -182,7 +274,8 @@
     <!-- Bootstrap JS -->
 	<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 	<!--plugins-->
-	<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+	
+	{{-- <script src="{{asset('assets/js/jquery.min.js')}}"></script> --}}
 	<script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/OwlCarousel/js/owl.carousel.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/OwlCarousel/js/owl.carousel2.thumbs.min.js')}}"></script>

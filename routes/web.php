@@ -27,7 +27,10 @@ Route::get('/dashboard', 'UserController@index');
 Route::get('/offers', 'OffersController@index');
 Route::post('/offers/{offer}', 'OffersController@update');
 
-ROute::get('search', 'HomeController@search');
+Route::get('search', 'HomeController@search');
+
+Route::post('like', 'LikeController@like')->name('like');
+Route::post('dislike', 'LikeController@dislike')->name('dislike');
 
 Auth::routes();
 
