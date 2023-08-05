@@ -119,7 +119,8 @@
                                                                     <h6>({{$product->condition}})</h6>  
                                                                 </a>
                                                                 {{-- <p class="card-text">{!!Str::limit($product->description, 500)!!}</p> --}}
-                                                                <p class="card-text">{!!$product->description!!}</p>
+                                                                {{-- <p class="card-text">{!!$product->description!!}</p> --}}
+                                                                <p class="card-text">{!!  substr(strip_tags($product->description), 0,200) !!}</p>
                                                                 <div class="d-flex align-items-center">
                                                                 </div>
                                                                 
