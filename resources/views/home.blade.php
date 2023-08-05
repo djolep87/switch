@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 @forelse ($products as $key => $product)                                    
-                                        <div class="product-grid">
+                                        <div class="product-grid ">
                                             <div class="card rounded-0 product-card">
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
                                                     <div class="product">
@@ -86,25 +86,27 @@
                                                     </div>
                                                     <div class="">
                                                         @if (optional(Auth::user())->id == $product->user_id)
-                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->id)}}">
+                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->productid)}}">
                                                                 <div class="product-wishlist"> 
                                                                     <i class="hover bx bx-star "></i>
                                                                 </div>
                                                             </a>
                                                         @else
-                                                            <a href="{{url('add/to-wishlist/'.$product->id)}} ">
+                                                            <a href="{{url('add/to-wishlist/'.$product->productid)}} ">
                                                                 <div class="product-wishlist"> 
                                                                     <i class="hover bx bx-star "></i>
                                                                 </div>
                                                             </a>
                                                         @endif
                                                     </div>
-                                                    <div>{{$product->user->city}}</div>
-                                                    <div>{{$product->user->firstName}}</div>
+                                                     <div>{{$product->users_city}}</div> 
+                                                     <div>{{$product->users_firstname}}</div> 
+
+
                                                 </div>
                                                 <div class="row g-0">
                                                     <div class="col-md-4">
-                                                        <a href="{{route('products.show', $product->id)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" style="width: 300px; height= 200px;"  alt="..."></a> 
+                                                        <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" style="width: 300px; height= 200px;"  alt="..."></a> 
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
@@ -112,7 +114,7 @@
                                                                 <a href="javascript:;">
                                                                     <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
                                                                 </a>
-                                                                <a href="{{route('products.show', $product->id)}}">
+                                                                <a href="{{route('products.show', $product->productid)}}">
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
                                                                     <h6>({{$product->condition}})</h6>  
                                                                 </a>
@@ -134,17 +136,17 @@
                                                                                     <form id="offer" action="/" method="POST" enctype="multipart/form-data">
                                                                                         {{csrf_field()}}
                                                                                         @csrf
-                                                                                        <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+                                                                                     <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
                                                                                         <input type="hidden" name="acceptor" value="{{$product->user_id}}">
-                                                                                        <input type="hidden" name="acceptorName" value="{{$product->user->firstName}}">
-                                                                                        <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
-                                                                                        <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                                                        @forelse ($listproducts as $product)                                                                                          
+                                                                                        <input type="hidden" name="acceptorName" value="{{$product->firstName}}">
+                                                                                        <input type="hidden" name="acceptorNumber" value="{{$product->phone}}">
+                                                                                        <input type="hidden" name="product_id" value="{{$product->productid}}"> 
+                                                                                        @forelse ($listproducts as $mojiproizvodi)                                                                                          
                                                                                             <div class="col m-4">
                                                                                                 <div class="form-check form-check-inline dropdown-item">
                                                                                                     <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
-                                                                                                        value="{{$product->id}}">
-                                                                                                    <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
+                                                                                                        value="{{$mojiproizvodi->id}}">
+                                                                                                    <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $mojiproizvodi->image }}" style="width: 30px; height: 30px" alt=""> {{ $mojiproizvodi->name }}</label>
                                                                                                 </div>
                                                                                                 
                                                                                             </div>
@@ -156,7 +158,7 @@
                                                                                             </div>
 
                                                                                         @endforelse
-                                                                                            @if (Auth::user()->id == $product->user_id)
+                                                                                            @if (Auth::user()->id == $mojiproizvodi->user_id)
                                                                                                 <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit">Pošalji</button>                                                                                
                                                                                             @endif
                                                                                     </form>
@@ -181,7 +183,7 @@
                                     @empty
                                         <div><p>Nema proizvoda.</p></div>    
                                 @endforelse
-                                {{$products->links('pagination::bootstrap-4')}}
+                                {{-- {{$products->links('pagination::bootstrap-4')}} --}}
                                 {{-- <nav class="d-flex justify-content-between" aria-label="Page navigation">
                                     <ul class="pagination">
                                         <li class="page-item"><a class="page-link" href="javascript:;"><i class='bx bx-chevron-left'></i> Prev</a>

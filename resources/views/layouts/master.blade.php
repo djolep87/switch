@@ -25,7 +25,7 @@
 
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>http://unpkg.com/turbolinks</script>
+	<script src="http://unpkg.com/turbolinks"></script>
 
 </head>
 <body>
@@ -41,7 +41,7 @@
 								</div>
 								<div class="logo d-none d-lg-flex">
 									<a href="/">
-										<img src="/assets/images/trangefrangelogo.png" class="logo-icon" alt="" />
+										<img src="/assets/images/trangefrange.jpg" class="logo-icon" alt="" />
 									</a>
 								</div>
 							</div>
@@ -233,9 +233,9 @@
             liked_user_id: likedUserId,
             _token: '{{ csrf_token() }}'
         },
-        success: function(response) {
+        success: function(html) {
             // Handle success response
-            console.log(response.message);
+            location.reload();
         },
         error: function(xhr) {
             // Handle error response
@@ -254,9 +254,9 @@ $('.dislike-button').click(function() {
             liked_user_id: likedUserId,
             _token: '{{ csrf_token() }}'
         },
-        success: function(response) {
+        success: function(html) {
             // Handle success response
-            console.log(response.message);
+            location.reload();
         },
         error: function(xhr) {
             // Handle error response

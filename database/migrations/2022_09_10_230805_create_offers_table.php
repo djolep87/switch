@@ -17,6 +17,7 @@ class CreateOffersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('product_id')->constrained('users');
+            $table->foreignId('sendproduct_id')->constrained('users');
             $table->integer('acceptor');
             $table->string('acceptorName');
             $table->string('acceptorNumber');

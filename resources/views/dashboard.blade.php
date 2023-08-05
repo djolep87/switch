@@ -32,7 +32,7 @@
                                             <table class="table">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>Indentifikacija</th>
+                                                        <th>Šifra artikla</th>
                                                         <th>Datum kreiranja</th>
                                                         <th>Slika</th>
                                                         <th>Naziv</th>

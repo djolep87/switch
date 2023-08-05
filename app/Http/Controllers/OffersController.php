@@ -67,7 +67,7 @@ class OffersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $mojiproizvodi)
     {
 
 
@@ -79,12 +79,13 @@ class OffersController extends Controller
         $offers->acceptorName = $request->input('acceptorName');
         $offers->acceptorNumber = $request->input('acceptorNumber');
         $offers->accepted = 0;
-    
+
         $offers->save();
+
         return back()->with('success', 'Vaš zahtev je uspešno poslat!');
     }
 
-   
+
 
     /**
      * Display the specified resource.

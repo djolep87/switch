@@ -44,4 +44,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Wishlist::class);
     }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class,);
+    }
+
+
 }

@@ -156,6 +156,11 @@ body.offcanvas-active {
 	background-color: rgba(34, 34, 34, 0.6);
 	transition: opacity .2s linear, visibility .1s, width 1s ease-in;
 }
+
+.hide-product
+{
+	display: none;
+}
 @media all and (max-width:992px) {
 	.primary-menu .navbar {
 		background-color: #ffffff;
