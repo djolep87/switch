@@ -41,11 +41,14 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($products as $product )
+                                                    @php
+                                                        $images = $product->images ? explode(",", $product->images) : [];
+                                                    @endphp 
                                                         <tr>
                                                             <td>#{{$product->id}}</td>
                                                             <td>{{$product->created_at->toFormattedDateString()}}</td>
                                                             <td>
-                                                                <div class=""><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid rounded = 9"  style="width: 50px; height: 50px;" alt=""></div>
+                                                                <div class=""><img src="/storage/Product_images/{{ $images[0] }}" class="img-fluid rounded = 9"  style="width: 50px; height: 50px;" alt=""></div>
                                                             </td>
                                                             <td>{{$product->name}}</td>
                                                             <td>

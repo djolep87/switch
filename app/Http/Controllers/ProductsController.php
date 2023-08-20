@@ -60,18 +60,18 @@ class ProductsController extends Controller
         //     'descriptions' => 'required',
         // ]);
 
-        if ($request->hasFile('image')) {
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            //Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            //Get just extension
-            $extension = $request->file('image')->getClientOriginalExtension();
-            //Filename to store
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('image')->storeAs('public/Product_images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
+        // if ($request->hasFile('image')) {
+        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //     //Get just filename
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     //Get just extension
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     //Filename to store
+        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        //     $path = $request->file('image')->storeAs('public/Product_images', $fileNameToStore);
+        // } else {
+        //     $fileNameToStore = 'noimage.jpg';
+        // }
 
         if ($request->has('images')) {
             $imagesname = '';
@@ -92,7 +92,7 @@ class ProductsController extends Controller
         $product->name = $request->input('name');
         $product->condition = $request->input('condition');
         $product->description = $request->input('description');
-        $product->image = $fileNameToStore;
+        // $product->image = $fileNameToStore;
         $product->images = $imagesname;
         $product->save();
 

@@ -17,6 +17,26 @@
                             <div class="col-12 col-lg-5">
                                 <div class="image-zoom-section">
                                     <div class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1">
+                                        @foreach ($images as $image )
+                                            @if ($image)
+                                                <div class="item">                                                
+                                                    <img src="/storage/Product_images/{{ $image }}" class="" alt="">                   
+                                                </div>                                                
+                                            @endif
+                                        @endforeach                                       
+                                    </div>
+                                    <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
+                                        @foreach ($images as $image)
+                                            @if ($image)
+                                                <button class="owl-thumb-item">
+                                                    <img src="/storage/Product_images/{{ $image }}" class="" alt="">
+                                                </button>
+                                            @endif
+                                        @endforeach                                       
+                                    </div>
+                                </div>
+                                {{-- <div class="image-zoom-section">
+                                    <div class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1">
                                         <div class="item">
                                             <img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" alt="">
                                         </div>
@@ -37,7 +57,7 @@
                                             </button>
                                         @endforeach
                                     </div>                                  
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-12 col-lg-7">
                                 <div class="product-info-section p-3">
@@ -156,12 +176,15 @@
                                                                 <input type="hidden" name="acceptorName" value="{{$product->user->firstName}}">
                                                                 <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
                                                                 <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                                @forelse ($listproducts as $product)                                                                                          
+                                                                @forelse ($listproducts as $product)  
+                                                                @php
+                                                                    $images = $product->images ? explode(",", $product->images) : [];
+                                                                @endphp                                                                                         
                                                                     <div class="col m-4">
                                                                         <div class="form-check form-check-inline dropdown-item">
                                                                             <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
                                                                                 value="{{$product->id}}">
-                                                                            <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $product->image }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
+                                                                            <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $images[0]  }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>
                                                                         </div>
                                                                         
                                                                     </div>

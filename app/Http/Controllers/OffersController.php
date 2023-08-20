@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+
 class OffersController extends Controller
 {
 
@@ -125,6 +126,15 @@ class OffersController extends Controller
         return redirect('/offers')->with('success', 'Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!');
     }
 
+    public function rejected(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->accepted =  $request->input('accepted');
+        $offers->save();
+
+        return redirect('/offers')->with('danger', 'Zahtev je odbijen!');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -133,6 +143,8 @@ class OffersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $offers = Offer::findOrFail($id);
+        $offers->delete();
+        return back();
     }
 }

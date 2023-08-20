@@ -25,7 +25,7 @@
 
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="http://unpkg.com/turbolinks"></script>
+	{{-- <script src="http://unpkg.com/turbolinks"></script> --}}
 
 </head>
 <body>

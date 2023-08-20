@@ -54,6 +54,7 @@ class HomeController extends Controller
             // inner JOIN offers ON offers.product_id = products.id OR offers.sendproduct_id =  products.id 
             // WHERE  accepted = 1 ) ')}
 
+
             if (request()->category) {
             $products = Product::with('categories')->whereHas('categories', function ($query) {
                 $query->where('name', request()->category); 
@@ -70,7 +71,7 @@ class HomeController extends Controller
             ->orderBy('products.created_at', 'desc')
               ->select('phone', 'users.city as users_city', 'users.firstname AS users_firstname',
                        'users.id AS user_id', 'products.id AS productid', 'products.name',
-                       'products.condition', 'description', 'image', 'views', 'firstname AS firstName',
+                       'products.condition', 'description', 'products.images', 'views', 'firstname AS firstName',
                        'lastname', 'city', 'address')
               ->paginate(48);
 
@@ -90,7 +91,7 @@ class HomeController extends Controller
               ->orderBy('products.created_at', 'desc')
                 ->select('phone', 'users.city as users_city', 'users.firstname AS users_firstname',
                          'users.id AS user_id', 'products.id AS productid', 'products.name',
-                         'products.condition', 'description', 'image', 'views', 'firstname AS firstName',
+                         'products.condition', 'description', 'products.images', 'views', 'firstname AS firstName',
                          'lastname', 'city', 'address')
                 ->paginate(48);
     //         $products = Product::select('users.city as users_city', 'users.firstname AS users_firstname', 'users.id AS user_id', 'products.id AS productid', 'products.name', 'products.condition', 'products.description', 'products.image', 'products.views', 'users.firstname AS firstName', 'users.lastname', 'users.city', 'users.address')
@@ -144,7 +145,7 @@ class HomeController extends Controller
 
 
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+            $listproducts = Product::where('user_id', auth::user()->id)->get();
         } else {
             $listproducts = null;
         }
@@ -205,7 +206,7 @@ class HomeController extends Controller
 
 
     if (Auth::check()) {
-        $listproducts = Product::where('user_id', auth()->user()->id)->get();
+        $listproducts = Product::where('user_id', optional(Auth::user())->id)->get();
     } else {
         $listproducts = null;
     }

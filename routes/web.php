@@ -25,7 +25,10 @@ Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');
 
 Route::get('/dashboard', 'UserController@index');
 Route::get('/offers', 'OffersController@index');
+Route::post('/', 'OffersController@store')->name('offers.store');
 Route::post('/offers/{offer}', 'OffersController@update');
+Route::post('/offers/{offer}', 'OffersController@rejected');
+Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.destroy');
 
 Route::get('search', 'HomeController@search');
 
@@ -45,5 +48,4 @@ Route::get('add/to-wishlist/{product_id}', 'WishlistController@addToWishlist');
 Route::get('/wishlist', 'WishlistController@index');
 Route::delete('wishlist.destroy/{id}', 'WishlistController@destroy')->name('wishlist.destroy');
 
-Route::post('/', 'OffersController@store')->name('offers.store');
 

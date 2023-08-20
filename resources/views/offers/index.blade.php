@@ -61,50 +61,80 @@
                                                                                 <th>Moj proizvod</th>
                                                                                 <th>Status zahteva</th>
                                                                                 <th>Telefon korisnika</th>
-
+                                                                                <th>Akcija</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody>
+                                                                        <tbody>                                                                            
+                                                                            @foreach ($offers as $offer)
+                                                                            @php
+                                                                                $sendPproductImages = $offer->sendproduct->images ? explode(",", $offer->sendproduct->images) : [];
+                                                                            @endphp 
                                                                             
-                                                                                @foreach ($offers as $offer)
-                                                                                    
-                                                                                    <tr>
-                                                                                        <td>{{$offer->id}}</td>  
-                                                                                        <td>{{$offer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                        <td><a href="{{route('products.show', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $offer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
-                                                                                        {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                        <td><a href="{{route('products.show', $offer->product->id)}}"><img src="/storage/Product_images/{{ $offer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br>{{$offer->product->name}}</td></a>  <!-- artikal za zamenu -->
-                                                                                        @if ($offer->accepted == 0)     
-                                                                                            <td>
-                                                                                                <div class="d-flex gap-2">
-                                                                                                    <form action="/offers/{{$offer->id}}" method="POST">
-                                                                                                        @csrf
-                                                                                                        <input type="hidden" name="accepted" value="1">
-                                                                                                        <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Prihvati</button>
-                                                                                                    </form>
-                                                                                                    {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
-                                                                                                </div>
-                                                                                                <div class="d-flex gap-2">	
-                                                                                                    <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                            
-                                                                                        @else
-                                                                                            <td>
-                                                                                                <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
-                                                                                            </td>
-                                                                                           
-                                                                                            <td>
-                                                                                                {{$offer->user->phone ?? 'no client'}}
-                                                                                            </td>
-                                                                                                {{-- <p>Uspešno prihvaćen zahtev! </p> --}}
-                                                                                                {{-- <p>Kontaktirajte korisnika radi uspešne zamene.</p> --}}
-                                                                                                {{-- <button btn btn-dark btn-sm rounded-0 ></button> --}}
-                                                                                        @endif
-                                                                                    </tr>
-                                                                                    
-                                                                                @endforeach
-                                                                            
+                                                                            @php
+                                                                                $images = $offer->product->images ? explode(",", $offer->product->images) : [];
+                                                                            @endphp 
+                                                                                <tr>
+                                                                                    <td>{{$offer->id}}</td>  
+                                                                                    <td>{{$offer->user->firstName}}</td> <!-- ulogovani user -->
+                                                                                    <td><a href="{{route('products.show', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendPproductImages[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                                    {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
+                                                                                    <td><a href="{{route('products.show', $offer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br>{{$offer->product->name}}</td></a>  <!-- artikal za zamenu -->
+                                                                                    @if ($offer->accepted == 0)     
+                                                                                        <td>
+                                                                                            <div class="d-flex gap-2">
+                                                                                                <form action="/offers/{{$offer->id}}" method="POST">
+                                                                                                    @csrf
+                                                                                                    <input type="hidden" name="accepted" value="1">
+                                                                                                    <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Prihvati</button>
+                                                                                                </form>
+                                                                                                {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
+                                                                                            </div>
+                                                                                            <div class="d-flex gap-2">	
+                                                                                                <form action="/offers/{{$offer->id}}" method="POST">
+                                                                                                    @csrf
+                                                                                                    <input type="hidden" name="accepted" value="2">
+                                                                                                    <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Odbij zahtev</button>
+                                                                                                </form>
+                                                                                                {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a> --}}
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    @elseif($offer->accepted == 2)
+                                                                                        <td>
+                                                                                            <p>Zahtev odbijen!</p>
+                                                                                        </td>
+                                                                                        <td></td>
+                                                                                        <td>
+                                                                                            <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('delete')}}  
+                                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                </button>                                                                                                                                                 
+                                                                                            </form>
+                                                                                        </td>
+                                                                                    @else
+                                                                                        <td>
+                                                                                            <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
+                                                                                        </td>
+                                                                                        
+                                                                                        <td>
+                                                                                            {{$offer->user->phone ?? 'no client'}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('delete')}}  
+                                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                </button>                                                                                                                                                 
+                                                                                            </form>
+                                                                                        </td>
+                                                                                            {{-- <p>Uspešno prihvaćen zahtev! </p> --}}
+                                                                                            {{-- <p>Kontaktirajte korisnika radi uspešne zamene.</p> --}}
+                                                                                            {{-- <button btn btn-dark btn-sm rounded-0 ></button> --}}
+                                                                                    @endif
+                                                                                </tr>                                                                                
+                                                                            @endforeach                                                                            
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -127,35 +157,63 @@
                                                                                 <th>Prihvacen zahtev</th>
                                                                                 <th>Ime korisnika</th>
                                                                                 <th>Telefon korisnika</th>
-
-
+                                                                                <th>Akcija</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody>
-                                                                            
-                                                                                @foreach ($sendoffers as $sendoffer)
-                                                                                    
-                                                                                    <tr>
-                                                                                        <td>{{$sendoffer->id}}</td>  
-                                                                                        <td>{{$sendoffer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                        <td><a href="{{route('products.show', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendoffer->sendproduct->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
-                                                                                        {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                        <td><a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $sendoffer->product->image }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$sendoffer->product->name}}</a> </td> <!-- artikal za zamenu -->
-                                                                                        {{-- <td>{{$sendoffer->acceptor->id}}</td> --}}
-                                                                                        {{-- <td>{{$sendoffer->acceptorName}}</td> --}}
-                                                                                        @if($sendoffer->accepted == 1)
-                                                                                            <td>
-                                                                                                <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
-                                                                                            </td>
-                                                                                            <td>{{$sendoffer->acceptorName}}</td>    
-                                                                                            <td>{{$sendoffer->acceptorNumber}}</td>
-                                                                                        @else
-                                                                                               <td><p>Zahtev na čekanju</p></td> 
-                                                                                        @endif
-                                                                                            
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                            
+                                                                        <tbody>                                                                           
+                                                                            @foreach ($sendoffers as $sendoffer) 
+                                                                            @php
+                                                                                $sendOfferImages = $sendoffer->sendproduct->images ? explode(",", $sendoffer->sendproduct->images) : [];
+                                                                            @endphp 
+                                                                        
+                                                                            @php
+                                                                                $images = $sendoffer->product->images ? explode(",", $sendoffer->product->images) : [];
+                                                                            @endphp                                                                                    
+                                                                                <tr>
+                                                                                    <td>{{$sendoffer->id}}</td>  
+                                                                                    <td>{{$sendoffer->user->firstName}}</td> <!-- ulogovani user -->
+                                                                                    <td><a href="{{route('products.show', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendOfferImages[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
+                                                                                    {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
+                                                                                    <td><a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$sendoffer->product->name}}</a> </td> <!-- artikal za zamenu -->
+                                                                                    {{-- <td>{{$sendoffer->acceptor->id}}</td> --}}
+                                                                                    {{-- <td>{{$sendoffer->acceptorName}}</td> --}}
+                                                                                    @if($sendoffer->accepted == 1)
+                                                                                        <td>
+                                                                                            <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
+                                                                                        </td>
+                                                                                        <td>{{$sendoffer->acceptorName}}</td>    
+                                                                                        <td>{{$sendoffer->acceptorNumber}}</td>
+                                                                                        <td>
+                                                                                            <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('delete')}}  
+                                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                </button>                                                                                                                                                 
+                                                                                            </form>
+                                                                                        </td>
+
+                                                                                    @elseif($sendoffer->accepted == 2)
+                                                                                        <td>
+                                                                                            <p>Zahtev odbijen!</p>
+                                                                                        </td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                        <td>
+                                                                                            <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('delete')}}  
+                                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                </button>                                                                                                                                                 
+                                                                                            </form>                                                    
+                                                                                        </td>
+                                                                                    @else
+                                                                                        <td><p>Zahtev na čekanju</p></td>                                                                                         
+                                                                                    @endif
+                                                                                        
+                                                                                </tr>
+                                                                            @endforeach                                                                            
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
