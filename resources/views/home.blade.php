@@ -78,8 +78,8 @@
                                 </div>
                                 @forelse ($products as $key => $product)     
                                 @php
-                                $images = $product->images ? explode(",", $product->images) : [];
-                            @endphp    
+                                    $images = $product->images ? explode(",", $product->images) : [];
+                                @endphp    
                                         <div class="product-grid ">
                                             <div class="card rounded-0 product-card">
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">

@@ -173,7 +173,7 @@ class HomeController extends Controller
             ->orderBy('products.created_at', 'desc')
               ->select('phone', 'users.city as users_city', 'users.firstname AS users_firstname',
                        'users.id AS user_id', 'products.id AS productid', 'products.name',
-                       'products.condition', 'description', 'image', 'views', 'firstname AS firstName',
+                       'products.condition', 'description', 'products.images', 'views', 'firstname AS firstName',
                        'lastname', 'city', 'address')
               ->paginate(48);
         
@@ -194,7 +194,7 @@ class HomeController extends Controller
         ->orderBy('products.created_at', 'desc')
           ->select('phone', 'users.city as users_city', 'users.firstname AS users_firstname',
                    'users.id AS user_id', 'products.id AS productid', 'products.name',
-                   'products.condition', 'description', 'image', 'views', 'firstname AS firstName',
+                   'products.condition', 'description', 'products.images', 'views', 'firstname AS firstName',
                    'lastname', 'city', 'address')
           ->paginate(48);
         // $products = Product::inRandomOrder()->take(16)->get();

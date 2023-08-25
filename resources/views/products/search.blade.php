@@ -3,6 +3,7 @@
 @section('title', 'Switch')
 
 @section('content')
+
 <div class="wrapper">
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -75,7 +76,10 @@
                                     <div>	<a href="shop-list-left-sidebar.html" class="btn btn-light rounded-0"><i class='bx bx-list-ul me-0'></i></a>
                                     </div>
                                 </div>
-                                @forelse ($products as $key => $product)                                    
+                                @forelse ($products as $key => $product)     
+                                @php
+                                    $images = $product->images ? explode(",", $product->images) : [];
+                                @endphp    
                                         <div class="product-grid ">
                                             <div class="card rounded-0 product-card">
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
@@ -105,9 +109,11 @@
 
                                                 </div>
                                                 <div class="row g-0">
-                                                    <div class="col-md-4">
-                                                        <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{ $product->image }}" class="img-fluid" style="width: 300px; height= 200px;"  alt="..."></a> 
-                                                    </div>
+                                                    @if (!empty($images))
+                                                        <div class="col-md-4" style="width: 150px; height= 100px;">
+                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" style="width: 150px; height= 100px;"  alt="..."></a> 
+                                                        </div>                                                        
+                                                    @endif
                                                     <div class="col-md-8">
                                                         <div class="card-body">
                                                             <div class="product-info">
@@ -119,7 +125,8 @@
                                                                     <h6>({{$product->condition}})</h6>  
                                                                 </a>
                                                                 {{-- <p class="card-text">{!!Str::limit($product->description, 500)!!}</p> --}}
-                                                                <p class="card-text">{!!$product->description!!}</p>
+                                                                {{-- <p class="card-text">{!!$product->description!!}</p> --}}
+                                                                <p class="card-text">{!!  substr(strip_tags($product->description), 0,200) !!}</p>
                                                                 <div class="d-flex align-items-center">
                                                                 </div>
                                                                 
@@ -141,12 +148,15 @@
                                                                                         <input type="hidden" name="acceptorName" value="{{$product->firstName}}">
                                                                                         <input type="hidden" name="acceptorNumber" value="{{$product->phone}}">
                                                                                         <input type="hidden" name="product_id" value="{{$product->productid}}"> 
-                                                                                        @forelse ($listproducts as $mojiproizvodi)                                                                                          
+                                                                                        @forelse ($listproducts as $product)  
+                                                                                            @php
+                                                                                                $images = $product->images ? explode(",", $product->images) : [];
+                                                                                            @endphp                                                                                         
                                                                                             <div class="col m-4">
                                                                                                 <div class="form-check form-check-inline dropdown-item">
                                                                                                     <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
-                                                                                                        value="{{$mojiproizvodi->id}}">
-                                                                                                    <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $mojiproizvodi->image }}" style="width: 30px; height: 30px" alt=""> {{ $mojiproizvodi->name }}</label>
+                                                                                                        value="{{$product->id}}">
+                                                                                                    <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px" alt=""> {{ $product->name }}</label>
                                                                                                 </div>
                                                                                                 
                                                                                             </div>
@@ -158,7 +168,7 @@
                                                                                             </div>
 
                                                                                         @endforelse
-                                                                                            @if (Auth::user()->id == $mojiproizvodi->user_id)
+                                                                                            @if (Auth::user()->id == $product->user_id)
                                                                                                 <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit">Pošalji</button>                                                                                
                                                                                             @endif
                                                                                     </form>
