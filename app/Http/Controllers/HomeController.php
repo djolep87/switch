@@ -216,11 +216,11 @@ class HomeController extends Controller
     }
 
 
-    public function show(Product $product, Comment $comment, $id)
+    public function show(Product $product, Comment $comment, $id, User $user)
     {
 
-
-        $comments = Comment::where('user_id', $product->user_id)->get();
+        $product = Product::find($id);
+        $comments = Comment::where('product_user_id', $product->user_id)->get();
         
 
 
