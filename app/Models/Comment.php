@@ -27,8 +27,8 @@ class Comment extends Model
         return $this->belongsTo(Product::class);
     }
 
-    // public function productUser()
-    // {
-    //     return $this->belongsTo(ProductUser::class, 'user_id');
-    // }
+    public function productUsers()
+    {
+        return $this->belongsTo(ProductUser::class, 'user_id');
+    }
 }

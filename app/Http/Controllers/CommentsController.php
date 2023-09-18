@@ -45,9 +45,13 @@ class CommentsController extends Controller
         $comments->user_id = auth()->user()->id;
         $comments->product_user_id = $request->input('product_user_id');
         $comments->body = $request->input('body');
-        // dd($comments);
-        // dd($comments->targetUser());
         $comments->save();
+
+        CommentUser::create([
+            'comment_id' => $comments->id,
+            'user_id' =>  $comments->product_user_id
+            
+        ]);
 
 
         return back();

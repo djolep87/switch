@@ -50,5 +50,10 @@ class Product extends Model
         return $this->hasMany(Offer::class,);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class,);
+    }
+
 
 }

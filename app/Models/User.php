@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class, 'user_id');
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }   
@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class, 'liked_user_id')->where('liked', false)->count();
     }
+
+    public function products()
+{
+    return $this->hasMany(Product::class);
+}
 }

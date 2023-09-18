@@ -142,12 +142,12 @@
                                             @foreach ($comments as $kay => $comment)
                                                 <div class="d-flex align-items-start">
                                                         <div class="review-user">
-                                                            {{-- <img src="assets/images/avatars/avatar-1.png" width="65" height="65" class="rounded-circle" alt="" /> --}}
+                                                            
                                                         </div>
                                                         <div class="review-content ms-3">
                                                            
                                                             <div class="d-flex align-items-center mb-2">
-                                                                <h6 class="mb-0">{{$user->firstName}}</h6>
+                                                                <h6 class="mb-0">{{$comment->user->firstName}}</h6>
                                                                 <p class="mb-0 ms-auto">{{$comment->created_at->toFormattedDateString()}}</p>
                                                             </div>
                                                             <p>{!!$comment->body!!}</p>
@@ -269,10 +269,13 @@
                                                         <div class="review-content ms-3">
                                                            
                                                             <div class="d-flex align-items-center mb-2">
-                                                                <h6 class="mb-0">{{$user->firstName}}</h6>
-                                                                <p class="mb-0 ms-auto">{{$comment->created_at->toFormattedDateString()}}</p>
+                                                                <h6 class="mb-0">{{$comment->user->firstName}}</h6>
                                                             </div>
-                                                            <p>{{$comment->body}}</p>
+                                                            <p class="mb-0 ms-auto">{{$comment->created_at->toFormattedDateString()}}</p>
+                                                            <div>
+
+                                                                <p>{!!$comment->body!!}</p>
+                                                            </div>
                                                         </div>                                                    
                                                     </div>
                                                     <hr/>

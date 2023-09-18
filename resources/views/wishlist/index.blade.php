@@ -42,10 +42,13 @@
                                                 <tbody>
                                                     @if ($wishlists->count() > 0)
                                                         @foreach ($wishlists as $item )
+                                                        @php
+                                                            $wishlistImages = $item->products->images ? explode(",", $item->products->images) : [];
+                                                        @endphp 
                                                             <tr>
                                                                 <td>#{{$item->id}}</td>
                                                                 <td>
-                                                                    <div class=""><a href="{{route('products.show', $item->products->id)}}"><img src="/storage/Product_images/{{ $item->products->image }}" class="img-fluid rounded = 5"  style="width: 50px; height: 50px;" alt=""></a> </div>
+                                                                    <div class=""><a href="{{route('products.show', $item->products->id)}}"><img src="/storage/Product_images/{{ $wishlistImages[0] }}" class="img-fluid rounded = 5"  style="width: 50px; height: 50px;" alt=""></a> </div>
                                                                 </td>
                                                                 <td>
                                                                     <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>  

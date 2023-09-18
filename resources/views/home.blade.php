@@ -193,7 +193,7 @@
                                     @empty
                                         <div><p>Nema proizvoda.</p></div>    
                                 @endforelse
-                                {{-- {{$products->links('pagination::bootstrap-4')}} --}}
+                                {{$products->links('pagination::bootstrap-4')}}
                                 {{-- <nav class="d-flex justify-content-between" aria-label="Page navigation">
                                     <ul class="pagination">
                                         <li class="page-item"><a class="page-link" href="javascript:;"><i class='bx bx-chevron-left'></i> Prev</a>

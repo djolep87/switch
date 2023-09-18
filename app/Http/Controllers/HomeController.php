@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\CommentUser;
 use App\Models\Image;
 use App\Models\Offer;
 use App\Models\Product;
+use App\Models\ProductUser;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -214,17 +216,13 @@ class HomeController extends Controller
     }
 
 
-    public function show(Product $product, $id)
+    public function show(Product $product, Comment $comment, $id)
     {
 
-        $comments = Comment::with(['user', 'product'])
-            ->orderBy('created_at', 'desc')
-            ->where('product_user_id', $product->user_id)
-            ->get();
 
+        $comments = Comment::where('user_id', $product->user_id)->get();
+        
 
-        // $comments = Comment::where('product_user_id', $product->user_id)->get();
-        // $comments = Comment::where('product_user_id',)->orderBy('created_at', 'desc')->get();
 
         $user = Auth::user();
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
@@ -239,7 +237,7 @@ class HomeController extends Controller
         Product::find($id)->increment('views');
         $product = Product::find($id);
         $images = $product->images;
-        return view('products.show', compact('product', 'products', 'images', 'listproducts', 'wishlists', 'user', 'comments'));
+        return view('products.show', compact('product', 'products', 'images', 'listproducts', 'wishlists', 'user', 'comments' ));
     }
 
     public function store(Request $request)
