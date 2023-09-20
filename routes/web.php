@@ -4,6 +4,7 @@ use App\Http\Controllers\OffersController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
+
 //     return view('welcome');
 // });
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -26,8 +28,8 @@ Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');
 Route::get('/dashboard', 'UserController@index');
 Route::get('/offers', 'OffersController@index');
 Route::post('/', 'OffersController@store')->name('offers.store');
-Route::post('/offers/{offer}', 'OffersController@update');
-Route::post('/offers/{offer}', 'OffersController@rejected');
+Route::post('/offers.update/{offer}', 'OffersController@update')->name('offers.update');
+Route::post('/offers.rejected/{offer}', 'OffersController@rejected')->name('offers.rejected');
 Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.destroy');
 
 Route::get('search', 'HomeController@search');

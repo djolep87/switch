@@ -293,5 +293,5 @@
     <!--End Back To Top Button-->
 </div>
 
-@include('sweetalert::alert')
+
 @endsection

@@ -68,7 +68,10 @@
                                                            
                                                         @endforeach
                                                     @else
-                                                        <p>Ne pratite oglase.</p>
+                                                        <td>
+                                                            <p>Ne pratite oglase.</p>
+                                                        </td> 
+                                                        
                                                     @endif
                                                    
                                                     

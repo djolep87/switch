@@ -174,101 +174,56 @@
 		<!--end footer section-->
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>	
-{{-- <script>
-    $(document).ready(function() {
-        $('.like-button').click(function(e) {
-            e.preventDefault();
 
-            var userId = $(this).data('user-id');
 
-            $.ajax({
-                url: '{{ route("like") }}',
-                type: 'POST',
-                data: {
-                    user_id: userId,
-                },
-                success: function(response) {
-                    // Handle success response
-                    alert('Like operation successful');
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('An error occurred during the like operation');
-                }
-            });
-        });
 
-        $('.dislike-button').click(function(e) {
-            e.preventDefault();
+			<script type='text/javascript'>
+					$('.like-button').click(function() {
+					var likedUserId = $(this).data('user-id');
+			
+					$.ajax({
+						method: 'POST',
+						url: '{{ route("like") }}',
+						data: {
+							liked_user_id: likedUserId,
+							_token: '{{ csrf_token() }}'
+						},
+						success: function(html) {
+							// Handle success response
+							location.reload();
+						},
+						error: function(xhr) {
+							// Handle error response
+							console.log(xhr.responseText);
+						}
+					});
+				});
+			</script>
+			<script type='text/javascript'>
+				$('.dislike-button').click(function() {
+					var likedUserId = $(this).data('user-id');
+			
+					$.ajax({
+						method: 'POST',
+						url: '{{ route("dislike") }}',
+						data: {
+							liked_user_id: likedUserId,
+							_token: '{{ csrf_token() }}'
+						},
+						success: function(html) {
+							// Handle success response
+							location.reload();
+						},
+						error: function(xhr) {
+							// Handle error response
+							console.log(xhr.responseText);
+						}
+					});
+				});
+			</script>
 
-            var userId = $(this).data('user-id');
-
-            $.ajax({
-                url: '{{ route("dislike") }}',
-                type: 'POST',
-                data: {
-                    user_id: userId,
-                },
-                success: function(response) {
-                    // Handle success response
-                    alert('Dislike operation successful');
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('An error occurred during the dislike operation');
-                }
-            });
-        });
-    });
-</script> --}}
-
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
 <script>
-	$('.like-button').click(function() {
-    var likedUserId = $(this).data('user-id');
-
-    $.ajax({
-        method: 'POST',
-        url: '{{ route("like") }}',
-        data: {
-            liked_user_id: likedUserId,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(html) {
-            // Handle success response
-            location.reload();
-        },
-        error: function(xhr) {
-            // Handle error response
-            console.log(xhr.responseText);
-        }
-    });
-});
-
-$('.dislike-button').click(function() {
-    var likedUserId = $(this).data('user-id');
-
-    $.ajax({
-        method: 'POST',
-        url: '{{ route("dislike") }}',
-        data: {
-            liked_user_id: likedUserId,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(html) {
-            // Handle success response
-            location.reload();
-        },
-        error: function(xhr) {
-            // Handle error response
-            console.log(xhr.responseText);
-        }
-    });
-});
-</script>
-		
-		
-		<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
-		<script>
 			var editor = new FroalaEditor('#example');		
 			  </script>	
     <!-- Bootstrap JS -->
@@ -286,5 +241,6 @@ $('.dislike-button').click(function() {
 	<script src="{{asset('assets/js/product-gallery.js')}}"></script>
 	<!--app JS-->
 	<script src="{{asset('assets/js/app.js')}}"></script>
+	@include('sweetalert::alert')
 </body>
 </html>

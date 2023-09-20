@@ -52,7 +52,8 @@ class WishlistController extends Controller
 
 
             ]);
-            return back()->with('success', 'Zapratili ste oglas!');
+            toast('Zapratili ste oglas!', 'success');
+            return back();
         } else {
             return redirect('/login');
         }
@@ -62,6 +63,7 @@ class WishlistController extends Controller
     {
         $wishlist = Wishlist::findOrFail($id);
         $wishlist->delete();
+        toast('Ne pratite više ovaj oglas!', 'warning');
         return back();
     }
 }

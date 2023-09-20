@@ -11,6 +11,7 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class OffersController extends Controller
@@ -82,8 +83,8 @@ class OffersController extends Controller
         $offers->accepted = 0;
 
         $offers->save();
-
-        return back()->with('success', 'Vaš zahtev je uspešno poslat!');
+        toast('Vaš zahtev je uspešno poslat!', 'success');
+        return back();
     }
 
 
@@ -122,8 +123,8 @@ class OffersController extends Controller
         $offers = Offer::find($id);
         $offers->accepted =  $request->input('accepted');
         $offers->save();
-
-        return redirect('/offers')->with('success', 'Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!');
+        toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!', 'success');
+        return redirect('/offers');
     }
 
     public function rejected(Request $request, $id)
@@ -131,8 +132,8 @@ class OffersController extends Controller
         $offers = Offer::find($id);
         $offers->accepted =  $request->input('accepted');
         $offers->save();
-
-        return redirect('/offers')->with('danger', 'Zahtev je odbijen!');
+        toast('Zahtev je odbijen!', 'error');
+        return redirect('/offers');
     }
 
     /**
@@ -145,6 +146,7 @@ class OffersController extends Controller
     {
         $offers = Offer::findOrFail($id);
         $offers->delete();
+        toast('Zahtev je obrisan!', 'warning');
         return back();
     }
 }

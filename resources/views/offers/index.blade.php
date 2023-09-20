@@ -82,18 +82,20 @@
                                                                                     @if ($offer->accepted == 0)     
                                                                                         <td>
                                                                                             <div class="d-flex gap-2">
-                                                                                                <form action="/offers/{{$offer->id}}" method="POST">
-                                                                                                    @csrf
+                                                                                                <form action="{{url('offers.update', $offer->id)}}" method="POST">
+                                                                                                    {{ csrf_field() }}
+                                                                                                    {{method_field('post')}}
                                                                                                     <input type="hidden" name="accepted" value="1">
                                                                                                     <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Prihvati</button>
                                                                                                 </form>
                                                                                                 {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
                                                                                             </div>
                                                                                             <div class="d-flex gap-2">	
-                                                                                                <form action="/offers/{{$offer->id}}" method="POST">
-                                                                                                    @csrf
+                                                                                                <form action="{{url('offers.rejected', $offer->id)}}" method="POST">
+                                                                                                    {{ csrf_field() }}
+                                                                                                    {{method_field('post')}}
                                                                                                     <input type="hidden" name="accepted" value="2">
-                                                                                                    <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Odbij zahtev</button>
+                                                                                                     <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Odbij zahtev</button>
                                                                                                 </form>
                                                                                                 {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a> --}}
                                                                                             </div>

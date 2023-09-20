@@ -100,63 +100,43 @@
                                                 <div class="">
                                                     <button class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span class="like-count">{{ $product->user->likes() }}</span></button>
                                                     <button class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span class="like-count">{{ $product->user->dislikes() }}</span></button>  
-                                                </div>                                      
+                                                </div>   
+                                                <br>                                   
                                                 
                                             @endif                                            
                                         @endif
-                                    </div>
-
-                                   
-                                   
-                                    
-                                    
-                                    @if (Auth::check())  
-                                         <button onclick="myFunction()" class="btn btn-light btn-ecomm">Napiši komentar</button> 
-                                            <div class="col-lg-12" id="myDIV" style="display: none;">
-                                                <div class="add-review bg-light-1">
-                                                    <div class="form-body p-3">
-                                                        <h4 class="mb-4">Napišite komentar</h4>
-                                                        <form action="/comments.store" method="POST" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Vaše ime i prezime</label>
-                                                                <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                        @if (Auth::check())  
+                                            @if (Auth::user()->id == $product->user_id)
+                                            <button onclick="myFunction()" disabled class="btn btn-light btn-ecomm">Napiši komentar</button> 
+                                            @else 
+                                                <button onclick="myFunction()" class="btn btn-light btn-ecomm">Napiši komentar</button> 
+                                                    <div class="col-lg-12" id="myDIV" style="display: none;">
+                                                        <div class="add-review bg-light-1">
+                                                            <div class="form-body p-3">
+                                                                <h4 class="mb-4">Napišite komentar</h4>
+                                                                <form action="/comments.store" method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Vaše ime i prezime</label>
+                                                                        <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                    </div>
+                                                                    <div class="mb-3">                                                      
+                                                                            <input type="hidden" name="product_user_id" value="{{ $product->user_id }}">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Tekst komentara</label>
+                                                                        <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                    </div>
+                                                                    <div class="d-grid">                                            
+                                                                        <input type="submit" class="btn btn-dark btn-ecomm" value="Postavi">
+                                                                    </div>                                            
+                                                                </form>
                                                             </div>
-                                                            <div class="mb-3">                                                      
-                                                                    <input type="hidden" name="product_user_id" value="{{ $product->user_id }}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Tekst komentara</label>
-                                                                <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
-                                                            </div>
-                                                            <div class="d-grid">                                            
-                                                                <input type="submit" class="btn btn-dark btn-ecomm" value="Postavi">
-                                                            </div>                                            
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>                                           
-                                    @endif
-                                    <h5 class="mb-4">Komentari</h5>
-                                        <div class="review-list">
-                                            @foreach ($comments as $kay => $comment)
-                                                <div class="d-flex align-items-start">
-                                                        <div class="review-user">
-                                                            
                                                         </div>
-                                                        <div class="review-content ms-3">
-                                                           
-                                                            <div class="d-flex align-items-center mb-2">
-                                                                <h6 class="mb-0">{{$comment->user->firstName}}</h6>
-                                                                <p class="mb-0 ms-auto">{{$comment->created_at->toFormattedDateString()}}</p>
-                                                            </div>
-                                                            <p>{!!$comment->body!!}</p>
-                                                        </div>                                                    
                                                     </div>
-                                                    <hr/>
-                                            @endforeach
-                                        </div>
-                                   
+                                            @endif                                           
+                                        @endif                                                                      
+                                    </div>                        
                                     <div class="d-flex gap-2 mt-3">
                                         @if (Auth::check())   
                                             <div class="product-action mt-2">
@@ -260,6 +240,7 @@
                                 <div class="col col-lg-8">
                                     <div class="product-review">
                                         <h5 class="mb-4">Komentari</h5>
+                                        <hr>
                                         <div class="review-list">
                                             @foreach ($comments as $kay => $comment)
                                                 <div class="d-flex align-items-start">

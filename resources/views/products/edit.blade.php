@@ -43,7 +43,10 @@
                                 <label class="form-label">Galerija proizvoda</label>
                                 <input type="file" name="images[]" class="form-control" multiple>
                                 @foreach ($images as $image)
-                                    <img src="/storage/Product_images/{{$image}}" width="50px" height="50px" alt="">
+                                @php
+                                    $images = $product->images ? explode(",", $product->images) : [];
+                                @endphp 
+                                    <img src="/storage/Product_images/{{$images}}" width="50px" height="50px" alt="">
                                 @endforeach
                             </div>
                         

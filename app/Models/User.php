@@ -71,9 +71,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class, 'liked_user_id')->where('liked', false)->count();
     }
-
-    public function products()
-{
-    return $this->hasMany(Product::class);
-}
 }

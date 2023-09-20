@@ -74,13 +74,13 @@ class ProductsController extends Controller
         // }
 
         if ($request->has('images')) {
-            $imagesname = '';
+            $imagesname = [];
             foreach ($request->images as $key => $image) {
                 $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
                 $image->storeAs('public/Product_images', $imgName);
-                $imagesname = $imagesname . ',' . $imgName;
+                $imagesname[] = $imgName;
             }
-            // $product->images = $imagesname;
+            $imagesname = implode(',', $imagesname);
         } else {
             $imagesname = 'noimage.jpg';
         }
@@ -118,7 +118,7 @@ class ProductsController extends Controller
             }
         }
         $product->categories()->attach(request('category_id'));
-
+        toast('Uspešno ste postavili oglas!', 'success');
         return back();
     }
 
@@ -192,6 +192,7 @@ class ProductsController extends Controller
         $product->description = $request->input('description');
         $product->image = $fileNameToStore;
         $product->images = $imagesname;
+        
         $product->save();
 
         // $product->users()->attach($request->user_id);
@@ -210,7 +211,7 @@ class ProductsController extends Controller
             }
         }
 
-
+        toast('Uspešno izmenjen oglas!', 'success');
         return back();
     }
 
