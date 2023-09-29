@@ -145,6 +145,10 @@ class OffersController extends Controller
     public function destroy($id)
     {
         $offers = Offer::findOrFail($id);
+        if($offers->accepted == 1){
+            $offers->product->delete();
+            $offers->sendproduct->delete();
+        }
         $offers->delete();
         toast('Zahtev je obrisan!', 'warning');
         return back();
