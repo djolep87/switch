@@ -136,6 +136,24 @@ class OffersController extends Controller
         return redirect('/offers');
     }
 
+    public function confirmation(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->accepted =  $request->input('accepted');
+        $offers->save();
+        toast('Čestitamo! Uspešna zamena! ', 'success');
+        return redirect('/offers');
+    }
+
+    public function canceled(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->accepted =  $request->input('accepted');
+        $offers->save();
+        toast('Zamena neuspešna!', 'error');
+        return redirect('/offers');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -145,7 +163,7 @@ class OffersController extends Controller
     public function destroy($id)
     {
         $offers = Offer::findOrFail($id);
-        if($offers->accepted == 1){
+        if($offers->accepted == 1 || $offers->accepted == 3){
             $offers->product->delete();
             $offers->sendproduct->delete();
         }

@@ -173,7 +173,8 @@ class HomeController extends Controller
                         $join->on('offers.product_id', '=', 'products.id')
                              ->orOn('offers.sendproduct_id', '=', 'products.id');
                     })
-                    ->where('offers.accepted', '=', 1);
+                    ->where('offers.accepted', '=', 1)
+                    ->orWhere('offers.accepted', '=', 3);
             })->join('users', 'users.id', '=', 'products.user_id')
             ->orderBy('products.created_at', 'desc')
               ->select('phone', 'users.city as users_city', 'users.firstname AS users_firstname',
@@ -194,7 +195,8 @@ class HomeController extends Controller
                     $join->on('offers.product_id', '=', 'products.id')
                          ->orOn('offers.sendproduct_id', '=', 'products.id');
                 })
-                ->where('offers.accepted', '=', 1);
+                ->where('offers.accepted', '=', 1)
+                ->orWhere('offers.accepted', '=', 3);
         })->join('users', 'users.id', '=', 'products.user_id')
         ->orderBy('products.created_at', 'desc')
           ->select('phone', 'users.city as users_city', 'users.firstname AS users_firstname',

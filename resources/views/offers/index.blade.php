@@ -61,6 +61,7 @@
                                                                                 <th>Moj proizvod</th>
                                                                                 <th>Status zahteva</th>
                                                                                 <th>Telefon korisnika</th>
+                                                                                <th>Uspešna zamena</th>
                                                                                 <th>Akcija</th>
                                                                             </tr>
                                                                         </thead>
@@ -93,7 +94,35 @@
                                                                                     @else
                                                                                         <td><p>Oglas više ne postoji!</p></td>
                                                                                     @endif
-                                                                                    @if ($offer->accepted == 0)     
+                                                                                    @if($offer->accepted == 1)
+                                                                                        <td>
+                                                                                            <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{$offer->acceptorNumber ?? 'no client'}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <form action="{{url('offers.confirmation', $offer->id)}}" method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('post')}}
+                                                                                                <input type="hidden" name="accepted" value="3">
+                                                                                                <button class="btn btn-success btn-sm" type="submit">DA</button>
+                                                                                            </form>
+                                                                                            <form action="{{url('offers.canceled', $offer->id)}}" method="post">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('post')}}
+                                                                                                <input type="hidden" name="accepted" value="4">
+                                                                                                <button class="btn btn-danger btn-sm" type="submit">NE</button>
+                                                                                            </form>
+                                                                                            {{-- <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('delete')}}  
+                                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                </button>                                                                                                                                                 
+                                                                                            </form> --}}
+                                                                                        </td>
+                                                                                    @elseif ($offer->accepted == 0)     
                                                                                         <td>
                                                                                             @if ($offer->product)
                                                                                                 <div class="d-flex gap-2">
@@ -101,7 +130,7 @@
                                                                                                         {{ csrf_field() }}
                                                                                                         {{method_field('post')}}
                                                                                                         <input type="hidden" name="accepted" value="1">
-                                                                                                        <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Prihvati</button>
+                                                                                                        <button class="btn btn-success btn-sm rounded-0 m-2" type="submit">Prihvati</button>
                                                                                                     </form>
                                                                                                     {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
                                                                                                 </div>
@@ -110,12 +139,48 @@
                                                                                                         {{ csrf_field() }}
                                                                                                         {{method_field('post')}}
                                                                                                         <input type="hidden" name="accepted" value="2">
-                                                                                                        <button class="btn btn-dark btn-sm rounded-0 m-2" type="submit">Odbij zahtev</button>
+                                                                                                        <button class="btn btn-danger btn-sm rounded-0 m-2" type="submit">Odbij zahtev</button>
                                                                                                     </form>
                                                                                                     {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a> --}}
                                                                                                 </div>
                                                                                             @endif
                                                                                         </td>
+                                                                                    @elseif($offer->accepted == 3)
+                                                                                        @if ($offer->product)
+                                                                                            <td>
+                                                                                                <p>Uspešna zamena!</p>
+                                                                                            </td>
+                                                                                            <td></td>
+                                                                                            
+                                                                                            <td><img src="/assets/images/success.png" class="asign-right" alt="" srcset=""></td>
+                                                                                            <td>
+                                                                                                <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                                    {{ csrf_field() }}
+                                                                                                    {{method_field('delete')}}  
+                                                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                    </button>                                                                                                                                                 
+                                                                                                </form>
+                                                                                            </td>
+                                                                                        @endif
+                                                                                    @elseif($offer->accepted == 4)
+                                                                                        @if ($offer->product)
+                                                                                            <td>
+                                                                                                <p>Neuspešna zamena!</p>
+                                                                                            </td>
+                                                                                            <td></td>
+                                                                                            
+                                                                                            <td><img src="/assets/images/cansel.png" class="asign-right" alt="" srcset=""></td>
+                                                                                            <td>
+                                                                                                <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                                    {{ csrf_field() }}
+                                                                                                    {{method_field('delete')}}  
+                                                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                    </button>                                                                                                                                                 
+                                                                                                </form>
+                                                                                            </td>
+                                                                                        @endif
                                                                                     @elseif($offer->accepted == 2)
                                                                                         <td>
                                                                                             <p>Zahtev odbijen!</p>
@@ -136,7 +201,7 @@
                                                                                         </td>
                                                                                         
                                                                                         <td>
-                                                                                            {{$offer->user->phone ?? 'no client'}}
+                                                                                            {{-- {{$offer->user->phone ?? 'no client'}} --}}
                                                                                         </td>
                                                                                         <td>
                                                                                             <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
@@ -151,7 +216,6 @@
                                                                                             {{-- <p>Kontaktirajte korisnika radi uspešne zamene.</p> --}}
                                                                                             {{-- <button btn btn-dark btn-sm rounded-0 ></button> --}}
                                                                                     @endif
-
                                                                                     @if (!$offer->product)
                                                                                     <td></td>
                                                                                         <td>
@@ -188,7 +252,9 @@
                                                                                 <th>Prihvacen zahtev</th>
                                                                                 <th>Ime korisnika</th>
                                                                                 <th>Telefon korisnika</th>
+                                                                                <th>Uspešna zamena</th>
                                                                                 <th>Akcija</th>
+                                                                                
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>                                                                           
@@ -229,15 +295,64 @@
                                                                                         <td>{{$sendoffer->acceptorName}}</td>    
                                                                                         <td>{{$sendoffer->acceptorNumber}}</td>
                                                                                         <td>
-                                                                                            <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                                            <form action="{{url('offers.confirmation', $sendoffer->id)}}" method="POST">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('post')}}
+                                                                                                <input type="hidden" name="accepted" value="3">
+                                                                                                <button class="btn btn-success btn-sm" type="submit">DA</button>
+                                                                                            </form>
+                                                                                            <form action="{{url('offers.canceled', $sendoffer->id)}}" method="post">
+                                                                                                {{ csrf_field() }}
+                                                                                                {{method_field('post')}}
+                                                                                                <input type="hidden" name="accepted" value="4">
+                                                                                                <button class="btn btn-danger btn-sm" type="submit">NE</button>
+                                                                                            </form>
+                                                                                            {{-- <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                                                 {{ csrf_field() }}
                                                                                                 {{method_field('delete')}}  
                                                                                                 <button style="border:none; transparent:none;"  type="submit">
                                                                                                     <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                                                 </button>                                                                                                                                                 
-                                                                                            </form>
+                                                                                            </form> --}}
                                                                                         </td>
-
+                                                                                    @elseif($sendoffer->accepted == 3)
+                                                                                        @if ($sendoffer->product)
+                                                                                            <td>
+                                                                                                <p>Uspešna zamena!</p>
+                                                                                            </td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td>
+                                                                                                <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                                                    {{ csrf_field() }}
+                                                                                                    {{method_field('delete')}}  
+                                                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                    </button>                                                                                                                                                 
+                                                                                                </form>
+                                                                                            </td>
+                                                                                        @endif
+                                                                                    @elseif($sendoffer->accepted == 4)
+                                                                                        @if ($sendoffer->product)
+                                                                                            <td>
+                                                                                                <p>Neuspešna zamena!</p>
+                                                                                            </td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td><img src="/assets/images/cansel.png" class="asign-right" alt="" srcset=""></td>
+                                                                                            <td>
+                                                                                                <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                                                    {{ csrf_field() }}
+                                                                                                    {{method_field('delete')}}  
+                                                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                                    </button>                                                                                                                                                 
+                                                                                                </form>
+                                                                                            </td>
+                                                                                        @endif
                                                                                     @elseif($sendoffer->accepted == 2)
                                                                                         <td>
                                                                                             <p>Zahtev odbijen!</p>

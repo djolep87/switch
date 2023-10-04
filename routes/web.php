@@ -30,6 +30,8 @@ Route::get('/offers', 'OffersController@index');
 Route::post('/', 'OffersController@store')->name('offers.store');
 Route::post('/offers.update/{offer}', 'OffersController@update')->name('offers.update');
 Route::post('/offers.rejected/{offer}', 'OffersController@rejected')->name('offers.rejected');
+Route::post('/offers.confirmation/{offer}', 'OffersController@confirmation')->name('offers.confirmation');
+Route::post('/offers.canceled/{offer}', 'OffersController@canceled')->name('offers.canceled');
 Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.destroy');
 
 Route::get('search', 'HomeController@search');
