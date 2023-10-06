@@ -225,7 +225,7 @@ class HomeController extends Controller
     {
 
         $product = Product::find($id);
-        $comments = Comment::where('product_user_id', $product->user_id)->get();
+        $comments = Comment::where('product_user_id', $product->user_id)->orderBy('created_at', 'desc')->get();
         
 
 
