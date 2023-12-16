@@ -143,10 +143,10 @@
                                                                                     <form id="offer" action="/" method="POST" enctype="multipart/form-data">
                                                                                         {{csrf_field()}}
                                                                                         @csrf
-                                                                                     <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+                                                                                        <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
                                                                                         <input type="hidden" name="acceptor" value="{{$product->user_id}}">
                                                                                         <input type="hidden" name="acceptorName" value="{{$product->firstName}}">
-                                                                                        <input type="hidden" name="acceptorNumber" value="{{$product->phone}}">
+                                                                                        <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
                                                                                         <input type="hidden" name="product_id" value="{{$product->productid}}"> 
                                                                                         @forelse ($listproducts as $product)  
                                                                                             @php

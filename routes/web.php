@@ -23,7 +23,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 // });
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home.index');
-Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');    
+Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');  
+Route::get('/uslovi', 'PageController@uslovi');  
+Route::get('/about', 'PageController@about');  
+Route::get('/contact', 'PageController@contact');  
 
 Route::get('/dashboard', 'UserController@index');
 Route::get('/offers', 'OffersController@index');

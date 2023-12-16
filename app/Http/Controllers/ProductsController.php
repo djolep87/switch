@@ -10,6 +10,7 @@ use App\Models\ProductUser;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -76,7 +77,7 @@ class ProductsController extends Controller
         if ($request->has('images')) {
             $imagesname = [];
             foreach ($request->images as $key => $image) {
-                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $imgName = time() . $key . '.' . $image->extension();
                 $image->storeAs('public/Product_images', $imgName);
                 $imagesname[] = $imgName;
             }
@@ -95,31 +96,31 @@ class ProductsController extends Controller
         // $product->image = $fileNameToStore;
         $product->images = $imagesname;
         $product->save();
-
-        // $product->users()->attach($request->user_id);
-
-        ProductUser::create([
-            'product_id' => $product->id,
-            'user_id' => Auth()->user()->id,
-            'city' => Auth()->user()->city,
-            'firstName' => Auth()->user()->firstName,
-        ]);
-
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $name = $image->getClientOriginalName();
-                $path = $image->storeAs('Product_images', $name, 'public');
-
-                Image::create([
-                    'product_id' => $product->id,
-                    'name' => $name,
-                    'path' => '/storage/' . $path
-                ]);
-            }
-        }
+        
         $product->categories()->attach(request('category_id'));
         toast('Uspešno ste postavili oglas!', 'success');
         return back();
+        // $product->users()->attach($request->user_id);
+
+        // ProductUser::create([
+        //     'product_id' => $product->id,
+        //     'user_id' => Auth()->user()->id,
+        //     'city' => Auth()->user()->city,
+        //     'firstName' => Auth()->user()->firstName,
+        // ]);
+
+        // if ($request->has('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $name = $image->getClientOriginalName();
+        //         $path = $image->storeAs('Product_images', $name, 'public');
+
+        //         Image::create([
+        //             'product_id' => $product->id,
+        //             'name' => $name,
+        //             'path' => '/storage/' . $path
+        //         ]);
+        //     }
+        // }
     }
 
     /**
@@ -157,24 +158,24 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
 
-        $product = Product::find($id);
-        if ($request->hasFile('image')) {
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            //Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            //Get just extension
-            $extension = $request->file('image')->getClientOriginalExtension();
-            //Filename to store
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('image')->storeAs('public/Product_images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
+        // $product = Product::find($id);
+        // if ($request->hasFile('image')) {
+        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //     //Get just filename
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     //Get just extension
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     //Filename to store
+        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        //     $path = $request->file('image')->storeAs('public/Product_images', $fileNameToStore);
+        // } else {
+        //     $fileNameToStore = 'noimage.jpg';
+        // }
 
         if ($request->has('images')) {
             $imagesname = '';
             foreach ($request->images as $key => $image) {
-                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $imgName = time() . $key . '.' . $image->extension();
                 $image->storeAs('public/Product_images', $imgName);
                 $imagesname = $imagesname . ',' . $imgName;
             }
@@ -190,7 +191,7 @@ class ProductsController extends Controller
         $product->name = $request->input('name');
         $product->condition = $request->input('condition');
         $product->description = $request->input('description');
-        $product->image = $fileNameToStore;
+        // $product->image = $fileNameToStore;
         $product->images = $imagesname;
         
         $product->save();
@@ -198,18 +199,18 @@ class ProductsController extends Controller
         // $product->users()->attach($request->user_id);
 
 
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $name = $image->getClientOriginalName();
-                $path = $image->storeAs('Product_images', $name, 'public');
+        // if ($request->has('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $name = $image->getClientOriginalName();
+        //         $path = $image->storeAs('Product_images', $name, 'public');
 
-                Image::create([
-                    'product_id' => $product->id,
-                    'name' => $name,
-                    'path' => '/storage/' . $path
-                ]);
-            }
-        }
+        //         Image::create([
+        //             'product_id' => $product->id,
+        //             'name' => $name,
+        //             'path' => '/storage/' . $path
+        //         ]);
+        //     }
+        // }
 
         toast('Uspešno izmenjen oglas!', 'success');
         return back();

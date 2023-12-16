@@ -11,6 +11,7 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -162,12 +163,105 @@ class OffersController extends Controller
      */
     public function destroy($id)
     {
-        $offers = Offer::findOrFail($id);
-        if($offers->accepted == 1 || $offers->accepted == 3){
-            $offers->product->delete();
-            $offers->sendproduct->delete();
+        // $offers = Offer::findOrFail($id);
+        // $sendoffers = Offer::findOrFail($id);
+        // if ($offers->product->images || !$offers->product->images) {
+        //     $images = explode(",", $offers->product->images);
+        //     foreach($images as $image){
+        //         Storage::delete('public/Product_images'.'/'.$image);
+        //     }
+        // }
+        //     if($sendoffers->sendproduct->images || !$sendoffers->sendproduct->images){
+        //         $images = explode(",", $sendoffers->sendproduct->images);
+        //         foreach($images as $image){
+        //             Storage::delete('public/Product_images'.'/'.$image);
+        //     }
+        // }
+        // if($offers->accepted == 1 || $offers->accepted == 3){
+        //     $offers->product->delete();
+        //     $offers->sendproduct->delete();
+        // }
+        
+        // $offers->delete();
+        // toast('Zahtev je obrisan!', 'warning');
+        // return back();
+
+        // $offer = Offer::findOrFail($id);
+        // $product = $offer->product;
+        // $sendProduct = $offer->sendproduct;
+
+        // if ($product) {
+        //     // Provjerite postoji li proizvod povezan s ponudom
+        //     $productImages = $product->images;
+
+        //     if ($productImages) {
+        //         // Provjerite postoje li slike za proizvod
+        //         $imagePaths = explode(",", $productImages);
+        //         foreach ($imagePaths as $image) {
+        //             Storage::delete('public/Product_images' . '/' . $image);
+        //         }
+        //     }
+            
+        //     if ($offer->accepted == 1 || $offer->accepted == 3) {
+        //         $product->delete();
+        //     }
+        // }
+
+        // if ($sendProduct) {
+        //     // Slično kao za prvi proizvod
+        //     $sendProductImages = $sendProduct->images;
+
+        //     if ($sendProductImages) {
+        //         $sendImagePaths = explode(",", $sendProductImages);
+        //         foreach ($sendImagePaths as $image) {
+        //             Storage::delete('public/Product_images' . '/' . $image);
+        //         }
+        //     }
+
+        //     if ($offer->accepted == 1 || $offer->accepted == 3) {
+        //         $sendProduct->delete();
+        //     }
+        // }
+
+        // $offer->delete();
+        // toast('Zahtev je obrisan!', 'warning');
+        // return back();
+        // 
+
+        $offer = Offer::findOrFail($id);
+
+        if ($offer->accepted == 1 || $offer->accepted == 3) {
+            $product = $offer->product;
+            $sendProduct = $offer->sendproduct;
+    
+            if ($product) {
+                $productImages = $product->images;
+    
+                if ($productImages) {
+                    $imagePaths = explode(",", $productImages);
+                    foreach ($imagePaths as $image) {
+                        Storage::delete('public/Product_images' . '/' . $image);
+                    }
+                }
+                
+                $product->delete(); // Obrišite proizvod
+            }
+    
+            if ($sendProduct) {
+                $sendProductImages = $sendProduct->images;
+    
+                if ($sendProductImages) {
+                    $sendImagePaths = explode(",", $sendProductImages);
+                    foreach ($sendImagePaths as $image) {
+                        Storage::delete('public/Product_images' . '/' . $image);
+                    }
+                }
+                
+                $sendProduct->delete(); // Obrišite sendproduct
+            }
         }
-        $offers->delete();
+    
+        $offer->delete();
         toast('Zahtev je obrisan!', 'warning');
         return back();
     }

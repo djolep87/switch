@@ -104,26 +104,26 @@
                                                 @csrf
                                                 <div class="col-sm-6">
                                                     <label for="inputFirstName" class="form-label">Ime</label>
-                                                    <input type="text" name="firstName" class="form-control" id="inputFirstName" placeholder="Ime">
+                                                    <input type="text" name="firstName" class="form-control" id="inputFirstName" required placeholder="Ime">
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="inputLastName" class="form-label">Prezime</label>
-                                                    <input type="text" name="lastName" class="form-control" id="inputLastName" placeholder="Prezime">
+                                                    <input type="text" name="lastName" class="form-control" id="inputLastName" required placeholder="Prezime">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputEmailAddress" class="form-label">Email Adresa</label>
-                                                    <input type="email" name="email" class="form-control" id="Email Adresa" placeholder="example@user.com">
+                                                    <input type="email" name="email" class="form-control" id="Email Adresa" required placeholder="example@user.com">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Lozinka</label>
                                                     <div class="input-group" id="show_hide_password">
-                                                        <input type="password" name="password" class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                        <input type="password" name="password" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Potvrdi lozinku</label>
                                                     <div class="input-group" id="show_hide_password">
-                                                        <input type="password" name="password_confirmation" class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                        <input type="password" name="password_confirmation" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -137,22 +137,22 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="city" class="form-label">Grad</label>
-                                                    <input type="text" name="city" class="form-control" id="city" placeholder="Grad">
+                                                    <input type="text" name="city" class="form-control" id="city" required placeholder="Grad">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="address" class="form-label">Adresa</label>
-                                                    <input type="text" name="address" class="form-control" id="address" placeholder="Adresa">
+                                                    <input type="text" name="address" class="form-control" required id="address" placeholder="Adresa">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="phone" class="form-label">Telefon</label>
-                                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Telefon">
+                                                    <input type="text" name="phone" class="form-control" id="phone" required placeholder="Telefon">
                                                 </div>
-                                                {{-- <div class="col-12">
+                                                <div class="col-12">
                                                     <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                                                        <label class="form-check-label" for="flexSwitchCheckChecked">I read and agree to Terms & Conditions</label>
+                                                        <input class="form-check-input" name="accepted" type="checkbox" id="flexSwitchCheckChecked" required value="1">
+                                                        <label class="form-check-label" for="flexSwitchCheckChecked"><a href="/uslovi">Slažem se sa uslovima korišćenja</a></label>
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                                 <div class="col-12">
                                                     <div class="d-grid">
                                                         <button type="submit" class="btn btn-dark"><i class='bx bx-user'></i>{{ __('Registruj se') }}</button>
@@ -174,3 +174,5 @@
 </div>
 
 @endsection
+
+

@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'accepted' => 'required',
         ]);
     }
 
@@ -77,7 +78,8 @@ class RegisterController extends Controller
             'country' => $data['country'],
             'city' => $data['city'],
             'address' => $data['address'],
-            'phone' => $data['phone']
+            'phone' => $data['phone'],
+            'accepted' => 1,
         ]);
     }
 }

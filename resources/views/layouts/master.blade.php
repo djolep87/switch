@@ -41,7 +41,7 @@
 								</div>
 								<div class="logo d-none d-lg-flex">
 									<a href="/">
-										<img src="/assets/images/trangefrange.jpg" class="logo-icon" alt="" />
+										<img src="/assets/images/trangefrange.png" class="logo-icon" alt="" />
 									</a>
 								</div>
 							</div>
@@ -100,13 +100,13 @@
 						<ul class="navbar-nav">
 							<li class="nav-item active"> <a class="nav-link" href="/">Početna</a></li>
 							
-							<li class="nav-item"> <a class="nav-link" href="about-us.html">O nama </a> 
+							<li class="nav-item"> <a class="nav-link" href="/about">O nama </a> 
 							</li>
 							
 							<li class="nav-item"> <a class="nav-link" href="blog.html">Blog </a> 
 							</li>
 
-							<li class="nav-item"> <a class="nav-link" href="contact-us.html">Kontakt </a> 
+							<li class="nav-item"> <a class="nav-link" href="/contact">Kontakt </a> 
 							</li>
 							
 							<li class="nav-item dropdown">	<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">Moj Nalog  <i class='bx bx-chevron-down'></i></a>
@@ -220,6 +220,17 @@
 						}
 					});
 				});
+			</script>
+			<script>
+				const checkbox = document.getElementById("flexSwitchCheckChecked");
+			
+			checkbox.addEventListener("click", function() {
+			  if (checkbox.checked) {
+				checkbox.value = "1"; // Checked state
+			  } else {
+				checkbox.value = "0"; // Unchecked state
+			  }
+			});
 			</script>
 
 <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  

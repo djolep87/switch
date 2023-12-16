@@ -99,7 +99,7 @@
                                                                                             <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
                                                                                         </td>
                                                                                         <td>
-                                                                                            {{$offer->acceptorNumber ?? 'no client'}}
+                                                                                            {{$offer->user->phone ?? 'no client'}}
                                                                                         </td>
                                                                                         <td>
                                                                                             <form action="{{url('offers.confirmation', $offer->id)}}" method="POST">
@@ -150,7 +150,7 @@
                                                                                             <td>
                                                                                                 <p>Uspešna zamena!</p>
                                                                                             </td>
-                                                                                            <td></td>
+                                                                                            <td>{{$offer->user->phone ?? 'no client'}}</td>
                                                                                             
                                                                                             <td><img src="/assets/images/success.png" class="asign-right" alt="" srcset=""></td>
                                                                                             <td>
@@ -159,8 +159,9 @@
                                                                                                     {{method_field('delete')}}  
                                                                                                     <button style="border:none; transparent:none;"  type="submit">
                                                                                                         <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>                                                                                                                                                 
-                                                                                                </form>
+                                                                                                    </button>                                                                                                                                               
+                                                                                                </form>                                                                                                
+                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Oceni korisnika</button>
                                                                                             </td>
                                                                                         @endif
                                                                                     @elseif($offer->accepted == 4)
@@ -179,12 +180,14 @@
                                                                                                         <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                                                     </button>                                                                                                                                                 
                                                                                                 </form>
+                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Oceni korisnika</button>
                                                                                             </td>
                                                                                         @endif
                                                                                     @elseif($offer->accepted == 2)
                                                                                         <td>
                                                                                             <p>Zahtev odbijen!</p>
                                                                                         </td>
+                                                                                        <td></td>
                                                                                         <td></td>
                                                                                         <td>
                                                                                             <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
@@ -193,7 +196,7 @@
                                                                                                 <button style="border:none; transparent:none;"  type="submit">
                                                                                                     <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                                                 </button>                                                                                                                                                 
-                                                                                            </form>
+                                                                                            </form>                                                                                            
                                                                                         </td>
                                                                                     @else
                                                                                         <td>
@@ -218,6 +221,8 @@
                                                                                     @endif
                                                                                     @if (!$offer->product)
                                                                                     <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
                                                                                         <td>
                                                                                             <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
                                                                                                 {{ csrf_field() }}
@@ -228,7 +233,42 @@
                                                                                             </form>
                                                                                         </td>
                                                                                     @endif
-                                                                                </tr>                                                                                
+                                                                                </tr>   
+                                                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog">
+                                                                                      <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+                                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                          <form action="{{route('comments.store', $offer->id)}}" method="POST" enctype="multipart/form-data">
+                                                                                            @csrf
+                                                                                            <div class="mb-3">
+                                                                                              <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                                                                                              <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                                            </div>
+                                                                                            <div class="mb-3">   
+                                                                                                
+                                                                                                    <input type="hidden" name="product_user_id" value="{{ $offer->sendproduct->user_id }}">                        
+                                                                                                                                                 
+                                                                                            </div>
+                                                                                           
+                                                                                            </div>
+                                                                                            <div class="mb-3">
+                                                                                              <label for="message-text" class="col-form-label">Tekst komentara</label>
+                                                                                              <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                              <button type="submit" class="btn btn-primary">Postavi</button>
+                                                                                            </div>
+                                                                                          </form>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>                                                                             
                                                                             @endforeach                                                                            
                                                                         </tbody>
                                                                     </table>
@@ -237,6 +277,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="tab-pane fade" id="zahtevi" role="tabpanel">
                                                     <div class="col-lg-12">
                                                         <div class="card shadow-none mb-0">
@@ -320,8 +361,8 @@
                                                                                             <td>
                                                                                                 <p>Uspešna zamena!</p>
                                                                                             </td>
-                                                                                            <td></td>
-                                                                                            <td></td>
+                                                                                            <td>{{$sendoffer->acceptorName}}</td>
+                                                                                            <td>{{$sendoffer->acceptorNumber}}</td>
                                                                                             <td>
                                                                                                 <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
                                                                                             </td>
@@ -331,8 +372,9 @@
                                                                                                     {{method_field('delete')}}  
                                                                                                     <button style="border:none; transparent:none;"  type="submit">
                                                                                                         <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>                                                                                                                                                 
+                                                                                                    </button>  
                                                                                                 </form>
+                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Oceni korisnika</button>                                                                                                                                               
                                                                                             </td>
                                                                                         @endif
                                                                                     @elseif($sendoffer->accepted == 4)
@@ -349,8 +391,9 @@
                                                                                                     {{method_field('delete')}}  
                                                                                                     <button style="border:none; transparent:none;"  type="submit">
                                                                                                         <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>                                                                                                                                                 
+                                                                                                    </button>
                                                                                                 </form>
+                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Oceni korisnika</button>                                                                                                                                                 
                                                                                             </td>
                                                                                         @endif
                                                                                     @elseif($sendoffer->accepted == 2)
@@ -374,6 +417,8 @@
                                                                                     @if (!$sendoffer->product)
                                                                                     <td></td>
                                                                                     <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
                                                                                         <td>
                                                                                             <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                                                 {{ csrf_field() }}
@@ -386,7 +431,41 @@
                                                                                     @endif
                                                                                         
                                                                                 </tr>
-                                                                            @endforeach                                                                            
+                                                                                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog">
+                                                                                      <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+                                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                          <form action="{{route('comments.store', $sendoffer->id)}}" method="POST" enctype="multipart/form-data">
+                                                                                            @csrf
+                                                                                            <div class="mb-3">
+                                                                                              <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                                                                                              <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                                            </div>
+                                                                                            <div class="mb-3">   
+                                                                                                
+                                                                                                    <input type="hidden" name="product_user_id" value="{{ $sendoffer->product->user_id }}">                        
+                                                                                                
+                                                                                            </div>
+                                                                                            <div class="mb-3">
+                                                                                              <label for="message-text" class="col-form-label">Tekst komentara</label>
+                                                                                              <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                              <button type="submit" class="btn btn-primary">Postavi</button>
+                                                                                            </div>
+                                                                                          </form>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                                @endforeach                                                                            
+                                                                                
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -394,8 +473,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -410,5 +487,73 @@
     </div>
     @include('sweetalert::alert')
   
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{route('comments.store', $offer->id)}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                  <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                </div>
+                <div class="mb-3">   
+                    @if ($offer->sendproduct->user_id )
+                        <input type="hidden" name="product_user_id" value="{{ $offer->sendproduct->user_id }}">                        
+                    @endif                                                   
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Tekst komentara</label>
+                  <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Postavi</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> --}}
+
+
+    {{-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{route('comments.store', $sendoffer->id)}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                  <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                </div>
+                <div class="mb-3">   
+                    @if ($sendoffer->product->user_id)
+                        <input type="hidden" name="product_user_id" value="{{ $sendoffer->product->user_id }}">                        
+                    @endif
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Tekst komentara</label>
+                  <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Postavi</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> --}}
 @endsection
 

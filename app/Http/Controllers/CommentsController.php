@@ -38,13 +38,12 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        
+        // $comments = User::find($id);
         $comments = new Comment;
         $comments->user_id = auth()->user()->id;
         $comments->product_user_id = $request->input('product_user_id');
         $comments->body = $request->input('body');
+        dd($comments);
         $comments->save();
 
         CommentUser::create([
