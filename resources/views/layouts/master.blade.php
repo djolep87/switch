@@ -11,6 +11,8 @@
 	<link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/nouislider/nouislider.min.css')}}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+	
 	<!-- loader-->
 	<link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
 	<script src="{{asset('assets/js/pace.min.js')}}"></script>
@@ -79,6 +81,27 @@
 													<span class="alert-count"></span>
 													<i class='bx bx-heart'></i>
 												</a>--}}					
+											</li>
+											<li class="nav-item dropdown">	
+											<a class="nav-link cart-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+												<span class="alert-count">{{auth()->user()->notifications->count()}}</span>
+												<i class='bx bx-bell'></i>
+											</a>
+												{{-- <a href="" class="nav-link cart-link"><i class="bx bx-bell"></i></a> --}}
+												<ul class="dropdown-menu">
+													@foreach (auth()->user()->unreadNotifications as $notification)
+														<li style="background-color:lightgray;">
+															<a href="/offers" class="dropdown-item">{{$notification->data['data']}}</a>
+														</li>														
+													@endforeach
+
+													@foreach (auth()->user()->readNotifications as $notification)
+														<li>
+															<a href="/offers" class="dropdown-item">{{$notification->data['data']}}</a>
+														</li>														
+													@endforeach
+												</ul>
+												
 											</li>
 											
 										</ul>

@@ -8,6 +8,9 @@ use App\Models\Offer;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Notifications\AcceptNotifications;
+use App\Notifications\Notifications;
+use App\Notifications\RejectedNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -82,9 +85,10 @@ class OffersController extends Controller
         $offers->acceptorName = $request->input('acceptorName');
         $offers->acceptorNumber = $request->input('acceptorNumber');
         $offers->accepted = 0;
-
         $offers->save();
         toast('Vaš zahtev je uspešno poslat!', 'success');
+        $user = User::find($offers->acceptor);
+        User::find($offers->acceptor)->notify(new Notifications);
         return back();
     }
 
@@ -125,6 +129,8 @@ class OffersController extends Controller
         $offers->accepted =  $request->input('accepted');
         $offers->save();
         toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!', 'success');
+        $user = User::find($offers->user_id);
+        User::find($offers->user_id)->notify(new AcceptNotifications);
         return redirect('/offers');
     }
 
@@ -134,6 +140,8 @@ class OffersController extends Controller
         $offers->accepted =  $request->input('accepted');
         $offers->save();
         toast('Zahtev je odbijen!', 'error');
+        $user = User::find($offers->user_id);
+        User::find($offers->user_id)->notify(new RejectedNotifications);
         return redirect('/offers');
     }
 

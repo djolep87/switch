@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductUser;
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Notifications\Notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,9 @@ class HomeController extends Controller
      */
     public function index(Request $request, Product $product)
     {
+
+        // $user = User::find(2);
+        // User::find(2)->notify(new Notifications);
 
         // $products = Product::with('categories')->whereHas('categories', function ($query) {
             //     $query->where('name', request()->category);

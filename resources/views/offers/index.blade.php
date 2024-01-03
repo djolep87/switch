@@ -402,6 +402,7 @@
                                                                                         </td>
                                                                                         <td></td>
                                                                                         <td></td>
+                                                                                        <td></td>
                                                                                         <td>
                                                                                             <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                                                 {{ csrf_field() }}
