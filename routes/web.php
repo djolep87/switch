@@ -37,6 +37,9 @@ Route::post('/offers.confirmation/{offer}', 'OffersController@confirmation')->na
 Route::post('/offers.canceled/{offer}', 'OffersController@canceled')->name('offers.canceled');
 Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.destroy');
 
+Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');
+Route::get('markAsRead/{notificationId}', 'OffersController@markAsRead')->name('markAsRead');
+
 Route::get('search', 'HomeController@search');
 
 Route::post('like', 'LikeController@like')->name('like');
@@ -49,7 +52,7 @@ Route::post('/products.store', 'ProductsController@store');
 Route::get('/products.edit/{id}', 'ProductsController@edit');
 Route::put('/products.store/{product}', 'ProductsController@update');
 
-Route::post('comments.store', 'CommentsController@store')->name('comments.store');
+Route::post('/comments.store/{id}', 'CommentsController@store')->name('comments.store');
 
 Route::get('add/to-wishlist/{product_id}', 'WishlistController@addToWishlist');
 Route::get('/wishlist', 'WishlistController@index');

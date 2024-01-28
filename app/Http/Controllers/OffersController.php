@@ -12,6 +12,7 @@ use App\Notifications\AcceptNotifications;
 use App\Notifications\Notifications;
 use App\Notifications\RejectedNotifications;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 
 class OffersController extends Controller
-{
+{   
 
     public function __construct()
     {
@@ -162,6 +163,21 @@ class OffersController extends Controller
         toast('Zamena neuspešna!', 'error');
         return redirect('/offers');
     }
+
+    public function markAllAsRead()
+    {
+       
+        auth()->user()->unreadNotifications->markAsRead();
+       
+        return redirect()->back();
+    }
+
+    public function markAsRead($notificationId)
+{
+    $notification = auth()->user()->notifications()->findOrFail($notificationId);
+    $notification->markAsRead();
+    return redirect('/offers');
+}
 
     /**
      * Remove the specified resource from storage.

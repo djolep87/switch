@@ -220,9 +220,9 @@
                                                                                             {{-- <button btn btn-dark btn-sm rounded-0 ></button> --}}
                                                                                     @endif
                                                                                     @if (!$offer->product)
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                        <td></td>
                                                                                         <td>
                                                                                             <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
                                                                                                 {{ csrf_field() }}
@@ -233,7 +233,8 @@
                                                                                             </form>
                                                                                         </td>
                                                                                     @endif
-                                                                                </tr>   
+                                                                                </tr>                                                                                                                      
+                                                                               
                                                                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                                     <div class="modal-dialog">
                                                                                       <div class="modal-content">
@@ -243,32 +244,32 @@
                                                                                         </div>
                                                                                         <div class="modal-body">
                                                                                           <form action="{{route('comments.store', $offer->id)}}" method="POST" enctype="multipart/form-data">
-                                                                                            @csrf
-                                                                                            <div class="mb-3">
-                                                                                              <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
-                                                                                              <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
-                                                                                            </div>
-                                                                                            <div class="mb-3">   
-                                                                                                
-                                                                                                    <input type="hidden" name="product_user_id" value="{{ $offer->sendproduct->user_id }}">                        
-                                                                                                                                                 
-                                                                                            </div>
-                                                                                           
-                                                                                            </div>
-                                                                                            <div class="mb-3">
-                                                                                              <label for="message-text" class="col-form-label">Tekst komentara</label>
-                                                                                              <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
-                                                                                            </div>
-                                                                                            <div class="modal-footer">
-                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                              <button type="submit" class="btn btn-primary">Postavi</button>
-                                                                                            </div>
+                                                                                                @csrf
+                                                                                                <div class="mb-3">
+                                                                                                <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                                                                                                <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                                                </div>
+                                                                                                <div class="mb-3">   
+                                                                                                    
+                                                                                                        <input type="hidden" name="product_user_id" value="{{ $offer->sendproduct->user_id }}">                        
+                                                                                                                                                    
+                                                                                                </div>
+                                                                                            
+                                                                                                </div>
+                                                                                                <div class="mb-3">
+                                                                                                <label for="message-text" class="col-form-label">Tekst komentara</label>
+                                                                                                <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                                <button type="submit" class="btn btn-primary">Postavi</button>
+                                                                                                </div>
                                                                                           </form>
                                                                                         </div>
                                                                                       </div>
                                                                                     </div>
                                                                                   </div>
-                                                                                </div>                                                                             
+                                                                                </div>    
                                                                             @endforeach                                                                            
                                                                         </tbody>
                                                                     </table>

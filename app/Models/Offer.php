@@ -34,4 +34,9 @@ class Offer extends Model
         return $this->belongsTo(Product::class, 'sendproduct_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

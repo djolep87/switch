@@ -82,16 +82,19 @@
 													<i class='bx bx-heart'></i>
 												</a>--}}					
 											</li>
-											<li class="nav-item dropdown">	
+											{{-- <li class="nav-item dropdown">	
 											<a class="nav-link cart-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-												<span class="alert-count">{{auth()->user()->notifications->count()}}</span>
+												@if (auth()->user()->unreadNotifications->count())
+													<span class="alert-count">{{auth()->user()->unreadNotifications->count()}}</span>
+												@endif
 												<i class='bx bx-bell'></i>
 											</a>
-												{{-- <a href="" class="nav-link cart-link"><i class="bx bx-bell"></i></a> --}}
+												<a href="" class="nav-link cart-link"><i class="bx bx-bell"></i></a>
 												<ul class="dropdown-menu">
+													<li><a class="dropdown-item" style="color: blue" href="{{route('markAsRead')}}">Mark all as read </a></li>
 													@foreach (auth()->user()->unreadNotifications as $notification)
 														<li style="background-color:lightgray;">
-															<a href="/offers" class="dropdown-item">{{$notification->data['data']}}</a>
+															<a href="{{route('markAsRead')}}" class="dropdown-item">{{$notification->data['data']}}</a>
 														</li>														
 													@endforeach
 
@@ -102,6 +105,29 @@
 													@endforeach
 												</ul>
 												
+											</li> --}}
+
+											<li class="nav-item dropdown">	
+												<a class="nav-link cart-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+													@if (auth()->user()->unreadNotifications->count())
+														<span class="alert-count">{{ auth()->user()->unreadNotifications->count() }}</span>
+													@endif
+													<i class='bx bx-bell'></i>
+												</a>
+												<ul class="dropdown-menu">
+													{{-- <li><a class="dropdown-item" style="color: blue" href="{{ route('markAllAsRead') }}">Mark all as read </a></li> --}}
+													@foreach (auth()->user()->unreadNotifications as $notification)
+														<li style="background-color:lightgray;">
+															<a href="{{ route('markAsRead', ['notificationId' => $notification->id]) }}" class="dropdown-item"><i class="bx bx-bell"></i>    {{ $notification->data['data'] }}</a>
+														</li>														
+													@endforeach
+											
+													@foreach (auth()->user()->readNotifications as $notification)
+														<li>
+															<a href="/offers" class="dropdown-item"><i class="bx bx-bell"></i>    {{ $notification->data['data'] }}</a>
+														</li>														
+													@endforeach
+												</ul>
 											</li>
 											
 										</ul>

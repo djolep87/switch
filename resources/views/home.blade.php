@@ -33,7 +33,7 @@
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
-                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} <span class="float-end badge bg-primary rounded-pill">{{$category->products->count()}}</span></a></li>
+                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span></a></li>
 
                                                 @endforeach
                                             </ul>

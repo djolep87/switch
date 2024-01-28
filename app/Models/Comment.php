@@ -31,4 +31,9 @@ class Comment extends Model
     {
         return $this->belongsTo(ProductUser::class, 'user_id');
     }
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
+    }
 }

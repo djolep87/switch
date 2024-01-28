@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\CommentUser;
+use App\Models\Offer;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        // $comments = User::find($id);
+        $comments = Offer::find($id);
         $comments = new Comment;
         $comments->user_id = auth()->user()->id;
         $comments->product_user_id = $request->input('product_user_id');
