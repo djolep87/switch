@@ -35,6 +35,15 @@ File: app.css
 
 /* General */
 
+.arrow-image-swap {
+	position: absolute;
+	width: auto;
+	z-index: 888;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
 body {
 	font-size: 14px;
 	letter-spacing: .5px;
@@ -232,7 +241,6 @@ body.offcanvas-active {
 	}
 }
 /* Product Effect */
-
 
 .product-grid .card.product-card {
 	background-color: #ffffff;

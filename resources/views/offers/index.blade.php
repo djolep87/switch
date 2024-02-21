@@ -48,432 +48,560 @@
                                             </ul>
                                             <div class="tab-content pt-3">
                                                 <div class="tab-pane fade show active" id="ponude" role="tabpanel">
-                                                    <div class="col-lg-12">
-                                                        <div class="card shadow-none mb-0">
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                    <table class="table">
-                                                                        <thead class="table-light">
-                                                                            <tr>
-                                                                                <th>Ponuda br.</th>
-                                                                                <th>Podnosilac</th>
-                                                                                <th>Naziv proizvoda</th>                                                                                
-                                                                                <th>Moj proizvod</th>
-                                                                                <th>Status zahteva</th>
-                                                                                <th>Telefon korisnika</th>
-                                                                                <th>Uspešna zamena</th>
-                                                                                <th>Akcija</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>                                                                            
-                                                                            @foreach ($offers as $offer)
-                                                                            @php
-                                                                                // $sendPproductImages = $offer->sendproduct->images ? explode(",", $offer->sendproduct->images) : [];
-                                                                                if ($offer->sendproduct !== null && null !== $offer->sendproduct->images) {
-                                                                                        $sendPproductImages = explode(",", $offer->sendproduct->images);
-                                                                                    }
-                                                                            @endphp 
-                                                                            
-                                                                            @php
-                                                                                // $images = $offer->product->images ? explode(",", $offer->product->images) : [];
-                                                                                if ($offer->product !== null && null !== $offer->product->images) {
-                                                                                        $images = explode(",", $offer->product->images);
-                                                                                    }
-                                                                            @endphp 
-                                                                                <tr>
-                                                                                    <td>{{$offer->id}}</td>  
-                                                                                    <td>{{$offer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                    @if ($offer->sendproduct)
-                                                                                        <td><a href="{{route('products.show', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendPproductImages[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$offer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
-                                                                                    @else
-                                                                                    <td><p>Oglas više ne postoji!</p></td> 
-                                                                                    @endif
-                                                                                    {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                    @if ($offer->product)
-                                                                                        <td><a href="{{route('products.show', $offer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br>{{$offer->product->name}}</td></a>  <!-- artikal za zamenu -->
-                                                                                    @else
-                                                                                        <td><p>Oglas više ne postoji!</p></td>
-                                                                                    @endif
-                                                                                    @if($offer->accepted == 1)
-                                                                                        <td>
-                                                                                            <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            {{$offer->user->phone ?? 'no client'}}
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <form action="{{url('offers.confirmation', $offer->id)}}" method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('post')}}
-                                                                                                <input type="hidden" name="accepted" value="3">
-                                                                                                <button class="btn btn-success btn-sm" type="submit">DA</button>
-                                                                                            </form>
-                                                                                            <form action="{{url('offers.canceled', $offer->id)}}" method="post">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('post')}}
-                                                                                                <input type="hidden" name="accepted" value="4">
-                                                                                                <button class="btn btn-danger btn-sm" type="submit">NE</button>
-                                                                                            </form>
-                                                                                            {{-- <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form> --}}
-                                                                                        </td>
-                                                                                    @elseif ($offer->accepted == 0)     
-                                                                                        <td>
-                                                                                            @if ($offer->product)
-                                                                                                <div class="d-flex gap-2">
-                                                                                                    <form action="{{url('offers.update', $offer->id)}}" method="POST">
-                                                                                                        {{ csrf_field() }}
-                                                                                                        {{method_field('post')}}
-                                                                                                        <input type="hidden" name="accepted" value="1">
-                                                                                                        <button class="btn btn-success btn-sm rounded-0 m-2" type="submit">Prihvati</button>
-                                                                                                    </form>
-                                                                                                    {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0" >Prihvati</a> --}}
-                                                                                                </div>
-                                                                                                <div class="d-flex gap-2">	
-                                                                                                    <form action="{{url('offers.rejected', $offer->id)}}" method="POST">
-                                                                                                        {{ csrf_field() }}
-                                                                                                        {{method_field('post')}}
-                                                                                                        <input type="hidden" name="accepted" value="2">
-                                                                                                        <button class="btn btn-danger btn-sm rounded-0 m-2" type="submit">Odbij zahtev</button>
-                                                                                                    </form>
-                                                                                                    {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a> --}}
-                                                                                                </div>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                    @elseif($offer->accepted == 3)
-                                                                                        @if ($offer->product)
-                                                                                            <td>
-                                                                                                <p>Uspešna zamena!</p>
-                                                                                            </td>
-                                                                                            <td>{{$offer->user->phone ?? 'no client'}}</td>
-                                                                                            
-                                                                                            <td><img src="/assets/images/success.png" class="asign-right" alt="" srcset=""></td>
-                                                                                            <td>
-                                                                                                <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
-                                                                                                    {{ csrf_field() }}
-                                                                                                    {{method_field('delete')}}  
-                                                                                                    <button style="border:none; transparent:none;"  type="submit">
-                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>                                                                                                                                               
-                                                                                                </form>                                                                                                
-                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Oceni korisnika</button>
-                                                                                            </td>
+                                                    
+                                                    @foreach ($offers as $offer)
+                                                        @php
+                                                        // $sendPproductImages = $offer->sendproduct->images ? explode(",", $offer->sendproduct->images) : [];
+                                                        if ($offer->sendproduct !== null && null !== $offer->sendproduct->images) {
+                                                                $sendPproductImages = explode(",", $offer->sendproduct->images);
+                                                            }
+                                                        @endphp 
+                                                        
+                                                        @php
+                                                            // $images = $offer->product->images ? explode(",", $offer->product->images) : [];
+                                                            if ($offer->product !== null && null !== $offer->product->images) {
+                                                                    $images = explode(",", $offer->product->images);
+                                                                }
+                                                        @endphp 
+                                                        <div class="product-grid border-1">
+                                                              
+                                                            <div class="row row-cols-2 position-relative">
+                                                                <div class="col">
+                                                                    <div class="d-grid gap-2">
+                                                                        {{$offer->user->firstName}}
+                                                                    </div>
+                                                                    <div class="card rounded-0 product-card">
+                                                                        <div class="card-header bg-transparent border-bottom-0">
+                                                                            <div class="d-flex align-items-center justify-content-end gap-3">                                                                   
+                                                                                <a href="javascript:;">
+                                                                                    {{-- <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                                                                    </div> --}}
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if ($offer->sendproduct)
+                                                                            <a href="{{route('products.show', $offer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendPproductImages[0] }}" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt=""></a> <!-- dobijeni artikal za zamenu -->
+                                                                        @else
+                                                                            <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt="">
+                                                                        @endif
+                                                                        <div class="card-body">
+                                                                            <div class="product-info">
+                                                                                <a href="javascript:;">
+                                                                                    {{-- <p class="product-catergory font-13 mb-1">Catergory Name</p> --}}
+                                                                                </a>
+                                                                                @if($offer->sendproduct)
+                                                                                    <a href="javascript:;">
+                                                                                        <h6 class="product-name mb-2">{{$offer->sendproduct->name}}</h6>
+                                                                                    </a>
+                                                                                @else
+                                                                                    <p>Oglas više ne postoji!</p>
+                                                                                @endif
+                                                                                
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <div class="mb-1 product-price">	
+                                                                                        {{-- <span class="me-1 text-decoration-line-through">$99.00</span>
+                                                                                        <span class="fs-5">$49.00</span> --}}
+                                                                                        @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                            Broj Telefona: {{$offer->sendproduct->user->phone ?? 'no client'}}
                                                                                         @endif
-                                                                                    @elseif($offer->accepted == 4)
-                                                                                        @if ($offer->product)
-                                                                                            <td>
-                                                                                                <p>Neuspešna zamena!</p>
-                                                                                            </td>
-                                                                                            <td></td>
-                                                                                            
-                                                                                            <td><img src="/assets/images/cansel.png" class="asign-right" alt="" srcset=""></td>
-                                                                                            <td>
-                                                                                                <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
-                                                                                                    {{ csrf_field() }}
-                                                                                                    {{method_field('delete')}}  
-                                                                                                    <button style="border:none; transparent:none;"  type="submit">
-                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>                                                                                                                                                 
-                                                                                                </form>
-                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Oceni korisnika</button>
-                                                                                            </td>
-                                                                                        @endif
-                                                                                    @elseif($offer->accepted == 2)
-                                                                                        <td>
-                                                                                            <p>Zahtev odbijen!</p>
-                                                                                        </td>
-                                                                                        <td></td>
-                                                                                        <td></td>
-                                                                                        <td>
-                                                                                            <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form>                                                                                            
-                                                                                        </td>
-                                                                                    @else
-                                                                                        <td>
-                                                                                            <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
-                                                                                        </td>
-                                                                                        
-                                                                                        <td>
-                                                                                            {{-- {{$offer->user->phone ?? 'no client'}} --}}
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form>
-                                                                                        </td>
-                                                                                            {{-- <p>Uspešno prihvaćen zahtev! </p> --}}
-                                                                                            {{-- <p>Kontaktirajte korisnika radi uspešne zamene.</p> --}}
-                                                                                            {{-- <button btn btn-dark btn-sm rounded-0 ></button> --}}
-                                                                                    @endif
-                                                                                    @if (!$offer->product)
-                                                                                        <td></td>
-                                                                                        <td></td>
-                                                                                        <td></td>
-                                                                                        <td>
-                                                                                            <form action="{{route('offers.destroy', $offer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form>
-                                                                                        </td>
-                                                                                    @endif
-                                                                                </tr>                                                                                                                      
-                                                                               
-                                                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                    <div class="modal-dialog">
-                                                                                      <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
-                                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                          <form action="{{route('comments.store', $offer->id)}}" method="POST" enctype="multipart/form-data">
-                                                                                                @csrf
-                                                                                                <div class="mb-3">
-                                                                                                <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
-                                                                                                <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
-                                                                                                </div>
-                                                                                                <div class="mb-3">   
-                                                                                                    
-                                                                                                        <input type="hidden" name="product_user_id" value="{{ $offer->sendproduct->user_id }}">                        
-                                                                                                                                                    
-                                                                                                </div>
-                                                                                            
-                                                                                                </div>
-                                                                                                <div class="mb-3">
-                                                                                                <label for="message-text" class="col-form-label">Tekst komentara</label>
-                                                                                                <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
-                                                                                                </div>
-                                                                                                <div class="modal-footer">
-                                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                                <button type="submit" class="btn btn-primary">Postavi</button>
-                                                                                                </div>
-                                                                                          </form>
-                                                                                        </div>
-                                                                                      </div>
                                                                                     </div>
-                                                                                  </div>
-                                                                                </div>    
-                                                                            @endforeach                                                                            
-                                                                        </tbody>
-                                                                    </table>
+                                                                                    <div class="cursor-pointer ms-auto">
+                                                                                        {{-- @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                            {{$offer->user->phone ?? 'no client'}}
+                                                                                        @endif --}}
+                                                                                        {{-- <i class="bx bxs-star text-warning"></i>
+                                                                                        <i class="bx bxs-star text-warning"></i>
+                                                                                        <i class="bx bxs-star text-warning"></i>
+                                                                                        <i class="bx bxs-star text-warning"></i>
+                                                                                        <i class="bx bxs-star text-warning"></i> --}}
+                                                                                    </div>
+                                                                                </div>
+                                                                               
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <img src="/assets/images/arrow-right2.png" class="arrow-image-swap">
+                                                                <div class="col">
+                                                                    <div class="d-grid gap-2">
+                                                                        Moj proizvod
+                                                                    </div>
+                                                                    <div class="card rounded-0 product-card">
+                                                                        <div class="card-header bg-transparent border-bottom-0">
+                                                                            <div class="d-flex align-items-center justify-content-end gap-3">
+                                                                                <a href="javascript:;">
+                                                                                    {{-- <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                                                                    </div> --}}
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if ($offer->product)
+                                                                            <a href="{{route('products.show', $offer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt=""></a>  <!-- artikal za zamenu -->
+                                                                        @else
+                                                                            <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt="">
+                                                                        @endif
+                                                                        <div class="card-body">
+                                                                            <div class="product-info">
+                                                                                <a href="javascript:;">
+                                                                                    {{-- <p class="product-catergory font-13 mb-1">{{$offer->product->category}}</p> --}}
+                                                                                </a>
+                                                                                @if ($offer->product)
+                                                                                    <a href="javascript:;">
+                                                                                        <h6 class="product-name mb-2">{{$offer->product->name}}</h6>
+                                                                                    </a>                                                                                    
+                                                                                @else
+                                                                                    <p>Oglas više ne postoji!</p>
+                                                                                @endif
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <div class="mb-1 product-price"> 
+                                                                                        {{-- <span class="me-1 text-decoration-line-through">$99.00</span> --}}
+                                                                                        {{-- <span class="fs-5">$49.00</span> --}}
+                                                                                        @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                        Broj Telefona: {{$offer->product->user->phone ?? 'no client'}}
+                                                                                    @endif
+                                                                                    </div>
+                                                                                    <div class="cursor-pointer ms-auto"> 
+                                                                                        {{-- @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                            Br.Tel.{{auth()->user()->phone ?? 'no client'}}
+                                                                                        @endif --}}
+                                                                                        {{-- <i class="bx bxs-star text-warning"></i>
+                                                                                        <i class="bx bxs-star text-warning"></i>
+                                                                                        <i class="bx bxs-star text-light-4"></i>
+                                                                                        <i class="bx bxs-star text-light-4"></i> --}}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-action mt-2">
+                                                                                    <div class="d-grid gap-2">
+                                                                                        {{-- <a href="javascript:;" class="btn btn-dark btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a>
+                                                                                        <a href="javascript:;" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in"></i>Quick View</a> --}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                            <!--end row-->
+                                                            <div class="product-action mt-2">
+                                                                <div class="d-grid gap-2">
+                                                                    @if($offer->accepted == 0)
+                                                                        @if ($offer->product)
+                                                                                <div class="row">
+                                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.update', $offer->id)}}" method="POST">
+                                                                                        {{ csrf_field() }}
+                                                                                        {{method_field('post')}}
+                                                                                        <input type="hidden" name="accepted" value="1">
+                                                                                        <button class="btn btn-success btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/correct.png" alt=""></button>
+                                                                                        {{-- <a class="btn btn-success btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/correct.png" alt=""></a> --}}
+                                                                                        
+                                                                                    </form>                                                                       
+                                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.rejected', $offer->id)}}" method="POST">
+                                                                                        {{ csrf_field() }}
+                                                                                        {{method_field('post')}}
+                                                                                        <input type="hidden" name="accepted" value="2">
+                                                                                        {{-- <a class="btn btn-danger btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/incorrect.png" alt=""></a> --}}
+                                                                                        <button class="btn btn-danger btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/incorrect.png" alt=""></button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                    {{-- <a href="javascript:;" class="btn btn-dark btn-sm rounded-0">Odustani</a> --}}
+                                                                             
+                                                                                {{-- <a href="javascript:;" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in"></i>Quick View</a> --}}
+                                                                        @endif
+                                                                        
+                                                                    @endif
+        
+                                                                    @if($offer->accepted == 1)
+                                                                        Da li je uspešna zamena?
+                                                                        <div class="row">
+                                                                            <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.confirmation', $offer->id)}}" method="POST">
+                                                                                {{ csrf_field() }}
+                                                                                {{method_field('post')}}
+                                                                                <input type="hidden" name="accepted" value="3">
+                                                                                <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
+                                                                                {{-- <a class="btn btn-success btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/correct.png" alt=""></a> --}}
+                                                                            </form>
+                                                                            <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.canceled', $offer->id)}}" method="post">
+                                                                                {{ csrf_field() }}
+                                                                                {{method_field('post')}}
+                                                                                <input type="hidden" name="accepted" value="4">
+                                                                                <button class="btn btn-danger btn-sm m-0 btn-ecomm" type="submit">NE</button>
+                                                                                {{-- <a class="btn btn-danger btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/incorrect.png" alt=""></a> --}}
+                                                                            </form>
+                                                                        </div>                                                                
+                                                                    @endif
+        
+                                                                    @if ($offer->accepted == 2)
+                                                                        <div class="btn btn-danger">
+                                                                            <p>Zahtev odbijen!</p>
+                                                                        </div>
+                                                                        
+                                                                        <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                            {{ csrf_field() }}
+                                                                            {{method_field('delete')}}  
+                                                                            <button style="border:none; transparent:none;"  type="submit">
+                                                                                <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                            </button>  
+                                                                        </form>                      
+                                                                    @endif
+        
+                                                                    @if($offer->accepted == 3)
+                                                                        @if($offer->product)
+                                                                            <div class="row">
+                                                                                <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal{{$offer->id}}" data-bs-whatever="@mdo"><i class="bx bx-star"></i></button>
+                                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                    {{ csrf_field() }}
+                                                                                    {{method_field('delete')}}  
+                                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                    </button>                                                                                                                                               
+                                                                                </form>   
+                                                                            </div>
+                                                                        @endif
+                                                                    @endif
+        
+                                                                    @if ($offer->accepted == 4)
+                                                                        <div class="btn btn-danger">
+                                                                            <p>Neuspešna zamena!</p>                                                                    
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal{{$offer->id}}" data-bs-whatever="@mdo">Oceni korisnika</button>
+                                                                            <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                {{ csrf_field() }}
+                                                                                {{method_field('delete')}}  
+                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                </button>                                                                                                                                                 
+                                                                            </form>
+                                                                        </div>
+                                                                    @endif
+        
+                                                                    @if (!$offer->product)                                                                
+                                                                            <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
+                                                                                {{ csrf_field() }}
+                                                                                {{method_field('delete')}}  
+                                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                </button>                                                                                                                                                 
+                                                                            </form>
+                                                                        </td>
+                                                                    @endif
+        
+                                                                </div>
+                                                            </div>
+                                                        </div>  
+                                                        <hr> 
+                                                        <di type="button"v class="modal fade" id="exampleModal{{$offer->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="{{route('comments.store', $offer->id)}}" method="POST" enctype="multipart/form-data">
+                                                                                @csrf
+                                                                                <div class="mb-3">
+                                                                                    <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                                                                                    <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                                </div>
+                                                                                <div class="mb-3">   
+                                                                                    
+                                                                                        <input type="hidden" name="product_user_id" value="{{ $offer->sendproduct->user_id }}">                        
+                                                                                                                                    
+                                                                                </div>
+                                                                            
+                                                                            
+                                                                                <div class="mb-3">
+                                                                                    <label for="message-text" class="col-form-label">Tekst komentara</label>
+                                                                                    <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    @if (optional(Auth::user())->id)
+                                                                                        @if (Auth::user()->id == $offer->sendproduct->user_id)
+                                                                                            <div class="like">
+                                                                                                <button type="button" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Like <span id="count" class="like-count">{{ $offer->sendproduct->user->likes() }}</span></button>
+                                                                                                <button type="button" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Dislike <span id="count" class="dislike-count">{{ $offer->sendproduct->user->dislikes() }}</span></button>  
+                                                                                            </div>  
+                                                                                        @else
+                                                                                            <div class="like">
+                                                                                                <button type="button" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Like <span class="like-count">{{ $offer->sendproduct->user->likes() }}</span></button>
+                                                                                                <button type="button" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Dislike <span class="dislike-count">{{ $offer->sendproduct->user->dislikes() }}</span></button>  
+                                                                                            </div>   
+                                                                                            <br>                                   
+                                                                                            
+                                                                                        @endif                                            
+                                                                                    @endif
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">Postavi</button>
+                                                                                </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </di>                                 
+                                                    @endforeach
                                                 </div>
                                                 
                                                 <div class="tab-pane fade" id="zahtevi" role="tabpanel">
-                                                    <div class="col-lg-12">
-                                                        <div class="card shadow-none mb-0">
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                    <table class="table">
-                                                                        <thead class="table-light">
-                                                                            <tr>
-                                                                                <th>Zahtev br.</th>
-                                                                                <th>Podnosilac</th>
-                                                                                <th>Moj proizvod</th>
-                                                                                <th>Zamena za</th>
-                                                                                <th>Prihvacen zahtev</th>
-                                                                                <th>Ime korisnika</th>
-                                                                                <th>Telefon korisnika</th>
-                                                                                <th>Uspešna zamena</th>
-                                                                                <th>Akcija</th>
-                                                                                
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>                                                                           
-                                                                            @foreach ($sendoffers as $sendoffer) 
-                                                                            @php
-                                                                                // $sendOfferImages = $sendoffer->sendproduct->images ? explode(",", $sendoffer->sendproduct->images) : [];
-                                                                                if ($sendoffer->sendproduct !== null && null !== $sendoffer->sendproduct->images) {
-                                                                                        $sendOfferImages = explode(",", $sendoffer->sendproduct->images);
-                                                                                    }
-                                                                            @endphp 
-                                                                        
-                                                                            @php
-                                                                                // $images = $sendoffer->product->images ? explode(",", $sendoffer->product->images) : [];
-                                                                                if ($sendoffer->product !== null && null !== $sendoffer->product->images) {
-                                                                                        $images = explode(",", $sendoffer->product->images);
-                                                                                    }
-                                                                            @endphp                                                                                    
-                                                                                <tr>
-                                                                                    <td>{{$sendoffer->id}}</td>  
-                                                                                    <td>{{$sendoffer->user->firstName}}</td> <!-- ulogovani user -->
-                                                                                    @if ($sendoffer->sendproduct)
-                                                                                        <td><a href="{{route('products.show', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendOfferImages[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$sendoffer->sendproduct->name}}</a> </td> <!-- dobijeni artikal za zamenu -->
-                                                                                    @else
-                                                                                        <td><p>Oglas više ne postoji!</p></td>
+                                                    @foreach ($sendoffers as $sendoffer)
+                                                        @php
+                                                            // $sendOfferImages = $sendoffer->sendproduct->images ? explode(",", $sendoffer->sendproduct->images) : [];
+                                                            if ($sendoffer->sendproduct !== null && null !== $sendoffer->sendproduct->images) {
+                                                                    $sendofferImages = explode(",", $sendoffer->sendproduct->images);
+                                                                }
+                                                        @endphp 
+                                                
+                                                        @php
+                                                            // $images = $sendoffer->product->images ? explode(",", $sendoffer->product->images) : [];
+                                                            if ($sendoffer->product !== null && null !== $sendoffer->product->images) {
+                                                                    $images = explode(",", $sendoffer->product->images);
+                                                                }
+                                                        @endphp   
+                                                        <div class="row row-cols-2 position-relative">
+                                                            <div class="col">
+                                                                <div class="d-grid gap-2">
+                                                                    Moj proizvod
+                                                                    {{-- {{$sendoffer->user->firstName}} --}}
+                                                                </div>
+                                                                <div class="card rounded-0 product-card">
+                                                                    <div class="card-header bg-transparent border-bottom-0">
+                                                                        <div class="d-flex align-items-center justify-content-end gap-3">                                                                   
+                                                                            <a href="javascript:;">
+                                                                                {{-- <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                                                                </div> --}}
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if ($sendoffer->sendproduct)
+                                                                        <a href="{{route('products.show', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendofferImages[0] }}" class="rounded = 9 card-img-top " style="width: 150px; height: 100px;"  alt=""></a> <!-- dobijeni artikal za zamenu -->
+                                                                    @else
+                                                                    <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt="">
+                                                                    @endif
+                                                                    <div class="card-body">
+                                                                        <div class="product-info">
+                                                                            <a href="javascript:;">
+                                                                                {{-- <p class="product-catergory font-13 mb-1">Catergory Name</p> --}}
+                                                                            </a>
+                                                                            @if ($sendoffer->sendproduct)
+                                                                                <a href="javascript:;">
+                                                                                    <h6 class="product-name mb-2">{{$sendoffer->sendproduct->name}}</h6>
+                                                                                </a>
+                                                                            @else
+                                                                                <p>Oglas više ne postoji!</p>
+                                                                            @endif
+                                                                            
+                                                                            <div class="d-flex align-items-center">
+                                                                                <div class="mb-1 product-price">	
+                                                                                    {{-- <span class="me-1 text-decoration-line-through">$99.00</span>
+                                                                                    <span class="fs-5">$49.00</span> --}}
+                                                                                    @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
+                                                                                        Broj Telefona: {{$sendoffer->sendproduct->user->phone ?? 'no client'}}
                                                                                     @endif
-                                                                                    {{-- <td>{{$product->acceptor}}</td> <!-- user kome je poslata ponuda --> --}}
-                                                                                    @if ($sendoffer->product)
-                                                                                        <td><a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9" style="width: 50px; height: 50px" alt=""><br> {{$sendoffer->product->name}}</a> </td> <!-- artikal za zamenu -->
-                                                                                    @else
-                                                                                        <td><p>Oglas više ne postoji!</p></td> 
-                                                                                    @endif
-                                                                                    {{-- <td>{{$sendoffer->acceptor->id}}</td> --}}
-                                                                                    {{-- <td>{{$sendoffer->acceptorName}}</td> --}}
-                                                                                    @if($sendoffer->accepted == 1)
-                                                                                        <td>
-                                                                                            <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
-                                                                                        </td>
-                                                                                        <td>{{$sendoffer->acceptorName}}</td>    
-                                                                                        <td>{{$sendoffer->acceptorNumber}}</td>
-                                                                                        <td>
-                                                                                            <form action="{{url('offers.confirmation', $sendoffer->id)}}" method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('post')}}
-                                                                                                <input type="hidden" name="accepted" value="3">
-                                                                                                <button class="btn btn-success btn-sm" type="submit">DA</button>
-                                                                                            </form>
-                                                                                            <form action="{{url('offers.canceled', $sendoffer->id)}}" method="post">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('post')}}
-                                                                                                <input type="hidden" name="accepted" value="4">
-                                                                                                <button class="btn btn-danger btn-sm" type="submit">NE</button>
-                                                                                            </form>
-                                                                                            {{-- <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form> --}}
-                                                                                        </td>
-                                                                                    @elseif($sendoffer->accepted == 3)
-                                                                                        @if ($sendoffer->product)
-                                                                                            <td>
-                                                                                                <p>Uspešna zamena!</p>
-                                                                                            </td>
-                                                                                            <td>{{$sendoffer->acceptorName}}</td>
-                                                                                            <td>{{$sendoffer->acceptorNumber}}</td>
-                                                                                            <td>
-                                                                                                <img src="/assets/images/success.png" class="asign-right" alt="" srcset="">
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
-                                                                                                    {{ csrf_field() }}
-                                                                                                    {{method_field('delete')}}  
-                                                                                                    <button style="border:none; transparent:none;"  type="submit">
-                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>  
-                                                                                                </form>
-                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Oceni korisnika</button>                                                                                                                                               
-                                                                                            </td>
-                                                                                        @endif
-                                                                                    @elseif($sendoffer->accepted == 4)
-                                                                                        @if ($sendoffer->product)
-                                                                                            <td>
-                                                                                                <p>Neuspešna zamena!</p>
-                                                                                            </td>
-                                                                                            <td></td>
-                                                                                            <td></td>
-                                                                                            <td><img src="/assets/images/cansel.png" class="asign-right" alt="" srcset=""></td>
-                                                                                            <td>
-                                                                                                <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
-                                                                                                    {{ csrf_field() }}
-                                                                                                    {{method_field('delete')}}  
-                                                                                                    <button style="border:none; transparent:none;"  type="submit">
-                                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                    </button>
-                                                                                                </form>
-                                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Oceni korisnika</button>                                                                                                                                                 
-                                                                                            </td>
-                                                                                        @endif
-                                                                                    @elseif($sendoffer->accepted == 2)
-                                                                                        <td>
-                                                                                            <p>Zahtev odbijen!</p>
-                                                                                        </td>
-                                                                                        <td></td>
-                                                                                        <td></td>
-                                                                                        <td></td>
-                                                                                        <td>
-                                                                                            <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form>                                                    
-                                                                                        </td>
-                                                                                    @else
-                                                                                        <td><p>Zahtev na čekanju</p></td>                                                                                         
-                                                                                    @endif
-                                                                                    @if (!$sendoffer->product)
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                        <td>
-                                                                                            <form action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
-                                                                                                {{ csrf_field() }}
-                                                                                                {{method_field('delete')}}  
-                                                                                                <button style="border:none; transparent:none;"  type="submit">
-                                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                                                </button>                                                                                                                                                 
-                                                                                            </form>
-                                                                                        </td>
-                                                                                    @endif
-                                                                                        
-                                                                                </tr>
-                                                                                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                    <div class="modal-dialog">
-                                                                                      <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
-                                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                          <form action="{{route('comments.store', $sendoffer->id)}}" method="POST" enctype="multipart/form-data">
-                                                                                            @csrf
-                                                                                            <div class="mb-3">
-                                                                                              <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
-                                                                                              <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
-                                                                                            </div>
-                                                                                            <div class="mb-3">   
-                                                                                                
-                                                                                                    <input type="hidden" name="product_user_id" value="{{ $sendoffer->product->user_id }}">                        
-                                                                                                
-                                                                                            </div>
-                                                                                            <div class="mb-3">
-                                                                                              <label for="message-text" class="col-form-label">Tekst komentara</label>
-                                                                                              <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
-                                                                                            </div>
-                                                                                            <div class="modal-footer">
-                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                              <button type="submit" class="btn btn-primary">Postavi</button>
-                                                                                            </div>
-                                                                                          </form>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                  </div>
                                                                                 </div>
-                                                                                @endforeach                                                                            
-                                                                                
-                                                                        </tbody>
-                                                                    </table>
+                                                                                <div class="cursor-pointer ms-auto">
+                                                                                    {{-- @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                        {{$offer->user->phone ?? 'no client'}}
+                                                                                    @endif --}}
+                                                                                    {{-- <i class="bx bxs-star text-warning"></i>
+                                                                                    <i class="bx bxs-star text-warning"></i>
+                                                                                    <i class="bx bxs-star text-warning"></i>
+                                                                                    <i class="bx bxs-star text-warning"></i>
+                                                                                    <i class="bx bxs-star text-warning"></i> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <img src="/assets/images/arrow-right2.png" class="arrow-image-swap">
+                                                            <div class="col">
+                                                                <div class="d-grid gap-2">
+                                                                    
+                                                                    {{$sendoffer->acceptorName}}
+                                                                </div>
+                                                                <div class="card rounded-0 product-card">
+                                                                    <div class="card-header bg-transparent border-bottom-0">
+                                                                        <div class="d-flex align-items-center justify-content-end gap-3">
+                                                                            <a href="javascript:;">
+                                                                                {{-- <div class="product-wishlist"> <i class="bx bx-heart"></i>
+                                                                                </div> --}}
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if ($sendoffer->product)
+                                                                        <a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt=""></a>  <!-- artikal za zamenu -->
+                                                                    @else
+                                                                        {{-- <p>Oglas više ne postoji!</p> --}}
+                                                                        <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt="">
+                                                                    @endif
+                                                                    <div class="card-body">
+                                                                        <div class="product-info">
+                                                                            <a href="javascript:;">
+                                                                                {{-- <p class="product-catergory font-13 mb-1">{{$sendoffer->product->category}}</p> --}}
+                                                                            </a>
+                                                                            @if ($sendoffer->product)
+                                                                                <a href="javascript:;">
+                                                                                    <h6 class="product-name mb-2">{{$sendoffer->product->name}}</h6>
+                                                                                </a>
+                                                                            @else
+                                                                                <p>Oglas više ne postoji!</p>
+                                                                            @endif
+                                                                            
+                                                                            <div class="d-flex align-items-center">
+                                                                                <div class="mb-1 product-price"> 
+                                                                                    {{-- <span class="me-1 text-decoration-line-through">$99.00</span> --}}
+                                                                                    {{-- <span class="fs-5">$49.00</span> --}}
+                                                                                    @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
+                                                                                    Broj Telefona: {{$sendoffer->product->user->phone ?? 'no client'}}
+                                                                                @endif
+                                                                                </div>
+                                                                                <div class="cursor-pointer ms-auto"> 
+                                                                                    {{-- @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                        Br.Tel.{{auth()->user()->phone ?? 'no client'}}
+                                                                                    @endif --}}
+                                                                                    {{-- <i class="bx bxs-star text-warning"></i>
+                                                                                    <i class="bx bxs-star text-warning"></i>
+                                                                                    <i class="bx bxs-star text-light-4"></i>
+                                                                                    <i class="bx bxs-star text-light-4"></i> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="product-action mt-2">
+                                                                                <div class="d-grid gap-2">
+                                                                                    {{-- <a href="javascript:;" class="btn btn-dark btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a>
+                                                                                    <a href="javascript:;" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in"></i>Quick View</a> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="product-action mt-2">
+                                                            <div class="d-grid gap-2">
+                                                                @if ($sendoffer->accepted == 0)
+                                                                    <div class="btn btn-warning">
+                                                                        <p>Zahtev  na cekanju</p>
+                                                                    </div>
+                                                                @endif
+                                                                {{-- <a href="javascript:;" class="btn btn-dark btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a> --}}
+                                                                {{-- <a href="javascript:;" class="btn btn-light btn-ecomm" data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i class="bx bx-zoom-in"></i>Quick View</a> --}}
+                                                            </div>
+                                                        </div>
+
+                                                        @if($sendoffer->accepted == 1)
+                                                            Da li je uspešna zamena?
+                                                            <div class="row">
+                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.confirmation', $sendoffer->id)}}" method="POST">
+                                                                    {{ csrf_field() }}
+                                                                    {{method_field('post')}}
+                                                                    <input type="hidden" name="accepted" value="3">
+                                                                    <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
+                                                                    {{-- <a class="btn btn-success btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/correct.png" alt=""></a> --}}
+                                                                </form>
+                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.canceled', $sendoffer->id)}}" method="post">
+                                                                    {{ csrf_field() }}
+                                                                    {{method_field('post')}}
+                                                                    <input type="hidden" name="accepted" value="4">
+                                                                    <button class="btn btn-danger btn-sm m-0 btn-ecomm" type="submit">NE</button>
+                                                                    {{-- <a class="btn btn-danger btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/incorrect.png" alt=""></a> --}}
+                                                                </form>
+                                                            </div>                                                                
+                                                        @endif
+
+                                                        @if ($sendoffer->accepted == 2)
+                                                            <div class="d-grid gap-2">
+                                                                <div class="btn btn-danger">
+                                                                    <p>Zahtev odbijen!</p>
+                                                                </div>                                                                
+                                                            </div>
+                                                            <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                {{ csrf_field() }}
+                                                                {{method_field('delete')}}  
+                                                                <button style="border:none; transparent:none;"  type="submit">
+                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                </button>  
+                                                            </form>                      
+                                                        @endif
+
+                                                        @if($sendoffer->accepted == 3)
+                                                            @if($sendoffer->product)
+                                                                <div class="row">
+                                                                    <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal1{{$sendoffer->id}}" data-bs-whatever="@mdo"><i class="bx bx-star"></i></button>
+                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        {{method_field('delete')}}  
+                                                                        <button style="border:none; transparent:none;"  type="submit">
+                                                                            <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                        </button>                                                                                                                                               
+                                                                    </form>   
+                                                                </div>
+                                                            @endif
+                                                        @endif
+
+                                                        @if ($sendoffer->accepted == 4)
+                                                            <div class="d-grid gap-2">
+                                                                <div class="btn btn-danger">
+                                                                    <p>Neuspešna zamena!</p>                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal1{{$sendoffer->id}}" data-bs-whatever="@mdo">Oceni korisnika</button>
+                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                    {{ csrf_field() }}
+                                                                    {{method_field('delete')}}  
+                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                    </button>                                                                                                                                                 
+                                                                </form>
+                                                            </div>
+                                                        @endif
+
+                                                        @if (!$sendoffer->product)                                                                
+                                                                <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                    {{ csrf_field() }}
+                                                                    {{method_field('delete')}}  
+                                                                    <button style="border:none; transparent:none;"  type="submit">
+                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                    </button>                                                                                                                                                 
+                                                                </form>
+                                                            </td>
+                                                        @endif
+                                                        <div class="modal fade" id="exampleModal1{{$sendoffer->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="{{route('comments.store', $sendoffer->id)}}" method="POST" enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                                                                            <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                            </div>
+                                                                            <div class="mb-3">   
+                                                                                
+                                                                                    <input type="hidden" name="product_user_id" value="{{ $sendoffer->product->user_id }}">                        
+                                                                                
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                            <label for="message-text" class="col-form-label">Tekst komentara</label>
+                                                                            <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                <button type="submit" class="btn btn-primary">Postavi</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    @endforeach
+                                                
                                                 </div>
                                             </div>
                                         </div>

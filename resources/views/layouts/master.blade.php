@@ -229,7 +229,10 @@
 			<script type='text/javascript'>
 					$('.like-button').click(function() {
 					var likedUserId = $(this).data('user-id');
-			
+					var likeCount = $(this).data('like-count');
+					$('.dislike-button').prop('disabled', true);
+					$('.like-button').prop('disabled', true);
+					$('.like-count').html('Loading...');
 					$.ajax({
 						method: 'POST',
 						url: '{{ route("like") }}',
@@ -238,19 +241,27 @@
 							_token: '{{ csrf_token() }}'
 						},
 						success: function(html) {
+							$('.like-count').html(html.liked);
+							$('.dislike-count').html(html.disliked);
 							// Handle success response
-							location.reload();
+							// location.reload();
 						},
 						error: function(xhr) {
-							// Handle error response
-							console.log(xhr.responseText);
+							$('.like-count').html(likeCount);
+							
 						}
 					});
+					$('.dislike-button').prop('disabled', false);
+					$('.like-button').prop('disabled', false);
 				});
 			</script>
 			<script type='text/javascript'>
 				$('.dislike-button').click(function() {
 					var likedUserId = $(this).data('user-id');
+					$('.dislike-button').prop('disabled', true);
+					$('.like-button').prop('disabled', true);
+					var dislikeCount = $(this).data('dislike-count');
+					// $('.dislike-count').html('Loading...');
 			
 					$.ajax({
 						method: 'POST',
@@ -260,16 +271,22 @@
 							_token: '{{ csrf_token() }}'
 						},
 						success: function(html) {
+							console.log(html);
+							$('.like-count').html(html.liked);
+							$('.dislike-count').html(html.disliked);
 							// Handle success response
-							location.reload();
+							// location.reload();
 						},
 						error: function(xhr) {
 							// Handle error response
 							console.log(xhr.responseText);
 						}
 					});
+					$('.dislike-button').prop('disabled', false);
+					$('.like-button').prop('disabled', false);
 				});
 			</script>
+			
 			<script>
 				const checkbox = document.getElementById("flexSwitchCheckChecked");
 			

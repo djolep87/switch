@@ -105,7 +105,7 @@
                                                 
                                             @endif                                            
                                         @endif
-                                        @if (Auth::check())  
+                                        {{-- @if (Auth::check())  
                                             @if (Auth::user()->id == $product->user_id)
                                             <button onclick="myFunction()" disabled class="btn btn-light btn-ecomm">Napiši komentar</button> 
                                             @else 
@@ -135,7 +135,7 @@
                                                         </div>
                                                     </div>
                                             @endif                                           
-                                        @endif                                                                      
+                                        @endif                                                                       --}}
                                     </div>                        
                                     <div class="d-flex gap-2 mt-3">
                                         @if (Auth::check())   
@@ -264,48 +264,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (Auth::check())
-                                    {{-- <div class="col col-lg-4">
-                                        <div class="add-review bg-dark-1">
-                                            <div class="form-body p-3">
-                                                <h4 class="mb-4">Napišite komentar</h4>
-                                                <form action="/comments.store" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Vaše ime i prezime</label>
-                                                        <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{$user->firstName }}  {{ $user->lastName}} ">
-                                                    </div>
-                                                    <div class="mb-3">                                                      
-                                                            <input type="hidden" name="productUser" value="{{ $product->user->id }}">
-                                                            <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Tekst komentara</label>
-                                                        <textarea class="form-control rounded-0" name="body" rows="5">{!! old('body') !!}</textarea>
-                                                    </div>
-                                                    <div class="d-grid">                                            
-                                                        <input type="submit" class="btn btn-light btn-ecomm" value="Postavi">
-                                                    </div>                                            
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>                                     --}}
-                                @endif
                             </div>
                             <!--end row-->
                         </div>
                         <div class="tab-pane fade " id="discription" role="tabpanel">
                             <p>{!!$product->description!!}</p>
                             
-                            <p class="mb-1">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</p>
-                            <p class="mb-1">Seitan aliquip quis cardigan american apparel, butcher voluptate nisi.</p>
+                            {{-- <p class="mb-1">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</p>
+                            <p class="mb-1">Seitan aliquip quis cardigan american apparel, butcher voluptate nisi.</p> --}}
                         </div>
                         <div class="tab-pane fade" id="more-info" role="tabpanel">
                             <p></p>
                         </div>
                         <div class="tab-pane fade" id="tags" role="tabpanel">
                             <div class="tags-box w-50">	<a href="javascript:;" class="tag-link">Cloths</a>
-                                <a href="javascript:;" class="tag-link">Electronis</a>
+                                {{-- <a href="javascript:;" class="tag-link">Electronis</a>
                                 <a href="javascript:;" class="tag-link">Furniture</a>
                                 <a href="javascript:;" class="tag-link">Sports</a>
                                 <a href="javascript:;" class="tag-link">Men Wear</a>
@@ -317,7 +290,7 @@
                                 <a href="javascript:;" class="tag-link">Bottom Wear</a>
                                 <a href="javascript:;" class="tag-link">Bags</a>
                                 <a href="javascript:;" class="tag-link">Sofa</a>
-                                <a href="javascript:;" class="tag-link">Shoes</a>
+                                <a href="javascript:;" class="tag-link">Shoes</a> --}}
                             </div>
                         </div>
                     </div>
