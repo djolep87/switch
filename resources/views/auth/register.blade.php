@@ -104,26 +104,26 @@
                                                 @csrf
                                                 <div class="col-sm-6">
                                                     <label for="inputFirstName" class="form-label">Ime</label>
-                                                    <input type="text" name="firstName" class="form-control" id="inputFirstName" required placeholder="Ime">
+                                                    <input type="text" name="firstName" class="form-control" id="inputFirstName" required placeholder="Ime" value="{{ old('firstName') }}">
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="inputLastName" class="form-label">Prezime</label>
-                                                    <input type="text" name="lastName" class="form-control" id="inputLastName" required placeholder="Prezime">
+                                                    <input type="text" name="lastName" class="form-control" id="inputLastName" required placeholder="Prezime" value="{{ old('lastName') }}">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputEmailAddress" class="form-label">Email Adresa</label>
-                                                    <input type="email" name="email" class="form-control" id="Email Adresa" required placeholder="example@user.com">
+                                                    <input type="email" name="email" class="form-control" id="Email Adresa" required placeholder="example@user.com" value="{{ old('email') }}">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Lozinka</label>
                                                     <div class="input-group" id="show_hide_password">
-                                                        <input type="password" name="password" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                        <input type="password" name="password" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka" value="{{ old('password') }}"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Potvrdi lozinku</label>
                                                     <div class="input-group" id="show_hide_password">
-                                                        <input type="password" name="password_confirmation" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                        <input type="password" name="password_confirmation" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka" value="{{ old('password_confirmation') }}"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -137,15 +137,15 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="city" class="form-label">Grad</label>
-                                                    <input type="text" name="city" class="form-control" id="city" required placeholder="Grad">
+                                                    <input type="text" name="city" class="form-control" id="city" required placeholder="Grad" value="{{ old('city') }}">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="address" class="form-label">Adresa</label>
-                                                    <input type="text" name="address" class="form-control" required id="address" placeholder="Adresa">
+                                                    <input type="text" name="address" class="form-control" required id="address" placeholder="Adresa" value="{{ old('address') }}">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="phone" class="form-label">Telefon</label>
-                                                    <input type="text" name="phone" class="form-control" id="phone" required placeholder="Telefon">
+                                                    <input type="text" name="phone" class="form-control" id="phone" required placeholder="Telefon" value="{{ old('phone') }}">
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-check form-switch">

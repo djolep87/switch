@@ -55,7 +55,14 @@
                                                                 <div class="d-flex gap-2">	
                                                                     <a href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
                                                                     <a href="products.edit/{{$product->id}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
-                                                                    <a href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
+                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('product.destroy', $product->id)}}"  method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        {{method_field('delete')}}  
+                                                                        <button style="border:none; transparent:none;"  type="submit">
+                                                                            {{-- <img src="/assets/images/delete.png" alt="" srcset="">                                                                         --}}
+                                                                            <a href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
+                                                                        </button>                                                                                                                                               
+                                                                    </form>   
                                                                 </div>
                                                             </td>
                                                         </tr>                                                        

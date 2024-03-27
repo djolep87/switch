@@ -98,8 +98,8 @@
                                                 </div>  
                                             @else
                                                 <div class="">
-                                                    <button class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span class="like-count">{{ $product->user->likes() }}</span></button>
-                                                    <button class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span class="like-count">{{ $product->user->dislikes() }}</span></button>  
+                                                    <button disabled class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span class="like-count">{{ $product->user->likes() }}</span></button>
+                                                    <button disabled class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span class="like-count">{{ $product->user->dislikes() }}</span></button>  
                                                 </div>   
                                                 <br>                                   
                                                 
@@ -213,7 +213,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#discription" role="tab" aria-selected="false">
+                            <a class="nav-link" data-bs-toggle="tab" href="#description" role="tab" aria-selected="false">
                                 <div class="d-flex align-items-center">
                                     <div class="tab-title text-uppercase fw-500">Description</div>
                                 </div>
@@ -267,8 +267,8 @@
                             </div>
                             <!--end row-->
                         </div>
-                        <div class="tab-pane fade " id="discription" role="tabpanel">
-                            <p>{!!$product->description!!}</p>
+                        <div class="tab-pane fade " id="description" role="tabpanel">
+                            <p class="mb-0">{!! $product->description !!}</p>
                             
                             {{-- <p class="mb-1">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</p>
                             <p class="mb-1">Seitan aliquip quis cardigan american apparel, butcher voluptate nisi.</p> --}}

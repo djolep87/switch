@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -81,5 +83,13 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'accepted' => 1,
         ]);
+    }
+
+    public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            // Other fields
+            $table->string('email')->unique();
+        });
     }
 }

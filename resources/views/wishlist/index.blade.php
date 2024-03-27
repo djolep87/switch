@@ -60,7 +60,7 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    {{-- <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>   --}}
+                                                                    <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>  
                                                                 
                                                                 </td>
                                                                 <td>

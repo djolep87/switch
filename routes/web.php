@@ -23,12 +23,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 // });
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home.index');
-Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');  
 Route::get('/uslovi', 'PageController@uslovi');  
 Route::get('/about', 'PageController@about');  
 Route::get('/contact', 'PageController@contact');  
 
 Route::get('/dashboard', 'UserController@index');
+
 Route::get('/offers', 'OffersController@index');
 Route::post('/', 'OffersController@store')->name('offers.store');
 Route::post('/offers.update/{offer}', 'OffersController@update')->name('offers.update');
@@ -37,7 +37,7 @@ Route::post('/offers.confirmation/{offer}', 'OffersController@confirmation')->na
 Route::post('/offers.canceled/{offer}', 'OffersController@canceled')->name('offers.canceled');
 Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.destroy');
 
-Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');
+// Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');
 Route::get('markAsRead/{notificationId}', 'OffersController@markAsRead')->name('markAsRead');
 
 Route::get('search', 'HomeController@search');
@@ -47,10 +47,15 @@ Route::post('dislike', 'LikeController@dislike')->name('dislike');
 
 Auth::routes();
 
+Route::get('/blog', 'BlogController@index')->name('blog.index');
+Route::get('/blog.show', 'BlogController@show')->name('blog.show');
+
 Route::get('/products.create', 'ProductsController@create');
 Route::post('/products.store', 'ProductsController@store');
+Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');  
 Route::get('/products.edit/{id}', 'ProductsController@edit');
 Route::put('/products.store/{product}', 'ProductsController@update');
+Route::delete('/products.destroy/{id}', 'ProductsController@destroy')->name('product.destroy');
 
 Route::post('/comments.store/{id}', 'CommentsController@store')->name('comments.store');
 

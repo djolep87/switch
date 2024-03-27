@@ -375,7 +375,7 @@
                                                                     @if ($sendoffer->sendproduct)
                                                                         <a href="{{route('products.show', $sendoffer->sendproduct->id)}}"><img src="/storage/Product_images/{{ $sendofferImages[0] }}" class="rounded = 9 card-img-top " style="width: 150px; height: 100px;"  alt=""></a> <!-- dobijeni artikal za zamenu -->
                                                                     @else
-                                                                    <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt="">
+                                                                        <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 150px; height: 100px"  alt="">
                                                                     @endif
                                                                     <div class="card-body">
                                                                         <div class="product-info">
@@ -567,38 +567,54 @@
                                                                 </form>
                                                             </td>
                                                         @endif
-                                                        <div class="modal fade" id="exampleModal1{{$sendoffer->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form action="{{route('comments.store', $sendoffer->id)}}" method="POST" enctype="multipart/form-data">
-                                                                            @csrf
-                                                                            <div class="mb-3">
-                                                                            <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
-                                                                            <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
-                                                                            </div>
-                                                                            <div class="mb-3">   
-                                                                                
-                                                                                    <input type="hidden" name="product_user_id" value="{{ $sendoffer->product->user_id }}">                        
-                                                                                
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                            <label for="message-text" class="col-form-label">Tekst komentara</label>
-                                                                            <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                <button type="submit" class="btn btn-primary">Postavi</button>
-                                                                            </div>
-                                                                        </form>
+                                                        @if ($sendoffer->product)
+                                                            <div class="modal fade" id="exampleModal1{{$sendoffer->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Napišite komentar</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form action="{{route('comments.store', $sendoffer->id)}}" method="POST" enctype="multipart/form-data">
+                                                                                @csrf
+                                                                                <div class="mb-3">
+                                                                                <label for="recipient-name" class="col-form-label">Vaše ime i prezime</label>
+                                                                                <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                                </div>
+                                                                                <div class="mb-3">   
+                                                                                    
+                                                                                        <input type="hidden" name="product_user_id" value="{{ $sendoffer->product->user_id ?? 'no client'}}">                        
+                                                                                    
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                <label for="message-text" class="col-form-label">Tekst komentara</label>
+                                                                                <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    @if (optional(Auth::user())->id)
+                                                                                        @if (Auth::user()->id == $sendoffer->product->user_id)
+                                                                                            <div class="like">
+                                                                                                <button type="button" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}">Like <span id="count" class="like-count">{{ $sendoffer->product->user->likes() }}</span></button>
+                                                                                                <button type="button" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $sendoffer->sendproduct->user_id ?? 'no client'}}">Dislike <span id="count" class="dislike-count">{{ $sendoffer->product->user->dislikes() }}</span></button>  
+                                                                                            </div>  
+                                                                                        @else
+                                                                                            <div class="like">
+                                                                                                <button type="button" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}">Like <span class="like-count">{{ $sendoffer->product->user->likes() }}</span></button>
+                                                                                                <button type="button" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}">Dislike <span class="dislike-count">{{ $sendoffer->product->user->dislikes() }}</span></button>  
+                                                                                            </div>   
+                                                                                            <br>                                   
+                                                                                            
+                                                                                        @endif                                            
+                                                                                    @endif                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">Postavi</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                         <hr>
                                                     @endforeach
                                                 

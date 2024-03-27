@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductsController extends Controller
@@ -224,7 +225,30 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
+       
+            $product = Product::find($id);
+          
+    
+            if ($product) {
+                $productImages = $product->images;
+    
+                if ($productImages) {
+                    $imagePaths = explode(",", $productImages);
+                    foreach ($imagePaths as $image) {
+                        Storage::delete('public/Product_images' . '/' . $image);
+                    }
+                }
+                
+                $product->delete(); // Obrišite proizvod
+            }
+    
+           
+        
+    
+       
+        toast('Oglas je obrisan!', 'warning');
+        return back();
     }
 
     

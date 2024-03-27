@@ -80,11 +80,26 @@
                                 @php
                                     $images = $product->images ? explode(",", $product->images) : [];
                                 @endphp    
-                                        <div class="product-grid ">
+                                        <div class="product-grid">
                                             <div class="card rounded-0 product-card">
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
-                                                    <div class="product">
-                                                        {{-- <img src="/assets/images/eye.png" alt="" srcset=""> --}}
+                                                    <div class="">
+                                                        @if (optional(Auth::user())->id == $product->user_id)
+                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->productid)}}">
+                                                                <div class="product-wishlist"> 
+                                                                    <i class="hover bx bx-star "></i>
+                                                                </div>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{url('add/to-wishlist/'.$product->productid)}} ">
+                                                                <div class="product-wishlist"> 
+                                                                    <i class="hover bx bx-star "></i>
+                                                                </div>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    {{-- <div class="product">
+                                                        
                                                         Viđen:
                                                         <Span><b>{{$product->views}}</b></Span>
                                                     </div>
@@ -104,18 +119,18 @@
                                                         @endif
                                                     </div>
                                                      <div>{{$product->users_city}}</div> 
-                                                     <div>{{$product->users_firstname}}</div> 
+                                                     <div>{{$product->users_firstname}}</div>  --}}
 
 
                                                 </div>
                                                 <div class="row g-0">
                                                     @if (!empty($images))
-                                                        <div class="col-md-4" style="width: 150px; height= 100px;">
-                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" style="width: 150px; height= 100px;"  alt="..."></a> 
+                                                        <div class="col-md-4" style="width: 128px; height= 120px;">
+                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" style="width: 128px; height= 120px;"  alt="..."></a> 
                                                         </div>                                                        
                                                     @endif
-                                                    <div class="col-md-8">
-                                                        <div class="card-body">
+                                                    <div class="col-md-8" >
+                                                        <div class="card-body" >
                                                             <div class="product-info">
                                                                 <a href="javascript:;">
                                                                     <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
@@ -126,9 +141,18 @@
                                                                 </a>
                                                                 {{-- <p class="card-text">{!!Str::limit($product->description, 500)!!}</p> --}}
                                                                 {{-- <p class="card-text">{!!$product->description!!}</p> --}}
-                                                                <p class="card-text">{!!  substr(strip_tags($product->description), 0,200) !!}</p>
-                                                                <div class="d-flex align-items-center">
+                                                                <p class="card-text">{!!  substr(strip_tags($product->description), 0,120) !!}</p>
+                                                                <div class="d-flex align-items-center justify-content gap-3    m-0">
+                                                                    <div class="product">
+                                                                        <img src="/assets/images/eye.png" alt="" srcset="">
+                                                                        {{-- Viđen: --}}
+                                                                        <Span><b>{{$product->views}}</b></Span>
+                                                                    </div>
+                                                                    
+                                                                     <div>{{$product->users_city}}</div> 
+                                                                     <div>{{$product->users_firstname}}</div>
                                                                 </div>
+                                                                
                                                                 
                                                                 @if (Auth::check())   
                                                                     <div class="product-action mt-2">
