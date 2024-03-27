@@ -1,5 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'Uslovi korišćenja')
+
+
 @section('content')
 <div class="container-sm">
     <h4 class="text-center"> Uslovi korišćenja za sajt za zamenu artikala "Trange Frange"</h4>

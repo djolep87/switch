@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'O nama')
+
 @section('content')
 <section class="py-0 py-lg-4">
     <div class="container">
