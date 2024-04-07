@@ -32,6 +32,16 @@
 </head>
 <body>
     <div class="wrapper">
+		<div class="discount-alert d-blok d-lg-none">
+			<div class="alert alert-dismissible fade show shadow-none rounded-0 mb-0 border-bottom">
+				<div class="d-lg-flex align-items-center gap-2 justify-content-center">
+					<a class="text-decoration-none" href="/"><p class="text-center float-center"> <strong>TF</strong></p></a>
+					
+				  
+				</div>
+				
+			</div>
+		</div>
         <div class="header-wrapper">
 			<div class="header-content pb-3 pb-md-0">
 				<div class="container">

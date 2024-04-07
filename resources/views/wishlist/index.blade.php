@@ -56,11 +56,13 @@
                                                                         <div class=""><a href="{{route('products.show', $item->products->id)}}"><img src="/storage/Product_images/{{ $wishlistImages[0] }}" class="img-fluid rounded = 5"  style="width: 50px; height: 50px;" alt=""></a> </div>
                                                                         
                                                                     @else
-                                                                        <p>Oglas više ne postoji!</p>
+                                                                    <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 50px; height: 50px"  alt="">
+                                                                        
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>  
+                                                                    {{-- <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>   --}}
+                                                                    <p>Oglas više ne postoji!</p>
                                                                 
                                                                 </td>
                                                                 <td>

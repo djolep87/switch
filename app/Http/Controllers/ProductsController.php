@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Image;
+// use App\Models\Image;
 use App\Models\Images;
 use App\Models\Product;
 use App\Models\ProductUser;
@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Auth;
+// use Image;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 
@@ -75,18 +77,36 @@ class ProductsController extends Controller
         //     $fileNameToStore = 'noimage.jpg';
         // }
 
+        // if ($request->has('images')) {
+        //     $imagesname = [];
+        //     foreach ($request->images as $key => $image) {
+        //         $imgName = time() . $key . '.' . $image->extension();
+        //         $image->storeAs('public/Product_images', $imgName);
+        //         $imagesname[] = $imgName;
+        //     }
+        //     $imagesname = implode(',', $imagesname);
+        // } else {
+        //     $imagesname = 'noimage.jpg';
+        // }
+
         if ($request->has('images')) {
             $imagesname = [];
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
-                $image->storeAs('public/Product_images', $imgName);
+                
+                // Resize and save image
+                $resizedImage = Image::make($image)->resize(400, 300, function($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $resizedImage->stream(); // This will perform the resize without saving to disk
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
+                
                 $imagesname[] = $imgName;
             }
             $imagesname = implode(',', $imagesname);
         } else {
             $imagesname = 'noimage.jpg';
         }
-
 
         $product = new Product;
         $product->user_id = Auth()->user()->id;
