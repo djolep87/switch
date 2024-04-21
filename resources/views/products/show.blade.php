@@ -35,6 +35,59 @@
                                         @endforeach                                       
                                     </div>
                                 </div>
+                                <hr>
+                                <div class="">
+                                    Grad: {{$product->user->city}}<br/>
+                                    Ime korisnika: {{$product->user->firstName}}<br/>
+                                    {{-- {{$product->user->phone}}--}}
+                                    @if (optional(Auth::user())->id)
+                                        @if (Auth::user()->id == $product->user_id)
+                                            <div class="">
+                                                <img src="" alt="">
+                                                <button style="transition: none; border: none;" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}"> <img src="/assets/images/thumbs-up.svg" alt=""> <span id="count" class="like-count">{{ $product->user->likes() }}</span></button>
+                                                <button style="transition: none; border: none;" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}"><img src="/assets/images/thumbs-down.svg" alt=""> <span id="count" class="like-count">{{ $product->user->dislikes() }}</span></button>  
+                                            </div>  
+                                        @else
+                                            <div class="">
+                                                <button style="transition: none; border: none;" disabled class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}"> <img src="/assets/images/thumbs-up.svg" alt=""> <span class="like-count">{{ $product->user->likes() }}</span></button>
+                                                <button style="transition: none; border: none;" disabled class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}"><img src="/assets/images/thumbs-down.svg" alt=""><span class="like-count">{{ $product->user->dislikes() }}</span></button>  
+                                            </div>   
+                                            <br>                                   
+                                            
+                                        @endif                                            
+                                    @endif
+                                    {{-- @if (Auth::check())  
+                                        @if (Auth::user()->id == $product->user_id)
+                                        <button onclick="myFunction()" disabled class="btn btn-light btn-ecomm">Napiši komentar</button> 
+                                        @else 
+                                            <button onclick="myFunction()" class="btn btn-light btn-ecomm">Napiši komentar</button> 
+                                                <div class="col-lg-12" id="myDIV" style="display: none;">
+                                                    <div class="add-review bg-light-1">
+                                                        <div class="form-body p-3">
+                                                            <h4 class="mb-4">Napišite komentar</h4>
+                                                            <form action="/comments.store" method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Vaše ime i prezime</label>
+                                                                    <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
+                                                                </div>
+                                                                <div class="mb-3">                                                      
+                                                                        <input type="hidden" name="product_user_id" value="{{ $product->user_id }}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Tekst komentara</label>
+                                                                    <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
+                                                                </div>
+                                                                <div class="d-grid">                                            
+                                                                    <input type="submit" class="btn btn-dark btn-ecomm" value="Postavi">
+                                                                </div>                                            
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        @endif                                           
+                                    @endif                                                                       --}}
+                                </div> 
                                 {{-- <div class="image-zoom-section">
                                     <div class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1">
                                         <div class="item">
@@ -61,12 +114,18 @@
                             </div>
                             <div class="col-12 col-lg-7">
                                 <div class="product-info-section p-3">
+                                    <h6>ID oglasa: {{ $product->id}}</h6>
                                     <h3 class="mt-3 mt-lg-0 mb-0">{{$product->name}}</h3>
                                     <h6 class="">({{$product->condition}})</h6>
 
                                     <div class="mt-3">
                                         <h6>Opis :</h6>
                                         <p class="mb-0">{!! $product->description !!}</p>
+                                    </div>
+                                    <div class="product">
+                                        <img src="/assets/images/eye.png" alt="" srcset="">
+                                        {{-- Viđen: --}}
+                                        <Span><b>{{$product->views}}</b></Span>
                                     </div>
                                     {{-- <dl class="row mt-3">	<dt class="col-sm-3">Product id</dt>
                                         <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
@@ -86,57 +145,7 @@
                                         </a>
                                     @endif
 
-                                    <div class="my-3 float-right border p-3">
-                                        {{$product->user->city}}<br/>
-                                        {{$product->user->firstName}}<br/>
-                                        {{-- {{$product->user->phone}}--}}
-                                        @if (optional(Auth::user())->id)
-                                            @if (Auth::user()->id == $product->user_id)
-                                                <div class="">
-                                                    <button disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span id="count" class="like-count">{{ $product->user->likes() }}</span></button>
-                                                    <button disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span id="count" class="like-count">{{ $product->user->dislikes() }}</span></button>  
-                                                </div>  
-                                            @else
-                                                <div class="">
-                                                    <button disabled class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Like <span class="like-count">{{ $product->user->likes() }}</span></button>
-                                                    <button disabled class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $product->user_id }}">Dislike <span class="like-count">{{ $product->user->dislikes() }}</span></button>  
-                                                </div>   
-                                                <br>                                   
-                                                
-                                            @endif                                            
-                                        @endif
-                                        {{-- @if (Auth::check())  
-                                            @if (Auth::user()->id == $product->user_id)
-                                            <button onclick="myFunction()" disabled class="btn btn-light btn-ecomm">Napiši komentar</button> 
-                                            @else 
-                                                <button onclick="myFunction()" class="btn btn-light btn-ecomm">Napiši komentar</button> 
-                                                    <div class="col-lg-12" id="myDIV" style="display: none;">
-                                                        <div class="add-review bg-light-1">
-                                                            <div class="form-body p-3">
-                                                                <h4 class="mb-4">Napišite komentar</h4>
-                                                                <form action="/comments.store" method="POST" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Vaše ime i prezime</label>
-                                                                        <input disabled type="text" class="form-control rounded-0" name="user_id" value="{{Auth()->user()->firstName }}  {{ Auth()->user()->lastName}} ">
-                                                                    </div>
-                                                                    <div class="mb-3">                                                      
-                                                                            <input type="hidden" name="product_user_id" value="{{ $product->user_id }}">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Tekst komentara</label>
-                                                                        <textarea class="form-control rounded-0" name="body" id="example" rows="5">{!! old('body') !!}</textarea>
-                                                                    </div>
-                                                                    <div class="d-grid">                                            
-                                                                        <input type="submit" class="btn btn-dark btn-ecomm" value="Postavi">
-                                                                    </div>                                            
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            @endif                                           
-                                        @endif                                                                       --}}
-                                    </div>                        
+                      
                                     <div class="d-flex gap-2 mt-3">
                                         @if (Auth::check())   
                                             <div class="product-action mt-2">

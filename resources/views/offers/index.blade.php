@@ -98,17 +98,20 @@
                                                                                     @else
                                                                                         <p>Oglas više ne postoji!</p>
                                                                                     @endif
-                                                                                </a>
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <div class="mb-1 product-price">
-                                                                                        @if($offer->accepted == 1 || $offer->accepted == 3)
-                                                                                            Broj Telefona: {{$offer->sendproduct->user->phone ?? 'no client'}}
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="cursor-pointer ms-auto">
-                                                                                       
-                                                                                    </div>
-                                                                                </div>                                                   
+                                                                                </a>                                                                                
+                                                                                @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                <hr>
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <div class="mb-1 product-price">
+                                                                                            
+                                                                                                Broj Telefona: {{$offer->sendproduct->user->phone ?? 'no client'}} <br>
+                                                                                                Grad: {{$offer->sendproduct->user->city ?? 'no client'}}                                                                                            
+                                                                                        </div>
+                                                                                        <div class="cursor-pointer ms-auto">
+                                                                                                
+                                                                                        </div>
+                                                                                    </div>                                                   
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -145,17 +148,19 @@
                                                                                     @else
                                                                                         <p>Oglas više ne postoji!</p>
                                                                                     @endif
-                                                                                </a>
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <div class="mb-1 product-price"> 
-                                                                                        @if($offer->accepted == 1 || $offer->accepted == 3)
-                                                                                            Broj Telefona: {{$offer->product->user->phone ?? 'no client'}}
-                                                                                        @endif 
-                                                                                    </div>
-                                                                                    <div class="cursor-pointer ms-auto"> 
-                                                                                        
-                                                                                    </div>
-                                                                                </div>                                                    
+                                                                                </a>                                                                                
+                                                                                @if($offer->accepted == 1 || $offer->accepted == 3)
+                                                                                <hr>
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <div class="mb-1 product-price"> 
+                                                                                            Broj Telefona: {{$offer->product->user->phone ?? 'no client'}} <br>
+                                                                                            Grad: {{$offer->product->user->city ?? 'no client'}}                                                                                            
+                                                                                        </div>
+                                                                                        <div class="cursor-pointer ms-auto"> 
+                                                                                                
+                                                                                        </div>
+                                                                                    </div>                                                    
+                                                                                @endif 
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -309,13 +314,13 @@
                                                                                         @if (optional(Auth::user())->id)
                                                                                             @if (Auth::user()->id == $offer->sendproduct->user_id)
                                                                                                 <div class="like">
-                                                                                                    <button type="button" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Like <span id="count" class="like-count">{{ $offer->sendproduct->user->likes() }}</span></button>
-                                                                                                    <button type="button" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Dislike <span id="count" class="dislike-count">{{ $offer->sendproduct->user->dislikes() }}</span></button>  
+                                                                                                    <button style="transition: none; border: none;" type="button" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}"><img src="/assets/images/thumbs-up.svg" alt=""> <span id="count" class="like-count">{{ $offer->sendproduct->user->likes() }}</span></button>
+                                                                                                    <button style="transition: none; border: none;" type="button" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}"><img src="/assets/images/thumbs-down.svg" alt=""> <span id="count" class="dislike-count">{{ $offer->sendproduct->user->dislikes() }}</span></button>  
                                                                                                 </div>  
                                                                                             @else
                                                                                                 <div class="like">
-                                                                                                    <button type="button" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Like <span class="like-count">{{ $offer->sendproduct->user->likes() }}</span></button>
-                                                                                                    <button type="button" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}">Dislike <span class="dislike-count">{{ $offer->sendproduct->user->dislikes() }}</span></button>  
+                                                                                                    <button style="transition: none; border: none;" type="button" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}"><img src="/assets/images/thumbs-up.svg" alt=""> <span class="like-count">{{ $offer->sendproduct->user->likes() }}</span></button>
+                                                                                                    <button style="transition: none; border: none;" type="button" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $offer->sendproduct->user_id }}"><img src="/assets/images/thumbs-down.svg" alt=""> <span class="dislike-count">{{ $offer->sendproduct->user->dislikes() }}</span></button>  
                                                                                                 </div>   
                                                                                                 <br>                                   
                                                                                                 
@@ -382,16 +387,19 @@
                                                                                         <p>Oglas više ne postoji!</p>
                                                                                     @endif
                                                                                 </a>
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <div class="mb-1 product-price">
-                                                                                        @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
-                                                                                            Broj Telefona: {{$sendoffer->sendproduct->user->phone ?? 'no client'}}
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="cursor-pointer ms-auto">
-                                                                                       
-                                                                                    </div>
-                                                                                </div>                                                   
+                                                                                
+                                                                                @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
+                                                                                <hr>
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <div class="mb-1 product-price">
+                                                                                                Broj Telefona: {{$sendoffer->sendproduct->user->phone ?? 'no client'}} <br>
+                                                                                                Grad: {{$sendoffer->sendproduct->user->city ?? 'no client'}}
+                                                                                            </div>
+                                                                                            <div class="cursor-pointer ms-auto">
+                                                                                                
+                                                                                            </div>
+                                                                                    </div>                                                   
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -430,16 +438,18 @@
                                                                                         <p>Oglas više ne postoji!</p>
                                                                                     @endif
                                                                                 </a>
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <div class="mb-1 product-price"> 
-                                                                                        @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
-                                                                                            Broj Telefona: {{$sendoffer->product->user->phone ?? 'no client'}}
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="cursor-pointer ms-auto"> 
-                                                                                        
-                                                                                    </div>
-                                                                                </div>                                                    
+                                                                                @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
+                                                                                <hr>
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <div class="mb-1 product-price"> 
+                                                                                            Broj Telefona: {{$sendoffer->product->user->phone ?? 'no client'}} <br>
+                                                                                            Grad: {{$sendoffer->product->user->city ?? 'no client'}}
+                                                                                        </div>
+                                                                                        <div class="cursor-pointer ms-auto"> 
+                                                                                            
+                                                                                        </div>
+                                                                                    </div>                                                    
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -569,13 +579,13 @@
                                                                                     @if (optional(Auth::user())->id)
                                                                                         @if (Auth::user()->id == $sendoffer->product->user_id)
                                                                                             <div class="like">
-                                                                                                <button type="button" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}">Like <span id="count" class="like-count">{{ $sendoffer->product->user->likes() }}</span></button>
-                                                                                                <button type="button" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $sendoffer->sendproduct->user_id ?? 'no client'}}">Dislike <span id="count" class="dislike-count">{{ $sendoffer->product->user->dislikes() }}</span></button>  
+                                                                                                <button style="transition: none; border: none;" type="button" disabled id="btn" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}"><img src="/assets/images/thumbs-up.svg" alt=""> <span id="count" class="like-count">{{ $sendoffer->product->user->likes() }}</span></button>
+                                                                                                <button style="transition: none; border: none;" type="button" disabled id="btn" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $sendoffer->sendproduct->user_id ?? 'no client'}}"><img src="/assets/images/thumbs-down.svg" alt=""> <span id="count" class="dislike-count">{{ $sendoffer->product->user->dislikes() }}</span></button>  
                                                                                             </div>  
                                                                                         @else
                                                                                             <div class="like">
-                                                                                                <button type="button" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}">Like <span class="like-count">{{ $sendoffer->product->user->likes() }}</span></button>
-                                                                                                <button type="button" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}">Dislike <span class="dislike-count">{{ $sendoffer->product->user->dislikes() }}</span></button>  
+                                                                                                <button style="transition: none; border: none;" type="button" class="like-button mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}"><img src="/assets/images/thumbs-up.svg" alt=""> <span class="like-count">{{ $sendoffer->product->user->likes() }}</span></button>
+                                                                                                <button style="transition: none; border: none;" type="button" class="dislike-button mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold" data-user-id="{{ $sendoffer->product->user_id ?? 'no client'}}"><img src="/assets/images/thumbs-down.svg" alt=""> <span class="dislike-count">{{ $sendoffer->product->user->dislikes() }}</span></button>  
                                                                                             </div>   
                                                                                             <br>                                   
                                                                                             

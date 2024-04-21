@@ -95,9 +95,10 @@ class ProductsController extends Controller
                 $imgName = time() . $key . '.' . $image->extension();
                 
                 // Resize and save image
-                $resizedImage = Image::make($image)->resize(400, 300, function($constraint) {
-                    $constraint->aspectRatio();
-                });
+                // $resizedImage = Image::make($image)->resize(400, 300, function($constraint) {
+                //     $constraint->aspectRatio();
+                // });
+                $resizedImage = Image::make($image)->resize(400, 300);
                 $resizedImage->stream(); // This will perform the resize without saving to disk
                 Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
                 
