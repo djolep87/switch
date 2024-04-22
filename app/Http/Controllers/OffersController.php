@@ -86,6 +86,7 @@ class OffersController extends Controller
         $offers->acceptorName = $request->input('acceptorName');
         $offers->acceptorNumber = $request->input('acceptorNumber');
         $offers->accepted = 0;
+        $offers->sendaccepted = 0;
         $offers->save();
         toast('Vaš zahtev je uspešno poslat!', 'success');
         $user = User::find($offers->acceptor);
@@ -128,6 +129,7 @@ class OffersController extends Controller
     {
         $offers = Offer::find($id);
         $offers->accepted =  $request->input('accepted');
+        $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
         toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!', 'success');
         $user = User::find($offers->user_id);
@@ -139,6 +141,7 @@ class OffersController extends Controller
     {
         $offers = Offer::find($id);
         $offers->accepted =  $request->input('accepted');
+        $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
         toast('Zahtev je odbijen!', 'error');
         $user = User::find($offers->user_id);
@@ -154,11 +157,28 @@ class OffersController extends Controller
         toast('Čestitamo! Uspešna zamena! ', 'success');
         return redirect('/offers');
     }
+    public function confirmation_sendoffer(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->sendaccepted =  $request->input('accepted');
+        $offers->save();
+        toast('Čestitamo! Uspešna zamena! ', 'success');
+        return redirect('/offers');
+    }
 
     public function canceled(Request $request, $id)
     {
         $offers = Offer::find($id);
         $offers->accepted =  $request->input('accepted');
+        $offers->save();
+        toast('Zamena neuspešna!', 'error');
+        return redirect('/offers');
+    }
+
+    public function canceled_sendoffer(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
         toast('Zamena neuspešna!', 'error');
         return redirect('/offers');

@@ -225,8 +225,8 @@
                                                                     @endif
         
                                                                     @if ($offer->accepted == 2)
-                                                                        <div class="btn btn-danger">
-                                                                            <p>Zahtev odbijen!</p>
+                                                                        <div class="alert alert-danger text-center" role="alert">
+                                                                            Zahtev odbijen!
                                                                         </div>
                                                                         
                                                                         <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
@@ -240,8 +240,11 @@
         
                                                                     @if($offer->accepted == 3)
                                                                         @if($offer->product)
+                                                                            <div class="alert alert-success text-center" role="alert">
+                                                                                Uspešna zamena! Ocenite korisnika.
+                                                                            </div>
                                                                             <div class="row">
-                                                                                <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal{{$offer->id}}" data-bs-whatever="@mdo"><i class="bx bx-star"></i></button>
+                                                                                <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal{{$offer->id}}" data-bs-whatever="@mdo">Oceni korisnika</i></button>
                                                                                 <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
                                                                                     {{ csrf_field() }}
                                                                                     {{method_field('delete')}}  
@@ -254,8 +257,8 @@
                                                                     @endif
         
                                                                     @if ($offer->accepted == 4)
-                                                                        <div class="btn btn-danger">
-                                                                            <p>Neuspešna zamena!</p>                                                                    
+                                                                        <div class="alert alert-danger text-center" role="alert">
+                                                                            Neuspešna zamena! Ocenite korisnika.
                                                                         </div>
                                                                         <div class="row">
                                                                             <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal{{$offer->id}}" data-bs-whatever="@mdo">Oceni korisnika</button>
@@ -388,7 +391,7 @@
                                                                                     @endif
                                                                                 </a>
                                                                                 
-                                                                                @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
+                                                                                @if($sendoffer->sendaccepted == 1 || $sendoffer->sendaccepted == 3)
                                                                                 <hr>
                                                                                     <div class="d-flex align-items-center">
                                                                                         <div class="mb-1 product-price">
@@ -438,7 +441,7 @@
                                                                                         <p>Oglas više ne postoji!</p>
                                                                                     @endif
                                                                                 </a>
-                                                                                @if($sendoffer->accepted == 1 || $sendoffer->accepted == 3)
+                                                                                @if($sendoffer->sendaccepted == 1 || $sendoffer->sendaccepted == 3)
                                                                                 <hr>
                                                                                     <div class="d-flex align-items-center">
                                                                                         <div class="mb-1 product-price"> 
@@ -458,14 +461,14 @@
                                                         </div>
                                                         <div class="product-action mt-2">
                                                             <div class="d-grid gap-2">
-                                                                @if ($sendoffer->accepted == 0)
+                                                                @if ($sendoffer->sendaccepted == 0)
                                                                     @if (!$sendoffer->product)
-                                                                        <div style="display: none" class="btn btn-warning">
-                                                                            <p>Zahtev  na cekanju</p>
+                                                                        <div class="alert alert-info" role="alert">
+                                                                            Zahtev  na čekanju!
                                                                         </div>
-                                                                    @else
-                                                                        <div class="btn btn-warning">
-                                                                            <p>Zahtev  na cekanju</p>
+                                                                    @else                                                                        
+                                                                        <div class="alert alert-info text-center" role="alert">
+                                                                            Zahtev  na čekanju!
                                                                         </div>
                                                                     @endif
                                                                 @endif
@@ -473,17 +476,17 @@
                                                             </div>
                                                         </div>
 
-                                                        @if($sendoffer->accepted == 1)
+                                                        @if($sendoffer->sendaccepted == 1)
                                                             Da li je uspešna zamena?
                                                             <div class="row">
-                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.confirmation', $sendoffer->id)}}" method="POST">
+                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.confirmation_sendoffer', $sendoffer->id)}}" method="POST">
                                                                     {{ csrf_field() }}
                                                                     {{method_field('post')}}
                                                                     <input type="hidden" name="accepted" value="3">
                                                                     <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
                                                                    
                                                                 </form>
-                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.canceled', $sendoffer->id)}}" method="post">
+                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.canceled_sendoffer', $sendoffer->id)}}" method="post">
                                                                     {{ csrf_field() }}
                                                                     {{method_field('post')}}
                                                                     <input type="hidden" name="accepted" value="4">
@@ -493,10 +496,10 @@
                                                             </div>                                                                
                                                         @endif
 
-                                                        @if ($sendoffer->accepted == 2)
+                                                        @if ($sendoffer->sendaccepted == 2)
                                                             <div class="d-grid gap-2">
-                                                                <div class="btn btn-danger">
-                                                                    <p>Zahtev odbijen!</p>
+                                                                <div class="alert alert-danger text-center" role="alert">
+                                                                    Zahtev odbijen!
                                                                 </div>                                                                
                                                             </div>
                                                             <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
@@ -508,10 +511,13 @@
                                                             </form>                      
                                                         @endif
 
-                                                        @if($sendoffer->accepted == 3)
+                                                        @if($sendoffer->sendaccepted == 3)
                                                             @if($sendoffer->product)
+                                                                <div class="alert alert-success text-center" role="alert">
+                                                                    Uspešna zamena! Ocenite korisnika.
+                                                                </div>
                                                                 <div class="row">
-                                                                    <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal1{{$sendoffer->id}}" data-bs-whatever="@mdo"><i class="bx bx-star"></i></button>
+                                                                    <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal1{{$sendoffer->id}}" data-bs-whatever="@mdo">Oceni korisnika</button>
                                                                     <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                         {{ csrf_field() }}
                                                                         {{method_field('delete')}}  
@@ -523,10 +529,10 @@
                                                             @endif
                                                         @endif
 
-                                                        @if ($sendoffer->accepted == 4)
-                                                            <div class="d-grid gap-2">
-                                                                <div class="btn btn-danger">
-                                                                    <p>Neuspešna zamena!</p>                                                                    
+                                                        @if ($sendoffer->sendaccepted == 4)
+                                                            <div class="d-grid gap-2">                                                               
+                                                                <div class="alert alert-danger text-center" role="alert">
+                                                                    Neuspešna zamena! Ocenite korisnika.
                                                                 </div>
                                                             </div>
                                                             <div class="row">
