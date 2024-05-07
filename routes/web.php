@@ -39,6 +39,9 @@ Route::post('/offers.canceled/{offer}', 'OffersController@canceled')->name('offe
 Route::post('/offers.canceled_sendoffer/{offer}', 'OffersController@canceled_sendoffer')->name('offers.canceled_sendoffer');
 Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.destroy');
 
+Route::post('/offers.offer_archived/{offer}', 'OffersController@offer_archived')->name('offers.offer_archived');
+Route::post('/offers.sendoffer_archived/{offer}', 'OffersController@sendoffer_archived')->name('offers.sendoffer_archived');
+
 // Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');
 Route::get('markAsRead/{notificationId}', 'OffersController@markAsRead')->name('markAsRead');
 

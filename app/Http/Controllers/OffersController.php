@@ -193,11 +193,30 @@ class OffersController extends Controller
     }
 
     public function markAsRead($notificationId)
-{
-    $notification = auth()->user()->notifications()->findOrFail($notificationId);
-    $notification->markAsRead();
-    return redirect('/offers');
-}
+    {
+        $notification = auth()->user()->notifications()->findOrFail($notificationId);
+        $notification->markAsRead();
+        return redirect('/offers');
+    }
+
+    public function offer_archived(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->offer_archived =  $request->input('offer_archived');
+        $offers->save();
+        toast('Zahtev je obrisan!', 'danger');
+        return redirect('/offers');
+    }
+
+
+    public function sendoffer_archived(Request $request, $id)
+    {
+        $offers = Offer::find($id);
+        $offers->sendoffer_archived =  $request->input('sendoffer_archived');
+        $offers->save();
+        toast('Zahtev je obrisan!', 'danger');
+        return redirect('/offers');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -210,7 +229,7 @@ class OffersController extends Controller
 
         $offer = Offer::findOrFail($id);
 
-        if ($offer->accepted == 1 || $offer->accepted == 3) {
+        if ($offer->offer_archived == 1 && $offer->sendoffer_archived == 1) {
             $product = $offer->product;
             $sendProduct = $offer->sendproduct;
     
@@ -241,8 +260,8 @@ class OffersController extends Controller
             }
         }
     
-        $offer->delete();
-        toast('Zahtev je obrisan!', 'warning');
+        // $offer->delete();
+        // toast('Zahtev je obrisan!', 'warning');
         return back();
     }
 }
