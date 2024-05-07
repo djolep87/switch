@@ -221,7 +221,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        {{-- <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="tab" href="#description" role="tab" aria-selected="false">
                                 <div class="d-flex align-items-center">
                                     <div class="tab-title text-uppercase fw-500">Description</div>
@@ -241,7 +241,7 @@
                                     <div class="tab-title text-uppercase fw-500">Tags</div>
                                 </div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                     <div class="tab-content pt-3">
                         <div class="tab-pane fade show active" id="reviews" role="tabpanel">

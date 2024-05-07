@@ -29,6 +29,11 @@
                                 <div class="card shadow-none mb-0">
                                     <div class="card-body">
                                         <div class="table-responsive">
+                                            <div class="filter-sidebar d-none d-xl-flex pb-2">
+                                                <div class="card rounded-0">
+                                                    <button onclick="window.location.href='/products.create'" class="btn btn-dark">Postavite oglas<i class='bx bx-plus'></i></button>
+                                                </div>
+                                            </div>
                                             <table class="table">
                                                 <thead class="table-light">
                                                     <tr>
@@ -53,18 +58,23 @@
                                                             <td>{{$product->name}}</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">	
-                                                                    <a href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
-                                                                    <a href="products.edit/{{$product->id}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
-                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('product.destroy', $product->id)}}" id="frmDelete"  method="POST">
+                                                                    <a title="Pogledaj" href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
+                                                                    <a title="Uredi" href="products.edit/{{$product->id}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
+                                                                    {{-- <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('product.destroy', $product->id)}}" id="frmDelete"  method="POST">
                                                                         {{ csrf_field() }}
                                                                         {{method_field('delete')}}  
-                                                                        {{-- <button class="deleteButton" style="border:none; transparent:none;"  type="submit">
+                                                                        <button class="deleteButton" style="border:none; transparent:none;"  type="submit">
                                                                             <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                             <a href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
-                                                                        </button>                                                                 --}}
-                                                                        <a id="frmDelete" onclick="document.form.submit" href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
+                                                                        </button>                                                                
+                                                                        <a title="Obriši" id="frmDelete" onclick="document.form.submit" href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
 
-                                                                    </form>   
+                                                                    </form>    --}}
+                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ route('product.destroy', $product->id) }}" id="frmDelete" method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        {{ method_field('delete') }}  
+                                                                        <a title="Obriši" id="deleteButton" href="#"><img src="/assets/images/delete.png" alt="" srcset=""></a>
+                                                                    </form>
                                                                 </div>
                                                             </td>
                                                         </tr>                                                        

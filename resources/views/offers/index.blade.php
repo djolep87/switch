@@ -231,11 +231,11 @@
                                                                         
                                                                         <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
                                                                             {{ csrf_field() }}
-                                                                            {{method_field('delete')}}  
+                                                                            {{method_field('delete')}}                                                                           
                                                                             <button style="border:none; transparent:none;"  type="submit">
                                                                                 <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                             </button>  
-                                                                        </form>                      
+                                                                        </form>                                                                        
                                                                     @endif
         
                                                                     @if($offer->accepted == 3)
@@ -251,7 +251,7 @@
                                                                                     <button style="border:none; transparent:none;"  type="submit">
                                                                                         <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                                     </button>                                                                                                                                               
-                                                                                </form>   
+                                                                                </form>                                                                           
                                                                             </div>
                                                                         @endif
                                                                     @endif
@@ -272,7 +272,7 @@
                                                                         </div>
                                                                     @endif
         
-                                                                    @if (!$offer->product)                                                                
+                                                                    {{-- @if (!$offer->product)                                                                
                                                                             <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $offer->id)}}"  method="POST">
                                                                                 {{ csrf_field() }}
                                                                                 {{method_field('delete')}}  
@@ -281,7 +281,7 @@
                                                                                 </button>                                                                                                                                                 
                                                                             </form>
                                                                         </td>
-                                                                    @endif
+                                                                    @endif --}}
         
                                                                 </div>
                                                             </div>
@@ -463,9 +463,13 @@
                                                             <div class="d-grid gap-2">
                                                                 @if ($sendoffer->sendaccepted == 0)
                                                                     @if (!$sendoffer->product)
-                                                                        <div class="alert alert-info" role="alert">
-                                                                            Zahtev  na čekanju!
-                                                                        </div>
+                                                                        <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
+                                                                            {{ csrf_field() }}
+                                                                            {{method_field('delete')}}  
+                                                                            <button style="border:none; transparent:none;"  type="submit">
+                                                                                <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                            </button>  
+                                                                        </form> 
                                                                     @else                                                                        
                                                                         <div class="alert alert-info text-center" role="alert">
                                                                             Zahtev  na čekanju!
@@ -504,7 +508,7 @@
                                                             </div>
                                                             <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                 {{ csrf_field() }}
-                                                                {{method_field('delete')}}  
+                                                                {{method_field('delete')}}                                                             
                                                                 <button style="border:none; transparent:none;"  type="submit">
                                                                     <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                 </button>  
@@ -520,7 +524,7 @@
                                                                     <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#exampleModal1{{$sendoffer->id}}" data-bs-whatever="@mdo">Oceni korisnika</button>
                                                                     <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                         {{ csrf_field() }}
-                                                                        {{method_field('delete')}}  
+                                                                        {{method_field('delete')}}                                                                       
                                                                         <button style="border:none; transparent:none;"  type="submit">
                                                                             <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
                                                                         </button>                                                                                                                                               
@@ -547,7 +551,7 @@
                                                             </div>
                                                         @endif
 
-                                                        @if (!$sendoffer->product)                                                                
+                                                        {{-- @if (!$sendoffer->product)                                                                
                                                                 <form class="d-grid gap-2  p-0 m-0" action="{{route('offers.destroy', $sendoffer->id)}}"  method="POST">
                                                                     {{ csrf_field() }}
                                                                     {{method_field('delete')}}  
@@ -556,7 +560,7 @@
                                                                     </button>                                                                                                                                                 
                                                                 </form>
                                                             </td>
-                                                        @endif
+                                                        @endif --}}
                                                         @if ($sendoffer->product)
                                                             <div class="modal fade" id="exampleModal1{{$sendoffer->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
