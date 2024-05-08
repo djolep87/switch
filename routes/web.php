@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,9 @@ Route::post('like', 'LikeController@like')->name('like');
 Route::post('dislike', 'LikeController@dislike')->name('dislike');
 
 Auth::routes();
+
+Route::get('/auth.edit/{id}', 'UserController@edit');
+Route::post('/auth/{id}', 'UserController@update')->name('user.update');
 
 Route::get('/blog', 'BlogController@index')->name('blog.index');
 Route::get('/blog.show', 'BlogController@show')->name('blog.show');

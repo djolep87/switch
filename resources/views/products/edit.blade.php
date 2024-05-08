@@ -34,11 +34,11 @@
                                 <label class="form-label">Opis proizvoda</label>
                                 <textarea rows="10" name="description" class="form-control rounded-0">{!! Request::old('description', $product->description) !!}</textarea>
                             </div>
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <label class="form-label">Slika proizvoda</label>
                                 <input type="file" name="image" class="form-control" >
                                 <img src="/storage/Product_images/{{$product->image}}" width="50px" height="50px" alt="">
-                            </div>
+                            </div> --}}
                             <div class="col-12">
                                 <label class="form-label">Galerija proizvoda</label>
                                 <input type="file" name="images[]" class="form-control" multiple>

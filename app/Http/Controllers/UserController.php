@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,44 @@ class UserController extends Controller
         $user = Auth::user();
         $products = Product::where('user_id', auth()->user()->id)->get();
         return view('dashboard', compact('products', 'wishlists'));
+    }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
+        $products = Product::where('user_id', auth()->user()->id)->get();
+        return view('/auth.edit', compact('wishlists'));
+    }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id() . ',id'],
+            'city' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+        ], [
+            'email.unique' => 'Email adresa već postoji u našem sistemu. Molimo vas odaberite drugu email adresu.',
+        ]);
+        
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
+        $products = Product::where('user_id', auth()->user()->id)->get();
+        $user = Auth::user();
+
+        $user->firstName = $request->input('firstName');
+        $user->lastName = $request->input('lastName');
+        $user->email = $request->input('email');
+        $user->city = $request->input('city');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->save();
+
+        toast('Uspešno ste izmenili podatke!', 'success');
+        return view('dashboard', compact('products', 'wishlists'));
+
     }
 
    
