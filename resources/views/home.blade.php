@@ -218,6 +218,7 @@
                                                                     
                                                                      <div>{{$product->users_city}}</div> 
                                                                      <div>{{$product->users_firstname}}</div>
+                                                                     <div>{{ $product->created_at}}</div>
                                                                 </div>
                                                                 
                                                                 

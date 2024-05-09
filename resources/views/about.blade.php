@@ -23,7 +23,7 @@
             <div class="col d-flex">
                 <div class="card rounded-0 shadow-none w-100">
                     <div class="card-body">
-                        <img src="assets/images/icons/delivery.png" width="60" alt="">
+                        <img src="assets/images/icons/save.png" width="60" alt="">
                         <h5 class="my-3">Održivost na prvom mestu</h5>
                         <p class="mb-0">Mi smo više od obične platforme za razmenu - mi smo pokret posvećen očuvanju planete. Kada koristite Trange Frange, aktivno doprinosite smanjenju otpada i štedite prirodne resurse tako što delite i ponovno koristite predmete umesto da ih bacate. Vaša podrška našoj platformi direktno utiče na smanjenje ekološkog otiska i gradi održiviju budućnost za sve nas.</p>
                     </div>
@@ -32,7 +32,7 @@
             <div class="col d-flex">
                 <div class="card rounded-0 shadow-none w-100">
                     <div class="card-body">
-                        <img src="assets/images/icons/money-bag.png" width="60" alt="">
+                        <img src="assets/images/icons/trade.png" width="60" alt="">
                         <h5 class="my-3">Jednostavna i pouzdana razmena</h5>
                         <p class="mb-0">Trange Frange vam pruža sigurnu i pouzdanu platformu za razmenu predmeta sa drugim korisnicima. Bez obzira da li želite razmeniti ili pokloniti nešto, naša platforma vam omogućava da to uradite brzo i lako, direktno iz udobnosti svog doma. Sa visokim standardima u pogledu transparentnosti i kvaliteta, možete biti sigurni da će svaka transakcija na Trange Frange biti sigurna i zadovoljavajuća.</p>
                     </div>
@@ -41,7 +41,7 @@
             <div class="col d-flex">
                 <div class="card rounded-0 shadow-none w-100">
                     <div class="card-body">
-                        <img src="assets/images/icons/support.png" width="60" alt="">
+                        <img src="assets/images/icons/community.png" width="60" alt="">
                         <h5 class="my-3">Pridružite se zajednici istomišljenika</h5>
                         <p class="mb-0">Postanite deo šire zajednice ljubitelja održivosti i reciklaže. Trange Frange povezuje ljude sa sličnim vrednostima i ciljevima, stvarajući prostor za deljenje ideja, iskustava i inspiracije. Kroz našu platformu, možete upoznati nove ljude, razviti prijateljstva i zajedno raditi na stvaranju pozitivnih promena u svetu.</p>
                     </div>
