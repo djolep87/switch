@@ -39,23 +39,24 @@ class UserController extends Controller
         ], [
             'email.unique' => 'Email adresa već postoji u našem sistemu. Molimo vas odaberite drugu email adresu.',
         ]);
-        
-        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
-        $products = Product::where('user_id', auth()->user()->id)->get();
+
         $user = Auth::user();
 
-        $user->firstName = $request->input('firstName');
-        $user->lastName = $request->input('lastName');
-        $user->email = $request->input('email');
-        $user->city = $request->input('city');
-        $user->address = $request->input('address');
-        $user->phone = $request->input('phone');
-        $user->save();
+        if ($user) {
+            $user->update([
+                'firstName' => $request->input('firstName'),
+                'lastName' => $request->input('lastName'),
+                'email' => $request->input('email'),
+                'city' => $request->input('city'),
+                'address' => $request->input('address'),
+                'phone' => $request->input('phone'),
+            ]);
 
-        toast('Uspešno ste izmenili podatke!', 'success');
-        return view('dashboard', compact('products', 'wishlists'));
+            toast('Uspešno ste izmenili podatke!', 'success');
 
+            return redirect('/dashboard');
+        }
+
+    
     }
-
-   
 }
