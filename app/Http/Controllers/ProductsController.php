@@ -190,12 +190,14 @@ class ProductsController extends Controller
         if ($request->has('images')) {
             $imagesname = [];
             
-            // Delete old images
+            // Delete old images except 'noimage.jpg'
             $oldImages = explode(',', $product->images);
             foreach ($oldImages as $oldImage) {
-                Storage::disk('public')->delete('Product_images/' . $oldImage);
+                if ($oldImage !== 'noimage.jpg') {
+                    Storage::disk('public')->delete('Product_images/' . $oldImage);
+                }
             }
-
+    
             // Save new images
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
