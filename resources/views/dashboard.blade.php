@@ -59,7 +59,7 @@
                                                             <td>
                                                                 <div class="d-flex gap-2">	
                                                                     <a title="Pogledaj" href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
-                                                                    <a title="Uredi" href="products.edit/{{$product->id}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
+                                                                    <a title="Uredi" href="{{route('products.edit', $product->id)}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
                                                                     {{-- <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('product.destroy', $product->id)}}" id="frmDelete"  method="POST">
                                                                         {{ csrf_field() }}
                                                                         {{method_field('delete')}}  

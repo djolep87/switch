@@ -25,8 +25,10 @@
                             <div class="col-12">
                                 <label class="form-label">Kategorija</label>
                                 <select class="form-select" name="category_id" id="inputSelectCountry" aria-label="Default select example">
-                                    @foreach ($categories as $category )
-                                        <option selected name="category_id" value="{{$category->id}}">{{$category->name}}</option> 
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

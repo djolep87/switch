@@ -61,8 +61,8 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    {{-- <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>   --}}
-                                                                    <p>Oglas više ne postoji!</p>
+                                                                    <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>  
+                                                                    {{-- <p>Oglas više ne postoji!</p> --}}
                                                                 
                                                                 </td>
                                                                 <td>

@@ -62,8 +62,8 @@ Route::get('/blog.show', 'BlogController@show')->name('blog.show');
 Route::get('/products.create', 'ProductsController@create');
 Route::post('/products.store', 'ProductsController@store');
 Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');  
-Route::get('/products.edit/{id}', 'ProductsController@edit');
-Route::put('/products.store/{product}', 'ProductsController@update');
+Route::get('/products/{id}/edit', 'ProductsController@edit')->name('products.edit');
+Route::put('/products/{product}', 'ProductsController@update')->name('products.update');
 Route::delete('/products.destroy/{id}', 'ProductsController@destroy')->name('product.destroy');
 
 Route::post('/comments.store/{id}', 'CommentsController@store')->name('comments.store');

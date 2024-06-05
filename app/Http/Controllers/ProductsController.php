@@ -58,36 +58,12 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
-        // $validated = $request->validate([
-        //     'name' => 'required',
-        //     // 'conditions' => 'required',
-        //     'descriptions' => 'required',
-        // ]);
-
-        // if ($request->hasFile('image')) {
-        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
-        //     //Get just filename
-        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        //     //Get just extension
-        //     $extension = $request->file('image')->getClientOriginalExtension();
-        //     //Filename to store
-        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        //     $path = $request->file('image')->storeAs('public/Product_images', $fileNameToStore);
-        // } else {
-        //     $fileNameToStore = 'noimage.jpg';
-        // }
-
-        // if ($request->has('images')) {
-        //     $imagesname = [];
-        //     foreach ($request->images as $key => $image) {
-        //         $imgName = time() . $key . '.' . $image->extension();
-        //         $image->storeAs('public/Product_images', $imgName);
-        //         $imagesname[] = $imgName;
-        //     }
-        //     $imagesname = implode(',', $imagesname);
-        // } else {
-        //     $imagesname = 'noimage.jpg';
-        // }
+         // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+           
+        ]);
 
         if ($request->has('images')) {
             $imagesname = [];
@@ -122,27 +98,7 @@ class ProductsController extends Controller
         $product->categories()->attach(request('category_id'));
         toast('Uspešno ste postavili oglas!', 'success');
         return back();
-        // $product->users()->attach($request->user_id);
-
-        // ProductUser::create([
-        //     'product_id' => $product->id,
-        //     'user_id' => Auth()->user()->id,
-        //     'city' => Auth()->user()->city,
-        //     'firstName' => Auth()->user()->firstName,
-        // ]);
-
-        // if ($request->has('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $name = $image->getClientOriginalName();
-        //         $path = $image->storeAs('Product_images', $name, 'public');
-
-        //         Image::create([
-        //             'product_id' => $product->id,
-        //             'name' => $name,
-        //             'path' => '/storage/' . $path
-        //         ]);
-        //     }
-        // }
+        
     }
 
     /**
@@ -164,7 +120,7 @@ class ProductsController extends Controller
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
         $categories = Category::all();
         $product = Product::find($id);
-        $images = Images::where('product_id')->get();
+        $images = Images::where('product_id', $id)->get();
         return view('/products.edit', compact('categories', 'product', 'images', 'wishlists'));
     }
 
@@ -177,65 +133,97 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function update(Request $request, $id)
+    // {
+
+    //       // Validate the incoming request data
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+           
+    //     ]);
+
+
+    //     $product = Product::findOrFail($id);
+
+    //     if ($request->has('images')) {
+    //         $imagesname = [];
+    //         foreach ($request->images as $key => $image) {
+    //             $imgName = time() . $key . '.' . $image->extension();
+                
+    //             // Resize and save image
+    //             $resizedImage = Image::make($image)->resize(400, 300)->stream(); 
+    //             Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
+                
+    //             $imagesname[] = $imgName;
+    //         }
+    //         $imagesname = implode(',', $imagesname);
+    //     } else {
+    //         $imagesname = 'noimage.jpg';
+    //     }
+
+    //     $product->user_id = Auth()->user()->id;
+    //     $product->category_id = $request->input('category_id');
+    //     $product->name = $request->input('name');
+    //     $product->condition = $request->input('condition');
+    //     $product->description = $request->input('description');
+    //     $product->images = $imagesname;
+    //     $product->save();
+        
+    //     $product->categories()->sync($request->input('category_id'));
+
+    //     toast('Uspešno izmenjen oglas!', 'success');
+    //     return redirect('/dashboard');
+    // }
+
     public function update(Request $request, $id)
     {
+        // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-        // $product = Product::find($id);
-        // if ($request->hasFile('image')) {
-        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
-        //     //Get just filename
-        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        //     //Get just extension
-        //     $extension = $request->file('image')->getClientOriginalExtension();
-        //     //Filename to store
-        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        //     $path = $request->file('image')->storeAs('public/Product_images', $fileNameToStore);
-        // } else {
-        //     $fileNameToStore = 'noimage.jpg';
-        // }
+        $product = Product::findOrFail($id);
 
+        // Handle image uploads
         if ($request->has('images')) {
-            $imagesname = '';
+            $imagesname = [];
+            
+            // Delete old images
+            $oldImages = explode(',', $product->images);
+            foreach ($oldImages as $oldImage) {
+                Storage::disk('public')->delete('Product_images/' . $oldImage);
+            }
+
+            // Save new images
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
-                $image->storeAs('public/Product_images', $imgName);
-                $imagesname = $imagesname . ',' . $imgName;
+                
+                // Resize and save image
+                $resizedImage = Image::make($image)->resize(400, 300)->stream();
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
+                
+                $imagesname[] = $imgName;
             }
-            // $product->images = $imagesname;
+            $imagesname = implode(',', $imagesname);
         } else {
-            $imagesname = 'noimage.jpg';
+            // Retain old images if no new images are uploaded
+            $imagesname = $product->images;
         }
 
-
-        $product = new Product;
-        $product->user_id = Auth()->user()->id;
+        $product->user_id = auth()->user()->id;
         $product->category_id = $request->input('category_id');
         $product->name = $request->input('name');
         $product->condition = $request->input('condition');
         $product->description = $request->input('description');
-        // $product->image = $fileNameToStore;
         $product->images = $imagesname;
-        
         $product->save();
-
-        // $product->users()->attach($request->user_id);
-
-
-        // if ($request->has('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $name = $image->getClientOriginalName();
-        //         $path = $image->storeAs('Product_images', $name, 'public');
-
-        //         Image::create([
-        //             'product_id' => $product->id,
-        //             'name' => $name,
-        //             'path' => '/storage/' . $path
-        //         ]);
-        //     }
-        // }
+        
+        $product->categories()->sync($request->input('category_id'));
 
         toast('Uspešno izmenjen oglas!', 'success');
-        return back();
+        return redirect('/dashboard');
     }
 
     /**

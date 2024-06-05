@@ -12,7 +12,7 @@
                         @csrf
                         <div class="col-md-6">
                             <label class="form-label">Naziv proizvoda</label>
-                            <input type="text" name="name" class="form-control" value="">
+                            <input type="text" name="name" class="form-control" required value="">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Stanje</label>
@@ -24,14 +24,17 @@
                         <div class="col-12">
                             <label class="form-label">Kategorija</label>
                             <select class="form-select" name="category_id" id="inputSelectCountry" aria-label="Default select example">
-                                @foreach ($categories as $category )
-                                <option selected name="category_id" value="{{$category->id}}">{{$category->name}}</option> 
-                                @endforeach
+                                @if ($categories->isNotEmpty())
+                                    <option name="category_id" value="{{$categories->first()->id}}" selected>{{$categories->first()->name}}</option>
+                                    @foreach ($categories->skip(1) as $category)
+                                        <option name="category_id" value="{{$category->id}}">{{$category->name}}</option> 
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Opis proizvoda</label>
-                            <textarea rows="10" name="description" class="form-control rounded-0" id="example"></textarea>
+                            <textarea rows="10" name="description" class="form-control rounded-0" required id="example"></textarea>
                         </div>
                         {{-- <div class="col-12">
                             <label class="form-label">Slika proizvoda</label>

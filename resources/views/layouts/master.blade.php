@@ -53,7 +53,7 @@
 								</div>
 								<div class="logo d-none d-lg-flex">
 									<a href="/">
-										<img src="/assets/images/trangefrange.png" class="logo-icon" alt="" />
+										<img src="/assets/images/logo.png" class="logo-icon" alt="" />
 									</a>
 								</div>
 							</div>
