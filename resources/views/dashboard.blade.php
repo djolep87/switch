@@ -14,8 +14,8 @@
                             <div class="list-group list-group-flush">	<a href="/dashboard" class="list-group-item active d-flex justify-content-between align-items-center">Dashboard <i class='bx bx-tachometer fs-5'></i></a>
                                 <a href="/offers" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Ponude <i class='bx bx-cart-alt fs-5'></i></a>
                                 <a href="/wishlist" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Oglasi koje pratim <i class='bx bx-star fs-5'></i></a>
-                                <a href="account-addresses.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Addresses <i class='bx bx-home-smile fs-5'></i></a>
-                                <a href="account-payment-methods.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Payment Methods <i class='bx bx-credit-card fs-5'></i></a>
+                                {{-- <a href="account-addresses.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Addresses <i class='bx bx-home-smile fs-5'></i></a>
+                                <a href="account-payment-methods.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Payment Methods <i class='bx bx-credit-card fs-5'></i></a> --}}
                                 <a href="/auth.edit/{{auth()->user()->id}}" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Uredi Profil <i class='bx bx-user-circle fs-5'></i></a>
                                 <a href="#" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Logout <i class='bx bx-log-out fs-5'></i></a>
                             </div>
@@ -70,10 +70,10 @@
                                                                         <a title="Obriši" id="frmDelete" onclick="document.form.submit" href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
 
                                                                     </form>    --}}
-                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ route('product.destroy', $product->id) }}" id="frmDelete" method="POST">
+                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ route('product.destroy', $product->id) }}" id="frmDelete-{{ $product->id }}" method="POST">
                                                                         {{ csrf_field() }}
                                                                         {{ method_field('delete') }}  
-                                                                        <a title="Obriši" id="deleteButton" href="#"><img src="/assets/images/delete.png" alt="" srcset=""></a>
+                                                                        <a title="Obriši" class="deleteButton" data-id="{{ $product->id }}" href="#"><img src="/assets/images/delete.png" alt="" srcset=""></a>
                                                                     </form>
                                                                 </div>
                                                             </td>

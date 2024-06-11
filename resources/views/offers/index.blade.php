@@ -15,8 +15,8 @@
                                 <div class="list-group list-group-flush">	<a href="/dashboard" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Dashboard <i class='bx bx-tachometer fs-5'></i></a>
                                     <a href="/offers" class="list-group-item active d-flex justify-content-between align-items-center">Ponude <i class='bx bx-cart-alt fs-5'></i></a>
                                     <a href="/wishlist" class="list-group-item d-flex justify-content-between align-items-center">Oglasi koje pratim <i class='bx bx-star fs-5'></i></a>
-                                    <a href="account-addresses.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Addresses <i class='bx bx-home-smile fs-5'></i></a>
-                                    <a href="account-payment-methods.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Payment Methods <i class='bx bx-credit-card fs-5'></i></a>
+                                    {{-- <a href="account-addresses.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Addresses <i class='bx bx-home-smile fs-5'></i></a>
+                                    <a href="account-payment-methods.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Payment Methods <i class='bx bx-credit-card fs-5'></i></a> --}}
                                     <a href="/auth.edit/{{auth()->user()->id}}" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Uredi Profil <i class='bx bx-user-circle fs-5'></i></a>
                                     <a href="#" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Logout <i class='bx bx-log-out fs-5'></i></a>
                                 </div>
@@ -68,8 +68,8 @@
                                                                 
                                                                 <div class="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 position-relative">
                                                                     <div class="col">
+                                                                        <p class="text-center">{{$offer->user->firstName}}</p>                                                                        
                                                                         <div class="card rounded-0 product-card">
-                                                                            {{$offer->user->firstName}}
                                                                             <div class="card-header bg-transparent border-bottom-0">
                                                                                 <div class="d-flex align-items-center justify-content-end gap-3">
                                                                                     <a href="javascript:;">
@@ -104,7 +104,7 @@
                                                                                         <hr>
                                                                                         <div class="d-flex align-items-center">
                                                                                             <div class="mb-1 product-price">
-                                                                                                
+                                                                                                    Ime: {{$offer->user->firstName ?? 'no client'}} <br>
                                                                                                     Broj Telefona: {{$offer->sendproduct->user->phone ?? 'no client'}} <br>
                                                                                                     Grad: {{$offer->sendproduct->user->city ?? 'no client'}}                                                                                            
                                                                                             </div>
@@ -119,8 +119,8 @@
                                                                     </div> 
                                                                     <img src="/assets/images/arrow.png" class="arrow-image-swap">
                                                                     <div class="col">
+                                                                       <p class="text-center">Moj proizvod</p> 
                                                                         <div class="card rounded-0 product-card">
-                                                                            Moj proizvod
                                                                             <div class="card-header bg-transparent border-bottom-0">
                                                                                 <div class="d-flex align-items-center justify-content-end gap-3">
                                                                                     <a href="javascript:;">
@@ -154,6 +154,7 @@
                                                                                     <hr>
                                                                                         <div class="d-flex align-items-center">
                                                                                             <div class="mb-1 product-price"> 
+                                                                                                Ime: {{$offer->product->user->firstName ?? 'no client'}} <br>
                                                                                                 Broj Telefona: {{$offer->product->user->phone ?? 'no client'}} <br>
                                                                                                 Grad: {{$offer->product->user->city ?? 'no client'}}                                                                                            
                                                                                             </div>
@@ -362,8 +363,8 @@
                                                             <div class="product-grid border-1">                                                             
                                                                 <div class="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 position-relative">
                                                                     <div class="col">
+                                                                       <p class="text-center">Moj proizvod</p> 
                                                                         <div class="card rounded-0 product-card">
-                                                                            Moj proizvod
                                                                             <div class="card-header bg-transparent border-bottom-0">
                                                                                 <div class="d-flex align-items-center justify-content-end gap-3">
                                                                                     <a href="javascript:;">
@@ -398,8 +399,9 @@
                                                                                     <hr>
                                                                                         <div class="d-flex align-items-center">
                                                                                             <div class="mb-1 product-price">
-                                                                                                    Broj Telefona: {{$sendoffer->sendproduct->user->phone ?? 'no client'}} <br>
-                                                                                                    Grad: {{$sendoffer->sendproduct->user->city ?? 'no client'}}
+                                                                                                    Ime: {{$sendoffer->user->firstName ?? 'no client'}} <br>
+                                                                                                    Broj Telefona: {{$sendoffer->user->phone ?? 'no client'}} <br>
+                                                                                                    Grad: {{$sendoffer->user->city ?? 'no client'}}
                                                                                                 </div>
                                                                                                 <div class="cursor-pointer ms-auto">
                                                                                                     
@@ -412,8 +414,8 @@
                                                                     </div> 
                                                                     <img src="/assets/images/arrow.png" class="arrow-image-swap">
                                                                     <div class="col">
+                                                                        <p class="text-center">{{$sendoffer->acceptorName}}</p> 
                                                                         <div class="card rounded-0 product-card">
-                                                                            {{$sendoffer->acceptorName}}
                                                                             <div class="card-header bg-transparent border-bottom-0">
                                                                                 <div class="d-flex align-items-center justify-content-end gap-3">
                                                                                     <a href="javascript:;">
@@ -425,7 +427,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             @if ($sendoffer->product)
-                                                                            <a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9 card-img-top" alt=""></a>  <!-- artikal za zamenu -->
+                                                                                <a href="{{route('products.show', $sendoffer->product->id)}}"><img src="/storage/Product_images/{{ $images[0] }}" class="rounded = 9 card-img-top" alt=""></a>  <!-- artikal za zamenu -->
                                                                             @else
                                                                                 
                                                                                 <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" alt="">
@@ -447,9 +449,10 @@
                                                                                     @if($sendoffer->sendaccepted == 1 || $sendoffer->sendaccepted == 3)
                                                                                     <hr>
                                                                                         <div class="d-flex align-items-center">
-                                                                                            <div class="mb-1 product-price"> 
-                                                                                                Broj Telefona: {{$sendoffer->product->user->phone ?? 'no client'}} <br>
-                                                                                                Grad: {{$sendoffer->product->user->city ?? 'no client'}}
+                                                                                            <div class="mb-1 product-price">
+                                                                                                Ime:  {{$sendoffer->acceptorName}} <br>
+                                                                                                Broj Telefona: {{$sendoffer->user->phone ?? 'no client'}} <br>
+                                                                                                Grad: {{$sendoffer->user->city ?? 'no client'}}
                                                                                             </div>
                                                                                             <div class="cursor-pointer ms-auto"> 
                                                                                                 
@@ -484,23 +487,33 @@
                                                             </div>
     
                                                             @if($sendoffer->sendaccepted == 1)
-                                                                Da li je uspešna zamena?
-                                                                <div class="row">
-                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.confirmation_sendoffer', $sendoffer->id)}}" method="POST">
-                                                                        {{ csrf_field() }}
-                                                                        {{method_field('post')}}
-                                                                        <input type="hidden" name="accepted" value="3">
-                                                                        <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
-                                                                       
-                                                                    </form>
-                                                                    <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.canceled_sendoffer', $sendoffer->id)}}" method="post">
-                                                                        {{ csrf_field() }}
-                                                                        {{method_field('post')}}
-                                                                        <input type="hidden" name="accepted" value="4">
-                                                                        <button class="btn btn-danger btn-sm m-0 btn-ecomm" type="submit">NE</button>
+                                                                @if ($sendoffer->product)
+                                                                    Da li je uspešna zamena?
+                                                                    <div class="row">
+                                                                        <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.confirmation_sendoffer', $sendoffer->id)}}" method="POST">
+                                                                            {{ csrf_field() }}
+                                                                            {{method_field('post')}}
+                                                                            <input type="hidden" name="accepted" value="3">
+                                                                            <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
                                                                         
-                                                                    </form>
-                                                                </div>                                                                
+                                                                        </form>
+                                                                        <form class="d-grid gap-2 col-6 p-0 m-0" action="{{url('offers.canceled_sendoffer', $sendoffer->id)}}" method="post">
+                                                                            {{ csrf_field() }}
+                                                                            {{method_field('post')}}
+                                                                            <input type="hidden" name="accepted" value="4">
+                                                                            <button class="btn btn-danger btn-sm m-0 btn-ecomm" type="submit">NE</button>
+                                                                            
+                                                                        </form>
+                                                                    </div>                                                                           
+                                                                @else
+                                                                    <form class="d-grid gap-2  p-0 m-0 " action="{{route('offers.sendoffer_archived', $sendoffer->id)}}"  method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        <input type="hidden" name="sendoffer_archived" value="1">                                                                                                                            
+                                                                        <button style="border:none; transparent:none;"  type="submit">
+                                                                            <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                        </button>  
+                                                                    </form>   
+                                                                @endif
                                                             @endif
     
                                                             @if ($sendoffer->sendaccepted == 2)

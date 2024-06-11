@@ -35,7 +35,7 @@
 		<div class="discount-alert d-blok d-lg-none">
 			<div class="alert alert-dismissible fade show shadow-none rounded-0 mb-0 border-bottom">
 				<div class="d-lg-flex align-items-center gap-2 justify-content-center">
-					<a class="text-decoration-none" href="/"><p class="text-center float-center"> <strong>TF</strong></p></a>
+					{{-- <a class="text-decoration-none" href="/"><p class="text-center float-center"> <img src="/assets/images/logo.png" class="logo-icon" alt="" /></p></a> --}}
 					
 				  
 				</div>
@@ -79,7 +79,7 @@
 								<div class="top-cart-icons float-end">
 									<nav class="navbar navbar-expand">
 										<ul class="navbar-nav ms-auto">
-											<li class="nav-item"><a href="account-dashboard.html" class="nav-link cart-link"><i class='bx bx-user'></i></a>
+											<li class="nav-item"><a href="/dashboard" class="nav-link cart-link"><i class='bx bx-user'></i></a>
 											</li>
 											<li class="nav-item">
 												<a href="/wishlist" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link">
@@ -452,13 +452,23 @@
 
 			</script>
 
-<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
-<script>
-			var editor = new FroalaEditor('#example');		
-			  </script>	
-    <!-- Bootstrap JS -->
-	<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-	<!--plugins-->
+			<script>
+				document.querySelectorAll('.deleteButton').forEach(button => {
+					button.addEventListener('click', function(event) {
+						event.preventDefault();
+						const productId = this.getAttribute('data-id');
+						document.getElementById('frmDelete-' + productId).submit();
+					});
+				});
+			</script>
+
+			<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
+			<script>
+				var editor = new FroalaEditor('#example');		
+			</script>	
+			<!-- Bootstrap JS -->
+			<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+			<!--plugins-->
 	
 	{{-- <script src="{{asset('assets/js/jquery.min.js')}}"></script> --}}
 	<script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>

@@ -260,8 +260,8 @@ class OffersController extends Controller
             }
         }
     
-        // $offer->delete();
-        // toast('Zahtev je obrisan!', 'warning');
+        $offer->delete();
+        toast('Zahtev je obrisan!', 'warning');
         return back();
     }
 }
