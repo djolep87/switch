@@ -32,9 +32,11 @@
                                 @endif
                             </select>
                         </div>
-                        <div class="col-12">
-                            <label class="form-label">Opis proizvoda</label>
-                            <textarea rows="10" name="description" class="form-control rounded-0" required id="example"></textarea>
+                        <div id="container">
+                            <div class="" id="editor">
+                                {{-- <label class="form-label">Opis proizvoda</label> --}}
+                                <textarea name="description" id="description"  required ></textarea>
+                            </div>
                         </div>
                         {{-- <div class="col-12">
                             <label class="form-label">Slika proizvoda</label>

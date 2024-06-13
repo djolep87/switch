@@ -51,7 +51,7 @@
         <!--end row-->
     </div>
 </section>
-<section class="py-4">
+{{-- <section class="py-4">
     <div class="container">
         <h4>Our Top Brands</h4>
         <hr>
@@ -193,5 +193,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection

@@ -25,7 +25,7 @@
 	<title>@yield('title')</title>
 
 
-	
+	<script src="assets/vendor/ckeditor5/build/ckeditor.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	{{-- <script src="http://unpkg.com/turbolinks"></script> --}}
 
@@ -164,10 +164,10 @@
 							<li class="nav-item"> <a class="nav-link" href="/about">O nama </a> 
 							</li>
 							
-							<li class="nav-item"> <a class="nav-link" href="/blog">Blog </a> 
+							{{-- <li class="nav-item"> <a class="nav-link" href="/blog">Blog </a>  --}}
 							</li>
 
-							<li class="nav-item"> <a class="nav-link" href="/contact">Kontakt </a> 
+							{{-- <li class="nav-item"> <a class="nav-link" href="/contact">Kontakt </a>  --}}
 							</li>
 							
 							<li class="nav-item dropdown">	<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">Moj Nalog  <i class='bx bx-chevron-down'></i></a>
@@ -233,7 +233,7 @@
 			</section>
 		</footer> --}}
 
-		<footer>
+		{{-- <footer>
 			<section class="py-4 border-top bg-light">
 				<div class="container">
 					<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
@@ -246,17 +246,14 @@
 								</div>
 								<div class="phone mb-3">
 									<p class="mb-0 text-uppercase">Telefon</p>
-									{{-- <p class="mb-0 font-13">Toll Free (123) 472-796</p> --}}
+									<p class="mb-0 font-13">Toll Free (123) 472-796</p>
 									<p class="mb-0 font-13">Mobile : (+381) 69 47 44 929</p>
 								</div>
 								<div class="email mb-3">
 									<p class="mb-0 text-uppercase">Email</p>
 									<p class="mb-0 font-13">info@trangefrange.com</p>
 								</div>
-								{{-- <div class="working-days mb-3">
-									<p class="mb-0 text-uppercase">Radno vreme</p>
-									<p class="mb-0 font-13">Pon - Pet / 9:00 AM - 6:30 PM</p>
-								</div> --}}
+							
 							</div>
 						</div>
 						<div class="col">
@@ -357,7 +354,7 @@
 					<!--end row-->
 				</div>
 			</section>
-		</footer>
+		</footer> --}}
 		<!--end footer section-->
 
 		<script>
@@ -461,14 +458,28 @@
 					});
 				});
 			</script>
-
-			<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  
-			<script>
-				var editor = new FroalaEditor('#example');		
-			</script>	
-			<!-- Bootstrap JS -->
-			<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-			<!--plugins-->
+	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+	<script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .then(editor => {
+                console.log(editor);
+                // Postavljanje visine nakon inicijalizacije
+                editor.ui.view.editable.element.style.height = '250px';
+                // Sprečavanje smanjenja visine prilikom kucanja
+                editor.editing.view.change(writer => {
+                    writer.setStyle('min-height', '250px', editor.editing.view.document.getRoot());
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+	
+	
+	<!-- Bootstrap JS -->
+	<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+	<!--plugins-->
 	
 	{{-- <script src="{{asset('assets/js/jquery.min.js')}}"></script> --}}
 	<script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>

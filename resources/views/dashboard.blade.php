@@ -30,9 +30,9 @@
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <div class="filter-sidebar d-none d-xl-flex pb-2">
-                                                <div class="card rounded-0">
-                                                    <button onclick="window.location.href='/products.create'" class="btn btn-dark">Postavite oglas<i class='bx bx-plus'></i></button>
-                                                </div>
+                                                {{-- <div class="card rounded-0">
+                                                    <button onclick="window.location.href='/products.create'" class="btn btn-dark col-3">Postavite oglas<i class='bx bx-plus'></i></button>
+                                                </div> --}}
                                             </div>
                                             <table class="table">
                                                 <thead class="table-light">
@@ -45,6 +45,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <div class="card rounded-0">
+                                                        <button onclick="window.location.href='/products.create'" class="btn btn-dark  col-4">Postavite oglas<i class='bx bx-plus'></i></button>
+                                                    </div>
                                                     @foreach ($products as $product )
                                                     @php
                                                         $images = $product->images ? explode(",", $product->images) : [];

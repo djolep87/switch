@@ -35,6 +35,10 @@ File: app.css
 
 /* General */
 
+#description {
+	height: 250px;
+}
+
 .deleteButton {
     background-color: transparent;
     background-repeat: no-repeat;
