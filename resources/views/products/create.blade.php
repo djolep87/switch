@@ -8,11 +8,11 @@
         <div class="col-lg-12">
             <div class="card shadow-none mb-0 border">
                 <div class="card-body">
-                    <form class="row g-3" action="/products.store" method="POST" enctype="multipart/form-data">
+                    <form id="productForm" class="row g-3" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-6">
                             <label class="form-label">Naziv proizvoda</label>
-                            <input type="text" name="name" class="form-control" required value="">
+                            <input type="text" name="name" class="form-control" required value="{{ old('name') }}">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Stanje</label>
@@ -33,22 +33,16 @@
                             </select>
                         </div>
                         <div id="container">
-                            <div class="" id="editor">
-                                {{-- <label class="form-label">Opis proizvoda</label> --}}
-                                <textarea name="description" id="description"  required ></textarea>
+                            <div id="editorContainer">
+                                <label class="form-label">Opis proizvoda</label>
+                                <textarea class="form-control" name="description" id="description" >{!! old('description') !!}</textarea>
                             </div>
                         </div>
-                        {{-- <div class="col-12">
-                            <label class="form-label">Slika proizvoda</label>
-                            <input type="file" name="image" class="form-control" >
-                        </div> --}}
                         <div class="col-12">
                             <label class="form-label">Galerija proizvoda</label>
                             <input type="file" name="images[]" class="form-control" multiple>
                         </div>
-                       
                         <div class="col-12">
-                            {{-- <button type="submit" name="submit" class="btn btn-dark btn-ecomm">Sacuvaj</button> --}}
                             <input class="btn btn-dark btn-ecomm" type="submit" name="submit" value="Sačuvaj">
                         </div>
                     </form>
@@ -57,11 +51,4 @@
         </div>
     </div>
 </div>
-
-
-    <script>
-		var editor1 = new RichTextEditor("#inp_editor1");    
-	</script>
-
-
 @endsection

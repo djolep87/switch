@@ -1559,6 +1559,9 @@ body.bg-theme15 {
 	background-image: linear-gradient(45deg, #6a11cb, #2575fc);
 }
 /* Responsive */
+.search-min{
+	display: none;
+}
 
 @media screen and (max-width: 1280px) {
 	.page-wrapper {
@@ -1573,6 +1576,9 @@ body.bg-theme15 {
 	.row.row-group>div:last-child {
 		border-right: none;
 		border-bottom: 0;
+	}
+	.search-min{
+		display: none;
 	}
 }
 @media screen and (max-width: 1024px) {
@@ -1592,6 +1598,9 @@ body.bg-theme15 {
 		height: auto;
 		padding: 6rem 1rem
 	}
+	.search-min{
+		display: none;
+	}
 }
 @media screen and (max-width: 991px) {
 	.section-authentication-signin {
@@ -1606,5 +1615,18 @@ body.bg-theme15 {
 	.authentication-lock-screen {
 		height: auto;
 		padding: 2rem 1rem
+	}
+	.search-min{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 766px){
+	.search-max{
+		display: none;
+	}
+
+	.search-min{
+		display: block;
 	}
 }

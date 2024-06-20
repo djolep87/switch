@@ -56,50 +56,42 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+{
+    // Validate the incoming request data
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+    ]);
 
-         // Validate the incoming request data
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-           
-        ]);
-
-        if ($request->has('images')) {
-            $imagesname = [];
-            foreach ($request->images as $key => $image) {
-                $imgName = time() . $key . '.' . $image->extension();
-                
-                // Resize and save image
-                // $resizedImage = Image::make($image)->resize(400, 300, function($constraint) {
-                //     $constraint->aspectRatio();
-                // });
-                $resizedImage = Image::make($image)->resize(400, 300);
-                $resizedImage->stream(); // This will perform the resize without saving to disk
-                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
-                
-                $imagesname[] = $imgName;
-            }
-            $imagesname = implode(',', $imagesname);
-        } else {
-            $imagesname = 'noimage.jpg';
+    $imagesname = 'noimage.jpg';
+    if ($request->has('images')) {
+        $imagesname = [];
+        foreach ($request->images as $key => $image) {
+            $imgName = time() . $key . '.' . $image->extension();
+            
+            // Resize and save image
+            $resizedImage = Image::make($image)->resize(400, 300);
+            $resizedImage->stream(); // This will perform the resize without saving to disk
+            Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
+            
+            $imagesname[] = $imgName;
         }
-
-        $product = new Product;
-        $product->user_id = Auth()->user()->id;
-        $product->category_id = $request->input('category_id');
-        $product->name = $request->input('name');
-        $product->condition = $request->input('condition');
-        $product->description = $request->input('description');
-        // $product->image = $fileNameToStore;
-        $product->images = $imagesname;
-        $product->save();
-        
-        $product->categories()->attach(request('category_id'));
-        toast('Uspešno ste postavili oglas!', 'success');
-        return back();
-        
+        $imagesname = implode(',', $imagesname);
     }
+
+    $product = new Product;
+    $product->user_id = Auth()->user()->id;
+    $product->category_id = $request->input('category_id');
+    $product->name = $request->input('name');
+    $product->condition = $request->input('condition');
+    $product->description = $request->input('description');
+    $product->images = $imagesname;
+    $product->save();
+    
+    $product->categories()->attach($request->input('category_id'));
+    toast('Uspešno ste postavili oglas!', 'success');
+    return back();
+}
 
     /**
      * Display the specified resource.

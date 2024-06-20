@@ -276,7 +276,7 @@
                             </div>
                             <!--end row-->
                         </div>
-                        <div class="tab-pane fade " id="description" role="tabpanel">
+                        <div class="tab-pane fade " id="" role="tabpanel">
                             <p class="mb-0">{!! $product->description !!}</p>
                             
                             {{-- <p class="mb-1">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</p>

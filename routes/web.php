@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,7 @@ Route::get('/blog', 'BlogController@index')->name('blog.index');
 Route::get('/blog.show', 'BlogController@show')->name('blog.show');
 
 Route::get('/products.create', 'ProductsController@create');
-Route::post('/products.store', 'ProductsController@store');
+Route::post('/products/store', [ProductsController::class, 'store'])->name('products.store');
 Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');  
 Route::get('/products/{id}/edit', 'ProductsController@edit')->name('products.edit');
 Route::put('/products/{product}', 'ProductsController@update')->name('products.update');

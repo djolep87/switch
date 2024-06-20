@@ -24,8 +24,7 @@
 	<link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 	<title>@yield('title')</title>
 
-
-	<script src="assets/vendor/ckeditor5/build/ckeditor.js"></script>
+	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	{{-- <script src="http://unpkg.com/turbolinks"></script> --}}
 
@@ -58,14 +57,14 @@
 								</div>
 							</div>
 						</div>
-						<div class="col col-md order-4 order-md-2">
+						<div class="search-max col col-md order-4 order-md-2">
 							<div class="input-group flex-nowrap px-xl-4">
 								<form class="input-group w-100 my-2 my-lg-0" type="get" action="{{url('/search')}}" >
 									<input type="search" name="query" class="form-control inline mt-sm-2" placeholder="Pretrazi proizvode">
 									<button class="btn btn-inline my-2 my-sm-0" type="submit"><i class='bx bx-search'></i></button>
 								</form>
 							</div>
-						</div>
+						</div>						
 						<div class="col-4 col-md-auto order-3 d-none d-xl-flex align-items-center">
 							<div class="fs-1 text-white"><i class='bx bx-headphone'></i>
 							</div>
@@ -147,7 +146,15 @@
 								</div>
 							</div>
 						@endif
-					</div>
+						</div>
+						<div class="search-min col col-md order-4 order-md-2 mb-2">
+							<div class="input-group flex-nowrap px-xl-4">
+								<form class="input-group w-100 my-2 my-lg-0" type="get" action="{{url('/search')}}" >
+									<input type="search" name="query" class="form-control inline mt-sm-2" placeholder="Pretrazi proizvode">
+									<button class="btn btn-inline my-2 my-sm-0" type="submit"><i class='bx bx-search'></i></button>
+								</form>
+							</div>
+						</div>
 					<!--end row-->
 				</div>
 			</div>
@@ -233,7 +240,7 @@
 			</section>
 		</footer> --}}
 
-		{{-- <footer>
+		<footer>
 			<section class="py-4 border-top bg-light">
 				<div class="container">
 					<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
@@ -251,7 +258,7 @@
 								</div>
 								<div class="email mb-3">
 									<p class="mb-0 text-uppercase">Email</p>
-									<p class="mb-0 font-13">info@trangefrange.com</p>
+									<p class="mb-0 font-13">info@trangefrange.rs</p>
 								</div>
 							
 							</div>
@@ -354,14 +361,21 @@
 					<!--end row-->
 				</div>
 			</section>
-		</footer> --}}
+		</footer>
 		<!--end footer section-->
 
 		<script>
-			document.getElementById("deleteButton").onclick = function(event) {
-				event.preventDefault(); // sprečava podrazumevano ponašanje linka
-				document.getElementById("frmDelete").submit();
-			};
+			document.addEventListener('DOMContentLoaded', function() {
+				var deleteButton = document.getElementById("deleteButton");
+				var deleteForm = document.getElementById("frmDelete");
+				
+				if (deleteButton && deleteForm) {
+					deleteButton.onclick = function(event) {
+						event.preventDefault(); // Prevents default link behavior
+						deleteForm.submit();
+					};
+				}
+			});
 		</script>
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>	
@@ -430,23 +444,32 @@
 			</script>
 			
 			<script>
-				const checkbox = document.getElementById("flexSwitchCheckChecked");
-			
-			checkbox.addEventListener("click", function() {
-			  if (checkbox.checked) {
-				checkbox.value = "1"; // Checked state
-			  } else {
-				checkbox.value = "0"; // Unchecked state
-			  }
-			});
+				document.addEventListener('DOMContentLoaded', function() {
+					const checkbox = document.getElementById("flexSwitchCheckChecked");
+		
+					if (checkbox) {
+						checkbox.addEventListener("click", function() {
+							if (checkbox.checked) {
+								checkbox.value = "1"; // Checked state
+							} else {
+								checkbox.value = "0"; // Unchecked state
+							}
+						});
+					}
+				});
 			</script>
-
 			<script>
-				document.getElementById("btnDelete").onclick = function(event) {
-					event.preventDefault();
-					document.getElementById("frmDelete").submit();
-				}
+				document.addEventListener('DOMContentLoaded', function() {
+					var deleteButton = document.getElementById("btnDelete");
+					var deleteForm = document.getElementById("frmDelete");
 
+					if (deleteButton && deleteForm) {
+						deleteButton.onclick = function(event) {
+							event.preventDefault(); // Prevents default link behavior
+							deleteForm.submit();
+						};
+					}
+				});
 			</script>
 
 			<script>
@@ -460,21 +483,20 @@
 			</script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 	<script>
-        ClassicEditor
-            .create(document.querySelector('#description'))
-            .then(editor => {
-                console.log(editor);
-                // Postavljanje visine nakon inicijalizacije
+		ClassicEditor
+			.create( document.querySelector( '#description' ) )
+			.then(editor => {
+                editorInstance = editor;
                 editor.ui.view.editable.element.style.height = '250px';
-                // Sprečavanje smanjenja visine prilikom kucanja
                 editor.editing.view.change(writer => {
                     writer.setStyle('min-height', '250px', editor.editing.view.document.getRoot());
                 });
             })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+			.catch( error => {
+				console.error( error );
+			} );
+	</script>
+	
 	
 	
 	<!-- Bootstrap JS -->

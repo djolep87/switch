@@ -31,10 +31,11 @@
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Opis proizvoda</label>
-                                <textarea rows="10" name="description" class="form-control rounded-0">{!! Request::old('description', $product->description) !!}</textarea>
+                            <div id="container">
+                                <div id="editorContainer">
+                                    <label class="form-label">Opis proizvoda</label>
+                                    <textarea class="form-control" name="description" id="description" >{!! Request::old('description', $product->description) !!}</textarea>
+                                </div>
                             </div>
                             {{-- <div class="col-12">
                                 <label class="form-label">Slika proizvoda</label>
