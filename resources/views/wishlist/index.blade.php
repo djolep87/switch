@@ -54,14 +54,19 @@
                                                                 <td>
                                                                     @if ($item->products)
                                                                         <div class=""><a href="{{route('products.show', $item->products->id)}}"><img src="/storage/Product_images/{{ $wishlistImages[0] }}" class="img-fluid rounded = 5"  style="width: 50px; height: 50px;" alt=""></a> </div>
-                                                                        
+                                                                    
                                                                     @else
-                                                                    <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 50px; height: 50px"  alt="">
+                                                                        <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" style="width: 50px; height: 50px"  alt="">
                                                                         
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>  
+                                                                    @if ($item->products)
+                                                                        <a href="{{route('products.show', $item->products->id)}}">{{$item->products->name}}</a>  
+                                                                        
+                                                                    @else
+                                                                        <p>Oglas više ne postoji!</p>
+                                                                    @endif
                                                                     {{-- <p>Oglas više ne postoji!</p> --}}
                                                                 
                                                                 </td>

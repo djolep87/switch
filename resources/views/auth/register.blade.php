@@ -89,7 +89,7 @@
                                             <p>Imate nalog? <a href="/login">Ulogujte se ovde</a>
                                             </p>
                                         </div>
-                                        <div class="d-grid">
+                                        {{-- <div class="d-grid">
                                             <a class="btn my-4 shadow-sm btn-white" href="javascript:;"> <span class="d-flex justify-content-center align-items-center">
                                                 <img class="me-2" src="assets/images/icons/search.svg" width="16" alt="Image Description">
                                                 <span>Registrujte se preko Google-a</span>
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="login-separater text-center mb-4"> <span>ILI REGISTRUJTE SE PREKO EMAIL-a</span>
                                             <hr/>
-                                        </div>
+                                        </div> --}}
                                         <div class="form-body">
                                             <form class="row g-3" method="POST" action="{{ route('register') }}">
                                                 @csrf

@@ -451,7 +451,7 @@
                                                                                         <div class="d-flex align-items-center">
                                                                                             <div class="mb-1 product-price">
                                                                                                 Ime:  {{$sendoffer->acceptorName}} <br>
-                                                                                                Broj Telefona: {{$sendoffer->user->phone ?? 'no client'}} <br>
+                                                                                                Broj Telefona: {{$sendoffer->product->user->phone ?? 'no client'}} <br>
                                                                                                 Grad: {{$sendoffer->user->city ?? 'no client'}}
                                                                                             </div>
                                                                                             <div class="cursor-pointer ms-auto"> 

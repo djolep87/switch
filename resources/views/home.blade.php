@@ -192,8 +192,8 @@
                                                 </div>
                                                 <div class="row g-0">
                                                     @if (!empty($images))
-                                                        <div class="col-md-4" style="width: 128px; height= 120px;">
-                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" style="width: 128px; height= 120px;"  alt="..."></a> 
+                                                        <div class="col-md-4" >
+                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid"   alt="..."></a> 
                                                         </div>                                                        
                                                     @endif
                                                     <div class="col-md-8" >

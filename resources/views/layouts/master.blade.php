@@ -258,7 +258,8 @@
 								</div>
 								<div class="email mb-3">
 									<p class="mb-0 text-uppercase">Email</p>
-									<p class="mb-0 font-13">info@trangefrange.rs</p>
+									{{-- <p class="mb-0 font-13">info@trange-frange.rs</p> --}}
+									<a href="mailto:info@trange-frange.rs">info@trange-frange.rs</a>
 								</div>
 							
 							</div>
