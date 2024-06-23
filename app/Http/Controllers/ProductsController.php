@@ -56,42 +56,56 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    // Validate the incoming request data
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required|string',
-    ]);
+    {
+        // Validacija zahteva
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-    $imagesname = 'noimage.jpg';
-    if ($request->has('images')) {
-        $imagesname = [];
-        foreach ($request->images as $key => $image) {
-            $imgName = time() . $key . '.' . $image->extension();
-            
-            // Resize and save image
-            $resizedImage = Image::make($image)->resize(400, 300);
-            $resizedImage->stream(); // This will perform the resize without saving to disk
-            Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
-            
-            $imagesname[] = $imgName;
+        $imagesname = 'noimage.jpg';
+        if ($request->has('images')) {
+            $imagesname = [];
+            foreach ($request->images as $key => $image) {
+                $imgName = time() . $key . '.' . $image->extension();
+
+                // Kreiranje instance slike
+                $resizedImage = Image::make($image);
+
+                // Resize slike uz zadržavanje proporcija
+                $resizedImage->resize(400, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+
+                // Dodavanje bele pozadine ako je potrebno
+                $resizedImage->resizeCanvas(400, 300, 'center', false, 'ffffff');
+
+                // Pretvaranje slike u stream
+                $resizedImage->stream();
+
+                // Čuvanje slike na disku
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
+
+                $imagesname[] = $imgName;
+            }
+            $imagesname = implode(',', $imagesname);
         }
-        $imagesname = implode(',', $imagesname);
-    }
 
-    $product = new Product;
-    $product->user_id = Auth()->user()->id;
-    $product->category_id = $request->input('category_id');
-    $product->name = $request->input('name');
-    $product->condition = $request->input('condition');
-    $product->description = $request->input('description');
-    $product->images = $imagesname;
-    $product->save();
-    
-    $product->categories()->attach($request->input('category_id'));
-    toast('Uspešno ste postavili oglas!', 'success');
-    return back();
-}
+        // Čuvanje podataka o proizvodu
+        $product = new Product;
+        $product->user_id = Auth()->user()->id;
+        $product->category_id = $request->input('category_id');
+        $product->name = $request->input('name');
+        $product->condition = $request->input('condition');
+        $product->description = $request->input('description');
+        $product->images = $imagesname;
+        $product->save();
+
+        $product->categories()->attach($request->input('category_id'));
+        toast('Uspešno ste postavili oglas!', 'success');
+        return back();
+    }
 
     /**
      * Display the specified resource.
