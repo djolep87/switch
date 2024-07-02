@@ -36,7 +36,10 @@
                                     <div class="col-12">
                                         <label for="inputChoosePassword" class="form-label">Lozinka</label>
                                         <div class="input-group" id="show_hide_password">
-                                            <input type="password" class="form-control border-end-0" id="inputChoosePassword" name="password" required autocomplete="current-password" placeholder="Lozinka"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                            <input type="password" class="form-control border-end-0" id="inputChoosePassword" name="password" required autocomplete="current-password" placeholder="Lozinka">
+                                            <a href="javascript:;" class="input-group-text bg-transparent" id="togglePassword">
+                                                <i class='bx bx-hide' id="toggleIcon"></i>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

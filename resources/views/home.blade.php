@@ -84,15 +84,18 @@
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex pb-2">
                                 <div class="card rounded-0 w-100">
-                                    <button onclick="window.location.href='/products.create'" class="btn btn-dark">Postavite oglas<i class='bx bx-plus'></i></button>
+                                    <button onclick="window.location.href='/products.create'" class="btn btn-add">Postavite oglas</button>
                                 </div>
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex">
                                 <div class="card rounded-0 w-100">
                                     <div class="card-body">
-                                        <div class="align-items-center d-flex d-xl-none">
-                                            <h6 class="text-uppercase mb-0">Filter</h6>
-                                            <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div>
+                                        <div class="align-items-center d-xl-none">
+                                            {{-- <h6 class="text-uppercase mb-0">Filter</h6> --}}
+                                            <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div><br>
+                                            <div class="card rounded-0 w-100">
+                                                <button onclick="window.location.href='/products.create'" class="btn btn-add">Postavite oglas</button>
+                                            </div>
                                         </div>
                                         <hr class="d-flex d-xl-none" />
                                         <div class="product-categories">
@@ -100,7 +103,10 @@
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
-                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span></a></li>
+                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} 
+                                                            {{-- <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span> --}}
+                                                        </a>
+                                                    </li>
 
                                                 @endforeach
                                             </ul>
@@ -206,9 +212,43 @@
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
                                                                     <h6>({{$product->condition}})</h6>  
                                                                 </a>
-                                                                {{-- <p class="card-text">{!!Str::limit($product->description, 500)!!}</p> --}}
-                                                                {{-- <p class="card-text">{!!$product->description!!}</p> --}}
-                                                                <p class="card-text">{!!  substr(strip_tags($product->description), 0,120) !!}</p>
+                                                                <?php
+                                                                // Zameni sve vrste linijskih prekida sa <br> tagovima
+                                                                $descriptionWithBr = preg_replace("/\r\n|\r|\n/", " <br> ", $product->description);
+                                                                
+                                                                // Anonimna funkcija koja uklanja HTML oznake osim <br>
+                                                                $stripTagsExceptBr = function($text) {
+                                                                    return strip_tags($text, '<br>');
+                                                                };
+                                                                
+                                                                // Očisti HTML oznake osim <br>
+                                                                $cleanedDescription = $stripTagsExceptBr($descriptionWithBr);
+                                                                
+                                                                // Funkcija za skraćivanje teksta
+                                                                $truncateText = function($text, $maxLength = 120, $suffix = '...') {
+                                                                    if (mb_strlen($text) <= $maxLength) {
+                                                                        return $text;
+                                                                    }
+                                                                
+                                                                    // Pronađi poziciju poslednjeg razmaka unutar granice
+                                                                    $endPosition = mb_strpos($text, ' ', $maxLength);
+                                                                    if ($endPosition === false) {
+                                                                        $endPosition = $maxLength;
+                                                                    }
+                                                                
+                                                                    // Skraćenje teksta
+                                                                    $truncatedText = mb_substr($text, 0, $endPosition) . $suffix;
+                                                                
+                                                                    return $truncatedText;
+                                                                };
+                                                                
+                                                                // Skrati očišćeni tekst
+                                                                $shortenedDescription = $truncateText($cleanedDescription);
+                                                                
+                                                                // Zameni linijske prekide sa <br> tagovima u skraćenom tekstu
+                                                                $formattedDescription = nl2br($shortenedDescription);
+                                                                ?>
+                                                                <p class="mb-0">{!! $formattedDescription !!}</p>
                                                                 <div class="d-flex align-items-center justify-content gap-3    m-0">
                                                                     <div class="product">
                                                                         <img src="/assets/images/eye.png" alt="" srcset="">

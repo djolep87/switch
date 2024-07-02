@@ -226,42 +226,34 @@ class OffersController extends Controller
      */
     public function destroy($id)
     {
-
         $offer = Offer::findOrFail($id);
-
+    
         if ($offer->offer_archived == 1 && $offer->sendoffer_archived == 1) {
-            $product = $offer->product;
-            $sendProduct = $offer->sendproduct;
-    
-            if ($product) {
-                $productImages = $product->images;
-    
-                if ($productImages) {
-                    $imagePaths = explode(",", $productImages);
-                    foreach ($imagePaths as $image) {
-                        Storage::delete('public/Product_images' . '/' . $image);
-                    }
-                }
-                
-                $product->delete(); // Obrišite proizvod
-            }
-    
-            if ($sendProduct) {
-                $sendProductImages = $sendProduct->images;
-    
-                if ($sendProductImages) {
-                    $sendImagePaths = explode(",", $sendProductImages);
-                    foreach ($sendImagePaths as $image) {
-                        Storage::delete('public/Product_images' . '/' . $image);
-                    }
-                }
-                
-                $sendProduct->delete(); // Obrišite sendproduct
-            }
+            // Brisanje proizvoda
+            $this->deleteProductWithImages($offer->product);
+            $this->deleteProductWithImages($offer->sendproduct);
         }
     
         $offer->delete();
         toast('Zahtev je obrisan!', 'warning');
         return back();
+    }
+    
+    private function deleteProductWithImages($product)
+    {
+        if ($product) {
+            // Brisanje slika povezanih sa proizvodom
+            $productImages = $product->images;
+    
+            if ($productImages) {
+                $imagePaths = explode(",", $productImages);
+                foreach ($imagePaths as $image) {
+                    Storage::delete('public/Product_images' . '/' . $image);
+                }
+            }
+    
+            // Brisanje samog proizvoda
+            $product->delete();
+        }
     }
 }

@@ -116,14 +116,20 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Lozinka</label>
-                                                    <div class="input-group" id="show_hide_password">
-                                                        <input type="password" name="password" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka" value="{{ old('password') }}"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                    <div class="input-group" id="show_hide_password1">
+                                                        <input type="password" name="password" required class="form-control border-end-0" id="inputChoosePassword1" placeholder="Lozinka" value="{{ old('password') }}">
+                                                        <a href="javascript:;" class="input-group-text bg-transparent" id="togglePassword1">
+                                                            <i class='bx bx-hide' id="toggleIcon1"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="inputChoosePassword" class="form-label">Potvrdi lozinku</label>
-                                                    <div class="input-group" id="show_hide_password">
-                                                        <input type="password" name="password_confirmation" required class="form-control border-end-0" id="inputChoosePassword" placeholder="Lozinka" value="{{ old('password_confirmation') }}"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                    <label for="inputConfirmPassword" class="form-label">Potvrdi lozinku</label>
+                                                    <div class="input-group" id="show_hide_password2">
+                                                        <input type="password" name="password_confirmation" required class="form-control border-end-0" id="inputConfirmPassword" placeholder="Potvrdi lozinku" value="{{ old('password_confirmation') }}">
+                                                        <a href="javascript:;" class="input-group-text bg-transparent" id="togglePassword2">
+                                                            <i class='bx bx-hide' id="toggleIcon2"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">

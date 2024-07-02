@@ -497,6 +497,54 @@
 				console.error( error );
 			} );
 	</script>
+	<script>
+		document.getElementById('togglePassword').addEventListener('click', function (e) {
+			e.preventDefault();
+			var passwordInput = document.getElementById('inputChoosePassword');
+			var passwordIcon = document.getElementById('toggleIcon');
+			if (passwordInput.type === 'password') {
+				passwordInput.type = 'text';
+				passwordIcon.classList.remove('bx-hide');
+				passwordIcon.classList.add('bx-show');
+			} else {
+				passwordInput.type = 'password';
+				passwordIcon.classList.remove('bx-show');
+				passwordIcon.classList.add('bx-hide');
+			}
+		});
+	</script>
+
+<script>
+    document.getElementById('togglePassword1').addEventListener('click', function (e) {
+        e.preventDefault();
+        var passwordInput = document.getElementById('inputChoosePassword1');
+        var passwordIcon = document.getElementById('toggleIcon1');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordIcon.classList.remove('bx-hide');
+            passwordIcon.classList.add('bx-show');
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.classList.remove('bx-show');
+            passwordIcon.classList.add('bx-hide');
+        }
+    });
+
+    document.getElementById('togglePassword2').addEventListener('click', function (e) {
+        e.preventDefault();
+        var passwordInput = document.getElementById('inputConfirmPassword');
+        var passwordIcon = document.getElementById('toggleIcon2');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordIcon.classList.remove('bx-hide');
+            passwordIcon.classList.add('bx-show');
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.classList.remove('bx-show');
+            passwordIcon.classList.add('bx-hide');
+        }
+    });
+</script>
 	
 	
 	

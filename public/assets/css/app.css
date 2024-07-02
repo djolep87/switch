@@ -1105,6 +1105,11 @@ ul.categories-list li {
 
 /* Buttons */
 
+.btn-add
+{
+	background-color: rgb(255, 159, 10);
+}
+
 .btn i {
 	vertical-align: middle;
 	font-size: 1.3rem;

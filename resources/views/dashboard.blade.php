@@ -46,7 +46,9 @@
                                                 </thead>
                                                 <tbody>
                                                     <div class="card rounded-0">
-                                                        <button onclick="window.location.href='/products.create'" class="btn btn-dark  col-4">Postavite oglas<i class='bx bx-plus'></i></button>
+                                                        <button onclick="window.location.href='/products.create'" class="btn btn-add col-6 mb-2">Postavite oglas
+                                                            {{-- <i class='bx bx-plus'></i> --}}
+                                                        </button>
                                                     </div>
                                                     @foreach ($products as $product )
                                                     @php

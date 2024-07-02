@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -54,6 +55,22 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class,);
     }
+
+    protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($product) {
+        $productImages = $product->images;
+
+        if ($productImages) {
+            $imagePaths = explode(",", $productImages);
+            foreach ($imagePaths as $image) {
+                Storage::delete('public/Product_images' . '/' . $image);
+            }
+        }
+    });
+}
 
 
 }

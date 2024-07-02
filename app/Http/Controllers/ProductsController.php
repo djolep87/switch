@@ -81,11 +81,11 @@ class ProductsController extends Controller
                 // Dodavanje bele pozadine ako je potrebno
                 $resizedImage->resizeCanvas(400, 300, 'center', false, 'ffffff');
 
-                // Pretvaranje slike u stream
-                $resizedImage->stream();
+                // Pretvaranje slike u stream sa zadatim kvalitetom (90)
+                $resizedImage->stream(null, 100);
 
                 // Čuvanje slike na disku
-                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->__toString());
 
                 $imagesname[] = $imgName;
             }
@@ -146,7 +146,7 @@ class ProductsController extends Controller
     //     $request->validate([
     //         'name' => 'required|string|max:255',
     //         'description' => 'required|string',
-           
+
     //     ]);
 
 
@@ -156,11 +156,11 @@ class ProductsController extends Controller
     //         $imagesname = [];
     //         foreach ($request->images as $key => $image) {
     //             $imgName = time() . $key . '.' . $image->extension();
-                
+
     //             // Resize and save image
     //             $resizedImage = Image::make($image)->resize(400, 300)->stream(); 
     //             Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
-                
+
     //             $imagesname[] = $imgName;
     //         }
     //         $imagesname = implode(',', $imagesname);
@@ -175,7 +175,7 @@ class ProductsController extends Controller
     //     $product->description = $request->input('description');
     //     $product->images = $imagesname;
     //     $product->save();
-        
+
     //     $product->categories()->sync($request->input('category_id'));
 
     //     toast('Uspešno izmenjen oglas!', 'success');
@@ -184,7 +184,7 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validate the incoming request data
+        // Validacija zahteva
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -192,34 +192,42 @@ class ProductsController extends Controller
 
         $product = Product::findOrFail($id);
 
-        // Handle image uploads
+        // Rukovanje uploadom slika
         if ($request->has('images')) {
             $imagesname = [];
-            
-            // Delete old images except 'noimage.jpg'
+
+            // Brisanje starih slika osim 'noimage.jpg'
             $oldImages = explode(',', $product->images);
             foreach ($oldImages as $oldImage) {
                 if ($oldImage !== 'noimage.jpg') {
                     Storage::disk('public')->delete('Product_images/' . $oldImage);
                 }
             }
-    
-            // Save new images
+
+            // Čuvanje novih slika
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
-                
-                // Resize and save image
-                $resizedImage = Image::make($image)->resize(400, 300)->stream();
-                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
-                
+
+                // Resize i čuvanje slike
+                $resizedImage = Image::make($image)
+                    ->resize(400, 300, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->resizeCanvas(400, 300, 'center', false, 'ffffff')
+                    ->stream(null, 100); // Postavljanje kvaliteta na 90
+
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->__toString());
+
                 $imagesname[] = $imgName;
             }
             $imagesname = implode(',', $imagesname);
         } else {
-            // Retain old images if no new images are uploaded
+            // Zadržavanje starih slika ako nove nisu uploadovane
             $imagesname = $product->images;
         }
 
+        // Ažuriranje podataka o proizvodu
         $product->user_id = auth()->user()->id;
         $product->category_id = $request->input('category_id');
         $product->name = $request->input('name');
@@ -227,7 +235,7 @@ class ProductsController extends Controller
         $product->description = $request->input('description');
         $product->images = $imagesname;
         $product->save();
-        
+
         $product->categories()->sync($request->input('category_id'));
 
         toast('Uspešno izmenjen oglas!', 'success');
@@ -242,30 +250,29 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-       
-       
-            $product = Product::find($id);
-          
-    
-            if ($product) {
-                $productImages = $product->images;
-    
-                if ($productImages) {
-                    $imagePaths = explode(",", $productImages);
-                    foreach ($imagePaths as $image) {
-                        Storage::delete('public/Product_images' . '/' . $image);
-                    }
+
+
+        $product = Product::find($id);
+
+
+        if ($product) {
+            $productImages = $product->images;
+
+            if ($productImages) {
+                $imagePaths = explode(",", $productImages);
+                foreach ($imagePaths as $image) {
+                    Storage::delete('public/Product_images' . '/' . $image);
                 }
-                
-                $product->delete(); // Obrišite proizvod
             }
-    
-           
-        
-    
-       
+
+            $product->delete(); // Obrišite proizvod
+        }
+
+
+
+
+
         toast('Oglas je obrisan!', 'warning');
         return back();
     }
-
-}  
+}
