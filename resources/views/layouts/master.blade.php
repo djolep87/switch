@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="/assets/images/logo.png" type="image/png" />
 	<!--plugins-->
 	<link href="{{asset('assets/plugins/OwlCarousel/css/owl.carousel.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
@@ -31,19 +31,21 @@
 </head>
 <body>
     <div class="wrapper">
-		<div class="discount-alert d-blok d-lg-none">
+		{{-- <div class="discount-alert d-blok d-lg-none">
 			<div class="alert alert-dismissible fade show shadow-none rounded-0 mb-0 border-bottom">
 				<div class="d-lg-flex align-items-center gap-2 justify-content-center">
-					{{-- <a class="text-decoration-none" href="/"><p class="text-center float-center"> <img src="/assets/images/logo.png" class="logo-icon" alt="" /></p></a> --}}
+					<a style="width: 32px;" class="text-decoration-none" href="/"><p class="text-center float-center"> <img src="/assets/images/logo2.png"  alt="" /></p></a>
 					
+					
+					<a href="/" class="text-center" ><p>Trange Frange</p></a>
 				  
 				</div>
 				
 			</div>
-		</div>
-        <div class="header-wrapper">
-			<div class="header-content pb-3 pb-md-0">
-				<div class="container">
+		</div> --}}
+        <div class="header-wrapper ">
+			<div class="header-content pb-3 pb-md-0 split-bg-warning">
+				<div class="container ">
 					<div class="row align-items-center">
 						<div class="col-4 col-md-auto">
 							<div class="d-flex align-items-center">
@@ -66,8 +68,7 @@
 							</div>
 						</div>						
 						<div class="col-4 col-md-auto order-3 d-none d-xl-flex align-items-center">
-							<div class="fs-1 text-white"><i class='bx bx-headphone'></i>
-							</div>
+							{{-- <div class="fs-1 text-white"><i class='bx bx-headphone'></i></div> --}}
 							{{-- <div class="ms-2">
 								<p class="mb-0 font-13">CALL US NOW</p>
 								<h5 class="mb-0">+011 5827918</h5>
@@ -211,6 +212,7 @@
                                         </li>
                                         <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                                         <li><a class="dropdown-item" href="/offers">Ponude</a></li>
+                                        <li><a class="dropdown-item" href="/sendOffers">Moji zahtevi</a></li>
                                         <li><a class="dropdown-item" href="/wishlist">Oglasi koje pratim</a></li>
                                         {{-- <li><a class="dropdown-item" href="account-orders.html">Orders</a></li> --}}
                                         {{-- <li><a class="dropdown-item" href="account-payment-methods.html">Payment Methods</a></li> --}}

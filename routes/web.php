@@ -32,6 +32,7 @@ Route::get('/contact', 'PageController@contact');
 Route::get('/dashboard', 'UserController@index');
 
 Route::get('/offers', 'OffersController@index');
+Route::get('/sendOffers', 'SendOffersController@index');
 Route::post('/', 'OffersController@store')->name('offers.store');
 Route::post('/offers.update/{offer}', 'OffersController@update')->name('offers.update');
 Route::post('/offers.rejected/{offer}', 'OffersController@rejected')->name('offers.rejected');

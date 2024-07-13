@@ -55,7 +55,7 @@
                         
                             <div class="col-12">
                                 {{-- <button type="submit" name="submit" class="btn btn-dark btn-ecomm">Sacuvaj</button> --}}
-                                <input class="btn btn-dark btn-ecomm" type="submit" name="submit" value="Sačuvaj">
+                                <input class="btn split-bg-warning" type="submit" name="submit" value="Sačuvaj">
                             </div>
                         </form>
                     </div>

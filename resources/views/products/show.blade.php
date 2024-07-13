@@ -154,7 +154,7 @@
                                                         @if (Auth::user()->id == $product->user_id)
                                                             <p>Moj proizvod!!!</p> 
                                                         @else 
-                                                            <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn btn-outline-dark btn-ecomm" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                            <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                         @endif
                                                         <ul class="dropdown-menu">
                                                             <form id="offer" action="/" method="POST" enctype="multipart/form-data">

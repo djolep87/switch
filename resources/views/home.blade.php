@@ -80,11 +80,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-xl-3">
-                            <div class="btn-mobile-filter d-xl-none"><i class='bx bx-slider-alt'></i>
+                            <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex pb-2">
                                 <div class="card rounded-0 w-100">
-                                    <button onclick="window.location.href='/products.create'" class="btn btn-add">Postavite oglas</button>
+                                    <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">Postavite oglas</button>
                                 </div>
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex">
@@ -94,7 +94,7 @@
                                             {{-- <h6 class="text-uppercase mb-0">Filter</h6> --}}
                                             <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div><br>
                                             <div class="card rounded-0 w-100">
-                                                <button onclick="window.location.href='/products.create'" class="btn btn-add">Postavite oglas</button>
+                                                <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">Postavite oglas</button>
                                             </div>
                                         </div>
                                         <hr class="d-flex d-xl-none" />
@@ -103,7 +103,8 @@
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
-                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} 
+                                                    <li>
+                                                        <a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} 
                                                             {{-- <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span> --}}
                                                         </a>
                                                     </li>
@@ -269,7 +270,7 @@
                                                                                 @if (Auth::user()->id == $product->user_id)
                                                                                     <p>Moj proizvod!!!</p> 
                                                                                 @else 
-                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn btn-outline-dark btn-ecomm" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @endif
                                                                                 <ul class="dropdown-menu">
                                                                                     <form id="offer" action="/" method="POST" enctype="multipart/form-data">
@@ -279,7 +280,7 @@
                                                                                         <input type="hidden" name="acceptor" value="{{$product->user_id}}">
                                                                                         <input type="hidden" name="acceptorName" value="{{$product->firstName}}">
                                                                                         <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
-                                                                                        <input type="hidden" name="product_id" value="{{$product->productid}}"> 
+                                                                                        <input type="hidden" name="product_id" value="{{$product->productid}}">
                                                                                         @forelse ($listproducts as $product)  
                                                                                             @php
                                                                                                 $images = $product->images ? explode(",", $product->images) : [];

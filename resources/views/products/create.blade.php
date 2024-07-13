@@ -43,7 +43,7 @@
                             <input type="file" name="images[]" class="form-control" multiple>
                         </div>
                         <div class="col-12">
-                            <input class="btn btn-dark btn-ecomm" type="submit" name="submit" value="Sačuvaj">
+                            <input class="btn split-bg-warning" type="submit" name="submit" value="Sačuvaj">
                         </div>
                     </form>
                 </div>

@@ -39,6 +39,12 @@ File: app.css
 	height: 250px;
 }
 
+.verticaltext{
+	width:1px;
+	word-wrap: break-word;
+	white-space:pre-wrap; 
+ }
+
 .deleteButton {
     background-color: transparent;
     background-repeat: no-repeat;
