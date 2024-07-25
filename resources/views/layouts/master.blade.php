@@ -256,7 +256,7 @@
 								<div class="phone mb-3">
 									<p class="mb-0 text-uppercase">Telefon</p>
 									<p class="mb-0 font-13">Toll Free (123) 472-796</p>
-									<p class="mb-0 font-13">Mobile : (+381) 69 47 44 929</p>
+									{{-- <p class="mb-0 font-13">Mobile : (+381) 69 47 44 929</p> --}}
 								</div>
 								<div class="email mb-3">
 									<p class="mb-0 text-uppercase">Email</p>

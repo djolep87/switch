@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-12 col-xl-9">
                             <div class="product-wrapper">
-                                <div class="toolbox d-flex align-items-center mb-3 gap-2">
+                                {{-- <div class="toolbox d-flex align-items-center mb-3 gap-2">
                                     <div class="d-flex flex-wrap flex-grow-1 gap-1">
                                         <div class="d-flex align-items-center flex-nowrap">
                                             <p class="mb-0 font-13 text-nowrap">Sort By:</p>
@@ -75,7 +75,7 @@
                                     </div>
                                     <div>	<a href="shop-list-left-sidebar.html" class="btn btn-light rounded-0"><i class='bx bx-list-ul me-0'></i></a>
                                     </div>
-                                </div>
+                                </div> --}}
                                 @forelse ($products as $key => $product)     
                                 @php
                                     $images = $product->images ? explode(",", $product->images) : [];
@@ -125,8 +125,8 @@
                                                 </div>
                                                 <div class="row g-0">
                                                     @if (!empty($images))
-                                                        <div class="col-md-4" style="width: 128px; height= 120px;">
-                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" style="width: 128px; height= 120px;"  alt="..."></a> 
+                                                        <div class="col-md-4">
+                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="..."></a> 
                                                         </div>                                                        
                                                     @endif
                                                     <div class="col-md-8" >
@@ -139,9 +139,45 @@
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
                                                                     <h6>({{$product->condition}})</h6>  
                                                                 </a>
+                                                                <?php
+                                                                // Zameni sve vrste linijskih prekida sa <br> tagovima
+                                                                $descriptionWithBr = preg_replace("/\r\n|\r|\n/", " <br> ", $product->description);
+                                                                
+                                                                // Anonimna funkcija koja uklanja HTML oznake osim <br>
+                                                                $stripTagsExceptBr = function($text) {
+                                                                    return strip_tags($text, '<br>');
+                                                                };
+                                                                
+                                                                // Očisti HTML oznake osim <br>
+                                                                $cleanedDescription = $stripTagsExceptBr($descriptionWithBr);
+                                                                
+                                                                // Funkcija za skraćivanje teksta
+                                                                $truncateText = function($text, $maxLength = 120, $suffix = '...') {
+                                                                    if (mb_strlen($text) <= $maxLength) {
+                                                                        return $text;
+                                                                    }
+                                                                
+                                                                    // Pronađi poziciju poslednjeg razmaka unutar granice
+                                                                    $endPosition = mb_strpos($text, ' ', $maxLength);
+                                                                    if ($endPosition === false) {
+                                                                        $endPosition = $maxLength;
+                                                                    }
+                                                                
+                                                                    // Skraćenje teksta
+                                                                    $truncatedText = mb_substr($text, 0, $endPosition) . $suffix;
+                                                                
+                                                                    return $truncatedText;
+                                                                };
+                                                                
+                                                                // Skrati očišćeni tekst
+                                                                $shortenedDescription = $truncateText($cleanedDescription);
+                                                                
+                                                                // Zameni linijske prekide sa <br> tagovima u skraćenom tekstu
+                                                                $formattedDescription = nl2br($shortenedDescription);
+                                                                ?>
                                                                 {{-- <p class="card-text">{!!Str::limit($product->description, 500)!!}</p> --}}
                                                                 {{-- <p class="card-text">{!!$product->description!!}</p> --}}
-                                                                <p class="card-text">{!!  substr(strip_tags($product->description), 0,120) !!}</p>
+                                                                <p class="mb-0">{!! $formattedDescription !!}</p>
                                                                 <div class="d-flex align-items-center justify-content gap-3    m-0">
                                                                     <div class="product">
                                                                         <img src="/assets/images/eye.png" alt="" srcset="">
@@ -161,7 +197,7 @@
                                                                                 @if (Auth::user()->id == $product->user_id)
                                                                                     <p>Moj proizvod!!!</p> 
                                                                                 @else 
-                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn btn-outline-dark btn-ecomm" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @endif
                                                                                 <ul class="dropdown-menu">
                                                                                     <form id="offer" action="/" method="POST" enctype="multipart/form-data">

@@ -170,7 +170,7 @@
                                                                     $images = $product->images ? explode(",", $product->images) : [];
                                                                 @endphp                                                                                         
                                                                     <div class="col m-4">
-                                                                        <div class="form-check form-check-inline dropdown-item">
+                                                                        <div class="form-check form-check-inline">
                                                                             <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
                                                                                 value="{{$product->id}}">
                                                                             <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $images[0]  }}" style="width: 30px; height: 30px" alt=""> {{   $product->name }}</label>

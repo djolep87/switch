@@ -178,7 +178,21 @@ class HomeController extends Controller
 
 
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth::user()->id)->get();
+            $listproducts = Product::where('user_id', auth::user()->id)
+            ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+                $query->select('products.id')
+                    ->from('products')
+                    ->join('users', 'users.id', '=', 'products.user_id')
+                    ->join('offers', function ($join) {
+                        $join->on('offers.product_id', '=', 'products.id')
+                            ->orOn('offers.sendproduct_id', '=', 'products.id');
+                    })
+                    ->where('offers.accepted', '=', 1)
+                    ->orWhere('offers.accepted', '=', 3);
+            })
+                
+                
+            ->get();
         } else {
             $listproducts = null;
         }
@@ -265,7 +279,21 @@ class HomeController extends Controller
 
 
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', optional(Auth::user())->id)->get();
+            $listproducts = Product::where('user_id', optional(Auth::user())->id)
+            ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+                $query->select('products.id')
+                    ->from('products')
+                    ->join('users', 'users.id', '=', 'products.user_id')
+                    ->join('offers', function ($join) {
+                        $join->on('offers.product_id', '=', 'products.id')
+                            ->orOn('offers.sendproduct_id', '=', 'products.id');
+                    })
+                    ->where('offers.accepted', '=', 1)
+                    ->orWhere('offers.accepted', '=', 3);
+            })
+                
+                
+            ->get();
         } else {
             $listproducts = null;
         }
@@ -284,7 +312,21 @@ class HomeController extends Controller
         $user = Auth::user();
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', Auth::user()->id)->get();
+            $listproducts = Product::where('user_id', Auth::user()->id)
+            ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+                $query->select('products.id')
+                    ->from('products')
+                    ->join('users', 'users.id', '=', 'products.user_id')
+                    ->join('offers', function ($join) {
+                        $join->on('offers.product_id', '=', 'products.id')
+                            ->orOn('offers.sendproduct_id', '=', 'products.id');
+                    })
+                    ->where('offers.accepted', '=', 1)
+                    ->orWhere('offers.accepted', '=', 3);
+            })
+                
+                
+            ->get();
         } else {
             $listproducts = null;
         }

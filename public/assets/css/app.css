@@ -40,9 +40,8 @@ File: app.css
 }
 
 .verticaltext{
-	width:1px;
-	word-wrap: break-word;
-	white-space:pre-wrap; 
+	writing-mode: vertical-rl;
+	text-orientation: initial;
  }
 
 .deleteButton {
@@ -453,7 +452,7 @@ ul.categories-list li {
 }
 .btn-mobile-filter {
 	width: 45px;
-	height: 35px;
+	height: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;

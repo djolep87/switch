@@ -80,7 +80,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-xl-3">
-                            <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
+                            {{-- <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
+                            </div> --}}
+                            <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'>Kategorije</i>     
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex pb-2">
                                 <div class="card rounded-0 w-100">
@@ -206,9 +208,9 @@
                                                     <div class="col-md-8" >
                                                         <div class="card-body" >
                                                             <div class="product-info">
-                                                                <a href="javascript:;">
-                                                                    <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
-                                                                </a>
+                                                                {{-- <a href="javascript:;">
+                                                                    <p class="product-catergory font-13 mb-1">{{$product->categories->name}}</p>
+                                                                </a> --}}
                                                                 <a href="{{route('products.show', $product->productid)}}">
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
                                                                     <h6>({{$product->condition}})</h6>  
