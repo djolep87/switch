@@ -37,8 +37,11 @@
                                 </div>
                                 <hr>
                                 <div class="">
-                                    Grad: {{$product->user->city}}<br/>
-                                    Ime korisnika: {{$product->user->firstName}}<br/>
+                                    <img width="16px" src="/assets/images/location.svg" alt="" srcset="">
+                                    {{$product->user->city}}<br/>
+
+                                    <img width="16px" src="/assets/images/avatar.svg" alt="" srcset="">
+                                    {{$product->user->firstName}}<br/>
                                     {{-- {{$product->user->phone}}--}}
                                     @if (optional(Auth::user())->id)
                                         @if (Auth::user()->id == $product->user_id)
@@ -115,6 +118,11 @@
                             <div class="col-12 col-lg-7">
                                 <div class="product-info-section p-3">
                                     <h6>ID oglasa: {{ $product->id}}</h6>
+                                    <div class="product">
+                                        <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
+                                        {{-- Viđen: --}}
+                                        <Span><b>{{$product->views}}</b></Span>
+                                    </div>
                                     <h3 class="mt-3 mt-lg-0 mb-0">{{$product->name}}</h3>
                                     <h6 class="">({{$product->condition}})</h6>
 
@@ -122,11 +130,7 @@
                                         <h6>Opis :</h6>
                                         <p class="mb-0">{!! $product->description !!}</p>
                                     </div>
-                                    <div class="product">
-                                        <img src="/assets/images/eye.png" alt="" srcset="">
-                                        {{-- Viđen: --}}
-                                        <Span><b>{{$product->views}}</b></Span>
-                                    </div>
+                                    
                                     {{-- <dl class="row mt-3">	<dt class="col-sm-3">Product id</dt>
                                         <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
                                         <dd class="col-sm-9">Srbija</dd>
@@ -152,7 +156,7 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="nav-item dropdown">
                                                         @if (Auth::user()->id == $product->user_id)
-                                                            <p>Moj proizvod!!!</p> 
+                                                            <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                         @else 
                                                             <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                         @endif
@@ -199,7 +203,7 @@
                                             <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
                                         @endif
                                     </div>
-                                    <hr/>
+                                    
                                 </div>
                             </div>
                         </div>

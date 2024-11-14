@@ -544,14 +544,14 @@ progress {
 @media (min-width: 576px) {
   .container,
   .container-sm {
-    max-width: 540px;
+    max-width: 100%;
   }
 }
 @media (min-width: 768px) {
   .container,
   .container-md,
   .container-sm {
-    max-width: 720px;
+    max-width: 100%;
   }
 }
 @media (min-width: 992px) {
@@ -4156,7 +4156,15 @@ fieldset:disabled .btn {
 .card-group > .card {
   margin-bottom: 0.75rem;
 }
+
+@media (max-width: 576px) {
+ 
+  .prod-card{
+    padding: 0;
+  }
+}
 @media (min-width: 576px) {
+  
   .card-group {
     display: flex;
     flex-flow: row wrap;
@@ -5035,21 +5043,7 @@ fieldset:disabled .btn {
   border-radius: 0.3rem;
   outline: 0;
 }
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1040;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
-}
-.modal-backdrop.fade {
-  opacity: 0;
-}
-.modal-backdrop.show {
-  opacity: 0.5;
-}
+
 .modal-header {
   display: flex;
   flex-shrink: 0;

@@ -6,14 +6,14 @@
 
     <div class="container">
         <h3 class="d-none">Account</h3>
-        <div class="card">
-            <div class="card-body">
+        <div class="card prod-card">
+            <div class="card-body prod-card">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="card shadow-none mb-3 mb-lg-0 border">
                             <div class="card-body">
                                 <div class="list-group list-group-flush">	<a href="/dashboard" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Dashboard <i class='bx bx-tachometer fs-5'></i></a>
-                                    <a href="/offers" class="list-group-item active d-flex justify-content-between align-items-center">Ponude <i class='bx bx-cart-alt fs-5'></i></a>
+                                    <a href="/offers" class="list-group-item d-flex active justify-content-between align-items-center">Ponude <i class='bx bx-cart-alt fs-5'></i></a>
                                     <a href="/sendOffers" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Moji zahtevi <i class='bx bx-cart-alt fs-5'></i></a>
                                     <a href="/wishlist" class="list-group-item d-flex justify-content-between align-items-center">Oglasi koje pratim <i class='bx bx-star fs-5'></i></a>
                                     {{-- <a href="account-addresses.html" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Addresses <i class='bx bx-home-smile fs-5'></i></a>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-lg-8">
                         <div class="card shadow-none mb-0">
-                            <div class="card-body">
+                            <div class="card-body prod-card">
                                 <div class="table-responsive">
                                     <div class="container">
                                         <div class="product-more-info">
@@ -71,7 +71,7 @@
                                                                             <img src="/storage/Product_images/noimage.jpg" class="card-img-top"alt="">
                                                                         @endif
                                                                         {{-- <img src="assets/images/products/01.png" class="card-img-top" alt="..."> --}}
-                                                                        <div class="card-body">
+                                                                        <div class="card-body prod-card">
                                                                             <div class="product-info">
                                                                                 <a href="javascript:;">
                                                                                 
@@ -79,7 +79,7 @@
                                                                                 <a href="javascript:;">
                                                                                     @if($offer->sendproduct)
                                                                                         <a href="javascript:;">
-                                                                                            <h6 class="product-name mb-2">{{$offer->sendproduct->name}}</h6>
+                                                                                            <h6 class="product-name mb-2 text-center">{{$offer->sendproduct->name}}</h6>
                                                                                         </a>
                                                                                     @else
                                                                                         <p>Oglas više ne postoji!</p>
@@ -89,9 +89,9 @@
                                                                                     <hr>
                                                                                     <div class="d-flex align-items-center">
                                                                                         <div class="mb-1 product-price">
-                                                                                                Ime: {{$offer->user->firstName ?? 'no client'}} <br>
-                                                                                                Broj Telefona: {{$offer->sendproduct->user->phone ?? 'no client'}} <br>
-                                                                                                Grad: {{$offer->sendproduct->user->city ?? 'no client'}}                                                                                            
+                                                                                            <img width="16px" src="/assets/images/avatar.svg" alt="" srcset=""> {{$offer->user->firstName ?? 'no client'}} <br>
+                                                                                            <img width="16px" src="/assets/images/phone.svg" alt="" srcset=""> {{$offer->sendproduct->user->phone ?? 'no client'}} <br>
+                                                                                            <img width="16px" src="/assets/images/location.svg" alt="" srcset=""> {{$offer->sendproduct->user->city ?? 'no client'}}                                                                                            
                                                                                         </div>
                                                                                         <div class="cursor-pointer ms-auto">
                                                                                                 
@@ -121,7 +121,7 @@
                                                                         @else
                                                                             <img src="/storage/Product_images/noimage.jpg" class="card-img-top" alt="">
                                                                         @endif
-                                                                        <div class="card-body">
+                                                                        <div class="card-body prod-card">
                                                                             <div class="product-info">
                                                                                 <a href="javascript:;">
                                                                                     
@@ -129,7 +129,7 @@
                                                                                 <a href="javascript:;">
                                                                                     @if ($offer->product)
                                                                                         <a href="javascript:;">
-                                                                                            <h6 class="product-name mb-2">{{$offer->product->name}}</h6>
+                                                                                            <h6 class="product-name mb-2 text-center">{{$offer->product->name}}</h6>
                                                                                         </a>                                                                                    
                                                                                     @else
                                                                                         <p>Oglas više ne postoji!</p>
@@ -139,9 +139,9 @@
                                                                                 <hr>
                                                                                     <div class="d-flex align-items-center">
                                                                                         <div class="mb-1 product-price"> 
-                                                                                            Ime: {{$offer->product->user->firstName ?? 'no client'}} <br>
-                                                                                            Broj Telefona: {{$offer->product->user->phone ?? 'no client'}} <br>
-                                                                                            Grad: {{$offer->product->user->city ?? 'no client'}}                                                                                            
+                                                                                            <img width="16px" src="/assets/images/avatar.svg" alt="" srcset=""> {{$offer->product->user->firstName ?? 'no client'}} <br>
+                                                                                            <img width="16px" src="/assets/images/phone.svg" alt="" srcset=""> {{$offer->product->user->phone ?? 'no client'}} <br>
+                                                                                            <img width="16px" src="/assets/images/location.svg" alt="" srcset=""> {{$offer->product->user->city ?? 'no client'}}                                                                                            
                                                                                         </div>
                                                                                         <div class="cursor-pointer ms-auto"> 
                                                                                                 
@@ -163,7 +163,7 @@
                                                                                     {{ csrf_field() }}
                                                                                     {{method_field('post')}}
                                                                                     <input type="hidden" name="accepted" value="1">
-                                                                                    <button class="btn btn-success btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/correct.png" alt=""></button>
+                                                                                    <button class="btn btn-success btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/correct.svg" style="width: 30px" alt=""></button>
                                                                                     
                                                                                     
                                                                                 </form>                                                                       
@@ -172,7 +172,7 @@
                                                                                     {{method_field('post')}}
                                                                                     <input type="hidden" name="accepted" value="2">
                                                                                     
-                                                                                    <button class="btn btn-danger btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/incorrect.png" alt=""></button>
+                                                                                    <button class="btn btn-danger btn-sm rounded-0 m-0 btn-ecomm" type="submit"><img src="/assets/images/incorrect.svg" style="width: 30px" alt=""></button>
                                                                                 </form>
                                                                             </div>
                                                                                 
@@ -183,7 +183,7 @@
                                                                                 {{ csrf_field() }}
                                                                                 {{method_field('delete')}}  
                                                                                 <button style="border:none; transparent:none;"  type="submit">
-                                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                    <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                                 </button>  
                                                                             </form>   
 
@@ -220,7 +220,7 @@
                                                                             {{ csrf_field() }}                                                                           
                                                                             <input type="hidden" name="offer_archived" value="1">                                                                           
                                                                             <button style="border:none; transparent:none;"  type="submit">
-                                                                                <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                             </button>  
                                                                         </form>                                                                        
                                                                     @endif
@@ -236,7 +236,7 @@
                                                                                     {{ csrf_field() }}                                                                           
                                                                                     <input type="hidden" name="offer_archived" value="1">                                                                           
                                                                                     <button style="border:none; transparent:none;"  type="submit">
-                                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                        <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                                     </button>  
                                                                                 </form>                                                                       
                                                                             </div>
@@ -253,7 +253,7 @@
                                                                             {{ csrf_field() }}                                                                           
                                                                             <input type="hidden" name="offer_archived" value="1">                                                                           
                                                                             <button style="border:none; transparent:none;"  type="submit">
-                                                                                <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                                <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                             </button>  
                                                                         </form>
                                                                         </div>
@@ -324,7 +324,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>                                                     
+                                                        </div>
                                                     @endif 
                                                 @endforeach
                                             </div>

@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <h3 class="d-none">Account</h3>
-    <div class="card">
-        <div class="card-body">
+    <div class="card prod-card">
+        <div class="card-body prod-card">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card shadow-none mb-3 mb-lg-0 border rounded-0">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="card mb-0">
+                    <div class="card mb-0 prod-card">
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -34,7 +34,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <div class="card-body">
+                        <div class="card-body prod-card">
                             <div class="border p-4 rounded">
                                 <div class="text-center">
                                     <h3 class="">Izmeni podatke</h3>                                           

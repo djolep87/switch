@@ -5,8 +5,8 @@
 @section('content')
 <div class="container">
     <h3 class="d-none">Account</h3>
-    <div class="card">
-        <div class="card-body">
+    <div class="card prod-card">
+        <div class="card-body prod-card">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card shadow-none mb-3 mb-lg-0 border rounded-0">
@@ -27,19 +27,19 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="card shadow-none mb-0">
-                        <div class="card-body">
+                        <div class="card-body prod-card">
                             <div class="col-lg-12">
                                 <div class="card shadow-none mb-0">
-                                    <div class="card-body">
+                                    <div class="card-body prod-card">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>Indentifikacija</th>
+                                                        <th>ID</th>
                                                         {{-- <th>Datum kreiranja</th> --}}
                                                         <th>Slika</th>
                                                         <th>Naziv</th>
-                                                        <th>Akcija</th>
+                                                        <th>Uredi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -74,12 +74,12 @@
                                                                 
                                                                 </td>
                                                                 <td>
-                                                                    <form action="/wishlist.destroy/{{$item->id}} " method="POST">
+                                                                    <form action="/wishlist.destroy/{{$item->id}}" id="formDelete-{{ $item->id }}" method="POST">
                                                                         {{ csrf_field() }}
-                                                                        {{method_field('delete')}}                                                                        
-                                                                        <button style="border:none; transparent:none;"  type="submit">
-                                                                            <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
-                                                                        </button>                                                             
+                                                                        {{ method_field('delete') }}   
+                                                                        <a title="Obriši" class="deleteButton" data-id="{{ $item->id }}" href="#">
+                                                                            <img style="width: 16px" src="/assets/images/delete.svg" alt="Delete">
+                                                                        </a>                                                                    
                                                                     </form> 
                                                                 </td>
                                                                

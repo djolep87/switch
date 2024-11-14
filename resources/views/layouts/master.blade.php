@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="/assets/images/logo.png" type="image/png" />
 	<!--plugins-->
-	<link href="{{asset('assets/plugins/OwlCarousel/css/owl.carousel.min.css')}}" rel="stylesheet" />
-	<link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
-	<link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
-	<link href="{{asset('assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
-	<link href="{{asset('assets/plugins/nouislider/nouislider.min.css')}}" rel="stylesheet" />
+	
+	<link href="{{asset('/assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	{{-- <link href="{{asset('/assets/css/bootstrap.min')}}" rel="stylesheet"> --}}
+	<link href="{{asset('/assets/css/app.css')}}" rel="stylesheet">
+	<link href="{{asset('/assets/css/icons.css')}}" rel="stylesheet">
+	<link href="{{asset('/assets/plugins/OwlCarousel/css/owl.carousel.min.css')}}" rel="stylesheet" />
+	<link href="{{asset('/assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
+	<link href="{{asset('/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
+	<link href="{{asset('/assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
+	<link href="{{asset('/assets/plugins/nouislider/nouislider.min.css')}}" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
 	
 	<!-- loader-->
-	<link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
-	<script src="{{asset('assets/js/pace.min.js')}}"></script>
+	<link href="{{asset('/assets/css/pace.min.css')}}" rel="stylesheet" />
+	<script src="{{asset('/assets/js/pace.min.js')}}"></script>
 	<!-- Bootstrap CSS -->
-	<link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-	<link href="{{asset('assets/css/app.css')}}" rel="stylesheet">
-	<link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
 	<link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 	<title>@yield('title')</title>
 
@@ -49,33 +54,25 @@
 					<div class="row align-items-center">
 						<div class="col-4 col-md-auto">
 							<div class="d-flex align-items-center">
-								<div class="mobile-toggle-menu d-lg-none px-lg-2" data-trigger="#navbar_main">
-									<i class='bx bx-menu'></i>
+								<div class="mobile-toggle-menu d-lg-none px-lg-2" data-trigger="#navbar_main"><i class='bx bx-menu'></i>	
 								</div>
 								<div class="logo d-none d-lg-flex">
-									<a href="/">
+									<a href="index.html">
 										<img src="/assets/images/logo.png" class="logo-icon" alt="" />
 									</a>
 								</div>
 							</div>
 						</div>
-						<div class="search-max col col-md order-4 order-md-2">
+						<div class="col col-md search-max">
 							<div class="input-group flex-nowrap px-xl-4">
 								<form class="input-group w-100 my-2 my-lg-0" type="get" action="{{url('/search')}}" >
 									<input type="search" name="query" class="form-control inline mt-sm-2" placeholder="Pretrazi proizvode">
 									<button class="btn btn-inline my-2 my-sm-0" type="submit"><i class='bx bx-search'></i></button>
 								</form>
 							</div>
-						</div>						
-						<div class="col-4 col-md-auto order-3 d-none d-xl-flex align-items-center">
-							{{-- <div class="fs-1 text-white"><i class='bx bx-headphone'></i></div> --}}
-							{{-- <div class="ms-2">
-								<p class="mb-0 font-13">CALL US NOW</p>
-								<h5 class="mb-0">+011 5827918</h5>
-							</div> --}}
 						</div>
 						@if (Auth::check())
-							<div class="col-4 col-md-auto order-2 order-md-4">
+							<div class="col-auto ms-auto">
 								<div class="top-cart-icons float-end">
 									<nav class="navbar navbar-expand">
 										<ul class="navbar-nav ms-auto">
@@ -87,60 +84,50 @@
 														<span class="alert-count">{{$wishlists->count()}}</span>														
 													@endif
 													<i class='bx bx-star'></i>
-												</a>
-										
-												{{-- <a href="/wishlist" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link">
-													<span class="alert-count"></span>
-													<i class='bx bx-heart'></i>
-												</a>--}}					
+												</a>				
 											</li>
-											{{-- <li class="nav-item dropdown">	
-											<a class="nav-link cart-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-												@if (auth()->user()->unreadNotifications->count())
-													<span class="alert-count">{{auth()->user()->unreadNotifications->count()}}</span>
-												@endif
-												<i class='bx bx-bell'></i>
-											</a>
-												<a href="" class="nav-link cart-link"><i class="bx bx-bell"></i></a>
-												<ul class="dropdown-menu">
-													<li><a class="dropdown-item" style="color: blue" href="{{route('markAsRead')}}">Mark all as read </a></li>
-													@foreach (auth()->user()->unreadNotifications as $notification)
-														<li style="background-color:lightgray;">
-															<a href="{{route('markAsRead')}}" class="dropdown-item">{{$notification->data['data']}}</a>
-														</li>														
-													@endforeach
-
-													@foreach (auth()->user()->readNotifications as $notification)
-														<li>
-															<a href="/offers" class="dropdown-item">{{$notification->data['data']}}</a>
-														</li>														
-													@endforeach
-												</ul>
-												
-											</li> --}}
-
-											<li class="nav-item dropdown">	
-												<a class="nav-link cart-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+											<li class="nav-item dropdown dropdown-large">
+												<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">	
 													@if (auth()->user()->unreadNotifications->count())
 														<span class="alert-count">{{ auth()->user()->unreadNotifications->count() }}</span>
 													@endif
 													<i class='bx bx-bell'></i>
 												</a>
-												<ul class="dropdown-menu">
-													{{-- <li><a class="dropdown-item" style="color: blue" href="{{ route('markAllAsRead') }}">Mark all as read </a></li> --}}
+												<div class="dropdown-menu dropdown-menu-end">
+													<a href="javascript:;">
+														<div class="cart-header">
+															<i class='bx bx-bell'></i>   <p class="cart-header-title mb-0">Obaveštenja</p>
+														
+														</div>
+													</a>
 													@foreach (auth()->user()->unreadNotifications as $notification)
-														<li style="background-color:lightgray;">
-															<a href="{{ route('markAsRead', ['notificationId' => $notification->id]) }}" class="dropdown-item"><i class="bx bx-bell"></i>    {{ $notification->data['data'] }}</a>
-														</li>														
-													@endforeach
-											
+														<div class="" style="background-color:lightgray;">
+															<a class="dropdown-item" href="{{ route('markAsRead', ['notificationId' => $notification->id]) }}" >
+																<div class="d-flex align-items-center">
+																	<div class="flex-grow-1">
+																		<h6 class="cart-product-title">{{ $notification->data['data'] }}</h6>
+																		
+																	</div>
+																</div>
+															</a>
+														</div>
+													@endforeach	
+													
 													@foreach (auth()->user()->readNotifications as $notification)
-														<li>
-															<a href="/offers" class="dropdown-item"><i class="bx bx-bell"></i>    {{ $notification->data['data'] }}</a>
-														</li>														
+														<div class="">
+															<a class="dropdown-item" href="/offers">
+																<div class="d-flex align-items-center">
+																	<div class="flex-grow-1">
+																		<h6 class="cart-product-title">{{ $notification->data['data'] }}</h6>
+																		
+																	</div>
+																</div>
+															</a>
+														</div>													
 													@endforeach
-												</ul>
+												</div>
 											</li>
+											
 											
 										</ul>
 									</nav>
@@ -225,147 +212,149 @@
 				</div>
 			</div>
 		</div>
-        <main class="">
-            @yield('content')
-        </main>
+	</div>
+	<main class="">
+		@yield('content')
+	</main>
 
 
-        {{-- <footer class="sticky-footer">
-			<section class="py-4 border-top bg-light">
-				<div class="container">
-					<div class="row row-cols-1 row-cols-md-2 align-items-center">
-						<div class="col">
-							<p class="mb-0">Copyright © {{ date('Y') }}. All right reserved.</p>
-						</div>
+	{{-- <footer class="sticky-footer">
+		<section class="py-4 border-top bg-light">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-md-2 align-items-center">
+					<div class="col">
+						<p class="mb-0">Copyright © {{ date('Y') }}. All right reserved.</p>
 					</div>
 				</div>
-			</section>
-		</footer> --}}
+			</div>
+		</section>
+	</footer> --}}
 
-		<footer>
-			<section class="py-4 border-top bg-light">
-				<div class="container">
-					<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
-						<div class="col">
-							<div class="footer-section1 mb-3">
-								<h6 class="mb-3 text-uppercase">Kontakt Informacija</h6>
-								<div class="address mb-3">
-									<p class="mb-0 text-uppercase">Adresa</p>
-									<p class="mb-0 font-12">Svetolika Rankovića 4</p>
-								</div>
-								<div class="phone mb-3">
-									<p class="mb-0 text-uppercase">Telefon</p>
-									<p class="mb-0 font-13">Toll Free (123) 472-796</p>
-									{{-- <p class="mb-0 font-13">Mobile : (+381) 69 47 44 929</p> --}}
-								</div>
-								<div class="email mb-3">
-									<p class="mb-0 text-uppercase">Email</p>
-									{{-- <p class="mb-0 font-13">info@trange-frange.rs</p> --}}
-									<a href="mailto:info@trange-frange.rs">info@trange-frange.rs</a>
-								</div>
-							
+	<footer>
+		<section class="py-4 border-top bg-light">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
+					<div class="col">
+						<div class="footer-section1 mb-3">
+							<h6 class="mb-3 text-uppercase">Kontakt Informacija</h6>
+							{{-- <div class="address mb-3">
+								<p class="mb-0 text-uppercase">Adresa</p>
+								<p class="mb-0 font-12">Svetolika Rankovića 4</p>
 							</div>
-						</div>
-						<div class="col">
-							<div class="footer-section2 mb-3">
-								<h6 class="mb-3 text-uppercase">Shop Categories</h6>
-								<ul class="list-unstyled">
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Jeans</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> T-Shirts</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sports</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Shirts & Tops</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Clogs & Mules</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sunglasses</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Bags & Wallets</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sneakers & Athletic</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Electronis</a>
-									</li>
-									<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Furniture</a>
-									</li>
-								</ul>
+							<div class="phone mb-3">
+								<p class="mb-0 text-uppercase">Telefon</p>
+								<p class="mb-0 font-13">Toll Free (123) 472-796</p>
+								
+							</div> --}}
+							<div class="email mb-3">
+								<p class="mb-0 text-uppercase">Email</p>
+								{{-- <p class="mb-0 font-13">info@trange-frange.rs</p> --}}
+								<a href="mailto:info@trange-frange.rs">info@trange-frange.rs</a>
 							</div>
-						</div>
-						<div class="col">
-							<div class="footer-section3 mb-3">
-								<h6 class="mb-3 text-uppercase">Popular Tags</h6>
-								<div class="tags-box"> <a href="javascript:;" class="tag-link">Cloths</a>
-									<a href="javascript:;" class="tag-link">Electronis</a>
-									<a href="javascript:;" class="tag-link">Furniture</a>
-									<a href="javascript:;" class="tag-link">Sports</a>
-									<a href="javascript:;" class="tag-link">Men Wear</a>
-									<a href="javascript:;" class="tag-link">Women Wear</a>
-									<a href="javascript:;" class="tag-link">Laptops</a>
-									<a href="javascript:;" class="tag-link">Formal Shirts</a>
-									<a href="javascript:;" class="tag-link">Topwear</a>
-									<a href="javascript:;" class="tag-link">Headphones</a>
-									<a href="javascript:;" class="tag-link">Bottom Wear</a>
-									<a href="javascript:;" class="tag-link">Bags</a>
-									<a href="javascript:;" class="tag-link">Sofa</a>
-									<a href="javascript:;" class="tag-link">Shoes</a>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="footer-section4 mb-3">
-								<h6 class="mb-3 text-uppercase">Stay informed</h6>
-								<div class="subscribe">
-									<input type="text" class="form-control radius-30" placeholder="Enter Your Email" />
-									<div class="mt-2 d-grid">	<a href="javascript:;" class="btn btn-dark btn-ecomm radius-30">Subscribe</a>
-									</div>
-									<p class="mt-2 mb-0 font-13">Subscribe to our newsletter to receive early discount offers, updates and new products info.</p>
-								</div>
-								<div class="download-app mt-3">
-									<h6 class="mb-3 text-uppercase">Download our app</h6>
-									<div class="d-flex align-items-center gap-2">
-										<a href="javascript:;">
-											<img src="assets/images/icons/apple-store.png" class="" width="160" alt="" />
-										</a>
-										<a href="javascript:;">
-											<img src="assets/images/icons/play-store.png" class="" width="160" alt="" />
-										</a>
-									</div>
-								</div>
-							</div>
+						
 						</div>
 					</div>
-					<!--end row-->
-					<hr/>
-					<div class="row row-cols-1 row-cols-md-2 align-items-center">
-						<div class="col">
-							<p class="mb-0">Copyright © 2021. All right reserved.</p>
+					<div class="col">
+						<div class="footer-section2 mb-3">
+							{{-- <h6 class="mb-3 text-uppercase">Shop Categories</h6>
+							<ul class="list-unstyled">
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Jeans</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> T-Shirts</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sports</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Shirts & Tops</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Clogs & Mules</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sunglasses</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Bags & Wallets</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sneakers & Athletic</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Electronis</a>
+								</li>
+								<li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Furniture</a>
+								</li>
+							</ul> --}}
 						</div>
-						<div class="col text-end">
-							<div class="payment-icon">
-								<div class="row row-cols-auto g-2 justify-content-end">
-									<div class="col">
-										<img src="assets/images/icons/visa.png" alt="" />
-									</div>
-									<div class="col">
-										<img src="assets/images/icons/paypal.png" alt="" />
-									</div>
-									<div class="col">
-										<img src="assets/images/icons/mastercard.png" alt="" />
-									</div>
-									<div class="col">
-										<img src="assets/images/icons/american-express.png" alt="" />
-									</div>
+					</div>
+					<div class="col">
+						<div class="footer-section3 mb-3">
+							{{-- <h6 class="mb-3 text-uppercase">Popular Tags</h6>
+							<div class="tags-box"> <a href="javascript:;" class="tag-link">Cloths</a>
+								<a href="javascript:;" class="tag-link">Electronis</a>
+								<a href="javascript:;" class="tag-link">Furniture</a>
+								<a href="javascript:;" class="tag-link">Sports</a>
+								<a href="javascript:;" class="tag-link">Men Wear</a>
+								<a href="javascript:;" class="tag-link">Women Wear</a>
+								<a href="javascript:;" class="tag-link">Laptops</a>
+								<a href="javascript:;" class="tag-link">Formal Shirts</a>
+								<a href="javascript:;" class="tag-link">Topwear</a>
+								<a href="javascript:;" class="tag-link">Headphones</a>
+								<a href="javascript:;" class="tag-link">Bottom Wear</a>
+								<a href="javascript:;" class="tag-link">Bags</a>
+								<a href="javascript:;" class="tag-link">Sofa</a>
+								<a href="javascript:;" class="tag-link">Shoes</a>
+							</div> --}}
+						</div>
+					</div>
+					{{-- <div class="col">
+						<div class="footer-section4 mb-3">
+							<h6 class="mb-3 text-uppercase">Stay informed</h6>
+							<div class="subscribe">
+								<input type="text" class="form-control radius-30" placeholder="Enter Your Email" />
+								<div class="mt-2 d-grid">	<a href="javascript:;" class="btn btn-dark btn-ecomm radius-30">Subscribe</a>
+								</div>
+								<p class="mt-2 mb-0 font-13">Subscribe to our newsletter to receive early discount offers, updates and new products info.</p>
+							</div>
+							<div class="download-app mt-3">
+								<h6 class="mb-3 text-uppercase">Download our app</h6>
+								<div class="d-flex align-items-center gap-2">
+									<a href="javascript:;">
+										<img src="assets/images/icons/apple-store.png" class="" width="160" alt="" />
+									</a>
+									<a href="javascript:;">
+										<img src="assets/images/icons/play-store.png" class="" width="160" alt="" />
+									</a>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!--end row-->
+					</div> --}}
 				</div>
-			</section>
-		</footer>
-		<!--end footer section-->
+				<!--end row-->
+				<hr/>
+				<div class="row row-cols-1 row-cols-md-2 align-items-center">
+					<div class="col">
+						<p class="mb-0">Copyright © 2022. All right reserved.</p>
+					</div>
+					{{-- <div class="col text-end">
+						<div class="payment-icon">
+							<div class="row row-cols-auto g-2 justify-content-end">
+								<div class="col">
+									<img src="assets/images/icons/visa.png" alt="" />
+								</div>
+								<div class="col">
+									<img src="assets/images/icons/paypal.png" alt="" />
+								</div>
+								<div class="col">
+									<img src="assets/images/icons/mastercard.png" alt="" />
+								</div>
+								<div class="col">
+									<img src="assets/images/icons/american-express.png" alt="" />
+								</div>
+							</div>
+						</div>
+					</div> --}}
+				</div>
+				<!--end row-->
+			</div>
+		</section>
+	</footer>
+	<!--end footer section-->
+
 
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
@@ -378,6 +367,24 @@
 						deleteForm.submit();
 					};
 				}
+			});
+		</script>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				var deleteButtons = document.querySelectorAll('.deleteButton');
+				
+				deleteButtons.forEach(function(deleteButton) {
+					deleteButton.addEventListener('click', function(event) {
+						event.preventDefault(); // Prevents default link behavior
+						var itemId = this.getAttribute('data-id'); // Get the ID from data attribute
+						var deleteForm = document.getElementById('formDelete-' + itemId); // Find the corresponding form
+						
+						if (deleteForm) {
+							deleteForm.submit(); // Submit the form
+						}
+					});
+				});
 			});
 		</script>
 
@@ -516,37 +523,37 @@
 		});
 	</script>
 
-<script>
-    document.getElementById('togglePassword1').addEventListener('click', function (e) {
-        e.preventDefault();
-        var passwordInput = document.getElementById('inputChoosePassword1');
-        var passwordIcon = document.getElementById('toggleIcon1');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('bx-hide');
-            passwordIcon.classList.add('bx-show');
-        } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('bx-show');
-            passwordIcon.classList.add('bx-hide');
-        }
-    });
+	<script>
+		document.getElementById('togglePassword1').addEventListener('click', function (e) {
+			e.preventDefault();
+			var passwordInput = document.getElementById('inputChoosePassword1');
+			var passwordIcon = document.getElementById('toggleIcon1');
+			if (passwordInput.type === 'password') {
+				passwordInput.type = 'text';
+				passwordIcon.classList.remove('bx-hide');
+				passwordIcon.classList.add('bx-show');
+			} else {
+				passwordInput.type = 'password';
+				passwordIcon.classList.remove('bx-show');
+				passwordIcon.classList.add('bx-hide');
+			}
+		});
 
-    document.getElementById('togglePassword2').addEventListener('click', function (e) {
-        e.preventDefault();
-        var passwordInput = document.getElementById('inputConfirmPassword');
-        var passwordIcon = document.getElementById('toggleIcon2');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('bx-hide');
-            passwordIcon.classList.add('bx-show');
-        } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('bx-show');
-            passwordIcon.classList.add('bx-hide');
-        }
-    });
-</script>
+		document.getElementById('togglePassword2').addEventListener('click', function (e) {
+			e.preventDefault();
+			var passwordInput = document.getElementById('inputConfirmPassword');
+			var passwordIcon = document.getElementById('toggleIcon2');
+			if (passwordInput.type === 'password') {
+				passwordInput.type = 'text';
+				passwordIcon.classList.remove('bx-hide');
+				passwordIcon.classList.add('bx-show');
+			} else {
+				passwordInput.type = 'password';
+				passwordIcon.classList.remove('bx-show');
+				passwordIcon.classList.add('bx-hide');
+			}
+		});
+	</script>
 	
 	
 	
@@ -555,16 +562,16 @@
 	<!--plugins-->
 	
 	{{-- <script src="{{asset('assets/js/jquery.min.js')}}"></script> --}}
-	<script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
-	<script src="{{asset('assets/plugins/OwlCarousel/js/owl.carousel.min.js')}}"></script>
-	<script src="{{asset('assets/plugins/OwlCarousel/js/owl.carousel2.thumbs.min.js')}}"></script>
-	<script src="{{asset('assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
-	<script src="{{asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
-	<script src="{{asset('assets/plugins/nouislider/nouislider.min.js')}}"></script>
-	<script src="{{asset('assets/js/price-slider.js')}}"></script>
-	<script src="{{asset('assets/js/product-gallery.js')}}"></script>
+	<script src="{{asset('/assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
+	<script src="{{asset('/assets/plugins/OwlCarousel/js/owl.carousel.min.js')}}"></script>
+	<script src="{{asset('/assets/plugins/OwlCarousel/js/owl.carousel2.thumbs.min.js')}}"></script>
+	<script src="{{asset('/assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
+	<script src="{{asset('/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
+	<script src="{{asset('/assets/plugins/nouislider/nouislider.min.js')}}"></script>
+	<script src="{{asset('/assets/js/price-slider.js')}}"></script>
+	<script src="{{asset('/assets/js/product-gallery.js')}}"></script>
 	<!--app JS-->
-	<script src="{{asset('assets/js/app.js')}}"></script>
+	<script src="{{asset('/assets/js/app.js')}}"></script>
 	@include('sweetalert::alert')
 </body>
 </html>

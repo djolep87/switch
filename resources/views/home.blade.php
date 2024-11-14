@@ -8,8 +8,8 @@
     <!--start page wrapper -->
     <div class="page-wrapper">
         <div class="page-content">
-            <!--start shop area-->
-            {{-- <section class="slider-section">
+		    <!--start slider section-->
+            <section class="slider-section">
                 <div class="first-slider">
                     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                         <ol class="carousel-indicators">
@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <img src="assets/images/slider/04.png" class="img-fluid" alt="...">
+                                        <img src="assets/images/slider/06.jpg" class="img-fluid" alt="...">
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <img src="assets/images/slider/05.png" class="img-fluid" alt="...">
+                                        <img src="assets/images/slider/07.jpg" class="img-fluid" alt="...">
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <img src="assets/images/slider/03.png" class="img-fluid" alt="...">
+                                        <img src="assets/images/slider/08.jpg" class="img-fluid" alt="...">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,8 @@
                         </a>
                     </div>
                 </div>
-            </section> --}}
+            </section>
+		    <!--end slider section-->
             <section class="py-4">
                 <div class="container">
                     <div class="row">
@@ -167,6 +168,7 @@
                                                                 </div>
                                                             </a>
                                                         @else
+                                                        <a href=""><i class="bx bx heart"></i></a>
                                                             <a href="{{url('add/to-wishlist/'.$product->productid)}} ">
                                                                 <div class="product-wishlist"> 
                                                                     <i class="hover bx bx-star "></i>
@@ -202,7 +204,7 @@
                                                 <div class="row g-0">
                                                     @if (!empty($images))
                                                         <div class="col-md-4" >
-                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid"   alt="..."></a> 
+                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="Product Image"></a> 
                                                         </div>                                                        
                                                     @endif
                                                     <div class="col-md-8" >
@@ -213,7 +215,7 @@
                                                                 </a> --}}
                                                                 <a href="{{route('products.show', $product->productid)}}">
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
-                                                                    <h6>({{$product->condition}})</h6>  
+                                                                    <h6>({{$product->condition}})</h6>
                                                                 </a>
                                                                 <?php
                                                                 // Zameni sve vrste linijskih prekida sa <br> tagovima
@@ -251,16 +253,22 @@
                                                                 // Zameni linijske prekide sa <br> tagovima u skraćenom tekstu
                                                                 $formattedDescription = nl2br($shortenedDescription);
                                                                 ?>
-                                                                <p class="mb-0">{!! $formattedDescription !!}</p>
+                                                                <p class="mb-0">{!! $formattedDescription !!}</p>                                                              
                                                                 <div class="d-flex align-items-center justify-content gap-3    m-0">
                                                                     <div class="product">
-                                                                        <img src="/assets/images/eye.png" alt="" srcset="">
+                                                                        <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
                                                                         {{-- Viđen: --}}
                                                                         <Span><b>{{$product->views}}</b></Span>
                                                                     </div>
                                                                     
-                                                                     <div>{{$product->users_city}}</div> 
-                                                                     <div>{{$product->users_firstname}}</div>
+                                                                    <div>
+                                                                        <img width="16px" src="/assets/images/location.svg" alt="" srcset="">
+                                                                        {{$product->users_city}}
+                                                                    </div> 
+                                                                    <div>
+                                                                        <img width="16px" src="/assets/images/avatar.svg" alt="" srcset="">
+                                                                        {{$product->users_firstname}}
+                                                                    </div>
                                                                      <div>{{ $product->created_at}}</div>
                                                                 </div>
                                                                 
@@ -270,7 +278,7 @@
                                                                         <div class="d-flex gap-2">
                                                                             <div class="nav-item dropdown">
                                                                                 @if (Auth::user()->id == $product->user_id)
-                                                                                    <p>Moj proizvod!!!</p> 
+                                                                                    <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @else 
                                                                                     <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @endif

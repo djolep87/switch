@@ -6,8 +6,8 @@
 
 <div class="container">
     <h3 class="d-none">Account</h3>
-    <div class="card">
-        <div class="card-body">
+    <div class="card prod-card">
+        <div class="card-body prod-card">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card shadow-none mb-3 mb-lg-0 border">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="card shadow-none mb-0">
-                        <div class="card-body">
+                        <div class="card-body prod-card">
                             <div class="table-responsive">
                                 <div class="container">
                                     <div class="product-more-info">
@@ -36,7 +36,7 @@
                                         <div class="tab-content pt-3">                                  
                                             @foreach ($sendoffers as $sendoffer)
                                                 @if (!$sendoffer->sendoffer_archived == 1)
-                                                    @php
+                                                   @php
                                                         
                                                         if ($sendoffer->sendproduct !== null && null !== $sendoffer->sendproduct->images) {
                                                                 $sendofferImages = explode(",", $sendoffer->sendproduct->images);
@@ -69,7 +69,7 @@
                                                                         @else
                                                                             <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" alt="">
                                                                         @endif
-                                                                    <div class="card-body">
+                                                                    <div class="card-body prod-card">
                                                                         <div class="product-info">
                                                                             <a href="javascript:;">
                                                                             
@@ -77,7 +77,7 @@
                                                                             <a href="javascript:;">
                                                                                 @if ($sendoffer->sendproduct)
                                                                                 <a href="javascript:;">
-                                                                                    <h6 class="product-name mb-2">{{$sendoffer->sendproduct->name}}</h6>
+                                                                                    <h6 class="product-name mb-2 text-center">{{$sendoffer->sendproduct->name}}</h6>
                                                                                     </a>
                                                                                 @else
                                                                                     <p>Oglas više ne postoji!</p>
@@ -88,13 +88,13 @@
                                                                             <hr>
                                                                                 <div class="d-flex align-items-center">
                                                                                     <div class="mb-1 product-price">
-                                                                                            Ime: {{$sendoffer->user->firstName ?? 'no client'}} <br>
-                                                                                            Broj Telefona: {{$sendoffer->user->phone ?? 'no client'}} <br>
-                                                                                            Grad: {{$sendoffer->user->city ?? 'no client'}}
+                                                                                        <img width="16px" src="/assets/images/avatar.svg" alt="" srcset=""> {{$sendoffer->user->firstName ?? 'no client'}} <br>
+                                                                                        <img width="16px" src="/assets/images/phone.svg" alt="" srcset=""> {{$sendoffer->user->phone ?? 'no client'}} <br>
+                                                                                        <img width="16px" src="/assets/images/location.svg" alt="" srcset=""> {{$sendoffer->user->city ?? 'no client'}}
                                                                                         </div>
-                                                                                        <div class="cursor-pointer ms-auto">
-                                                                                            
-                                                                                        </div>
+                                                                                    <div class="cursor-pointer ms-auto">
+                                                                                        
+                                                                                    </div>
                                                                                 </div>                                                   
                                                                             @endif
                                                                         </div>
@@ -121,7 +121,7 @@
                                                                         
                                                                         <img src="/storage/Product_images/noimage.jpg" class="rounded = 9 card-img-top" alt="">
                                                                     @endif
-                                                                    <div class="card-body">
+                                                                    <div class="card-body prod-card">
                                                                         <div class="product-info">
                                                                             <a href="javascript:;">
                                                                                 
@@ -129,7 +129,7 @@
                                                                             <a href="javascript:;">
                                                                                 @if ($sendoffer->product)
                                                                                 <a href="javascript:;">
-                                                                                    <h6 class="product-name mb-2">{{$sendoffer->product->name}}</h6>
+                                                                                    <h6 class="product-name mb-2 text-center">{{$sendoffer->product->name}}</h6>
                                                                                 </a>
                                                                                 @else
                                                                                     <p>Oglas više ne postoji!</p>
@@ -139,9 +139,9 @@
                                                                             <hr>
                                                                                 <div class="d-flex align-items-center">
                                                                                     <div class="mb-1 product-price">
-                                                                                        Ime:  {{$sendoffer->acceptorName}} <br>
-                                                                                        Broj Telefona: {{$sendoffer->product->user->phone ?? 'no client'}} <br>
-                                                                                        Grad: {{$sendoffer->user->city ?? 'no client'}}
+                                                                                        <img width="16px" src="/assets/images/avatar.svg" alt="" srcset="">  {{$sendoffer->acceptorName}} <br>
+                                                                                        <img width="16px" src="/assets/images/phone.svg" alt="" srcset=""> {{$sendoffer->product->user->phone ?? 'no client'}} <br>
+                                                                                        <img width="16px" src="/assets/images/location.svg" alt="" srcset=""> {{$sendoffer->user->city ?? 'no client'}}
                                                                                     </div>
                                                                                     <div class="cursor-pointer ms-auto"> 
                                                                                         
@@ -162,7 +162,7 @@
                                                                         {{ csrf_field() }}
                                                                         {{method_field('delete')}}  
                                                                         <button style="border:none; transparent:none;"  type="submit">
-                                                                            <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                            <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                         </button>  
                                                                     </form> 
                                                                 @else                                                                        
@@ -199,7 +199,7 @@
                                                                 {{ csrf_field() }}
                                                                 <input type="hidden" name="sendoffer_archived" value="1">                                                                                                                            
                                                                 <button style="border:none; transparent:none;"  type="submit">
-                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                    <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                 </button>  
                                                             </form>   
                                                         @endif
@@ -215,7 +215,7 @@
                                                             {{ csrf_field() }}
                                                             <input type="hidden" name="sendoffer_archived" value="1">                                                                                                                            
                                                             <button style="border:none; transparent:none;"  type="submit">
-                                                                <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                       
                                                             </button>  
                                                         </form>                      
                                                     @endif
@@ -231,7 +231,7 @@
                                                                     {{ csrf_field() }}
                                                                     <input type="hidden" name="sendoffer_archived" value="1">                                                                                                                            
                                                                     <button style="border:none; transparent:none;"  type="submit">
-                                                                        <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                        <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                         
                                                                     </button>  
                                                                 </form>         
                                                             </div>
@@ -250,7 +250,7 @@
                                                                 {{ csrf_field() }}
                                                                 <input type="hidden" name="sendoffer_archived" value="1">                                                                                                                            
                                                                 <button style="border:none; transparent:none;"  type="submit">
-                                                                    <img src="/assets/images/delete.png" alt="" srcset="">                                                                        
+                                                                     <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">                                                                        
                                                                 </button>  
                                                             </form>      
                                                         </div>

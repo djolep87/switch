@@ -134,7 +134,7 @@ class OffersController extends Controller
         toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!', 'success');
         $user = User::find($offers->user_id);
         User::find($offers->user_id)->notify(new AcceptNotifications);
-        return redirect('/offers');
+        return redirect('/sendOffers');
     }
 
     public function rejected(Request $request, $id)
@@ -146,7 +146,7 @@ class OffersController extends Controller
         toast('Zahtev je odbijen!', 'error');
         $user = User::find($offers->user_id);
         User::find($offers->user_id)->notify(new RejectedNotifications);
-        return redirect('/offers');
+        return redirect('/sendOffers');
     }
 
     public function confirmation(Request $request, $id)
@@ -163,7 +163,7 @@ class OffersController extends Controller
         $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
         toast('Čestitamo! Uspešna zamena! ', 'success');
-        return redirect('/offers');
+        return redirect('/sendOffers');
     }
 
     public function canceled(Request $request, $id)
@@ -181,7 +181,7 @@ class OffersController extends Controller
         $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
         toast('Zamena neuspešna!', 'error');
-        return redirect('/offers');
+        return redirect('/sendOffers');
     }
 
     public function markAllAsRead()
@@ -215,7 +215,7 @@ class OffersController extends Controller
         $offers->sendoffer_archived =  $request->input('sendoffer_archived');
         $offers->save();
         toast('Zahtev je obrisan!', 'danger');
-        return redirect('/offers');
+        return redirect('/sendOffers');
     }
 
     /**

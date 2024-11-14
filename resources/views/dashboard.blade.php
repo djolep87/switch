@@ -5,8 +5,8 @@
 @section('content')
 <div class="container">
     <h3 class="d-none">Account</h3>
-    <div class="card">
-        <div class="card-body">
+    <div class="card prod-card">
+        <div class="card-body prod-card">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card shadow-none mb-3 mb-lg-0 border rounded-0">
@@ -26,11 +26,11 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="card shadow-none mb-0">
-                        <div class="card-body">
+                    <div class="card shadow-none mb-0 prod-card">
+                        <div class="card-body prod-card">
                             <div class="col-lg-12">
                                 <div class="card shadow-none mb-0">
-                                    <div class="card-body">
+                                    <div class="card-body prod-card">
                                         <div class="table-responsive">
                                             <div class="filter-sidebar d-none d-xl-flex pb-2">
                                                 {{-- <div class="card rounded-0">
@@ -40,11 +40,11 @@
                                             <table class="table">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>Šifra artikla</th>
-                                                        <th>Datum kreiranja</th>
+                                                        <th>ID</th>
+                                                        {{-- <th>Datum kreiranja</th> --}}
                                                         <th>Slika</th>
                                                         <th>Naziv</th>
-                                                        <th>Akcija</th>
+                                                        <th>Uredi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -59,15 +59,15 @@
                                                     @endphp 
                                                         <tr>
                                                             <td>#{{$product->id}}</td>
-                                                            <td>{{$product->created_at->toFormattedDateString()}}</td>
+                                                            {{-- <td>{{$product->created_at->toFormattedDateString()}}</td> --}}
                                                             <td>
                                                                 <div class=""><img src="/storage/Product_images/{{ $images[0] }}" class="img-fluid rounded = 9"  style="width: 50px; height: 50px;" alt=""></div>
                                                             </td>
                                                             <td>{{$product->name}}</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">	
-                                                                    <a title="Pogledaj" href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.png" alt="" srcset=""></a>
-                                                                    <a title="Uredi" href="{{route('products.edit', $product->id)}}"><img src="/assets/images/edit.png" alt="" srcset=""></a>
+                                                                    <a title="Pogledaj" href="{{route('products.show', $product->id)}}" ><img src="/assets/images/eye.svg" style="width: 16px" alt="" srcset=""></a>
+                                                                    <a title="Uredi" href="{{route('products.edit', $product->id)}}"><img src="/assets/images/edit.svg" style="width: 16px" alt="" srcset=""></a>
                                                                     {{-- <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('product.destroy', $product->id)}}" id="frmDelete"  method="POST">
                                                                         {{ csrf_field() }}
                                                                         {{method_field('delete')}}  
@@ -81,7 +81,7 @@
                                                                     <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ route('product.destroy', $product->id) }}" id="frmDelete-{{ $product->id }}" method="POST">
                                                                         {{ csrf_field() }}
                                                                         {{ method_field('delete') }}  
-                                                                        <a title="Obriši" class="deleteButton" data-id="{{ $product->id }}" href="#"><img src="/assets/images/delete.png" alt="" srcset=""></a>
+                                                                        <a title="Obriši" class="deleteButton" data-id="{{ $product->id }}" href="#"><img src="/assets/images/delete.svg" style="width: 16px" alt="" srcset=""></a>
                                                                     </form>
                                                                 </div>
                                                             </td>
