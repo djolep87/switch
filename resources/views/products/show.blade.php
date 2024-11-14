@@ -135,19 +135,26 @@
                                         <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
                                         <dd class="col-sm-9">Srbija</dd>
                                     </dl> --}}
-                                    @if (optional(Auth::user())->id == $product->user_id)
-                                        <a style="display: none" href="{{url('add/to-wishlist/'.$product->id)}}">
-                                            <div class="product-wishlist"> 
-                                                <i class="hover bx bx-star "></i>
+                                    <div class="">
+                                        @if (optional(Auth::user())->id == $product->user_id)
+                                            <!-- Hide the wishlist button for the product owner -->
+                                            <div style="display: none;">
+                                                <div class="product-wishlist"> 
+                                                    <i class="hover bx bx-heart"></i>
+                                                </div>
                                             </div>
-                                        </a>
-                                    @else
-                                        <a href="{{url('add/to-wishlist/'.$product->id)}} ">
-                                            <div class="product-wishlist" style="width:100px; border-radius:20px;" hovered>Prati   
-                                                <i class="hover bx bx-star "></i>
+                                        @else
+                                            @php
+                                                $isInWishlist = \App\Models\Wishlist::where('user_id', Auth::id())
+                                                                                    ->where('product_id', $product->id)
+                                                                                    ->exists();
+                                            @endphp
+                                            <div class="product-wishlist" data-product-id="{{ $product->id }}" style="cursor: pointer;">
+                                                <i id="wishlist-icon-{{ $product->id }}" 
+                                                   class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
                                             </div>
-                                        </a>
-                                    @endif
+                                        @endif
+                                    </div>
 
                       
                                     <div class="d-flex gap-2 mt-3">

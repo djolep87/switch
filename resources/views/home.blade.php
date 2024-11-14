@@ -162,18 +162,22 @@
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
                                                     <div class="">
                                                         @if (optional(Auth::user())->id == $product->user_id)
-                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->productid)}}">
+                                                            <!-- Hide the wishlist button for the product owner -->
+                                                            <div style="display: none;">
                                                                 <div class="product-wishlist"> 
-                                                                    <i class="hover bx bx-star "></i>
+                                                                    <i class="hover bx bx-heart"></i>
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                         @else
-                                                        <a href=""><i class="bx bx heart"></i></a>
-                                                            <a href="{{url('add/to-wishlist/'.$product->productid)}} ">
-                                                                <div class="product-wishlist"> 
-                                                                    <i class="hover bx bx-star "></i>
-                                                                </div>
-                                                            </a>
+                                                            @php
+                                                                $isInWishlist = \App\Models\Wishlist::where('user_id', Auth::id())
+                                                                                                    ->where('product_id', $product->productid)
+                                                                                                    ->exists();
+                                                            @endphp
+                                                            <div class="product-wishlist" data-product-id="{{ $product->productid }}" style="cursor: pointer;">
+                                                                <i id="wishlist-icon-{{ $product->productid }}" 
+                                                                   class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
+                                                            </div>
                                                         @endif
                                                     </div>
                                                     {{-- <div class="product">

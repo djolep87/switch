@@ -70,7 +70,7 @@ Route::delete('/products/{id}', 'ProductsController@destroy')->name('product.des
 
 Route::post('/comments.store/{id}', 'CommentsController@store')->name('comments.store');
 
-Route::get('add/to-wishlist/{product_id}', 'WishlistController@addToWishlist');
+Route::get('add/to-wishlist/{product_id}', 'WishlistController@addToWishlist')->name('wishlist.add');
 Route::get('/wishlist', 'WishlistController@index');
 Route::delete('wishlist.destroy/{id}', 'WishlistController@destroy')->name('wishlist.destroy');
 

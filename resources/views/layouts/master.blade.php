@@ -20,7 +20,7 @@
 	<link href="{{asset('/assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('/assets/plugins/nouislider/nouislider.min.css')}}" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<!-- loader-->
 	<link href="{{asset('/assets/css/pace.min.css')}}" rel="stylesheet" />
 	<script src="{{asset('/assets/js/pace.min.js')}}"></script>
@@ -83,7 +83,7 @@
 													@if ($wishlists->count())
 														<span class="alert-count">{{$wishlists->count()}}</span>														
 													@endif
-													<i class='bx bx-star'></i>
+													<i class='bx bx-heart'></i>
 												</a>				
 											</li>
 											<li class="nav-item dropdown dropdown-large">
@@ -554,9 +554,86 @@
 			}
 		});
 	</script>
+
+	{{-- <script>
+		$(document).ready(function() {
+			// Handle click event on each wishlist icon
+			$('.product-wishlist').on('click', function(e) {
+				e.preventDefault();
+				
+				// Get the product ID from the data attribute
+				let productId = $(this).data('product-id');
+				let icon = $('#wishlist-icon-' + productId);
+		
+				$.ajax({
+					url: '/add/to-wishlist/' + productId, // This route should handle both add and remove actions
+					method: 'GET',
+					success: function(response) {
+						// Toggle the icon class based on current state
+						if (icon.hasClass('bx-heart')) {
+							icon.removeClass('bx-heart').addClass('bxs-heart'); // Filled heart icon for added
+						} else {
+							icon.removeClass('bxs-heart').addClass('bx-heart'); // Outline heart icon for removed
+						}
+					},
+					error: function(xhr) {
+						console.log('Error:', xhr.responseText);
+					}
+				});
+			});
+		});
+	</script> --}}
+
+
+	<script>
+		$(document).ready(function() {
+			// Obrada klika na wishlist ikonu
+			$('.product-wishlist').on('click', function(e) {
+				e.preventDefault();
+				
+				// Uzmi ID proizvoda iz data atributa
+				let productId = $(this).data('product-id');
+				let icon = $('#wishlist-icon-' + productId);
+			
+				$.ajax({
+					url: '/add/to-wishlist/' + productId, // Ruta za dodavanje/uklanjanje proizvoda iz wishlist-a
+					method: 'GET',
+					success: function(response) {
+						// Toggle ikone: ako je prazno, promeni u popunjeno, i obrnuto
+						if (icon.hasClass('bx-heart')) {
+							icon.removeClass('bx-heart').addClass('bxs-heart'); // Dodaj u wishlist
+						} else {
+							icon.removeClass('bxs-heart').addClass('bx-heart'); // Ukloni iz wishlist
+						}
+						
+						// Prikazivanje toast obaveštenja
+						if (response.toast_message) {
+							toastr.success(response.toast_message);  // Prikazivanje uspešne poruke
+						}
+					},
+					error: function(xhr) {
+						console.log('Greška:', xhr.responseText);  // Prikazivanje greške ako AJAX ne uspe
+					}
+				});
+			});
+		});
+	</script>
+
+	<script>
+		toastr.options = {
+			"closeButton": true,
+			"progressBar": true,
+			"positionClass": "toast-top-right", // Pozicija obaveštenja
+			"timeOut": "5000", // Vreme trajanja obaveštenja
+			"extendedTimeOut": "1000"
+		};
+
+	</script>
+
+
 	
 	
-	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<!-- Bootstrap JS -->
 	<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 	<!--plugins-->
