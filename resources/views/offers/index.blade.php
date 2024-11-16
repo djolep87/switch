@@ -104,7 +104,7 @@
                                                                 </div> 
                                                                 <img src="/assets/images/arrow.png" class="arrow-image-swap">
                                                                 <div class="col">
-                                                                    <p class="text-center">Moj proizvod</p> 
+                                                                    <p class="text-center">Moj oglas</p> 
                                                                     <div class="card rounded-0 product-card">
                                                                         <div class="card-header bg-transparent border-bottom-0">
                                                                             <div class="d-flex align-items-center justify-content-end gap-3">

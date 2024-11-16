@@ -52,7 +52,7 @@
                                                     <div class="product-grid border-1">                                                             
                                                         <div class="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 position-relative">
                                                             <div class="col">
-                                                                <p class="text-center">Moj proizvod</p> 
+                                                                <p class="text-center">Moj oglas</p> 
                                                                 <div class="card rounded-0 product-card">
                                                                     <div class="card-header bg-transparent border-bottom-0">
                                                                         <div class="d-flex align-items-center justify-content-end gap-3">
