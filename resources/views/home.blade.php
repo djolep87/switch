@@ -262,7 +262,7 @@
                                                                     <div class="product">
                                                                         <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
                                                                         {{-- Viđen: --}}
-                                                                        <Span><b>{{$product->views}}</b></Span>
+                                                                        <Span>{{$product->views}}</Span>
                                                                     </div>
                                                                     
                                                                     <div>

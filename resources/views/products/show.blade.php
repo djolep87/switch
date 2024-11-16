@@ -121,7 +121,7 @@
                                     <div class="product">
                                         <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
                                         {{-- Viđen: --}}
-                                        <Span><b>{{$product->views}}</b></Span>
+                                        <Span>{{$product->views}}</Span>
                                     </div>
                                     <h3 class="mt-3 mt-lg-0 mb-0">{{$product->name}}</h3>
                                     <h6 class="">({{$product->condition}})</h6>
