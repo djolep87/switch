@@ -80,9 +80,7 @@
 											</li>
 											<li class="nav-item">
 												<a href="/wishlist" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link">
-													@if ($wishlists->count())
-														<span class="alert-count">{{$wishlists->count()}}</span>														
-													@endif
+													<span class="alert-count" id="wishlist-count">{{ $wishlists->count() }}</span>
 													<i class='bx bx-heart'></i>
 												</a>				
 											</li>
@@ -590,11 +588,11 @@
 			// Obrada klika na wishlist ikonu
 			$('.product-wishlist').on('click', function(e) {
 				e.preventDefault();
-				
+	
 				// Uzmi ID proizvoda iz data atributa
 				let productId = $(this).data('product-id');
 				let icon = $('#wishlist-icon-' + productId);
-			
+	
 				$.ajax({
 					url: '/add/to-wishlist/' + productId, // Ruta za dodavanje/uklanjanje proizvoda iz wishlist-a
 					method: 'GET',
@@ -605,14 +603,19 @@
 						} else {
 							icon.removeClass('bxs-heart').addClass('bx-heart'); // Ukloni iz wishlist
 						}
-						
+	
+						// Ažuriraj broj stavki u wishlistu
+						if (response.wishlist_count !== undefined) {
+							$('#wishlist-count').text(response.wishlist_count);
+						}
+	
 						// Prikazivanje toast obaveštenja
 						if (response.toast_message) {
-							toastr.success(response.toast_message);  // Prikazivanje uspešne poruke
+							toastr.success(response.toast_message);
 						}
 					},
 					error: function(xhr) {
-						console.log('Greška:', xhr.responseText);  // Prikazivanje greške ako AJAX ne uspe
+						console.log('Greška:', xhr.responseText);
 					}
 				});
 			});

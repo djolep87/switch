@@ -56,21 +56,24 @@ class WishlistController extends Controller
         if ($wishlist) {
             // Ako je proizvod već u wishlistu, ukloni ga
             $wishlist->delete();
-            return response()->json([
-                'status' => 'removed',
-                'toast_message' => 'Oglas je uklonjen iz liste želja!'
-            ]);
+            $message = 'Oglas je uklonjen iz liste želja!';
         } else {
             // Ako nije, dodaj ga u wishlist
             Wishlist::create([
                 'user_id' => $user->id,
                 'product_id' => $product_id,
             ]);
-            return response()->json([
-                'status' => 'added',
-                'toast_message' => 'Oglas je dodat u listu želja!'
-            ]);
+            $message = 'Oglas je dodat u listu želja!';
         }
+
+        // Broj stavki u wishlistu
+        $wishlistCount = Wishlist::where('user_id', $user->id)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'wishlist_count' => $wishlistCount,
+            'toast_message' => $message,
+        ]);
     }
 
     return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
