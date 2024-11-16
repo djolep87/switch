@@ -8,24 +8,97 @@
     <!--start page wrapper -->
     <div class="page-wrapper">
         <div class="page-content">
-            <!--start shop area-->
+		    <!--start slider section-->
+            <section class="slider-section">
+                <div class="first-slider">
+                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active bg-dark-gery">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col d-none d-lg-flex justify-content-center">
+                                        <div class="">
+                                            <h3 class="h3 fw-light">Has just arrived!</h3>
+                                            <h1 class="h1">Huge Summer Collection</h1>
+                                            <p class="pb-3">Swimwear, Tops, Shorts, Sunglasses &amp; much more...</p>
+                                            <div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <img src="assets/images/slider/06.jpg" class="img-fluid" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item bg-dark-gery">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col d-none d-lg-flex justify-content-center">
+                                        <div class="">
+                                            <h3 class="h3 fw-light">Hurry up! Limited time offer.</h3>
+                                            <h1 class="h1">Women Sportswear Sale</h1>
+                                            <p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...</p>
+                                            <div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <img src="assets/images/slider/07.jpg" class="img-fluid" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item bg-dark-gery">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col d-none d-lg-flex justify-content-center">
+                                        <div class="">
+                                            <h3 class="h3 fw-light">Complete your look with</h3>
+                                            <h1 class="h1">New Men's Accessories</h1>
+                                            <p class="pb-3">Hats &amp; Caps, Sunglasses, Bags &amp; much more...</p>
+                                            <div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <img src="assets/images/slider/08.jpg" class="img-fluid" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+		    <!--end slider section-->
             <section class="py-4">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-xl-3">
-                            <div class="btn-mobile-filter d-xl-none"><i class='bx bx-slider-alt'></i>
+                            {{-- <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
+                            </div> --}}
+                            <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'>Kategorije</i>     
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex pb-2">
                                 <div class="card rounded-0 w-100">
-                                    <button onclick="window.location.href='/products.create'" class="btn btn-dark">Postavite oglas<i class='bx bx-plus'></i></button>
+                                    <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">Postavite oglas</button>
                                 </div>
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex">
                                 <div class="card rounded-0 w-100">
                                     <div class="card-body">
-                                        <div class="align-items-center d-flex d-xl-none">
-                                            <h6 class="text-uppercase mb-0">Filter</h6>
-                                            <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div>
+                                        <div class="align-items-center d-xl-none">
+                                            {{-- <h6 class="text-uppercase mb-0">Filter</h6> --}}
+                                            <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div><br>
+                                            <div class="card rounded-0 w-100">
+                                                <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">Postavite oglas</button>
+                                            </div>
                                         </div>
                                         <hr class="d-flex d-xl-none" />
                                         <div class="product-categories">
@@ -33,7 +106,11 @@
                                             <ul class="list-unstyled mb-0 categories-list">
                                                 @foreach ($categories as $category)
                                                     
-                                                    <li><a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span></a></li>
+                                                    <li>
+                                                        <a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} 
+                                                            {{-- <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span> --}}
+                                                        </a>
+                                                    </li>
 
                                                 @endforeach
                                             </ul>
@@ -85,17 +162,22 @@
                                                 <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
                                                     <div class="">
                                                         @if (optional(Auth::user())->id == $product->user_id)
-                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->productid)}}">
+                                                            <!-- Hide the wishlist button for the product owner -->
+                                                            <div style="display: none;">
                                                                 <div class="product-wishlist"> 
-                                                                    <i class="hover bx bx-star "></i>
+                                                                    <i class="hover bx bx-heart"></i>
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                         @else
-                                                            <a href="{{url('add/to-wishlist/'.$product->productid)}} ">
-                                                                <div class="product-wishlist"> 
-                                                                    <i class="hover bx bx-star "></i>
-                                                                </div>
-                                                            </a>
+                                                            @php
+                                                                $isInWishlist = \App\Models\Wishlist::where('user_id', Auth::id())
+                                                                                                    ->where('product_id', $product->productid)
+                                                                                                    ->exists();
+                                                            @endphp
+                                                            <div class="product-wishlist" data-product-id="{{ $product->productid }}" style="cursor: pointer;">
+                                                                <i id="wishlist-icon-{{ $product->productid }}" 
+                                                                   class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
+                                                            </div>
                                                         @endif
                                                     </div>
                                                     {{-- <div class="product">
@@ -125,19 +207,19 @@
                                                 </div>
                                                 <div class="row g-0">
                                                     @if (!empty($images))
-                                                        <div class="col-md-4">
-                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="..."></a> 
+                                                        <div class="col-md-4" >
+                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="Product Image"></a> 
                                                         </div>                                                        
                                                     @endif
                                                     <div class="col-md-8" >
                                                         <div class="card-body" >
                                                             <div class="product-info">
-                                                                <a href="javascript:;">
-                                                                    <p class="product-catergory font-13 mb-1">{{$categoryName}}</p>
-                                                                </a>
+                                                                {{-- <a href="javascript:;">
+                                                                    <p class="product-catergory font-13 mb-1">{{$product->categories->name}}</p>
+                                                                </a> --}}
                                                                 <a href="{{route('products.show', $product->productid)}}">
                                                                     <h4 class="product-name mb-2">{{$product->name}}</h4>
-                                                                    <h6>({{$product->condition}})</h6>  
+                                                                    <h6>({{$product->condition}})</h6>
                                                                 </a>
                                                                 <?php
                                                                 // Zameni sve vrste linijskih prekida sa <br> tagovima
@@ -175,18 +257,23 @@
                                                                 // Zameni linijske prekide sa <br> tagovima u skraćenom tekstu
                                                                 $formattedDescription = nl2br($shortenedDescription);
                                                                 ?>
-                                                                {{-- <p class="card-text">{!!Str::limit($product->description, 500)!!}</p> --}}
-                                                                {{-- <p class="card-text">{!!$product->description!!}</p> --}}
-                                                                <p class="mb-0">{!! $formattedDescription !!}</p>
+                                                                <p class="mb-0">{!! $formattedDescription !!}</p>                                                              
                                                                 <div class="d-flex align-items-center justify-content gap-3    m-0">
                                                                     <div class="product">
-                                                                        <img src="/assets/images/eye.png" alt="" srcset="">
+                                                                        <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
                                                                         {{-- Viđen: --}}
-                                                                        <Span><b>{{$product->views}}</b></Span>
+                                                                        <Span>{{$product->views}}</Span>
                                                                     </div>
                                                                     
-                                                                     <div>{{$product->users_city}}</div> 
-                                                                     <div>{{$product->users_firstname}}</div>
+                                                                    <div>
+                                                                        <img width="16px" src="/assets/images/location.svg" alt="" srcset="">
+                                                                        {{$product->users_city}}
+                                                                    </div> 
+                                                                    <div>
+                                                                        <img width="16px" src="/assets/images/avatar.svg" alt="" srcset="">
+                                                                        {{$product->users_firstname}}
+                                                                    </div>
+                                                                     <div>{{ $product->created_at}}</div>
                                                                 </div>
                                                                 
                                                                 
@@ -195,7 +282,7 @@
                                                                         <div class="d-flex gap-2">
                                                                             <div class="nav-item dropdown">
                                                                                 @if (Auth::user()->id == $product->user_id)
-                                                                                    <p>Moj proizvod!!!</p> 
+                                                                                    <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @else 
                                                                                     <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @endif
@@ -207,7 +294,7 @@
                                                                                         <input type="hidden" name="acceptor" value="{{$product->user_id}}">
                                                                                         <input type="hidden" name="acceptorName" value="{{$product->firstName}}">
                                                                                         <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
-                                                                                        <input type="hidden" name="product_id" value="{{$product->productid}}"> 
+                                                                                        <input type="hidden" name="product_id" value="{{$product->productid}}">
                                                                                         @forelse ($listproducts as $product)  
                                                                                             @php
                                                                                                 $images = $product->images ? explode(",", $product->images) : [];

@@ -96,7 +96,8 @@ class HomeController extends Controller
                 ->paginate(48);
 
             $categories = Category::withCount('products')->get();
-            $categoryName = $categories->where('name', request()->category)->first()->name;
+            $category = $categories->where('name', request()->category)->first();
+            $categoryName = $category ? $category->name : '';
         } else {
             $products = Product::whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
                 $query->select('products.id')
@@ -238,7 +239,8 @@ class HomeController extends Controller
                 ->paginate(48);
 
             $categories = Category::withCount('products')->get();
-            $categoryName = $categories->where('name', request()->category)->first()->name;
+            $category = $categories->where('name', request()->category)->first();
+            $categoryName = $category ? $category->name : '';
         } else {
             $search_text = $_GET['query'];
             $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
