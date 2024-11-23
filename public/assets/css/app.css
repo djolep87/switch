@@ -1033,9 +1033,9 @@ ul.categories-list li {
 }
 /* Authentication */
 
-.section-authentication-signin {
+/* .section-authentication-signin {
 	height: 100vh
-}
+} */
 .authentication-forgot {
 	height: 100vh;
 	padding: 0 1rem
@@ -1638,5 +1638,26 @@ body.bg-theme15 {
 
 	.search-min{
 		display: block;
+	}
+
+}
+@media (max-width: 768px) {
+	.product-row .col-md-4 {
+		max-width: 120px; /* Smanjuje sliku da stane u roditeljski element */
+		height: auto;   /* Održava proporcije slike */
+	}
+
+
+	.description{
+		display: none;
+	}
+	.container {
+		max-width: 100vw; /* Sprečava širenje preko ekrana */
+		overflow-x: hidden; /* Sakriva višak sadržaja */
+	}
+	.product-row {
+		display: flex;
+		flex-wrap: nowrap; /* Održava raspored u jednom redu */
+		align-items: center; /* Poravnava sliku i tekst vertikalno */
 	}
 }

@@ -71,8 +71,8 @@
 								</form>
 							</div>
 						</div>
-						@if (Auth::check())
-							<div class="col-auto ms-auto">
+						<div class="d-flex col-auto ms-auto">
+							@if (Auth::check())
 								<div class="top-cart-icons float-end">
 									<nav class="navbar navbar-expand">
 										<ul class="navbar-nav ms-auto">
@@ -130,8 +130,10 @@
 										</ul>
 									</nav>
 								</div>
-							</div>
-						@endif
+							@else
+								<a class="btn btt-info" href="/login"><img style="width: 32px" src="/assets/images/login.svg" alt=""> Prijavi se!</a>
+							@endif
+						</div>
 						</div>
 						<div class="search-min col col-md order-4 order-md-2 mb-2">
 							<div class="input-group flex-nowrap px-xl-4">

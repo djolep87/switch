@@ -205,10 +205,12 @@
 
 
                                                 </div>
-                                                <div class="row g-0">
+                                                <div class="row g-0 product-row">
                                                     @if (!empty($images))
-                                                        <div class="col-md-4" >
-                                                            <a href="{{route('products.show', $product->productid)}}"><img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="Product Image"></a> 
+                                                        <div class="col-md-4">
+                                                            <a href="{{route('products.show', $product->productid)}}">
+                                                                <img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="Product Image">
+                                                            </a> 
                                                         </div>                                                        
                                                     @endif
                                                     <div class="col-md-8" >
@@ -257,18 +259,22 @@
                                                                 // Zameni linijske prekide sa <br> tagovima u skraćenom tekstu
                                                                 $formattedDescription = nl2br($shortenedDescription);
                                                                 ?>
-                                                                <p class="mb-0">{!! $formattedDescription !!}</p>                                                              
-                                                                <div class="d-flex align-items-center justify-content gap-3    m-0">
-                                                                    <div class="product">
-                                                                        <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
-                                                                        {{-- Viđen: --}}
-                                                                        <Span>{{$product->views}}</Span>
-                                                                    </div>
-                                                                    
+                                                                <p class="mb-0 description">{!! $formattedDescription !!}</p> 
+                                                                
+                                                                <div class="align-items-center justify-content gap-3    m-0">
                                                                     <div>
                                                                         <img width="16px" src="/assets/images/location.svg" alt="" srcset="">
                                                                         {{$product->users_city}}
                                                                     </div> 
+                                                                </div>
+                                                                <div class="d-flex align-items-center justify-content gap-3    m-0">
+                                                                    
+                                                                    <div class="product">
+                                                                        <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
+                                                                        
+                                                                        <Span>{{$product->views}}</Span>
+                                                                    </div>
+                                                                    
                                                                     <div>
                                                                         <img width="16px" src="/assets/images/avatar.svg" alt="" srcset="">
                                                                         {{$product->users_firstname}}
@@ -326,8 +332,8 @@
                                                                     </div>
                                                                     
                                                                 @else
-                                                                    <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p>
-                                                                    <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
+                                                                    {{-- <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p> --}}
+                                                                    {{-- <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a> --}}
                                                                 @endif
                                                                 
                                                             </div>
@@ -340,7 +346,10 @@
                                     @empty
                                         <div><p>Nema proizvoda.</p></div>    
                                 @endforelse
-                                {{$products->links('pagination::bootstrap-4')}}
+                                {{-- {{$products->links('pagination::bootstrap-4')}} --}}
+                                {{ $products->onEachSide(1)->links('pagination::bootstrap-4') }}
+
+
                                 {{-- <nav class="d-flex justify-content-between" aria-label="Page navigation">
                                     <ul class="pagination">
                                         <li class="page-item"><a class="page-link" href="javascript:;"><i class='bx bx-chevron-left'></i> Prev</a>

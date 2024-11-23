@@ -541,6 +541,11 @@ progress {
   margin-right: auto;
   margin-left: auto;
 }
+.product-row .col-md-4 img {
+  max-width: 100%; /* Puna širina roditeljskog elementa */
+  height: auto;    /* Održava proporcije slike */
+}
+
 @media (min-width: 576px) {
   .container,
   .container-sm {
@@ -1773,6 +1778,10 @@ progress {
   }
 }
 @media (max-width: 767.98px) {
+  .product-row .col-md-4 img{
+    max-width: 120px;
+    height: auto;
+  }
   .table-responsive-md {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4158,9 +4167,43 @@ fieldset:disabled .btn {
 }
 
 @media (max-width: 576px) {
+
+  body {
+    overflow-x: hidden; /* Sakriva horizontalno skrolovanje */
+  }
+
+  * {
+      box-sizing: border-box; /* Obavezno za tačnu širinu elemenata */
+  }
+
+  .container {
+      max-width: 100vw; /* Sprečava širenje preko ekrana */
+      overflow-x: hidden; /* Sakriva višak sadržaja */
+  }
  
   .prod-card{
     padding: 0;
+  }
+
+  .product-row {
+    display: flex;        /* Osigurava da se elementi prikazuju u jednom redu */
+    flex-wrap: nowrap;    /* Sprečava prelamanje elemenata */
+    align-items: center;  /* Vertikalno centriranje elemenata */
+  }
+
+  .product-row .col-md-4 img {
+    max-width: 120px !important; /* Smanjuje sliku za male ekrane */
+    height: auto !important;    /* Održava proporcije slike */
+  }
+
+  .product-row .col-md-4{
+    max-width: auto; /* Prilagodite širinu okolnog div-a veličini slike */
+    flex: auto;  /* Postavite fleksibilnu širinu */
+    padding: 0;      /* Uklonite padding */
+    margin: 0;       /* Uklonite marginu */
+  }
+  .description{
+    display: none;
   }
 }
 @media (min-width: 576px) {

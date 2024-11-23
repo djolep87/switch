@@ -207,7 +207,7 @@
                                             </div>
                                         @else
                                             <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p>
-                                            <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a>
+                                            {{-- <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a> --}}
                                         @endif
                                     </div>
                                     
