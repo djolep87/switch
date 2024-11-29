@@ -4176,6 +4176,10 @@ fieldset:disabled .btn {
       box-sizing: border-box; /* Obavezno za tačnu širinu elemenata */
   }
 
+  .logo-mini{
+    display: block;
+  }
+
   .container {
       max-width: 100vw; /* Sprečava širenje preko ekrana */
       overflow-x: hidden; /* Sakriva višak sadržaja */

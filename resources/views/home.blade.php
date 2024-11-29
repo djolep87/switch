@@ -257,8 +257,8 @@
                                                                             <div class="nav-item dropdown">
                                                                                 @if (Auth::user()->id == $product->user_id)
                                                                                     <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
-                                                                                @else 
-                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
+                                                                                @else   
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bx-refresh"></i>Zameni</a>
                                                                                 @endif
                                                                                 <ul class="dropdown-menu">
                                                                                     <form id="offer" action="/" method="POST" enctype="multipart/form-data">
@@ -284,7 +284,7 @@
                                                                                         
                                                                                         @empty
 
-                                                                                            <div class="col-xl-12 m-4">
+                                                                                            <div class="col-xl-12 m-2">
                                                                                                 <p>Nemate proizvode za zamenu.</p>
                                                                                             </div>
 

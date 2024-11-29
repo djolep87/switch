@@ -54,8 +54,14 @@
 					<div class="row align-items-center">
 						<div class="col-4 col-md-auto">
 							<div class="d-flex align-items-center">
-								<div class="mobile-toggle-menu d-lg-none px-lg-2" data-trigger="#navbar_main"><i class='bx bx-menu'></i>	
+								<div class="mobile-toggle-menu d-lg-none d-flex px-lg-2" data-trigger="#navbar_main"><i class='bx bx-menu'></i>
+									
 								</div>
+								<div class="logo-mini d-lg-none d-lg-flex m-2">
+									<a href="/">
+										<img src="/assets/images/trangefrangelogo.png" class="logo-icon" alt="" />
+									</a>
+								</div>	
 								<div class="logo d-none d-lg-flex">
 									<a href="/">
 										<img src="/assets/images/logo.png" class="logo-icon" alt="" />
@@ -80,8 +86,11 @@
 											</li>
 											<li class="nav-item">
 												<a href="/wishlist" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link">
-													<span class="alert-count" id="wishlist-count">{{ $wishlists->count() }}</span>
-													<i class='bx bx-heart'></i>
+													<!-- Prikazuje broj samo ako je wishlist != 0 -->
+													<span class="alert-count" id="wishlist-count" style="display: {{ $wishlists->count() > 0 ? 'inline' : 'none' }};">
+														{{ $wishlists->count() }}
+													</span>
+													<i class="bx bx-heart"></i>
 												</a>				
 											</li>
 											<li class="nav-item dropdown dropdown-large">
@@ -590,11 +599,11 @@
 			// Obrada klika na wishlist ikonu
 			$('.product-wishlist').on('click', function(e) {
 				e.preventDefault();
-	
+
 				// Uzmi ID proizvoda iz data atributa
 				let productId = $(this).data('product-id');
 				let icon = $('#wishlist-icon-' + productId);
-	
+
 				$.ajax({
 					url: '/add/to-wishlist/' + productId, // Ruta za dodavanje/uklanjanje proizvoda iz wishlist-a
 					method: 'GET',
@@ -605,12 +614,20 @@
 						} else {
 							icon.removeClass('bxs-heart').addClass('bx-heart'); // Ukloni iz wishlist
 						}
-	
+
 						// Ažuriraj broj stavki u wishlistu
 						if (response.wishlist_count !== undefined) {
+							// Ažuriraj broj
 							$('#wishlist-count').text(response.wishlist_count);
+
+							// Prikazivanje/skrivanje broja na osnovu vrednosti
+							if (response.wishlist_count > 0) {
+								$('#wishlist-count').show();
+							} else {
+								$('#wishlist-count').hide();
+							}
 						}
-	
+
 						// Prikazivanje toast obaveštenja
 						if (response.toast_message) {
 							toastr.success(response.toast_message);

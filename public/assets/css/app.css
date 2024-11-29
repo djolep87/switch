@@ -1647,6 +1647,13 @@ body.bg-theme15 {
 		height: auto;   /* Održava proporcije slike */
 	}
 
+	.logo-mini{
+		display: block;
+	}
+
+	.logo-minimini{
+		width: 75px;
+	}
 
 	.description{
 		display: none;
