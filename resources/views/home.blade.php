@@ -254,13 +254,13 @@
                                                                 @if (Auth::check())   
                                                                     <div class="product-action mt-2">
                                                                         <div class="d-flex gap-2">
-                                                                            <div class="nav-item dropdown">
+                                                                            <div class="nav-item dropdown " style="width: auto; min-width: 200px;">
                                                                                 @if (Auth::user()->id == $product->user_id)
                                                                                     <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
                                                                                 @else   
                                                                                     <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bx-refresh"></i>Zameni</a>
                                                                                 @endif
-                                                                                <ul class="dropdown-menu">
+                                                                                <ul class="dropdown-menu" >
                                                                                     <form id="offer" action="/" method="POST" enctype="multipart/form-data">
                                                                                         {{csrf_field()}}
                                                                                         @csrf
@@ -273,11 +273,15 @@
                                                                                             @php
                                                                                                 $images = $product->images ? explode(",", $product->images) : [];
                                                                                             @endphp                                                                                         
-                                                                                            <div class="col m-4">
+                                                                                            <div class="m-2 ">
                                                                                                 <div class="form-check form-check-inline">
-                                                                                                    <input class="form-check-input" type="radio" name="sendproduct_id" id="inlineRadio1"
+                                                                                                    <input class="form-check-input d-flex" type="radio" name="sendproduct_id" id="inlineRadio1"
                                                                                                         value="{{$product->id}}">
-                                                                                                    <label class="form-check-label" for="inlineRadio1"><img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px" alt=""> {{ $product->name }}</label>
+                                                                                                    {{-- <label class="form-check-label d-flex" for="inlineRadio1"><img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px;" alt=""> {{ $product->name }}</label> --}}
+                                                                                                    <label class="form-check-label d-flex" for="inlineRadio1">
+                                                                                                        <img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px;" alt="" class="me-2">
+                                                                                                        {{ $product->name }}
+                                                                                                    </label>
                                                                                                 </div>
                                                                                                 
                                                                                             </div>
@@ -290,7 +294,7 @@
 
                                                                                         @endforelse
                                                                                             @if (Auth::user()->id == $product->user_id)
-                                                                                                <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit">Pošalji</button>                                                                                
+                                                                                                <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit"><i class="bx bx-send"></i> Pošalji</button>                                                                                
                                                                                             @endif
                                                                                     </form>
                                                                                 </ul>

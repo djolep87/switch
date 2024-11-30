@@ -87,7 +87,7 @@
 											<li class="nav-item">
 												<a href="/wishlist" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link">
 													<!-- Prikazuje broj samo ako je wishlist != 0 -->
-													<span class="alert-count" id="wishlist-count" style="display: {{ $wishlists->count() > 0 ? 'inline' : 'none' }};">
+													<span class="alert-count" id="wishlist-count" style="display: {{ $wishlists->count() > 0 ? : 'none' }};">
 														{{ $wishlists->count() }}
 													</span>
 													<i class="bx bx-heart"></i>
