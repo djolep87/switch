@@ -134,7 +134,7 @@ class OffersController extends Controller
         toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!', 'success');
         $user = User::find($offers->user_id);
         User::find($offers->user_id)->notify(new AcceptNotifications);
-        return redirect('/sendOffers');
+        return redirect('/offers');
     }
 
     public function rejected(Request $request, $id)
@@ -146,7 +146,7 @@ class OffersController extends Controller
         toast('Zahtev je odbijen!', 'error');
         $user = User::find($offers->user_id);
         User::find($offers->user_id)->notify(new RejectedNotifications);
-        return redirect('/sendOffers');
+        return redirect('/offers');
     }
 
     public function confirmation(Request $request, $id)
