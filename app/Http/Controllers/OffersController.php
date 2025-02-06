@@ -187,9 +187,7 @@ class OffersController extends Controller
 
     public function markAllAsRead()
     {
-
         auth()->user()->unreadNotifications->markAsRead();
-
         return redirect()->back();
     }
 
