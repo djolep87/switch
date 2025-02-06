@@ -152,9 +152,7 @@ class HomeController extends Controller
                     // Proverite da li postoji offer sa accepted = 0 za ovaj proizvod
                     $hasPendingOffer = $product->offers->isNotEmpty();
 
-                    // Dodajte debug informacije
-                    \Log::info("Proizvod {$product->id} - Pending offer: " . ($hasPendingOffer ? 'Da' : 'Ne'));
-                    \Log::info("Proizvod {$product->id} - isDisabledForCurrentExchange: " . ($product->isDisabledForCurrentExchange ? 'Da' : 'Ne'));
+             
 
                     // Postavite isDisabledForCurrentExchange na true ako postoji pending offer
                     $product->isDisabledForCurrentExchange = $hasPendingOffer;
