@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\WelcomeEmailNotification;
 
 class RegisterController extends Controller
 {
@@ -72,7 +73,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'firstName' => $data['firstName'],
             'lastName' => $data['lastName'],
             'email' => $data['email'],
@@ -83,6 +84,10 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'accepted' => 1,
         ]);
+        $user->notify(new WelcomeEmailNotification());  
+       
+
+        return $user;
     }
 
     public function up()

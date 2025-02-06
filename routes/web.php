@@ -27,7 +27,8 @@ use App\Http\Controllers\ProductsController;
 Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/uslovi', 'PageController@uslovi');  
 Route::get('/about', 'PageController@about');  
-Route::get('/contact', 'PageController@contact');  
+Route::get('/contact', 'PageController@contact'); 
+Route::get('/kakoradi', 'PageController@kakoradi'); 
 
 Route::get('/dashboard', 'UserController@index');
 
@@ -46,7 +47,21 @@ Route::post('/offers.offer_archived/{offer}', 'OffersController@offer_archived')
 Route::post('/offers.sendoffer_archived/{offer}', 'OffersController@sendoffer_archived')->name('offers.sendoffer_archived');
 
 // Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');
-Route::get('markAsRead/{notificationId}', 'OffersController@markAsRead')->name('markAsRead');
+// Route::get('markAsRead/{notificationId}', 'OffersController@markAsRead')->name('markAsRead');
+Route::get('/notifications/mark-as-read/{notificationId}', function ($notificationId) {
+    $user = auth()->user();
+    $notification = $user->notifications()->find($notificationId);
+
+    if ($notification) {
+        // Obeleži kao pročitano
+        $notification->markAsRead();
+
+        // Vrati korisnika na odgovarajući URL iz notifikacije
+        return redirect($notification->data['url'] ?? '/offers');
+    }
+
+    return redirect('/offers'); // Ako notifikacija ne postoji, preusmeri na default stranicu
+})->name('markAsRead');
 
 Route::get('search', 'HomeController@search');
 

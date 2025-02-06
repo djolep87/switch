@@ -25,4 +25,10 @@ class PageController extends Controller
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         return view('contact', compact('wishlists'));
     }
+
+    public function kakoradi()
+    {
+        $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
+        return view('pages.kakoradi', compact('wishlists'));
+    }
 }

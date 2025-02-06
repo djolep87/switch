@@ -29,7 +29,7 @@ class AcceptNotifications extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -41,9 +41,12 @@ class AcceptNotifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->greeting('Zdravo!')
+                    ->subject('Obaveštenje o prihvaćeom zahtevu')
+                    ->line('Vaš zahtev je prihvaćen. Kontaktirajte korisnika radi uspešne razmene.')
+                    ->action('Pogledajte ponudu', url('/sendOffers'))
+                    ->line('Hvala što koristite našu aplikaciju!')
+                    ->salutation("Pozdrav,\n\n**" . config('app.name') . "**");
     }
 
     /**
@@ -56,6 +59,7 @@ class AcceptNotifications extends Notification
     {
         return [
             'data' => 'Vaš zahtev je prihvaćen!',
+            'url' => url('/sendOffers'), 
         ];
     }
 }

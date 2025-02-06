@@ -4,199 +4,197 @@
 
 @section('content')
 
-<div class="wrapper">
-    <!--start page wrapper -->
-    <div class="page-wrapper">
-        <div class="page-content">
-		    <!--start slider section-->
-            <section class="slider-section">
-                <div class="first-slider">
-                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active bg-dark-gery">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col d-none d-lg-flex justify-content-center">
-                                        <div class="">
-                                            <h3 class="h3 fw-light">Has just arrived!</h3>
-                                            <h1 class="h1">Huge Summer Collection</h1>
-                                            <p class="pb-3">Swimwear, Tops, Shorts, Sunglasses &amp; much more...</p>
-                                            <div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+    <div class="wrapper">
+        <!--start page wrapper -->
+        <div class="page-wrapper">
+            <div class="page-content">
+                <!--start slider section-->
+                <section class="slider-section">
+                    <div class="first-slider">
+                        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
+                                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
+                                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active bg-dark-gery">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col d-none d-lg-flex justify-content-center">
+                                            <div class="">
+                                                <h3 class="h3 fw-light">Nova šansa za vaše stvari!</h3>
+                                                <h1 class="h1">Nova šansa za vaše stvari!</h1>
+                                                <p class="pb-3">Swimwear, Tops, Shorts, Sunglasses &amp; much more...</p>
+                                                <div class=""> <a class="btn btn-dark btn-ecomm"
+                                                        href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <img src="assets/images/slider/06.jpg" class="img-fluid" alt="...">
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <img src="assets/images/slider/06.jpg" class="img-fluid" alt="...">
+                                </div>
+                                <div class="carousel-item bg-dark-gery">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col d-none d-lg-flex justify-content-center">
+                                            <div class="">
+                                                <h3 class="h3 fw-light">Hurry up! Limited time offer.</h3>
+                                                <h1 class="h1">Women Sportswear Sale</h1>
+                                                <p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...
+                                                </p>
+                                                <div class=""> <a class="btn btn-dark btn-ecomm"
+                                                        href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <img src="assets/images/slider/07.jpg" class="img-fluid" alt="...">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item bg-dark-gery">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col d-none d-lg-flex justify-content-center">
+                                            <div class="">
+                                                <h2 class="h1">Kako funkcioniše ?</h2>
+                                                {{-- <h3 class="h3 fw-light">Kako postaviti oglas?</h3> --}}
+                                                {{-- <h3 class="h3 fw-light">Kako do razmene?</h3> --}}
+                                                <div class=""> <a class="btn btn-dark btn-ecomm"
+                                                        href="/kakoradi">Pročitaj više <i
+                                                            class='bx bx-chevron-right'></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <a href="/kakoradi">
+                                                <img src="assets/images/slider/slider.jpg" class="img-fluid" alt="...">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="carousel-item bg-dark-gery">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col d-none d-lg-flex justify-content-center">
-                                        <div class="">
-                                            <h3 class="h3 fw-light">Hurry up! Limited time offer.</h3>
-                                            <h1 class="h1">Women Sportswear Sale</h1>
-                                            <p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...</p>
-                                            <div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <img src="assets/images/slider/07.jpg" class="img-fluid" alt="...">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item bg-dark-gery">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col d-none d-lg-flex justify-content-center">
-                                        <div class="">
-                                            <h3 class="h3 fw-light">Complete your look with</h3>
-                                            <h1 class="h1">New Men's Accessories</h1>
-                                            <p class="pb-3">Hats &amp; Caps, Sunglasses, Bags &amp; much more...</p>
-                                            <div class=""> <a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <img src="assets/images/slider/08.jpg" class="img-fluid" alt="...">
-                                    </div>
-                                </div>
-                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleDark" role="button"
+                                data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleDark" role="button"
+                                data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </a>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">	<span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
                     </div>
-                </div>
-            </section>
-		    <!--end slider section-->
-            <section class="py-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-xl-3">
-                            {{-- <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
+                </section>
+                <!--end slider section-->
+                <section class="py-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-xl-3">
+                                {{-- <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
                             </div> --}}
-                            <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'>Kategorije</i>     
-                            </div>
-                            <div class="filter-sidebar d-none d-xl-flex pb-2">
-                                <div class="card rounded-0 w-100">
-                                    <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">Postavite oglas</button>
+                                <div class="btn-mobile-filter split-bg-warning d-xl-none verticaltext"><i
+                                        class='bx bx-category m-2'>Kategorije</i>
                                 </div>
-                            </div>
-                            <div class="filter-sidebar d-none d-xl-flex">
-                                <div class="card rounded-0 w-100">
-                                    <div class="card-body">
-                                        <div class="align-items-center d-xl-none">
-                                            {{-- <h6 class="text-uppercase mb-0">Filter</h6> --}}
-                                            <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div><br>
-                                            <div class="card rounded-0 w-100">
-                                                <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">Postavite oglas</button>
+                                <div class="filter-sidebar d-none d-xl-flex pb-2">
+                                    <div class="card rounded-0 w-100">
+                                        <button onclick="window.location.href='/products.create'"
+                                            class="btn split-bg-warning">Postavite oglas</button>
+                                    </div>
+                                </div>
+                                <div class="filter-sidebar d-none d-xl-flex">
+                                    <div class="card rounded-0 w-100">
+                                        <div class="card-body">
+                                            <div class="align-items-center d-xl-none">
+                                                {{-- <h6 class="text-uppercase mb-0">Filter</h6> --}}
+                                                <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div>
+                                                <br>
+                                                <div class="card rounded-0 w-100">
+                                                    <button onclick="window.location.href='/products.create'"
+                                                        class="btn split-bg-warning">Postavite oglas</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <hr class="d-flex d-xl-none" />
-                                        <div class="product-categories">
-                                            <h6 class="text-uppercase mb-3"><a href="{{route('home.index')}}">Kategorije <span class="float-end badge rounded-pill bg-primary"></span></a></h6>
-                                            <ul class="list-unstyled mb-0 categories-list">
-                                                @foreach ($categories as $category)
-                                                    
-                                                    <li>
-                                                        <a href="{{route('home.index', ['category' => $category->name])}}">{{$category->name}} 
-                                                            {{-- <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span> --}}
-                                                        </a>
-                                                    </li>
-
-                                                @endforeach
-                                            </ul>
+                                            <hr class="d-flex d-xl-none" />
+                                            <div class="product-categories">
+                                                <h6 class="text-uppercase mb-3"><a
+                                                        href="{{ route('home.index') }}">Kategorije <span
+                                                            class="float-end badge rounded-pill bg-primary"></span></a></h6>
+                                                <ul class="list-unstyled mb-0 categories-list">
+                                                    @foreach ($categories as $category)
+                                                        <li>
+                                                            <a
+                                                                href="{{ route('home.index', ['category' => $category->name]) }}">{{ $category->name }}
+                                                                {{-- <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span> --}}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-xl-9">
-                            <div class="product-wrapper">
-                                @forelse ($products as $key => $product)     
-                                @php
-                                    $images = $product->images ? explode(",", $product->images) : [];
-                                @endphp    
+                            <div class="col-12 col-xl-9">
+                                <div class="product-wrapper">
+                                    @forelse ($products as $key => $product)
+                                        @php
+                                            $images = $product->images ? explode(',', $product->images) : [];
+                                        @endphp
                                         <div class="product-grid">
                                             <div class="card rounded-0 product-card">
-                                                <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
                                                     <div class="">
                                                         @if (optional(Auth::user())->id == $product->user_id)
                                                             <!-- Hide the wishlist button for the product owner -->
                                                             <div style="display: none;">
-                                                                <div class="product-wishlist"> 
+                                                                <div class="product-wishlist">
                                                                     <i class="hover bx bx-heart"></i>
                                                                 </div>
                                                             </div>
                                                         @else
                                                             @php
-                                                                $isInWishlist = \App\Models\Wishlist::where('user_id', Auth::id())
-                                                                                                    ->where('product_id', $product->productid)
-                                                                                                    ->exists();
+                                                                $isInWishlist = \App\Models\Wishlist::where(
+                                                                    'user_id',
+                                                                    Auth::id(),
+                                                                )
+                                                                    ->where('product_id', $product->productid)
+                                                                    ->exists();
                                                             @endphp
-                                                            <div class="product-wishlist" data-product-id="{{ $product->productid }}" style="cursor: pointer;">
-                                                                <i id="wishlist-icon-{{ $product->productid }}" 
-                                                                   class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
+                                                            <div class="product-wishlist"
+                                                                data-product-id="{{ $product->productid }}"
+                                                                style="cursor: pointer;">
+                                                                <i id="wishlist-icon-{{ $product->productid }}"
+                                                                    class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
                                                             </div>
                                                         @endif
                                                     </div>
-                                                    {{-- <div class="product">
-                                                        
-                                                        Viđen:
-                                                        <Span><b>{{$product->views}}</b></Span>
-                                                    </div>
-                                                    <div class="">
-                                                        @if (optional(Auth::user())->id == $product->user_id)
-                                                            <a style="display: none" href="{{url('add/to-wishlist/'.$product->productid)}}">
-                                                                <div class="product-wishlist"> 
-                                                                    <i class="hover bx bx-star "></i>
-                                                                </div>
-                                                            </a>
-                                                        @else
-                                                            <a href="{{url('add/to-wishlist/'.$product->productid)}} ">
-                                                                <div class="product-wishlist"> 
-                                                                    <i class="hover bx bx-star "></i>
-                                                                </div>
-                                                            </a>
-                                                        @endif
-                                                    </div>
-                                                     <div>{{$product->users_city}}</div> 
-                                                     <div>{{$product->users_firstname}}</div>  --}}
-
-
                                                 </div>
                                                 <div class="row g-0 product-row">
                                                     @if (!empty($images))
                                                         <div class="col-md-4">
-                                                            <a href="{{route('products.show', $product->productid)}}">
-                                                                <img src="/storage/Product_images/{{$images[0]}}" class="img-fluid" alt="Product Image">
-                                                            </a> 
-                                                        </div>                                                        
+                                                            <a href="{{ route('products.show', $product->productid) }}">
+                                                                <img src="/storage/Product_images/{{ $images[0] }}"
+                                                                    class="img-fluid" alt="Product Image">
+                                                            </a>
+                                                        </div>
                                                     @endif
-                                                    <div class="col-md-8" >
-                                                        <div class="card-body" >
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
                                                             <div class="product-info">
                                                                 {{-- <a href="javascript:;">
-                                                                    <p class="product-catergory font-13 mb-1">{{$product->categories->name}}</p>
-                                                                </a> --}}
-                                                                <a href="{{route('products.show', $product->productid)}}">
-                                                                    <h4 class="product-name mb-2">{{$product->name}}</h4>
-                                                                    <h6>({{$product->condition}})</h6>
+                                                                        <p class="product-catergory font-13 mb-1">{{$product->categories->name}}</p>
+                                                                    </a> --}}
+                                                                <a
+                                                                    href="{{ route('products.show', $product->productid) }}">
+                                                                    <h4 class="product-name mb-2">{{ $product->name }}</h4>
+                                                                    <h6>({{ $product->condition }})</h6>
                                                                 </a>
                                                                 <?php
                                                                 // Zameni sve vrste linijskih prekida sa <br> tagovima
-                                                                $descriptionWithBr = preg_replace("/\r\n|\r|\n/", " <br> ", $product->description);
+                                                                $descriptionWithBr = preg_replace("/\r\n|\r|\n/", ' <br> ', $product->description);
                                                                 
                                                                 // Anonimna funkcija koja uklanja HTML oznake osim <br>
-                                                                $stripTagsExceptBr = function($text) {
+                                                                $stripTagsExceptBr = function ($text) {
                                                                     return strip_tags($text, '<br>');
                                                                 };
                                                                 
@@ -204,7 +202,7 @@
                                                                 $cleanedDescription = $stripTagsExceptBr($descriptionWithBr);
                                                                 
                                                                 // Funkcija za skraćivanje teksta
-                                                                $truncateText = function($text, $maxLength = 120, $suffix = '...') {
+                                                                $truncateText = function ($text, $maxLength = 120, $suffix = '...') {
                                                                     if (mb_strlen($text) <= $maxLength) {
                                                                         return $text;
                                                                     }
@@ -227,87 +225,179 @@
                                                                 // Zameni linijske prekide sa <br> tagovima u skraćenom tekstu
                                                                 $formattedDescription = nl2br($shortenedDescription);
                                                                 ?>
-                                                                <p class="mb-0 description">{!! $formattedDescription !!}</p> 
-                                                                
-                                                                <div class="align-items-center justify-content gap-3    m-0">
+                                                                <p class="mb-0 description">{!! $formattedDescription !!}</p>
+
+                                                                <div
+                                                                    class="align-items-center justify-content gap-3    m-0">
                                                                     <div>
-                                                                        <img width="16px" src="/assets/images/location.svg" alt="" srcset="">
-                                                                        {{$product->users_city}}
-                                                                    </div> 
+                                                                        <img width="16px"
+                                                                            src="/assets/images/location.svg"
+                                                                            alt="" srcset="">
+                                                                        {{ $product->users_city }}
+                                                                    </div>
                                                                 </div>
-                                                                <div class="d-flex align-items-center justify-content gap-3    m-0">
-                                                                    
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content gap-3    m-0">
+
                                                                     <div class="product">
-                                                                        <img width="16px" src="/assets/images/eye.svg" alt="" srcset="">
-                                                                        
-                                                                        <Span>{{$product->views}}</Span>
+                                                                        <img width="16px" src="/assets/images/eye.svg"
+                                                                            alt="" srcset="">
+
+                                                                        <Span>{{ $product->views }}</Span>
                                                                     </div>
-                                                                    
+
                                                                     <div>
-                                                                        <img width="16px" src="/assets/images/avatar.svg" alt="" srcset="">
-                                                                        {{$product->users_firstname}}
+                                                                        <img width="16px"
+                                                                            src="/assets/images/avatar.svg" alt=""
+                                                                            srcset="">
+                                                                        {{ $product->users_firstname }}
                                                                     </div>
-                                                                     <div>{{ $product->created_at}}</div>
+                                                                    <div>{{ $product->created_at }}</div>
                                                                 </div>
-                                                                
-                                                                
-                                                                @if (Auth::check())   
+
+
+                                                                @if (Auth::check())
                                                                     <div class="product-action mt-2">
                                                                         <div class="d-flex gap-2">
-                                                                            <div class="nav-item dropdown " style="width: auto; min-width: 200px;">
+                                                                            <div class="nav-item dropdown "
+                                                                                style="width: auto; min-width: 200px;">
                                                                                 @if (Auth::user()->id == $product->user_id)
-                                                                                    <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bxs-cart-add"></i>Pošalji zahtev za zamenu</a>
-                                                                                @else   
-                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown"><i class="bx bx-refresh"></i>Zameni</a>
+                                                                                    <a href=""
+                                                                                        style="display: none"
+                                                                                        class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning"
+                                                                                        data-bs-toggle="dropdown"><i
+                                                                                            class="bx bx-refresh"></i>Zameni</a>
+                                                                                @else
+                                                                                    <a href=""
+                                                                                        class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning"
+                                                                                        data-bs-toggle="dropdown"><i
+                                                                                            class="bx bx-refresh"></i>Zameni</a>
                                                                                 @endif
-                                                                                <ul class="dropdown-menu" >
-                                                                                    <form id="offer" action="/" method="POST" enctype="multipart/form-data">
-                                                                                        {{csrf_field()}}
+                                                                                <ul class="dropdown-menu">
+                                                                                    <form id="offer" action="/"
+                                                                                        method="POST"
+                                                                                        enctype="multipart/form-data">
+                                                                                        {{ csrf_field() }}
                                                                                         @csrf
-                                                                                        <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
-                                                                                        <input type="hidden" name="acceptor" value="{{$product->user_id}}">
-                                                                                        <input type="hidden" name="acceptorName" value="{{$product->firstName}}">
-                                                                                        <input type="hidden" name="acceptorNumber" value="{{$product->user->phone}}">
-                                                                                        <input type="hidden" name="product_id" value="{{$product->productid}}">
-                                                                                        @forelse ($listproducts as $product)  
+                                                                                        <input type="hidden"
+                                                                                            name="user_id"
+                                                                                            value="{{ Auth()->user()->id }}">
+                                                                                        <input type="hidden"
+                                                                                            name="acceptor"
+                                                                                            value="{{ $product->user_id }}">
+                                                                                        <input type="hidden"
+                                                                                            name="acceptorName"
+                                                                                            value="{{ $product->firstName }}">
+                                                                                        <input type="hidden"
+                                                                                            name="acceptorNumber"
+                                                                                            value="{{ $product->user->phone }}">
+                                                                                        <input type="hidden"
+                                                                                            name="product_id"
+                                                                                            value="{{ $product->productid }}">
+                                                                                        @forelse ($listproducts as $product)
                                                                                             @php
-                                                                                                $images = $product->images ? explode(",", $product->images) : [];
-                                                                                            @endphp                                                                                         
-                                                                                            <div class="m-2 ">
-                                                                                                <div class="form-check form-check-inline">
-                                                                                                    <input class="form-check-input d-flex" type="radio" name="sendproduct_id" id="inlineRadio1"
-                                                                                                        value="{{$product->id}}">
-                                                                                                    {{-- <label class="form-check-label d-flex" for="inlineRadio1"><img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px;" alt=""> {{ $product->name }}</label> --}}
-                                                                                                    <label class="form-check-label d-flex" for="inlineRadio1">
-                                                                                                        <img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px;" alt="" class="me-2">
+                                                                                                $images = $product->images
+                                                                                                    ? explode(
+                                                                                                        ',',
+                                                                                                        $product->images,
+                                                                                                    )
+                                                                                                    : [];
+                                                                                            @endphp
+                                                                                            <div class="m-2">
+                                                                                                <div
+                                                                                                    class="form-check form-check-inline">
+                                                                                                    <input
+                                                                                                        class="form-check-input d-flex"
+                                                                                                        type="radio"
+                                                                                                        name="sendproduct_id"
+                                                                                                        id="inlineRadio{{ $product->id }}"
+                                                                                                        value="{{ $product->id }}"
+                                                                                                        {{ $product->isDisabledForCurrentExchange ? 'disabled' : '' }}>
+                                                                                                    <label
+                                                                                                        class="form-check-label d-flex"
+                                                                                                        for="inlineRadio{{ $product->id }}">
+                                                                                                        @if (!empty($images) && isset($images[0]))
+                                                                                                            <img src="/storage/Product_images/{{ $images[0] }}"
+                                                                                                                style="width: 30px; height: 30px;"
+                                                                                                                alt="Product Image"
+                                                                                                                class="me-2">
+                                                                                                        @else
+                                                                                                            <img src="/storage/default-image.png"
+                                                                                                                style="width: 30px; height: 30px;"
+                                                                                                                alt="Default Image"
+                                                                                                                class="me-2">
+                                                                                                        @endif
                                                                                                         {{ $product->name }}
                                                                                                     </label>
                                                                                                 </div>
-                                                                                                
                                                                                             </div>
-                                                                                        
                                                                                         @empty
-
                                                                                             <div class="col-xl-12 m-2">
-                                                                                                <p>Nemate proizvode za zamenu.</p>
+                                                                                                <p>Nemate oglase za zamenu.
+                                                                                                </p>
                                                                                             </div>
-
                                                                                         @endforelse
-                                                                                            @if (Auth::user()->id == $product->user_id)
-                                                                                                <button class="btn btn-outline-dark btn-ecomm m-4" href="" type="submit"><i class="bx bx-send"></i> Pošalji</button>                                                                                
-                                                                                            @endif
+                                                                                        <!-- Dugme za slanje -->
+                                                                                        <button
+                                                                                            class="btn btn-outline-dark btn-ecomm m-4"
+                                                                                            type="submit">
+                                                                                            <i class="bx bx-send"></i>
+                                                                                            Pošalji
+                                                                                        </button>
+                                                                                        {{-- @forelse ($listproducts as $listproduct)  
+                                                                                                            @php
+                                                                                                                $images = $listproduct->images ? explode(",", $listproduct->images) : [];
+
+                                                                                                                // Proveri da li je trenutni korisnik poslao ponudu za ovaj oglas ili je prihvatio ponudu
+                                                                                                                $isDisabled = \App\Models\Offer::where(function ($query) use ($listproduct) {
+                                                                                                                    // Provera da li je poslana ponuda (sendproduct_id) ili je korisnik već prihvatio ponudu
+                                                                                                                    $query->where('sendproduct_id', $listproduct->id)
+                                                                                                                        ->orWhere('acceptor', auth()->user()->id) // Proverava da li je trenutni korisnik prihvatio ponudu
+                                                                                                                        ->where('product_id', $listproduct->id);
+                                                                                                                })
+                                                                                                                ->whereIn('accepted', [0, 1, 3]) // Samo ponude u statusu 0, 1, 3 (u toku ili prihvaćeno)
+                                                                                                                ->exists();
+                                                                                                            @endphp                                                                                         
+                                                                                                            <div class="m-2">
+                                                                                                                <div class="form-check form-check-inline">
+                                                                                                                    <input 
+                                                                                                                        class="form-check-input d-flex" 
+                                                                                                                        type="radio" 
+                                                                                                                        name="sendproduct_id" 
+                                                                                                                        id="inlineRadio{{ $listproduct->id }}"
+                                                                                                                        value="{{ $listproduct->id }}" 
+                                                                                                                        {{ $isDisabled ? 'disabled' : '' }}><!-- Oglas je disabled ako je poslana ponuda -->
+                                                                                                                    <label class="form-check-label d-flex" for="inlineRadio{{ $listproduct->id }}">
+                                                                                                                        <img 
+                                                                                                                            src="/storage/Product_images/{{ $images[0] ?? 'default.jpg' }}" 
+                                                                                                                            style="width: 30px; height: 30px;" 
+                                                                                                                            alt="Product Image" 
+                                                                                                                            class="me-2">
+                                                                                                                        {{ $listproduct->name }}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @empty
+                                                                                                            <div class="col-xl-12 m-2">
+                                                                                                                <p>Nemate proizvode za zamenu.</p>
+                                                                                                            </div>
+                                                                                                        @endforelse
+
+                                                                                                        <!-- Dugme za slanje -->
+                                                                                                        <button class="btn btn-outline-dark btn-ecomm m-4" type="submit">
+                                                                                                            <i class="bx bx-send"></i> Pošalji
+                                                                                                        </button> --}}
                                                                                     </form>
                                                                                 </ul>
                                                                             </div>
-                                                                        
+
                                                                         </div>
                                                                     </div>
-                                                                    
                                                                 @else
                                                                     {{-- <p>Ukoliko želite da zamenite proizvod morate imati nalog!</p> --}}
                                                                     {{-- <a class="btn btn-dark btn-ecomm px-4" href="/login">Prijavi se!</a> <a class="btn btn-dark btn-ecomm px-4" href="/register">Registruj se!</a> --}}
                                                                 @endif
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -316,13 +406,15 @@
                                         </div>
                                         <div class="border-top my-3"></div>
                                     @empty
-                                        <div><p>Nema proizvoda.</p></div>    
-                                @endforelse
-                                {{-- {{$products->links('pagination::bootstrap-4')}} --}}
-                                {{ $products->onEachSide(1)->links('pagination::bootstrap-4') }}
+                                        <div class="alert alert-info text-center" role="alert">
+                                            <p>Nema oglasa!</p>
+                                        </div>
+                                    @endforelse
+                                    {{-- {{$products->links('pagination::bootstrap-4')}} --}}
+                                    {{ $products->onEachSide(1)->links('pagination::bootstrap-4') }}
 
 
-                                {{-- <nav class="d-flex justify-content-between" aria-label="Page navigation">
+                                    {{-- <nav class="d-flex justify-content-between" aria-label="Page navigation">
                                     <ul class="pagination">
                                         <li class="page-item"><a class="page-link" href="javascript:;"><i class='bx bx-chevron-left'></i> Prev</a>
                                         </li>
@@ -344,82 +436,21 @@
                                         </li>
                                     </ul>
                                 </nav> --}}
+                                </div>
                             </div>
                         </div>
+                        <!--end row-->
                     </div>
-                    <!--end row-->
-                </div>
-            </section>
-            <!--end shop area-->
-        </div>
-    </div>
-    <!--end page wrapper -->
-
-
-    <!--start quick view product-->
-    <!-- Modal -->
-    <div class="modal fade" id="QuickViewProduct">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-xl-down">
-            <div class="modal-content rounded-0 border-0">
-                <div class="modal-body">
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="modal"></button>
-                    <div class="row g-0">
-                        <div class="col-12 col-lg-6">
-                            <div class="image-zoom-section">
-                                <div class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1">
-                                    <div class="item">
-                                        {{-- <img src="/storage/Product_images/{{ $product->image }}" id="modal-product-image" class="img-fluid" alt=""> --}}
-                                    </div>
-                                    <div class="item">
-                                        <img src="assets/images/product-gallery/02.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="assets/images/product-gallery/03.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="assets/images/product-gallery/04.png" class="img-fluid" alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
-                                    <button class="owl-thumb-item">
-                                        <img src="assets/images/product-gallery/01.png" class="" alt="">
-                                    </button>
-                                    <button class="owl-thumb-item">
-                                        <img src="assets/images/product-gallery/02.png" class="" alt="">
-                                    </button>
-                                    <button class="owl-thumb-item">
-                                        <img src="assets/images/product-gallery/03.png" class="" alt="">
-                                    </button>
-                                    <button class="owl-thumb-item">
-                                        <img src="assets/images/product-gallery/04.png" class="" alt="">
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="product-info-section p-3">
-                                {{-- <h3 class="mt-3 mt-lg-0 mb-0" id="modal-product-name">{{$product->name}}</h3> --}}
-                                <div class="mt-3">
-                                    <h6>Opis :</h6>
-                                    {{-- <p id="id="modal-product-description"" class="mb-0">{{$product->description}}</p> --}}
-                                </div>
-                               
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="javascript:;" class="btn btn-dark btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a>	<a href="javascript:;" class="btn btn-light btn-ecomm"><i class="bx bx-heart"></i>Add to Wishlist</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end row-->
-                </div>
+                </section>
+                <!--end shop area-->
             </div>
         </div>
+        <!--end page wrapper -->
+
+        <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i
+                class='bx bxs-up-arrow-alt'></i></a>
+        <!--End Back To Top Button-->
     </div>
-    
-    <!--end quick view product-->
-    <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-    <!--End Back To Top Button-->
-</div>
 
 
 @endsection

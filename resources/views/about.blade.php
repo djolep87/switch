@@ -7,7 +7,7 @@
     <div class="container">
         <h4>Dobrodošli na Trange Frange!</h4>
         
-        <p>Zato smo stvorili Trange Frange - online platformu koja spaja ljude širom zemlje kako bi delili svoje resurse, umesto da ih bacaju. Verujemo da svaki predmet zaslužuje drugu šansu, i naša zajednica omogućava upravo to - pretvaranje onoga što ne koristite više u nešto korisno za nekog drugog.</p>
+        <p>Naša misija je da povežemo ljude širom zemlje kako bi zajedno stvarali održiviji svet. Trange Frange je online platforma koja vam omogućava da delite stvari koje vam više nisu potrebne i pronađete ono što vam treba, umesto da ih bacate. Verujemo da svaki predmet zaslužuje drugu šansu, a naša zajednica pomaže da se stvori novi život za vaše resurse.</p>
         <p>Sa Trange Frange, možete razmeniti ili pokloniti predmete iz udobnosti svog doma, bilo da je u pitanju garderoba koja vam više ne odgovara, tehnologija koju ste nadogradili, ili nameštaj koji vam je dosadio. Na taj način, ne samo da štedite novac, već i čuvate prirodne resurse i smanjujete otpad.</p>
         <p>Održivost je u srcu svega što radimo. Naš tim radi naporno kako bi osigurao da Trange Frange bude sigurno mesto za sve korisnike, sa visokim standardima u pogledu transparentnosti, kvaliteta i pouzdanosti.</p>
         <p>Pridružite nam se u našoj misiji da promenimo način na koji razmišljamo o potrošnji i očuvanju resursa. Sa svakom razmenom na Trange Frange, vi ne samo što doprinosite očuvanju naše planete, već gradite i zajednicu koja se zalaže za iste vrednosti.</p>

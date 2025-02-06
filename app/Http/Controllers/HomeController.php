@@ -14,6 +14,7 @@ use App\Models\Wishlist;
 use App\Notifications\Notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,6 +28,10 @@ class HomeController extends Controller
      * @return void
      */
 
+    public function isInExchange()
+    {
+        return $this->offers()->whereIn('accepted', [1, 3])->exists();
+    }
 
     /**
      * Show the application dashboard.
@@ -35,33 +40,6 @@ class HomeController extends Controller
      */
     public function index(Request $request, Product $product)
     {
-
-        // $user = User::find(2);
-        // User::find(2)->notify(new Notifications);
-
-        // $products = Product::with('categories')->whereHas('categories', function ($query) {
-        //     $query->where('name', request()->category);
-        // })->whereDoesntHave('offers', function ($query) {
-        //     $query->where('accepted', 1);
-        // })->paginate(48);
-        /*   $query = "SELECT * FROM products
-            INNER JOIN offers ON  offers.product_id = products.id AND offers.sendproduct_id = products.id
-            WHERE accepted = 1" ; */
-        // $products =  DB::select(' SELECT * FROM products INNER JOIN offers ON  offers.product_id = products.id AND offers.sendproduct_id = products.id WHERE accepted = 1 ');
-        // $products =  Product::with('categories')->whereHas('categories', function ($query) {
-        // $query->where('name', request()->category); 
-        // DB::select(' SELECT phone,  users.city as users_city, users.firstname AS users_firstname, users.id AS user_id, products.id AS productid, products.name, products.condition,  description, image, views, firstname AS firstName, lastname, city, address  
-        //  FROM products 
-        //  INNER JOIN users ON users.id = products.user_id
-        //  WHERE
-        // products.id NOT IN (
-        // SELECT products.id
-        // FROM products 
-        // INNER JOIN users ON users.id = products.user_id
-        // inner JOIN offers ON offers.product_id = products.id OR offers.sendproduct_id =  products.id 
-        // WHERE  accepted = 1 ) ')}
-
-
         if (request()->category) {
             $products = Product::with('categories')->whereHas('categories', function ($query) {
                 $query->where('name', request()->category);
@@ -128,75 +106,64 @@ class HomeController extends Controller
                     'address'
                 )
                 ->paginate(48);
-            //         $products = Product::select('users.city as users_city', 'users.firstname AS users_firstname', 'users.id AS user_id', 'products.id AS productid', 'products.name', 'products.condition', 'products.description', 'products.image', 'products.views', 'users.firstname AS firstName', 'users.lastname', 'users.city', 'users.address')
-            // ->join('users', 'users.id', '=', 'products.user_id')
-            // ->whereNotIn('products.id', function ($query) {
-            //     $query->select('products.id')
-            //         ->from('products')
-            //         ->join('users', 'users.id', '=', 'products.user_id')
-            //         ->leftJoin('offers', function ($join) {
-            //             $join->on('offers.product_id', '=', 'products.id')
-            //                  ->orOn('offers.sendproduct_id', '=', 'products.id');
-            //         })
-            //         ->where('offers.accepted', 1);
-            // })
-            // ->get();
-            // $products = Product::join('users', 'users.id', 'products.user_id')
-            // ->select('users.id as user_name', 'products.*')
-            // ->whereDoesntHave('offers', function ($query) {
-            //     $query->where('accepted', 1);
-            // })->orderBy('created_at', 'desc')->paginate(48);
-            //  $products = DB::select(' SELECT * FROM products INNER JOIN offers ON  offers.product_id = products.id AND offers.sendproduct_id = products.id WHERE accepted = 1 ');
-            // $products = DB::select(' SELECT phone,  users.city as users_city, users.firstname AS users_firstname, users.id AS user_id, products.id AS productid, products.name, products.condition,  description, image, views, firstname AS firstName, lastname, city, address  
-            //  FROM products 
-            //  INNER JOIN users ON users.id = products.user_id
-            //  WHERE
-            // products.id NOT IN (
-            // SELECT products.id
-            // FROM products 
-            // INNER JOIN users ON users.id = products.user_id
-            // inner JOIN offers ON offers.product_id = products.id OR offers.sendproduct_id =  products.id 
-            // WHERE  accepted = 1 )  ');
-            // $products = Product::select( 'users.city as users_city', 'users.firstname AS users_firstname', 'users.id AS user_id', 'products.id AS productid', 'products.name', 'products.condition', 'products.description', 'products.image', 'products.views', 'users.firstname AS firstName', 'users.lastname', 'users.city', 'users.address')
-            // ->join('users', 'users.id', '=', 'products.user_id')
-            // ->whereNotIn('products.id', function ($query) {
-            //     $query->select('products.id')
-            //         ->from('products')
-            //         ->join('users', 'users.id', '=', 'products.user_id')
-            //         ->leftJoin('offers', function ($join) {
-            //             $join->on('offers.product_id', '=', 'products.id')
-            //                  ->orOn('offers.sendproduct_id', '=', 'products.id');
-            //         })
-            //         ->where('offers.accepted', 1);
-            // })
-            // ->get();
 
             $categories = Category::withCount('products')->get();
             $categoryName = '';
         }
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
 
+        // if (Auth::check()) {
+        //     $listproducts = Product::where('user_id', auth::user()->id)
+        //     ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+        //         $query->select('products.id')
+        //             ->from('products')
+        //             ->join('users', 'users.id', '=', 'products.user_id')
+        //             ->join('offers', function ($join) {
+        //                 $join->on('offers.product_id', '=', 'products.id')
+        //                     ->orOn('offers.sendproduct_id', '=', 'products.id');
+        //             })
+        //             ->where('offers.accepted', '=', 1)
+        //             ->orWhere('offers.accepted', '=', 3);
+        //     })
 
 
+        //     ->get();
+        // } else {
+        //     $listproducts = null;
+        // }
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth::user()->id)
-            ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
-                $query->select('products.id')
-                    ->from('products')
-                    ->join('users', 'users.id', '=', 'products.user_id')
-                    ->join('offers', function ($join) {
-                        $join->on('offers.product_id', '=', 'products.id')
-                            ->orOn('offers.sendproduct_id', '=', 'products.id');
-                    })
-                    ->where('offers.accepted', '=', 1)
-                    ->orWhere('offers.accepted', '=', 3);
-            })
-                
-                
-            ->get();
+                ->whereNotIn('products.id', function ($query) {
+                    $query->select('products.id')
+                        ->from('products')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->join('offers', function ($join) {
+                            $join->on('offers.product_id', '=', 'products.id')
+                                ->orOn('offers.sendproduct_id', '=', 'products.id');
+                        })
+                        ->where('offers.accepted', '=', 1)
+                        ->orWhere('offers.accepted', '=', 3);
+                })
+                ->with(['offers' => function ($query) {
+                    $query->where('accepted', 0);
+                }])
+                ->get()
+                ->map(function ($product) {
+                    // Proverite da li postoji offer sa accepted = 0 za ovaj proizvod
+                    $hasPendingOffer = $product->offers->isNotEmpty();
+
+                    // Dodajte debug informacije
+                    \Log::info("Proizvod {$product->id} - Pending offer: " . ($hasPendingOffer ? 'Da' : 'Ne'));
+                    \Log::info("Proizvod {$product->id} - isDisabledForCurrentExchange: " . ($product->isDisabledForCurrentExchange ? 'Da' : 'Ne'));
+
+                    // Postavite isDisabledForCurrentExchange na true ako postoji pending offer
+                    $product->isDisabledForCurrentExchange = $hasPendingOffer;
+                    return $product;
+                });
         } else {
             $listproducts = null;
         }
+
         return view('/home', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists',));
     }
 
@@ -281,21 +248,28 @@ class HomeController extends Controller
 
 
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', optional(Auth::user())->id)
-            ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
-                $query->select('products.id')
-                    ->from('products')
-                    ->join('users', 'users.id', '=', 'products.user_id')
-                    ->join('offers', function ($join) {
-                        $join->on('offers.product_id', '=', 'products.id')
-                            ->orOn('offers.sendproduct_id', '=', 'products.id');
-                    })
-                    ->where('offers.accepted', '=', 1)
-                    ->orWhere('offers.accepted', '=', 3);
-            })
-                
-                
-            ->get();
+            // Oglasi koje korisnik može da vidi i za koje može da pošalje ponudu
+            $listproducts = Product::where('user_id', auth()->user()->id)
+                // Filtriraj oglase za koje je već poslana ponuda (status 0, 1, 3)
+                ->whereNotIn('products.id', function ($query) use ($product) {
+                    $query->select('sendproduct_id')
+                        ->from('offers')
+                        ->where('product_id', $product->productid)
+                        ->whereIn('accepted', [0, 1, 3]); // Ponude u toku ili prihvaćene
+                })
+                ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+                    $query->select('products.id')
+                        ->from('products')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->join('offers', function ($join) {
+                            $join->on('offers.product_id', '=', 'products.id')
+                                ->orOn('offers.sendproduct_id', '=', 'products.id');
+                        })
+                        ->where('offers.accepted', '=', 1)
+                        ->orWhere('offers.accepted', '=', 3);
+                })
+                // Proveri da li je trenutni korisnik poslao ponudu ili je primio ponudu
+                ->get();
         } else {
             $listproducts = null;
         }
@@ -313,22 +287,61 @@ class HomeController extends Controller
 
         $user = Auth::user();
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
+        // if (Auth::check()) {
+        //     $listproducts = Product::where('user_id', Auth::user()->id)
+        //     ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+        //         $query->select('products.id')
+        //             ->from('products')
+        //             ->join('users', 'users.id', '=', 'products.user_id')
+        //             ->join('offers', function ($join) {
+        //                 $join->on('offers.product_id', '=', 'products.id')
+        //                     ->orOn('offers.sendproduct_id', '=', 'products.id');
+        //             })
+        //             ->where('offers.accepted', '=', 1)
+        //             ->orWhere('offers.accepted', '=', 3);
+        //     })
+
+
+        //     ->get();
+        // } else {
+        //     $listproducts = null;
+        // }
+
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', Auth::user()->id)
-            ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
-                $query->select('products.id')
-                    ->from('products')
-                    ->join('users', 'users.id', '=', 'products.user_id')
-                    ->join('offers', function ($join) {
-                        $join->on('offers.product_id', '=', 'products.id')
-                            ->orOn('offers.sendproduct_id', '=', 'products.id');
+            // Dohvatanje svih proizvoda korisnika
+            $listproducts = Product::where('user_id', auth::user()->id)
+                ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+                    $query->select('products.id')
+                        ->from('products')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->join('offers', function ($join) {
+                            $join->on('offers.product_id', '=', 'products.id')
+                                ->orOn('offers.sendproduct_id', '=', 'products.id');
+                        })
+                        ->where('offers.accepted', '=', 1)
+                        ->orWhere('offers.accepted', '=', 3);
+                })
+
+
+                ->get();
+
+            foreach ($listproducts as $product) {
+                // Proveravamo da li postoji ponuda koja uključuje ovaj proizvod
+                $isInExchange = \App\Models\Offer::where(function ($query) use ($product) {
+                    $query->where('sendproduct_id', $product->id)
+                        ->orWhere('product_id', $product->id);
+                })
+                    ->where(function ($query) {
+                        $query->where('user_id', auth()->user()->id)
+                            ->orWhere('acceptor', auth()->user()->id);
                     })
-                    ->where('offers.accepted', '=', 1)
-                    ->orWhere('offers.accepted', '=', 3);
-            })
-                
-                
-            ->get();
+                    ->where('accepted', 0) // Ponude u toku
+                    ->exists(); // Proveravamo da li postoji barem jedna takva ponuda
+
+                // Ako je proizvod u razmeni, postavljamo da je onemogućen
+                $product->isDisabledForCurrentExchange = $isInExchange;
+                logger()->info("Proizvod ID: {$product->id}, IsInExchange: " . ($isInExchange ? 'Yes' : 'No'));
+            }
         } else {
             $listproducts = null;
         }
@@ -341,7 +354,5 @@ class HomeController extends Controller
         return view('products.show', compact('product', 'products', 'images', 'listproducts', 'wishlists', 'user', 'comments'));
     }
 
-    public function store(Request $request)
-    {
-    }
+    public function store(Request $request) {}
 }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Notifications extends Notification
+class WelcomeEmailNotification extends Notification
 {
     use Queueable;
 
@@ -29,7 +29,7 @@ class Notifications extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        return ['mail'];
     }
 
     /**
@@ -41,11 +41,11 @@ class Notifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Dobrodošli na sajt')
                     ->greeting('Zdravo!')
-                    ->subject('Obaveštenje o novom zahtevu za zamenu')
-                    ->line('Imate novi zahtev za zamenu!')
-                    ->action('Pogledajte ponudu', url('/offers'))
-                    ->line('Hvala što koristite našu aplikaciju!')
+                    ->line('Dobrodošli na naš sajt. želimo vam puno uspešnih razmena.')
+                    ->action('Povratak na sajt', url('/'))
+                    ->line('Hvala što koristite našu aplikaciju.')
                     ->salutation("Pozdrav,\n\n**" . config('app.name') . "**");
     }
 
@@ -58,8 +58,7 @@ class Notifications extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Imate novi zahtev za zamenu',
-            'url' => url('/offers'), // Ispravan URL za preusmeravanje
+            //
         ];
     }
 }

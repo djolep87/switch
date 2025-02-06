@@ -27,7 +27,9 @@ class SendOffersController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
+        $wishlists = auth()->check() 
+        ? Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get()
+        : collect();
 
         if (Auth::check()) {
             $listproducts = Product::where('user_id', auth()->user()->id)->get();

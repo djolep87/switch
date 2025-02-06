@@ -48,7 +48,7 @@
                                             {{-- <label class="form-check-label" for="flexSwitchCheckChecked">Zapamti me</label> --}}
                                         </div>
                                     </div>
-                                    <div class="col-md-6 text-end">	<a href="authentication-forgot-password.html">Zaboravili ste lozinku ?</a>
+                                    <div class="col-md-6 text-end">	<a href="{{route('password.request')}}">Zaboravili ste lozinku ?</a>
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">

@@ -25,6 +25,11 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Category');
     }
+    
+    public function isInExchange()
+    {
+        return $this->offers()->whereIn('accepted', [1, 3])->exists();
+    }
 
     public function image()
     {

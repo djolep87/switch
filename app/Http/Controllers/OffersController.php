@@ -20,7 +20,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 
 class OffersController extends Controller
-{   
+{
 
     public function __construct()
     {
@@ -57,6 +57,7 @@ class OffersController extends Controller
 
         return view('offers.index', compact('offers', 'sendoffers', 'listproducts', 'wishlists'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -131,7 +132,7 @@ class OffersController extends Controller
         $offers->accepted =  $request->input('accepted');
         $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
-        toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne zamene. Srećno!', 'success');
+        toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne razmene. Srećno!', 'success');
         $user = User::find($offers->user_id);
         User::find($offers->user_id)->notify(new AcceptNotifications);
         return redirect('/offers');
@@ -186,9 +187,9 @@ class OffersController extends Controller
 
     public function markAllAsRead()
     {
-       
+
         auth()->user()->unreadNotifications->markAsRead();
-       
+
         return redirect()->back();
     }
 
@@ -227,31 +228,31 @@ class OffersController extends Controller
     public function destroy($id)
     {
         $offer = Offer::findOrFail($id);
-    
+
         if ($offer->offer_archived == 1 && $offer->sendoffer_archived == 1) {
             // Brisanje proizvoda
             $this->deleteProductWithImages($offer->product);
             $this->deleteProductWithImages($offer->sendproduct);
         }
-    
+
         $offer->delete();
         toast('Zahtev je obrisan!', 'warning');
         return back();
     }
-    
+
     private function deleteProductWithImages($product)
     {
         if ($product) {
             // Brisanje slika povezanih sa proizvodom
             $productImages = $product->images;
-    
+
             if ($productImages) {
                 $imagePaths = explode(",", $productImages);
                 foreach ($imagePaths as $image) {
                     Storage::delete('public/Product_images' . '/' . $image);
                 }
             }
-    
+
             // Brisanje samog proizvoda
             $product->delete();
         }

@@ -29,7 +29,7 @@ class RejectedNotifications extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -41,9 +41,12 @@ class RejectedNotifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject('Obaveštenje o odbijenom zahtevu')
+                    ->greeting('Zdravo!')
+                    ->line('Vaš zahtev je odbijen. Pokušajte zamenu sa drugim oglasima sa našeg sajta.')
+                    ->action('Nastavite sa zamenama', url('/'))
+                    ->line('Hvala što koristite našu aplikaciju!')
+                    ->salutation("Pozdrav,\n\n**" . config('app.name') . "**");
     }
 
     /**
