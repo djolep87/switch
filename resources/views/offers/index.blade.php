@@ -55,15 +55,10 @@
                                                         @if (!$offer->offer_archived == 1)
                                                             @php
 
-                                                                if (
-                                                                    $offer->sendproduct !== null &&
-                                                                    null !== $offer->sendproduct->images
-                                                                ) {
-                                                                    $sendPproductImages = explode(
-                                                                        ',',
-                                                                        $offer->sendproduct->images,
-                                                                    );
-                                                                }
+                                                                if ($offer->sendproduct !== null && null !== $offer->sendproduct->images)
+                                                                    {
+                                                                        $sendPproductImages = explode(',', $offer->sendproduct->images,);
+                                                                    }
                                                             @endphp
 
                                                             @php
