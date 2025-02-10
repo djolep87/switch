@@ -17,6 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('category_id');
+            $table->string('struja');
+            $table->string('voda');
+            $table->string('co2');
             $table->string('name');
             $table->string('condition');
             $table->text('description');

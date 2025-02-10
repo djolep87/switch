@@ -150,10 +150,38 @@
                                             <p class="mb-0">{!! $product->description !!}</p>
                                         </div>
 
-                                        {{-- <dl class="row mt-3">	<dt class="col-sm-3">Product id</dt>
-                                        <dd class="col-sm-9">#{{$product->id}}</dd>	<dt class="col-sm-3">Delivery</dt>
-                                        <dd class="col-sm-9">Srbija</dd>
-                                    </dl> --}}
+                                        <div class="">                                          
+                                            <div class="col-lg-7">
+                                                <div class="p-3 split-bg-warning shadow " style="border-radius: 10px">
+                                                    <p class="font-18">Razmenom sa ovim predmetom uštedećeš:</p>
+                                                    
+                                                    <div class="address mb-2 d-flex justify-content-center row">
+                                                        <div class="col ">
+                                                            <h6 class="mb-2 col text-uppercase">E energije</h6>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-2">{{$product->struja}} kw/h</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="phone mb-2 d-flex justify-content-center row">
+                                                        <div class="col">
+                                                            <h6 class="mb-2 col text-uppercase">Vode</h6>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-2">{{$product->voda}} l</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="email mb-2 d-flex justify-content-center row">
+                                                        <div class="col">
+                                                            <h6 class="mb-2 col text-uppercase">CO2</h6>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-2">{{$product->co2}} kg CO2</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="">
                                             @if (optional(Auth::user())->id == $product->user_id)
                                                 <!-- Hide the wishlist button for the product owner -->

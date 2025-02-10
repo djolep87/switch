@@ -12,74 +12,79 @@
                 <section class="slider-section">
                     <div class="first-slider">
                         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                            <!-- Indikatori -->
                             <ol class="carousel-indicators">
-                                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
-                                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
-                                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
+                                @for ($i = 0; $i < 3; $i++)
+                                    <li data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ $i }}" class="{{ $i === 0 ? 'active' : '' }}"></li>
+                                @endfor
                             </ol>
+                    
                             <div class="carousel-inner">
+                                <!-- Prvi slajd -->
                                 <div class="carousel-item active bg-dark-gery">
                                     <div class="row d-flex align-items-center">
                                         <div class="col d-none d-lg-flex justify-content-center">
-                                            <div class="">
-                                                <h3 class="h3 fw-light">Nova šansa za vaše stvari!</h3>
-                                                <h1 class="h1">Nova šansa za vaše stvari!</h1>
+                                            <div>
+                                                <h3 class="fw-light">Nova šansa za vaše stvari!</h3>
+                                                <h1>Nova šansa za vaše stvari!</h1>
                                                 <p class="pb-3">Swimwear, Tops, Shorts, Sunglasses &amp; much more...</p>
-                                                <div class=""> <a class="btn btn-dark btn-ecomm"
-                                                        href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
-                                                </div>
+                                                <a class="btn btn-dark btn-ecomm" href="javascript:;">
+                                                    Shop Now <i class='bx bx-chevron-right'></i>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <img src="assets/images/slider/06.jpg" class="img-fluid" alt="...">
+                                            <img src="{{ asset('assets/images/slider/06.jpg') }}" class="img-fluid" alt="Slider Image 1">
                                         </div>
                                     </div>
                                 </div>
+                    
+                                <!-- Drugi slajd -->
                                 <div class="carousel-item bg-dark-gery">
                                     <div class="row d-flex align-items-center">
                                         <div class="col d-none d-lg-flex justify-content-center">
-                                            <div class="">
-                                                <h3 class="h3 fw-light">Hurry up! Limited time offer.</h3>
-                                                <h1 class="h1">Women Sportswear Sale</h1>
-                                                <p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...
-                                                </p>
-                                                <div class=""> <a class="btn btn-dark btn-ecomm"
-                                                        href="javascript:;">Shop Now <i class='bx bx-chevron-right'></i></a>
-                                                </div>
+                                            <div>
+                                                <h3 class="fw-light">Hurry up! Limited time offer.</h3>
+                                                <h1>Women Sportswear Sale</h1>
+                                                <p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...</p>
+                                                <a class="btn btn-dark btn-ecomm" href="javascript:;">
+                                                    Shop Now <i class='bx bx-chevron-right'></i>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <img src="assets/images/slider/07.jpg" class="img-fluid" alt="...">
+                                            <img src="{{ asset('assets/images/slider/07.jpg') }}" class="img-fluid" alt="Slider Image 2">
                                         </div>
                                     </div>
                                 </div>
+                    
+                                <!-- Treći slajd -->
                                 <div class="carousel-item bg-dark-gery">
                                     <div class="row d-flex align-items-center">
                                         <div class="col d-none d-lg-flex justify-content-center">
-                                            <div class="">
-                                                <h2 class="h1">Kako funkcioniše ?</h2>
-                                                {{-- <h3 class="h3 fw-light">Kako postaviti oglas?</h3> --}}
-                                                {{-- <h3 class="h3 fw-light">Kako do razmene?</h3> --}}
-                                                <div class=""> <a class="btn btn-dark btn-ecomm"
-                                                        href="/kakoradi">Pročitaj više <i
-                                                            class='bx bx-chevron-right'></i></a>
-                                                </div>
+                                            <div>
+                                                <h2 class="h1">Kako funkcioniše?</h2>
+                                                <a class="btn btn-dark btn-ecomm" href="{{ url('/kakoradi') }}">
+                                                    Pročitaj više <i class='bx bx-chevron-right'></i>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <a href="/kakoradi">
-                                                <img src="assets/images/slider/slider.jpg" class="img-fluid" alt="...">
+                                            <a href="{{ url('/kakoradi') }}">
+                                                <img src="{{ asset('assets/images/slider/slider.jpg') }}" class="img-fluid" alt="Slider Image 3">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleDark" role="button"
-                                data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    
+                            <!-- Navigacija -->
+                            <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleDark" role="button"
-                                data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </a>
                         </div>
@@ -92,38 +97,46 @@
                             <div class="col-12 col-xl-3">
                                 {{-- <div class="btn-mobile-filter d-xl-none verticaltext"><i class='bx bx-category'></i>      
                             </div> --}}
-                                <div class="btn-mobile-filter split-bg-warning d-xl-none verticaltext"><i
-                                        class='bx bx-category m-2'>Kategorije</i>
+                            <div class="btn-mobile-filter split-bg-warning d-xl-none verticaltext">
+                                <i class='bx bx-category mt-2'></i>
+                                <i class='m-2'>Kategorije</i>
+                                
+                            </div>
+                            
+                            <div class="filter-sidebar d-none d-xl-flex pb-2">
+                                <div class="card rounded-0 w-100">
+                                    <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">
+                                        Postavite oglas
+                                    </button>
                                 </div>
-                                <div class="filter-sidebar d-none d-xl-flex pb-2">
-                                    <div class="card rounded-0 w-100">
-                                        <button onclick="window.location.href='/products.create'"
-                                            class="btn split-bg-warning">Postavite oglas</button>
-                                    </div>
-                                </div>
+                            </div>
                                 <div class="filter-sidebar d-none d-xl-flex">
                                     <div class="card rounded-0 w-100">
                                         <div class="card-body">
                                             <div class="align-items-center d-xl-none">
                                                 {{-- <h6 class="text-uppercase mb-0">Filter</h6> --}}
                                                 <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div>
-                                                <br>
-                                                <div class="card rounded-0 w-100">
-                                                    <button onclick="window.location.href='/products.create'"
-                                                        class="btn split-bg-warning">Postavite oglas</button>
+                                                
+                                                <div class="card rounded-0 w-100 mt-3">
+                                                    <button onclick="window.location.href='/products.create'" class="btn split-bg-warning">
+                                                        Postavite oglas
+                                                    </button>
                                                 </div>
                                             </div>
                                             <hr class="d-flex d-xl-none" />
                                             <div class="product-categories">
-                                                <h6 class="text-uppercase mb-3"><a
-                                                        href="{{ route('home.index') }}">Kategorije <span
-                                                            class="float-end badge rounded-pill bg-primary"></span></a></h6>
+                                                <h6 class="text-uppercase mb-3">
+                                                    <a href="{{ route('home.index') }}">
+                                                        Kategorije
+                                                        <span class="float-end badge rounded-pill bg-primary"></span>
+                                                    </a>
+                                                </h6>
                                                 <ul class="list-unstyled mb-0 categories-list">
                                                     @foreach ($categories as $category)
                                                         <li>
-                                                            <a
-                                                                href="{{ route('home.index', ['category' => $category->name]) }}">{{ $category->name }}
-                                                                {{-- <span class="float-end badge bg-dark rounded-pill">{{$category->products->count()}}</span> --}}
+                                                            <a href="{{ route('home.index', ['category' => $category->name]) }}">
+                                                                {{ $category->name }}
+                                                                {{-- <span class="float-end badge bg-dark rounded-pill">{{ $category->products->count() }}</span> --}}
                                                             </a>
                                                         </li>
                                                     @endforeach
@@ -141,40 +154,30 @@
                                         @endphp
                                         <div class="product-grid">
                                             <div class="card rounded-0 product-card">
-                                                <div
-                                                    class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
-                                                    <div class="">
-                                                        @if (optional(Auth::user())->id == $product->user_id)
-                                                            <!-- Hide the wishlist button for the product owner -->
-                                                            <div style="display: none;">
-                                                                <div class="product-wishlist">
-                                                                    <i class="hover bx bx-heart"></i>
-                                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
+                                                    @if (optional(Auth::user())->id == $product->user_id)
+                                                        <!-- Sakrij wishlist dugme za vlasnika proizvoda -->
+                                                        <div style="display: none;">
+                                                            <div class="product-wishlist">
+                                                                <i class="hover bx bx-heart"></i>
                                                             </div>
-                                                        @else
-                                                            @php
-                                                                $isInWishlist = \App\Models\Wishlist::where(
-                                                                    'user_id',
-                                                                    Auth::id(),
-                                                                )
-                                                                    ->where('product_id', $product->productid)
-                                                                    ->exists();
-                                                            @endphp
-                                                            <div class="product-wishlist"
-                                                                data-product-id="{{ $product->productid }}"
-                                                                style="cursor: pointer;">
-                                                                <i id="wishlist-icon-{{ $product->productid }}"
-                                                                    class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
-                                                            </div>
-                                                        @endif
-                                                    </div>
+                                                        </div>
+                                                    @else
+                                                        @php
+                                                            $isInWishlist = \App\Models\Wishlist::where('user_id', Auth::id())
+                                                                ->where('product_id', $product->productid)
+                                                                ->exists();
+                                                        @endphp
+                                                        <div class="product-wishlist" data-product-id="{{ $product->productid }}" style="cursor: pointer;">
+                                                            <i id="wishlist-icon-{{ $product->productid }}" class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 <div class="row g-0 product-row">
                                                     @if (!empty($images))
                                                         <div class="col-md-4">
                                                             <a href="{{ route('products.show', $product->productid) }}">
-                                                                <img src="/storage/Product_images/{{ $images[0] }}"
-                                                                    class="img-fluid" alt="Product Image">
+                                                                <img src="/storage/Product_images/{{ $images[0] }}" class="img-fluid" alt="Product Image">
                                                             </a>
                                                         </div>
                                                     @endif
@@ -227,31 +230,23 @@
                                                                 ?>
                                                                 <p class="mb-0 description">{!! $formattedDescription !!}</p>
 
-                                                                <div
-                                                                    class="align-items-center justify-content gap-3    m-0">
+                                                                <div class="d-flex align-items-center justify-content-between gap-3 m-0">
                                                                     <div>
-                                                                        <img width="16px"
-                                                                            src="/assets/images/location.svg"
-                                                                            alt="" srcset="">
+                                                                        <img width="16px" src="/assets/images/location.svg" alt="">
                                                                         {{ $product->users_city }}
                                                                     </div>
                                                                 </div>
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content gap-3    m-0">
-
+                                                                <div class="d-flex align-items-center justify-content gap-3 m-0">
                                                                     <div class="product">
-                                                                        <img width="16px" src="/assets/images/eye.svg"
-                                                                            alt="" srcset="">
-
-                                                                        <Span>{{ $product->views }}</Span>
+                                                                        <img width="16px" src="/assets/images/eye.svg" alt="">
+                                                                        <span>{{ $product->views }}</span>
                                                                     </div>
-
+                                                                
                                                                     <div>
-                                                                        <img width="16px"
-                                                                            src="/assets/images/avatar.svg" alt=""
-                                                                            srcset="">
+                                                                        <img width="16px" src="/assets/images/avatar.svg" alt="">
                                                                         {{ $product->users_firstname }}
                                                                     </div>
+                                                                
                                                                     <div>{{ $product->created_at }}</div>
                                                                 </div>
 
@@ -259,73 +254,38 @@
                                                                 @if (Auth::check())
                                                                     <div class="product-action mt-2">
                                                                         <div class="d-flex gap-2">
-                                                                            <div class="nav-item dropdown "
-                                                                                style="width: auto; min-width: 200px;">
+                                                                            <div class="nav-item dropdown" style="width: auto; min-width: 200px;">
                                                                                 @if (Auth::user()->id == $product->user_id)
-                                                                                    <a href=""
-                                                                                        style="display: none"
-                                                                                        class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning"
-                                                                                        data-bs-toggle="dropdown"><i
-                                                                                            class="bx bx-refresh"></i>Zameni</a>
+                                                                                    <a href="" style="display: none" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown">
+                                                                                        <i class="bx bx-refresh"></i> Zameni
+                                                                                    </a>
                                                                                 @else
-                                                                                    <a href=""
-                                                                                        class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning"
-                                                                                        data-bs-toggle="dropdown"><i
-                                                                                            class="bx bx-refresh"></i>Zameni</a>
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown">
+                                                                                        <i class="bx bx-refresh"></i> Zameni
+                                                                                    </a>
                                                                                 @endif
                                                                                 <ul class="dropdown-menu">
-                                                                                    <form id="offer" action="/"
-                                                                                        method="POST"
-                                                                                        enctype="multipart/form-data">
+                                                                                    <form id="offer" action="/" method="POST" enctype="multipart/form-data">
                                                                                         {{ csrf_field() }}
                                                                                         @csrf
-                                                                                        <input type="hidden"
-                                                                                            name="user_id"
-                                                                                            value="{{ Auth()->user()->id }}">
-                                                                                        <input type="hidden"
-                                                                                            name="acceptor"
-                                                                                            value="{{ $product->user_id }}">
-                                                                                        <input type="hidden"
-                                                                                            name="acceptorName"
-                                                                                            value="{{ $product->firstName }}">
-                                                                                        <input type="hidden"
-                                                                                            name="acceptorNumber"
-                                                                                            value="{{ $product->user->phone }}">
-                                                                                        <input type="hidden"
-                                                                                            name="product_id"
-                                                                                            value="{{ $product->productid }}">
+                                                                                        <input type="hidden" name="user_id" value="{{ Auth()->user()->id }}">
+                                                                                        <input type="hidden" name="acceptor" value="{{ $product->user_id }}">
+                                                                                        <input type="hidden" name="acceptorName" value="{{ $product->firstName }}">
+                                                                                        <input type="hidden" name="acceptorNumber" value="{{ $product->user->phone }}">
+                                                                                        <input type="hidden" name="product_id" value="{{ $product->productid }}">
+                                                                                        
                                                                                         @forelse ($listproducts as $product)
                                                                                             @php
-                                                                                                $images = $product->images
-                                                                                                    ? explode(
-                                                                                                        ',',
-                                                                                                        $product->images,
-                                                                                                    )
-                                                                                                    : [];
+                                                                                                $images = $product->images ? explode(',', $product->images) : [];
                                                                                             @endphp
                                                                                             <div class="m-2">
-                                                                                                <div
-                                                                                                    class="form-check form-check-inline">
-                                                                                                    <input
-                                                                                                        class="form-check-input d-flex"
-                                                                                                        type="radio"
-                                                                                                        name="sendproduct_id"
-                                                                                                        id="inlineRadio{{ $product->id }}"
-                                                                                                        value="{{ $product->id }}"
-                                                                                                        {{ $product->isDisabledForCurrentExchange ? 'disabled' : '' }}>
-                                                                                                    <label
-                                                                                                        class="form-check-label d-flex"
-                                                                                                        for="inlineRadio{{ $product->id }}">
+                                                                                                <div class="form-check form-check-inline">
+                                                                                                    <input class="form-check-input d-flex" type="radio" name="sendproduct_id" id="inlineRadio{{ $product->id }}" value="{{ $product->id }}" {{ $product->isDisabledForCurrentExchange ? 'disabled' : '' }}>
+                                                                                                    <label class="form-check-label d-flex" for="inlineRadio{{ $product->id }}">
                                                                                                         @if (!empty($images) && isset($images[0]))
-                                                                                                            <img src="/storage/Product_images/{{ $images[0] }}"
-                                                                                                                style="width: 30px; height: 30px;"
-                                                                                                                alt="Product Image"
-                                                                                                                class="me-2">
+                                                                                                            <img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px;" alt="Product Image" class="me-2">
                                                                                                         @else
-                                                                                                            <img src="/storage/default-image.png"
-                                                                                                                style="width: 30px; height: 30px;"
-                                                                                                                alt="Default Image"
-                                                                                                                class="me-2">
+                                                                                                            <img src="/storage/default-image.png" style="width: 30px; height: 30px;" alt="Default Image" class="me-2">
                                                                                                         @endif
                                                                                                         {{ $product->name }}
                                                                                                     </label>
@@ -333,64 +293,16 @@
                                                                                             </div>
                                                                                         @empty
                                                                                             <div class="col-xl-12 m-2">
-                                                                                                <p>Nemate oglase za zamenu.
-                                                                                                </p>
+                                                                                                <p>Nemate oglase za zamenu.</p>
                                                                                             </div>
                                                                                         @endforelse
-                                                                                        <!-- Dugme za slanje -->
-                                                                                        <button
-                                                                                            class="btn btn-outline-dark btn-ecomm m-4"
-                                                                                            type="submit">
-                                                                                            <i class="bx bx-send"></i>
-                                                                                            Pošalji
+
+                                                                                        <button class="btn btn-outline-dark btn-ecomm m-4" type="submit">
+                                                                                            <i class="bx bx-send"></i> Pošalji
                                                                                         </button>
-                                                                                        {{-- @forelse ($listproducts as $listproduct)  
-                                                                                                            @php
-                                                                                                                $images = $listproduct->images ? explode(",", $listproduct->images) : [];
-
-                                                                                                                // Proveri da li je trenutni korisnik poslao ponudu za ovaj oglas ili je prihvatio ponudu
-                                                                                                                $isDisabled = \App\Models\Offer::where(function ($query) use ($listproduct) {
-                                                                                                                    // Provera da li je poslana ponuda (sendproduct_id) ili je korisnik već prihvatio ponudu
-                                                                                                                    $query->where('sendproduct_id', $listproduct->id)
-                                                                                                                        ->orWhere('acceptor', auth()->user()->id) // Proverava da li je trenutni korisnik prihvatio ponudu
-                                                                                                                        ->where('product_id', $listproduct->id);
-                                                                                                                })
-                                                                                                                ->whereIn('accepted', [0, 1, 3]) // Samo ponude u statusu 0, 1, 3 (u toku ili prihvaćeno)
-                                                                                                                ->exists();
-                                                                                                            @endphp                                                                                         
-                                                                                                            <div class="m-2">
-                                                                                                                <div class="form-check form-check-inline">
-                                                                                                                    <input 
-                                                                                                                        class="form-check-input d-flex" 
-                                                                                                                        type="radio" 
-                                                                                                                        name="sendproduct_id" 
-                                                                                                                        id="inlineRadio{{ $listproduct->id }}"
-                                                                                                                        value="{{ $listproduct->id }}" 
-                                                                                                                        {{ $isDisabled ? 'disabled' : '' }}><!-- Oglas je disabled ako je poslana ponuda -->
-                                                                                                                    <label class="form-check-label d-flex" for="inlineRadio{{ $listproduct->id }}">
-                                                                                                                        <img 
-                                                                                                                            src="/storage/Product_images/{{ $images[0] ?? 'default.jpg' }}" 
-                                                                                                                            style="width: 30px; height: 30px;" 
-                                                                                                                            alt="Product Image" 
-                                                                                                                            class="me-2">
-                                                                                                                        {{ $listproduct->name }}
-                                                                                                                    </label>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        @empty
-                                                                                                            <div class="col-xl-12 m-2">
-                                                                                                                <p>Nemate proizvode za zamenu.</p>
-                                                                                                            </div>
-                                                                                                        @endforelse
-
-                                                                                                        <!-- Dugme za slanje -->
-                                                                                                        <button class="btn btn-outline-dark btn-ecomm m-4" type="submit">
-                                                                                                            <i class="bx bx-send"></i> Pošalji
-                                                                                                        </button> --}}
                                                                                     </form>
                                                                                 </ul>
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
                                                                 @else
@@ -447,8 +359,10 @@
         </div>
         <!--end page wrapper -->
 
-        <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i
-                class='bx bxs-up-arrow-alt'></i></a>
+        <!--Start Back To Top Button-->
+        <a href="javaScript:;" class="back-to-top">
+            <i class='bx bxs-up-arrow-alt'></i>
+        </a>
         <!--End Back To Top Button-->
     </div>
 

@@ -151,11 +151,13 @@ class HomeController extends Controller
                 ->map(function ($product) {
                     // Proverite da li postoji offer sa accepted = 0 za ovaj proizvod
                     $hasPendingOffer = $product->offers->isNotEmpty();
-
-             
-
+                    
                     // Postavite isDisabledForCurrentExchange na true ako postoji pending offer
                     $product->isDisabledForCurrentExchange = $hasPendingOffer;
+                    
+                    // Omogućite sve ostale ponude
+                    $product->isDisabledForOtherExchanges = false;
+                    
                     return $product;
                 });
         } else {

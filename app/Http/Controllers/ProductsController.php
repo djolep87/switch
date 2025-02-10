@@ -96,10 +96,16 @@ class ProductsController extends Controller
         $product = new Product;
         $product->user_id = Auth()->user()->id;
         $product->category_id = $request->input('category_id');
+        $category = Category::findOrFail($request->input('category_id')); // Uzimamo kategoriju iz baze
+        $product->struja = $category->struja;
+        $product->voda = $category->voda;
+        $product->co2 = $category->co2;
+
         $product->name = $request->input('name');
         $product->condition = $request->input('condition');
         $product->description = $request->input('description');
         $product->images = $imagesname;
+
         $product->save();
 
         $product->categories()->attach($request->input('category_id'));

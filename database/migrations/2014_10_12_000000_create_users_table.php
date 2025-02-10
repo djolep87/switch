@@ -26,6 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->boolean('accepted')->default(0);
             $table->rememberToken();
+            $table->string('struja')->default(0);
+            $table->string('voda')->default(0);
+            $table->string('co2')->default(0);
             $table->timestamps();
         });
     }

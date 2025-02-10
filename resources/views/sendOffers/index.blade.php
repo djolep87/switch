@@ -46,7 +46,7 @@
                                         <div class="product-more-info">
                                             <h6 class="text-center">Moji zahtevi</h6>
                                             <div class="tab-content pt-3">
-                                                @if (!$sendoffers->count() || $sendoffers->sendoffer_archived = 1)
+                                                @if (!$sendoffers->count() || $sendoffers->first()->sendoffer_archived == 1)
                                                     <div class="alert alert-info text-center" role="alert">
                                                         Trenutno nemate zahteve!
                                                     </div>
@@ -269,17 +269,14 @@
                                                                 @if ($sendoffer->product)
                                                                     Da li je uspešna zamena?
                                                                     <div class="row">
-                                                                        <form class="d-grid gap-2 col-6 p-0 m-0"
-                                                                            action="{{ url('offers.confirmation_sendoffer', $sendoffer->id) }}"
-                                                                            method="POST">
+                                                                        <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ url('offers.confirmation_sendoffer', $sendoffer->id) }}" method="POST">
                                                                             {{ csrf_field() }}
                                                                             {{ method_field('post') }}
-                                                                            <input type="hidden" name="accepted"
-                                                                                value="3">
-                                                                            <button
-                                                                                class="btn btn-success btn-sm m-0 btn-ecomm"
-                                                                                type="submit">DA</button>
-
+                                                                            <input type="hidden" name="accepted" value="3">
+                                                                            <input type="hidden" name="struja" value="{{ $sendoffer->product->struja }}">
+                                                                            <input type="hidden" name="voda" value="{{ $sendoffer->product->voda }}">
+                                                                            <input type="hidden" name="co2" value="{{ $sendoffer->product->co2 }}">
+                                                                            <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
                                                                         </form>
                                                                         <form class="d-grid gap-2 col-6 p-0 m-0"
                                                                             action="{{ url('offers.canceled_sendoffer', $sendoffer->id) }}"

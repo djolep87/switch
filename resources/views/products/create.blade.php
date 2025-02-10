@@ -23,14 +23,15 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label">Kategorija</label>
-                            <select class="form-select" name="category_id" id="inputSelectCountry" aria-label="Default select example">
-                                @if ($categories->isNotEmpty())
-                                    <option name="category_id" value="{{$categories->first()->id}}" selected>{{$categories->first()->name}}</option>
-                                    @foreach ($categories->skip(1) as $category)
-                                        <option name="category_id" value="{{$category->id}}">{{$category->name}}</option> 
-                                    @endforeach
-                                @endif
+                            <select class="form-select" name="category_id" id="categorySelect">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" data-electricity="{{ $category->struja }}" 
+                                        data-water="{{ $category->voda }}" data-co2="{{ $category->co2 }}">
+                                        {{ $category->name }}
+                                    </option> 
+                                @endforeach
                             </select>
+
                         </div>
                         <div id="container">
                             <div id="editorContainer">

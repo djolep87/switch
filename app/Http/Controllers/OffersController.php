@@ -156,6 +156,14 @@ class OffersController extends Controller
         $offers->accepted =  $request->input('accepted');
         $offers->save();
         toast('Čestitamo! Uspešna zamena! ', 'success');
+        $user = User::find($offers->user_id);
+
+        // Dodavanje novih vrednosti na postojeće
+        $user->struja += $offers->product->struja;
+        $user->voda += $offers->product->voda;
+        $user->co2 += $offers->product->co2;
+        
+        $user->save();
         return redirect('/offers');
     }
     public function confirmation_sendoffer(Request $request, $id)
@@ -164,6 +172,12 @@ class OffersController extends Controller
         $offers->sendaccepted =  $request->input('accepted');
         $offers->save();
         toast('Čestitamo! Uspešna zamena! ', 'success');
+        $user = User::find($offers->acceptor);
+        $user->struja += $offers->sendproduct->struja;
+        $user->voda += $offers->sendproduct->voda;
+        $user->co2 += $offers->sendproduct->co2;
+
+        $user->save();
         return redirect('/sendOffers');
     }
 

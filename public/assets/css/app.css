@@ -467,7 +467,7 @@ ul.categories-list li {
 	cursor: pointer;
 	position: fixed;
 	left: 0;
-	top: 55%;
+	top: 50%;
 	z-index: 5;
 	border-radius: 5%;
 	opacity: 70%;
@@ -1106,6 +1106,11 @@ ul.categories-list li {
 
 .blog-right-sidebar .list-inline a {
 	color: #868686;
+}
+
+.disabled-radio {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .recent-post-title {

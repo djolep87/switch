@@ -96,8 +96,21 @@
                                         <div class="col-12">
                                             <label for="phone" class="form-label">Telefon</label>
                                             <input type="text" name="phone" class="form-control" id="phone" required placeholder="Telefon" value="{{ auth()->user()->phone }}">
-                                        </div>                                                
+                                        </div> 
+                                        <div class="col-4">
+                                            <label for="struja" class="form-label">Ušteda struje</label>
+                                            <input type="text" disabled ="struja" class="form-control" id="zip" value="{{ auth()->user()->struja }} kw/h"> 
+                                        </div>  
+                                        <div class="col-4">
+                                            <label for="voda" class="form-label">Ušteda vode</label>
+                                            <input type="text" disabled ="voda" class="form-control" id="zip" value="{{ auth()->user()->voda }} l"> 
+                                        </div> 
+                                        <div class="col-4">
+                                            <label for="CO2" class="form-label">Ušteda CO2</label>
+                                            <input type="text" disabled ="voda" class="form-control" id="zip" value="{{ auth()->user()->co2 }} kg"> 
+                                        </div>                                            
                                         <div class="col-12">
+                                            
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-dark"><i class='bx bx-user'></i>{{ __('Izmeni') }}</button>
                                             </div>

@@ -46,7 +46,7 @@
                                         <div class="product-more-info">
                                             <h6 class="text-center">Ponude</h6>
                                             <div class="tab-content pt-3">
-                                                @if (!$offers->count() || $offers->offer_archived = 1)
+                                                @if (!$offers->count() || $offers->first()->offer_archived == 1)
                                                     <div class="alert alert-info text-center" role="alert">
                                                         Trenutno nemate ponuda!
                                                     </div>
@@ -55,10 +55,15 @@
                                                         @if (!$offer->offer_archived == 1)
                                                             @php
 
-                                                                if ($offer->sendproduct !== null && null !== $offer->sendproduct->images)
-                                                                    {
-                                                                        $sendPproductImages = explode(',', $offer->sendproduct->images,);
-                                                                    }
+                                                                if (
+                                                                    $offer->sendproduct !== null && null !== $offer->sendproduct->images
+                                                                    
+                                                                ) {
+                                                                    $sendPproductImages = explode(
+                                                                        ',',
+                                                                        $offer->sendproduct->images,
+                                                                    );
+                                                                }
                                                             @endphp
 
                                                             @php
@@ -293,17 +298,14 @@
                                                                         @if ($offer->accepted == 1)
                                                                             Da li je uspešna zamena?
                                                                             <div class="row">
-                                                                                <form class="d-grid gap-2 col-6 p-0 m-0"
-                                                                                    action="{{ url('offers.confirmation', $offer->id) }}"
-                                                                                    method="POST">
+                                                                                <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ url('offers.confirmation', $offer->id) }}" method="POST">
                                                                                     {{ csrf_field() }}
                                                                                     {{ method_field('post') }}
-                                                                                    <input type="hidden" name="accepted"
-                                                                                        value="3">
-                                                                                    <button
-                                                                                        class="btn btn-success btn-sm m-0 btn-ecomm"
-                                                                                        type="submit">DA</button>
-
+                                                                                    <input type="hidden" name="accepted" value="3">
+                                                                                    <input type="hidden" name="struja" value="{{ $offer->product->struja }}">
+                                                                                    <input type="hidden" name="voda" value="{{ $offer->product->voda }}">
+                                                                                    <input type="hidden" name="co2" value="{{ $offer->product->co2 }}">
+                                                                                    <button class="btn btn-success btn-sm m-0 btn-ecomm" type="submit">DA</button>
                                                                                 </form>
                                                                                 <form class="d-grid gap-2 col-6 p-0 m-0"
                                                                                     action="{{ url('offers.canceled', $offer->id) }}"
