@@ -238,7 +238,7 @@
                                                                 </div>
                                                                 <div class="d-flex align-items-center justify-content gap-3 m-0">
                                                                     <div class="product">
-                                                                        <img width="16px" src="/assets/images/eye.svg" alt="">
+                                                                        <img width="16px" src="/assets/images/eye1.svg" alt="">
                                                                         <span>{{ $product->views }}</span>
                                                                     </div>
                                                                 

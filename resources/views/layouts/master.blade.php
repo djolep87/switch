@@ -279,56 +279,48 @@
                         <div class="footer-section2 mb-3">
                             <h6 class="mb-3 text-uppercase">Korisno</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-1"><a href="/"><i class='bx bx-chevron-right'></i> Početna</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Kako
-                                        radi</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                        Sports</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Shirts
-                                        & Tops</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Clogs &
-                                        Mules</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                        Sunglasses</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Bags &
-                                        Wallets</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                        Sneakers & Athletic</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                        Electronis</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                        Furniture</a>
-                                </li>
+                                <li class="mb-1"><a href="/"><i class='bx bx-chevron-right'></i>Početna</a></li>
+                                
+                                <li class="mb-1"><a href="/about"><i class='bx bx-chevron-right'></i>O nama</a></li>
+                                       
+                                
+                                <li class="mb-1"><a href="/kakoradi"><i class='bx bx-chevron-right'></i>Kako radi</a></li>
+                                <li class="mb-1"><a href="/postavioglas"><i class='bx bx-chevron-right'></i>Kako postaviti oglas</a></li>
+                                <li class="mb-1"><a href="/kakoradi"><i class='bx bx-chevron-right'></i>Uputstvo za razmenu</a></li>
+                                        
+                                
+                                
+                                       
+                                
+                                {{-- <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Clogs & Mules</a></li>
+                                        
+                                
+                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Sunglasses</a></li>
+                                        
+                                
+                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Bags & Wallets</a></li>
+                                       
+                                
+                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Sneakers & Athletic</a></li>
+                                        
+                                
+                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Electronis</a></li>
+                                       
+                                
+                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Furniture</a></li>
+                                        --}}
+                                
                             </ul>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="footer-section3 mb-3">
-                            {{-- <h6 class="mb-3 text-uppercase">Popular Tags</h6>
-							<div class="tags-box"> <a href="javascript:;" class="tag-link">Cloths</a>
-								<a href="javascript:;" class="tag-link">Electronis</a>
-								<a href="javascript:;" class="tag-link">Furniture</a>
-								<a href="javascript:;" class="tag-link">Sports</a>
-								<a href="javascript:;" class="tag-link">Men Wear</a>
-								<a href="javascript:;" class="tag-link">Women Wear</a>
-								<a href="javascript:;" class="tag-link">Laptops</a>
-								<a href="javascript:;" class="tag-link">Formal Shirts</a>
-								<a href="javascript:;" class="tag-link">Topwear</a>
-								<a href="javascript:;" class="tag-link">Headphones</a>
-								<a href="javascript:;" class="tag-link">Bottom Wear</a>
-								<a href="javascript:;" class="tag-link">Bags</a>
-								<a href="javascript:;" class="tag-link">Sofa</a>
-								<a href="javascript:;" class="tag-link">Shoes</a>
-							</div> --}}
+                        <div class="footer-section2 mb-3">
+                            <h6 class="mb-3 text-uppercase">Uslovi i pravila</h6>
+                            <ul class="list-unstyled">
+
+                                <li class="mb-1"><a href="/uslovi"><i class='bx bx-chevron-right'></i>Uslovi korišćenja</a></li>
+                                
+                            </ul>
                         </div>
                     </div>
                     {{-- <div class="col">
