@@ -55,7 +55,7 @@
 										<img src="assets/images/icons/deal1.svg" width="60" alt="">
 										<h5 class="my-3">Započnite u razmenu</h5>
 										<p class="mb-0">Razmena nikada nije bila lakša! Na našoj platformi možete jednostavno pronaći, ponuditi i razmeniti stvari koje vam više nisu potrebne. Proces je brz, siguran i potpuno besplatan. Uštedite novac, oslobodite prostor i pronađite ono što vam treba – pridružite se razmeni odmah!</p>
-										<a href="" class="">Više o razmeni</a>
+										<a href="/razmena" class="">Više o razmeni</a>
 									</div>
 								</div>
 							</div>

@@ -30,6 +30,7 @@ Route::get('/about', 'PageController@about');
 Route::get('/contact', 'PageController@contact'); 
 Route::get('/kakoradi', 'PageController@kakoradi'); 
 Route::get('/postavioglas', 'PageController@postavioglas');
+Route::get('/razmena', 'PageController@razmena');
 
 Route::get('/dashboard', 'UserController@index');
 

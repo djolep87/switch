@@ -37,4 +37,10 @@ class PageController extends Controller
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         return view('pages.postavioglas', compact('wishlists'));
     }
+
+    public function razmena()
+    {
+        $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
+        return view('pages.razmena', compact('wishlists'));
+    }
 }

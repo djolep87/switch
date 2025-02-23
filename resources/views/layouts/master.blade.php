@@ -280,36 +280,10 @@
                             <h6 class="mb-3 text-uppercase">Korisno</h6>
                             <ul class="list-unstyled">
                                 <li class="mb-1"><a href="/"><i class='bx bx-chevron-right'></i>Početna</a></li>
-                                
                                 <li class="mb-1"><a href="/about"><i class='bx bx-chevron-right'></i>O nama</a></li>
-                                       
-                                
                                 <li class="mb-1"><a href="/kakoradi"><i class='bx bx-chevron-right'></i>Kako radi</a></li>
                                 <li class="mb-1"><a href="/postavioglas"><i class='bx bx-chevron-right'></i>Kako postaviti oglas</a></li>
-                                <li class="mb-1"><a href="/kakoradi"><i class='bx bx-chevron-right'></i>Uputstvo za razmenu</a></li>
-                                        
-                                
-                                
-                                       
-                                
-                                {{-- <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Clogs & Mules</a></li>
-                                        
-                                
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Sunglasses</a></li>
-                                        
-                                
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Bags & Wallets</a></li>
-                                       
-                                
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Sneakers & Athletic</a></li>
-                                        
-                                
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Electronis</a></li>
-                                       
-                                
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>Furniture</a></li>
-                                        --}}
-                                
+                                <li class="mb-1"><a href="/razmena"><i class='bx bx-chevron-right'></i>Uputstvo za razmenu</a></li>
                             </ul>
                         </div>
                     </div>
