@@ -35,6 +35,10 @@ File: app.css
 
 /* General */
 
+.razmena {
+	width: 650px;
+}
+
 #description {
 	height: 250px;
 }
@@ -1586,9 +1590,21 @@ body.bg-theme15 {
 	display: none;
 }
 
+@media screen and (max-width: 1400px) {
+	.page-wrapper {
+		margin-top: 60px;
+	}
+	.razmena{
+		width: 450px;
+	}
+}
+
 @media screen and (max-width: 1280px) {
 	.page-wrapper {
 		margin-top: 60px;
+	}
+	.razmena{
+		width: 450px;
 	}
 }
 @media only screen and (max-width: 1199px) {
@@ -1602,6 +1618,9 @@ body.bg-theme15 {
 	}
 	.search-min{
 		display: none;
+	}
+	.razmena{
+		width: 450px;
 	}
 }
 @media screen and (max-width: 1024px) {
@@ -1624,6 +1643,9 @@ body.bg-theme15 {
 	.search-min{
 		display: none;
 	}
+	.razmena{
+		width: 450px;
+	}
 }
 @media screen and (max-width: 991px) {
 	.section-authentication-signin {
@@ -1641,6 +1663,9 @@ body.bg-theme15 {
 	}
 	.search-min{
 		display: none;
+	}
+	.razmena{
+		width: 350px;
 	}
 }
 
@@ -1679,5 +1704,8 @@ body.bg-theme15 {
 		display: flex;
 		flex-wrap: nowrap; /* Održava raspored u jednom redu */
 		align-items: center; /* Poravnava sliku i tekst vertikalno */
+	}
+	.razmena{
+		width: 350px;
 	}
 }

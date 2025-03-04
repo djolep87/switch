@@ -297,6 +297,18 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="footer-section2 mb-3">
+                            <h6 class="mb-3 text-uppercase">Društvene mreže</h6>
+                            <ul class="list-unstyled">
+
+                                <a href="/uslovi"> <img src="/assets/images/icons/instagram.svg" > </a>
+                                <a href="/uslovi"> <img src="/assets/images/icons/facebook.svg" > </a>
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
                     {{-- <div class="col">
 							<div class="footer-section4 mb-3">
 								<h6 class="mb-3 text-uppercase">Stay informed</h6>
