@@ -10,18 +10,18 @@
                 <div class="card-body">
                     <form id="productForm" class="row g-3" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label">Naziv proizvoda</label>
                             <input type="text" name="name" class="form-control" required value="{{ old('name') }}">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label">Stanje</label>
                             <select class="form-select" name="condition" id="inputSelectCountry" aria-label="Default select example">
                                 <option selected value="Polovno">Polovno</option>
                                 <option value="Novo">Novo</option>
                             </select>
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-4">
                             <label class="form-label">Kategorija</label>
                             <select class="form-select" name="category_id" id="categorySelect">
                                 @foreach ($categories as $category)
