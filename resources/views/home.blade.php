@@ -168,7 +168,7 @@
                                                                 ->where('product_id', $product->productid)
                                                                 ->exists();
                                                         @endphp
-                                                        <div class="product-wishlist" data-product-id="{{ $product->productid }}" style="cursor: pointer;">
+                                                        <div class="product-wishlist shadow" data-product-id="{{ $product->productid }}" style="cursor: pointer;">
                                                             <i id="wishlist-icon-{{ $product->productid }}" class="bx {{ $isInWishlist ? 'bxs-heart' : 'bx-heart' }}"></i>
                                                         </div>
                                                     @endif
@@ -260,7 +260,7 @@
                                                                                         <i class="bx bx-refresh"></i> Zameni
                                                                                     </a>
                                                                                 @else
-                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning" data-bs-toggle="dropdown">
+                                                                                    <a href="" class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning shadow" data-bs-toggle="dropdown">
                                                                                         <i class="bx bx-refresh"></i> Zameni
                                                                                     </a>
                                                                                 @endif
@@ -274,19 +274,24 @@
                                                                                         <input type="hidden" name="acceptorNumber" value="{{ $product->user->phone }}">
                                                                                         <input type="hidden" name="product_id" value="{{ $product->productid }}">
                                                                                         
+                                                                                        
                                                                                         @forelse ($listproducts as $product)
                                                                                             @php
                                                                                                 $images = $product->images ? explode(',', $product->images) : [];
+                                                                                                $imageSrc = !empty($images) && isset($images[0]) ? "/storage/Product_images/{$images[0]}" : "/storage/default-image.png";
                                                                                             @endphp
                                                                                             <div class="m-2">
                                                                                                 <div class="form-check form-check-inline">
-                                                                                                    <input class="form-check-input d-flex" type="radio" name="sendproduct_id" id="inlineRadio{{ $product->id }}" value="{{ $product->id }}" {{ $product->isDisabledForCurrentExchange ? 'disabled' : '' }}>
-                                                                                                    <label class="form-check-label d-flex" for="inlineRadio{{ $product->id }}">
-                                                                                                        @if (!empty($images) && isset($images[0]))
-                                                                                                            <img src="/storage/Product_images/{{ $images[0] }}" style="width: 30px; height: 30px;" alt="Product Image" class="me-2">
-                                                                                                        @else
-                                                                                                            <img src="/storage/default-image.png" style="width: 30px; height: 30px;" alt="Default Image" class="me-2">
-                                                                                                        @endif
+                                                                                                    <input 
+                                                                                                    class="form-check-input d-flex" 
+                                                                                                    type="radio" 
+                                                                                                    name="sendproduct_id" 
+                                                                                                    id="inlineRadio{{ $product->id }}" 
+                                                                                                    value="{{ $product->id }}" 
+                                                                                                    {{ $product->isDisabledForCurrentExchange ? 'disabled' : '' }}>
+
+                                                                                                    <label class="form-check-label d-flex align-items-center" for="inlineRadio{{ $product->id }}">
+                                                                                                        <img src="{{ $imageSrc }}" style="width: 30px; height: 30px;" alt="Product Image" class="me-2">
                                                                                                         {{ $product->name }}
                                                                                                     </label>
                                                                                                 </div>

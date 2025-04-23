@@ -75,23 +75,33 @@ class OffersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Product $mojiproizvodi)
+    public function store(Request $request)
     {
+        $request->validate([
+            'sendproduct_id' => 'required|exists:products,id',
+            'product_id' => 'required|exists:products,id',
+            'acceptor' => 'required|exists:users,id',
+            'acceptorName' => 'required|string|max:255',
+            'acceptorNumber' => 'required|string|max:255',
+        ]);
 
+        $offer = new Offer();
+        $offer->user_id = auth()->id();
+        $offer->sendproduct_id = $request->sendproduct_id;
+        $offer->product_id = $request->product_id;
+        $offer->acceptor = $request->acceptor;
+        $offer->acceptorName = $request->acceptorName;
+        $offer->acceptorNumber = $request->acceptorNumber;
+        $offer->accepted = 0;
+        $offer->sendaccepted = 0;
+        $offer->save();
 
-        $offers = new Offer;
-        $offers->user_id = Auth()->user()->id;
-        $offers->sendproduct_id = $request->input('sendproduct_id');
-        $offers->product_id = $request->input('product_id');
-        $offers->acceptor = $request->input('acceptor');
-        $offers->acceptorName = $request->input('acceptorName');
-        $offers->acceptorNumber = $request->input('acceptorNumber');
-        $offers->accepted = 0;
-        $offers->sendaccepted = 0;
-        $offers->save();
+        $user = User::find($offer->acceptor);
+        if ($user) {
+            $user->notify(new Notifications());
+        }
+
         toast('Vaš zahtev je uspešno poslat!', 'success');
-        $user = User::find($offers->acceptor);
-        User::find($offers->acceptor)->notify(new Notifications);
         return back();
     }
 

@@ -32,7 +32,7 @@
 							<div class="col d-flex">
 								<div class="card rounded-0 shadow-none w-100">
 									<div class="card-body">
-										<img src="assets/images/icons/delivery.png" width="60" alt="">
+										<img src="assets/images/icons/register.png" width="80" alt="">
 										<h5 class="my-3">Registracija naloga</h5>
 										<p class="mb-0">Registracija naloga je brza i jednostavna! U samo nekoliko koraka možete kreirati svoj nalog i odmah početi da koristite našu platformu.</p>
 										<a href="/register" class="">Registruj se</a>

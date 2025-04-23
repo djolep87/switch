@@ -182,11 +182,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="">
+                                        <div class="mt-3">
                                             @if (optional(Auth::user())->id == $product->user_id)
                                                 <!-- Hide the wishlist button for the product owner -->
                                                 <div style="display: none;">
-                                                    <div class="product-wishlist">
+                                                    <div class="product-wishlist shadow">
                                                         <i class="hover bx bx-heart"></i>
                                                     </div>
                                                 </div>
@@ -218,7 +218,7 @@
                                                                     zamenu</a>
                                                             @else
                                                                 <a href=""
-                                                                    class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning"
+                                                                    class="nav-link dropdown-toggle dropdown-toggle-nocaret btn split-bg-warning shadow"
                                                                     data-bs-toggle="dropdown"><i
                                                                         class="bx bx-refresh"></i>Zameni</a>
                                                             @endif

@@ -28,6 +28,8 @@ class HomeController extends Controller
      * @return void
      */
 
+       
+
     public function isInExchange()
     {
         return $this->offers()->whereIn('accepted', [1, 3])->exists();
@@ -128,42 +130,43 @@ class HomeController extends Controller
 
 
         //     ->get();
-        // } else {
+        // } else {                
         //     $listproducts = null;
         // }
+
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth::user()->id)
-                ->whereNotIn('products.id', function ($query) {
-                    $query->select('products.id')
-                        ->from('products')
-                        ->join('users', 'users.id', '=', 'products.user_id')
-                        ->join('offers', function ($join) {
-                            $join->on('offers.product_id', '=', 'products.id')
-                                ->orOn('offers.sendproduct_id', '=', 'products.id');
-                        })
-                        ->where('offers.accepted', '=', 1)
-                        ->orWhere('offers.accepted', '=', 3);
+            $userId = Auth::id();
+        
+            // Prikaži sve proizvode korisnika koji NISU u finalized offerima (accepted = 1 ili 3)
+            $listproducts = Product::where('user_id', $userId)
+                ->whereNotIn('id', function ($query) {
+                    $query->select('sendproduct_id')
+                          ->from('offers')
+                          ->whereIn('accepted', [1, 3]);
                 })
-                ->with(['offers' => function ($query) {
-                    $query->where('accepted', 0);
-                }])
-                ->get()
-                ->map(function ($product) {
-                    // Proverite da li postoji offer sa accepted = 0 za ovaj proizvod
-                    $hasPendingOffer = $product->offers->isNotEmpty();
-                    
-                    // Postavite isDisabledForCurrentExchange na true ako postoji pending offer
-                    $product->isDisabledForCurrentExchange = $hasPendingOffer;
-                    
-                    // Omogućite sve ostale ponude
-                    $product->isDisabledForOtherExchanges = false;
-                    
-                    return $product;
-                });
+                ->whereNotIn('id', function ($query) {
+                    $query->select('product_id')
+                          ->from('offers')
+                          ->whereIn('accepted', [1, 3]);
+                })
+                ->get();
+        
+            // Disable ako je proizvod učesnik aktivne ponude (bilo kao sender ili receiver)
+            foreach ($listproducts as $product) {
+                $isInPendingOffer = DB::table('offers')
+                    ->where(function ($query) use ($product) {
+                        $query->where('sendproduct_id', $product->id)
+                              ->orWhere('product_id', $product->id);
+                    })
+                    ->where('accepted', 0)
+                    ->exists();
+        
+                $product->isDisabledForCurrentExchange = $isInPendingOffer;
+            }
         } else {
             $listproducts = null;
         }
-
+        
         return view('/home', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists',));
     }
 
@@ -248,28 +251,34 @@ class HomeController extends Controller
 
 
         if (Auth::check()) {
-            // Oglasi koje korisnik može da vidi i za koje može da pošalje ponudu
-            $listproducts = Product::where('user_id', auth()->user()->id)
-                // Filtriraj oglase za koje je već poslana ponuda (status 0, 1, 3)
-                ->whereNotIn('products.id', function ($query) use ($product) {
+            $userId = Auth::id();
+        
+            // Prikaži sve proizvode korisnika koji NISU u finalized offerima (accepted = 1 ili 3)
+            $listproducts = Product::where('user_id', $userId)
+                ->whereNotIn('id', function ($query) {
                     $query->select('sendproduct_id')
-                        ->from('offers')
-                        ->where('product_id', $product->productid)
-                        ->whereIn('accepted', [0, 1, 3]); // Ponude u toku ili prihvaćene
+                          ->from('offers')
+                          ->whereIn('accepted', [1, 3]);
                 })
-                ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
-                    $query->select('products.id')
-                        ->from('products')
-                        ->join('users', 'users.id', '=', 'products.user_id')
-                        ->join('offers', function ($join) {
-                            $join->on('offers.product_id', '=', 'products.id')
-                                ->orOn('offers.sendproduct_id', '=', 'products.id');
-                        })
-                        ->where('offers.accepted', '=', 1)
-                        ->orWhere('offers.accepted', '=', 3);
+                ->whereNotIn('id', function ($query) {
+                    $query->select('product_id')
+                          ->from('offers')
+                          ->whereIn('accepted', [1, 3]);
                 })
-                // Proveri da li je trenutni korisnik poslao ponudu ili je primio ponudu
                 ->get();
+        
+            // Disable ako je proizvod učesnik aktivne ponude (bilo kao sender ili receiver)
+            foreach ($listproducts as $product) {
+                $isInPendingOffer = DB::table('offers')
+                    ->where(function ($query) use ($product) {
+                        $query->where('sendproduct_id', $product->id)
+                              ->orWhere('product_id', $product->id);
+                    })
+                    ->where('accepted', 0)
+                    ->exists();
+        
+                $product->isDisabledForCurrentExchange = $isInPendingOffer;
+            }
         } else {
             $listproducts = null;
         }
@@ -308,39 +317,33 @@ class HomeController extends Controller
         // }
 
         if (Auth::check()) {
-            // Dohvatanje svih proizvoda korisnika
-            $listproducts = Product::where('user_id', auth::user()->id)
-                ->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
-                    $query->select('products.id')
-                        ->from('products')
-                        ->join('users', 'users.id', '=', 'products.user_id')
-                        ->join('offers', function ($join) {
-                            $join->on('offers.product_id', '=', 'products.id')
-                                ->orOn('offers.sendproduct_id', '=', 'products.id');
-                        })
-                        ->where('offers.accepted', '=', 1)
-                        ->orWhere('offers.accepted', '=', 3);
+            $userId = Auth::id();
+        
+            // Prikaži sve proizvode korisnika koji NISU u finalized offerima (accepted = 1 ili 3)
+            $listproducts = Product::where('user_id', $userId)
+                ->whereNotIn('id', function ($query) {
+                    $query->select('sendproduct_id')
+                          ->from('offers')
+                          ->whereIn('accepted', [1, 3]);
                 })
-
-
+                ->whereNotIn('id', function ($query) {
+                    $query->select('product_id')
+                          ->from('offers')
+                          ->whereIn('accepted', [1, 3]);
+                })
                 ->get();
-
+        
+            // Disable ako je proizvod učesnik aktivne ponude (bilo kao sender ili receiver)
             foreach ($listproducts as $product) {
-                // Proveravamo da li postoji ponuda koja uključuje ovaj proizvod
-                $isInExchange = \App\Models\Offer::where(function ($query) use ($product) {
-                    $query->where('sendproduct_id', $product->id)
-                        ->orWhere('product_id', $product->id);
-                })
-                    ->where(function ($query) {
-                        $query->where('user_id', auth()->user()->id)
-                            ->orWhere('acceptor', auth()->user()->id);
+                $isInPendingOffer = DB::table('offers')
+                    ->where(function ($query) use ($product) {
+                        $query->where('sendproduct_id', $product->id)
+                              ->orWhere('product_id', $product->id);
                     })
-                    ->where('accepted', 0) // Ponude u toku
-                    ->exists(); // Proveravamo da li postoji barem jedna takva ponuda
-
-                // Ako je proizvod u razmeni, postavljamo da je onemogućen
-                $product->isDisabledForCurrentExchange = $isInExchange;
-                logger()->info("Proizvod ID: {$product->id}, IsInExchange: " . ($isInExchange ? 'Yes' : 'No'));
+                    ->where('accepted', 0)
+                    ->exists();
+        
+                $product->isDisabledForCurrentExchange = $isInPendingOffer;
             }
         } else {
             $listproducts = null;
