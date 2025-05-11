@@ -42,7 +42,7 @@ class AcceptNotifications extends Notification
     {
         return (new MailMessage)
                     ->greeting('Zdravo!')
-                    ->subject('Obaveštenje o prihvaćeom zahtevu')
+                    ->subject('Obaveštenje o prihvaćenom zahtevu')
                     ->line('Vaš zahtev je prihvaćen. Kontaktirajte korisnika radi uspešne razmene.')
                     ->action('Pogledajte ponudu', url('/sendOffers'))
                     ->line('Hvala što koristite našu aplikaciju!')

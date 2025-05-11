@@ -3,65 +3,86 @@
 @section('title', 'Postavi oglas')
 
 @section('content')
-    <!--wrapper-->
-	<div class="wrapper">
-		<!--start page wrapper -->
-		<div class="page-wrapper">
-			<div class="page-content">
-				<!--start page content-->
-				<section class="py-0 py-lg-4">
-					<div class="container">
-						<h4>Kako postaviti oglas</h4>
-                        <div class="row">
-                            <!-- Leva kolona -->
-                            <div class="col-lg-6">
-                                <div class="card-body">
-                                    <h1>Kako postaviti oglas?</h1>
-                                    <p>Postavljanje oglasa na naš sajt je brzo i jednostavno. U samo nekoliko koraka možete besplatno objaviti svoj oglas i omogućiti drugima da ga vide.</p>
+<div class="wrapper">
+	<div class="page-wrapper">
+		<div class="page-content">
+			<section class="py-5">
+				<div class="container">
+					<div class="row align-items-center mb-5">
+						<div class="col-lg-6">
+							<h1 class="display-5 fw-bold mb-4">Kako postaviti oglas</h1>
+							<p class="lead">Postavljanje oglasa na Trange Frange je jednostavno, brzo i potpuno besplatno. Prati sledeće korake i objavi svoj oglas za manje od 5 minuta.</p>
+						</div>
+						<div class="col-lg-6 text-center">
+							<img src="{{ asset('assets/images/how/screen2.jpg') }}" alt="Postavi oglas" class="img-fluid rounded-3 ">
+						</div>
+					</div>
 
-                                    <h2>Koraci za postavljanje oglasa:</h2>
-                                    <ul>
-                                        <li><span class="highlight">Registracija ili prijava:</span> Da biste postavili oglas, potrebno je da budete registrovani korisnik. Ako već imate nalog, jednostavno se prijavite.</li>
-                                        <li><span class="highlight">Popunjavanje forme za oglas:</span> Kliknite na "Postavi oglas" i popunite neophodne informacije:
-                                            <ul>
-                                                <li><strong>Naziv proizvoda:</strong> Kratak i jasan naziv.</li>
-                                                <li><strong>Stanje:</strong> Opis da li je vaš oglas nov ili polovan.</li>
-                                                <li><strong>Kategorija:</strong> Izaberite odgovarajuću kategoriju.</li>
-                                                <li><strong>Opis:</strong> Detaljan opis predmeta.</li>
-                                                <li><strong>Dodavanje slika:</strong> Kvalitetne fotografije povećavaju šanse za uspešnu prodaju.</li>
-                                                <li><strong>Provera i objavljivanje:</strong> Pregledajte oglas i kliknite "Sačuvaj".</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    
-                                    <h2>Zašto postaviti oglas kod nas?</h2>
-                                    <ul>
-                                        <li><strong>✔ Besplatno postavljanje oglasa</strong></li>
-                                        <li><strong>✔ Brza i jednostavna procedura</strong></li>
-                                        <li><strong>✔ Veliki broj posetilaca</strong></li>
-                                        <li><strong>✔ Mogućnost uređivanja oglasa</strong></li>
-                                    </ul>
-                                    
-                                    <p><strong>Ne čekajte – postavite svoj oglas već danas i pronađite idealnu stvar za vas!</strong> 🚀</p>
-                                </div>
-                            </div>
+					<div class="row row-cols-1 row-cols-md-2 g-4">
+						<div class="col">
+							<div class="card border-0 shadow-sm h-100">
+								<div class="card-body">
+									<h5 class="card-title mb-3"><i class="bx bx-user-plus text-primary me-2"></i> 1. Registrujte se ili se prijavite</h5>
+									<p class="card-text">Za postavljanje oglasa potrebno je da imate nalog. Ako ste novi korisnik, registrujte se. Ako već imate nalog – prijavite se i započnite.</p>
+								</div>
+							</div>
+						</div>
 
-                            <!-- Desna kolona -->
-                            <div class="col-lg-6 text-center">
-                                <img src="{{ asset('assets/images/how/screen2.jpg') }}" alt="Postavi oglas" width="100%" class="img-fluid ">
-                            </div>
-                        </div>
-                    </div>
-				</section>
+						<div class="col">
+							<div class="card border-0 shadow-sm h-100">
+								<div class="card-body">
+									<h5 class="card-title mb-3"><i class="bx bx-edit-alt text-success me-2"></i> 2. Popunite formu za oglas</h5>
+									<p class="card-text">Kliknite na <a href="/products.create">"Postavi oglas"</a> i unesite sve potrebne informacije o predmetu:</p>
+									<ul class="list-unstyled">
+										<li>• Naziv i opis predmeta</li>
+										<li>• Stanje i kategorija</li>
+										<li>• Dodajte fotografije</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 
-				<!--end start page content-->
-			</div>
+						<div class="col">
+							<div class="card border-0 shadow-sm h-100">
+								<div class="card-body">
+									<h5 class="card-title mb-3"><i class="bx bx-photo-album text-warning me-2"></i> 3. Dodajte slike</h5>
+									<p class="card-text">Kvalitetne fotografije pomažu korisnicima da bolje procene predmet i povećavaju šansu za razmenu. Preporučujemo da dodate bar 2-3 jasne slike.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col">
+							<div class="card border-0 shadow-sm h-100">
+								<div class="card-body">
+									<h5 class="card-title mb-3"><i class="bx bx-check-circle text-info me-2"></i> 4. Pregled i objava</h5>
+									<p class="card-text">Nakon što popunite sve informacije, pregledajte oglas i kliknite na "Sačuvaj". Vaš oglas će odmah biti vidljiv ostalim korisnicima.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-5">
+
+					<div class="text-center">
+						<h4 class="mb-3">Zašto postaviti oglas kod nas?</h4>
+						<div class="row justify-content-center">
+							<div class="col-md-10">
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">✅ Potpuno besplatno oglašavanje</li>
+									<li class="list-group-item">✅ Velika zajednica spremna na razmenu</li>
+									<li class="list-group-item">✅ Ekološki i održiv način razmene</li>
+									<li class="list-group-item">✅ Mogućnost uređivanja oglasa u svakom trenutku</li>
+								</ul>
+								<a href="/products.create" class="btn btn-primary mt-4 px-5 py-2">Postavi svoj oglas sada</a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</section>
 		</div>
-		<!--end page wrapper -->
-
-		<!--Start Back To Top Button-->
-		<a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-		<!--End Back To Top Button-->
 	</div>
-	<!--end wrapper-->
+
+	<a href="javascript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+</div>
 @endsection

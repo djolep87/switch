@@ -3,72 +3,95 @@
 
 @section('content')
     	<!--wrapper-->
-	<div class="wrapper">
-		<!--start page wrapper -->
-		<div class="page-wrapper">
-			<div class="page-content">
-				<!--start page content-->
-				<section class="py-0 py-lg-4">
-					<div class="container">
-                        <div class="row">
-                            <div class="col col-sm-6">
-                               <h1 class="">Pravila i uputstva o platformi</h1>
-						        <h5>Naša platforma se razlikuje od klasičnih sajtova za kupovinu. Da biste učestvovali u razmeni, potrebno je da imate svoj oglas, koji koristite za slanje ponuda drugim korisnicima, u zavisnosti od toga šta vam se dopadne na sajtu. Istovremeno, i vi ćete dobijati ponude za svoj oglas. Na vama je da odlučite da li ćete neku ponudu prihvatiti ili ne.</h5>
-						        {{-- <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
-						        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p> 
-                             --}}
-                            </div>
-                            <div class="col col-sm-6 d-flex justify-content-center align-items-center">
-                                <img class="mobileimg" src="assets/images/slider.jpg" alt="">
-                            </div>
-                        </div>
-					</div>
-				</section>
-				<section class="py-4">
-					<div class="container">
-						<h4>Uputstva</h4>
-						<hr>
-						<div class="row row-cols-1 row-cols-lg-3">
-							<div class="col d-flex">
-								<div class="card rounded-0 shadow-none w-100">
-									<div class="card-body">
-										<img src="assets/images/icons/register.png" width="80" alt="">
-										<h5 class="my-3">Registracija naloga</h5>
-										<p class="mb-0">Registracija naloga je brza i jednostavna! U samo nekoliko koraka možete kreirati svoj nalog i odmah početi da koristite našu platformu.</p>
-										<a href="/register" class="">Registruj se</a>
-									</div>
+		<div class="wrapper">
+			<!--start page wrapper -->
+			<div class="page-wrapper">
+				<div class="page-content">
+					<!--start page content-->
+					<section class="py-0 py-lg-4">
+						<div class="container">
+							<div class="row align-items-center">
+								<div class="col-md-6">
+									<h1 class="mb-3">Pravila i uputstva o platformi</h1>
+									<p class="lead">Trange Frange se razlikuje od klasičnih sajtova za kupovinu. Kod nas razmenjujete stvari!</p>
+									<p>Da biste učestvovali u razmeni, potrebno je da postavite oglas – to je vaš "token" za razmenu. Kada vam se nešto dopadne, možete poslati ponudu, a istovremeno ćete i vi dobijati ponude za svoj oglas. Sami odlučujete da li ćete neku ponudu prihvatiti.</p>
+									<ul>
+										<li>✔ Postavite oglas sa slikama i opisom</li>
+										<li>✔ Pretražujte oglase drugih korisnika</li>
+										<li>✔ Pošaljite ponudu za ono što želite</li>
+										<li>✔ Prihvatite ili odbijte ponude koje dobijate</li>
+										<li>✔ Razmenite se direktno ili preko dostave</li>
+									</ul>
+									<p class="fw-bold">Sve je besplatno i jednostavno!</p>
+								</div>
+								<div class="col-md-6 d-flex justify-content-center align-items-center">
+									<img class="img-fluid rounded " src="assets/images/slider.jpg" alt="Ilustracija razmene">
 								</div>
 							</div>
-							<div class="col d-flex">
-								<div class="card rounded-0 shadow-none w-100">
-									<div class="card-body">
-										<img src="assets/images/icons/ads.svg" width="60" alt="">
-										<h5 class="my-3">Postavite oglas</h5>
-										<p class="mb-0">Postavite svoj oglas za samo par minuta i pronađite pravu osobu za razmenu! Naša platforma vam omogućava da lako dodate slike, opis i sve potrebne informacije o vašem predmetu. Proces je jednostavan, intuitivan i potpuno besplatan. </p>
-										<a href="/postavioglas" class="">Više o postavljanju oglasa</a>
+						</div>
+					</section>
+					<section class="py-5 bg-light">
+						<div class="container">
+							<h4 class="text-center mb-4">Kako funkcioniše Trange Frange?</h4>
+							<div class="row row-cols-1 row-cols-md-3 g-4">
+								<div class="col">
+									<div class="card h-100 border-0 shadow-sm">
+										<div class="card-body text-center">
+											<img src="assets/images/icons/register.png" width="60" alt="">
+											<h5 class="my-3">1. Registrujte se</h5>
+											<p>Napravite svoj nalog za manje od minuta i pridružite se zajednici ljudi koji razmenjuju!</p>
+											<a href="/register" class="btn btn-sm btn-outline-primary">Registruj se</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col d-flex">
-								<div class="card rounded-0 shadow-none w-100">
-									<div class="card-body">
-										<img src="assets/images/icons/deal1.svg" width="60" alt="">
-										<h5 class="my-3">Započnite u razmenu</h5>
-										<p class="mb-0">Razmena nikada nije bila lakša! Na našoj platformi možete jednostavno pronaći, ponuditi i razmeniti stvari koje vam više nisu potrebne. Proces je brz, siguran i potpuno besplatan. Uštedite novac, oslobodite prostor i pronađite ono što vam treba – pridružite se razmeni odmah!</p>
-										<a href="/razmena" class="">Više o razmeni</a>
+								<div class="col">
+									<div class="card h-100 border-0 shadow-sm">
+										<div class="card-body text-center">
+											<img src="assets/images/icons/ads.svg" width="60" alt="">
+											<h5 class="my-3">2. Postavite oglas</h5>
+											<p>Fotografišite stvar koju želite da razmenite, dodajte opis i objavite. Sve je besplatno.</p>
+											<a href="/postavioglas" class="btn btn-sm btn-outline-success">Postavi oglas</a>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<div class="card h-100 border-0 shadow-sm">
+										<div class="card-body text-center">
+											<img src="assets/images/icons/deal1.svg" width="60" alt="">
+											<h5 class="my-3">3. Počni razmenu</h5>
+											<p>Pregledaj oglase, šalji i primaj ponude. Ako se dogovorite – razmena je uspešna!</p>
+											<a href="/razmena" class="btn btn-sm btn-outline-dark">Više o razmeni</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!--end row-->
-					</div>
-				</section>
-				<!--end start page content-->
+					</section>
+					<section class="py-5">
+						<div class="container">
+							<h4 class="text-center mb-4">Saveti za uspešnu razmenu</h4>
+							<div class="row">
+								<div class="col-md-6">
+									<ul>
+										<li>✔ Koristite jasne fotografije</li>
+										<li>✔ Opisujte stanje stvari realno</li>
+										<li>✔ Budite kulturni u komunikaciji</li>
+										<li>✔ Razmenu obavite lično ili preko pouzdane dostave</li>
+									</ul>
+								</div>
+								<div class="col-md-6">
+									<p>Kroz Trange Frange ne samo što štedite novac, već i doprinosite očuvanju životne sredine. Svaka uspešna razmena znači manje otpada i više zadovoljnih korisnika. Vaša aktivnost ovde je deo pozitivne promene!</p>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!--end start page content-->
+				</div>
 			</div>
+			<!--end page wrapper -->
+			<!--Start Back To Top Button-->
+			<a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+			<!--End Back To Top Button-->
 		</div>
-		<!--end page wrapper -->
-		<!--Start Back To Top Button-->	<a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-		<!--End Back To Top Button-->
-	</div>
 	<!--end wrapper-->
 @endsection

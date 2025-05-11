@@ -35,6 +35,23 @@ File: app.css
 
 /* General */
 
+.imgdlt{
+	width: 22px	;
+}
+
+.dlt{
+	
+	all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
 .razmena {
 	width: 650px;
 }

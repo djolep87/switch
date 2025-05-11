@@ -77,25 +77,13 @@
                                                                     <td>#{{ $product->id }}</td>
                                                                     {{-- <td>{{$product->created_at->toFormattedDateString()}}</td> --}}
                                                                     <td>
-                                                                        <div class=""><img
-                                                                                src="/storage/Product_images/{{ $images[0] }}"
-                                                                                class="img-fluid rounded = 9"
-                                                                                style="width: 50px; height: 50px;"
-                                                                                alt=""></div>
+                                                                        <div class=""><img src="/storage/Product_images/{{ $images[0] }}" class="img-fluid rounded = 9" style="width: 50px; height: 50px;" alt=""></div>       
                                                                     </td>
                                                                     <td>{{ $product->name }}</td>
                                                                     <td>
                                                                         <div class="d-flex gap-2">
-                                                                            <a title="Pogledaj"
-                                                                                href="{{ route('products.show', $product->id) }}"><img
-                                                                                    src="/assets/images/eye.svg"
-                                                                                    style="width: 16px" alt=""
-                                                                                    srcset=""></a>
-                                                                            <a title="Uredi"
-                                                                                href="{{ route('products.edit', $product->id) }}"><img
-                                                                                    src="/assets/images/edit.svg"
-                                                                                    style="width: 16px" alt=""
-                                                                                    srcset=""></a>
+                                                                            <a title="Pogledaj" href="{{ route('products.show', $product->id) }}"><img src="/assets/images/eye.svg" style="width: 16px" alt="" srcset=""></a>      
+                                                                            <a title="Uredi" href="{{ route('products.edit', $product->id) }}"><img src="/assets/images/edit.svg" style="width: 16px" alt="" srcset=""></a>     
                                                                             {{-- <form class="d-grid gap-2 col-6 p-0 m-0" action="{{route('product.destroy', $product->id)}}" id="frmDelete"  method="POST">
                                                                             {{ csrf_field() }}
                                                                             {{method_field('delete')}}  
@@ -106,18 +94,18 @@
                                                                             <a title="Obriši" id="frmDelete" onclick="document.form.submit" href=""><img src="/assets/images/delete.png" alt="" srcset=""></a>
 
                                                                         </form>    --}}
-                                                                            <form class="d-grid gap-2 col-6 p-0 m-0"
-                                                                                action="{{ route('product.destroy', $product->id) }}"
-                                                                                id="frmDelete-{{ $product->id }}"
-                                                                                method="POST">
+                                                                            {{-- <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ route('product.destroy', $product->id) }}" id="frmDelete-{{ $product->id }}"method="POST">
                                                                                 {{ csrf_field() }}
                                                                                 {{ method_field('delete') }}
-                                                                                <a title="Obriši" class="deleteButton"
-                                                                                    data-id="{{ $product->id }}"
-                                                                                    href="#"><img
-                                                                                        src="/assets/images/delete.svg"
-                                                                                        style="width: 16px" alt=""
-                                                                                        srcset=""></a>
+                                                                                <a title="Obriši" class="deleteButton" data-id="{{ $product->id }}"href="#"><img src="/assets/images/delete.svg" style="width: 16px" alt="" srcset=""></a>         
+                                                                            </form> --}}
+
+                                                                            <form class="" action="{{ route('product.destroy', $product->id) }}" id="frmDelete-{{ $product->id }}" method="POST">
+                                                                                {{ csrf_field() }}
+                                                                                {{ method_field('delete') }}
+                                                                                <button type="button" title="Obriši" class="deleteButton" onclick="confirmDelete(event, {{ $product->id }})">
+                                                                                    <img src="/assets/images/delete.svg" style="width: 16px" alt="">
+                                                                                </button>
                                                                             </form>
                                                                         </div>
                                                                     </td>
@@ -143,3 +131,4 @@
         </div>
     </div>
 @endsection
+

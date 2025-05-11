@@ -114,6 +114,12 @@
                                                     <label for="inputEmailAddress" class="form-label">Email Adresa</label>
                                                     <input type="email" name="email" class="form-control" id="Email Adresa" required placeholder="example@user.com" value="{{ old('email') }}">
                                                 </div>
+                                                @error('email')
+                                                    <div class="alert alert-warning mt-2">
+                                                        {{ $message }} <br>
+                                                        <small>Već imate nalog? <a href="{{ route('login') }}" class="text-decoration-underline">Ulogujte se ovde</a>.</small>
+                                                    </div>
+                                                @enderror
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Lozinka</label>
                                                     <div class="input-group" id="show_hide_password1">
@@ -122,6 +128,11 @@
                                                             <i class='bx bx-hide' id="toggleIcon1"></i>
                                                         </a>
                                                     </div>
+                                                    @error('password')
+                                                        <div class="alert alert-warning py-2 px-3 mt-2">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputConfirmPassword" class="form-label">Potvrdi lozinku</label>
@@ -131,6 +142,11 @@
                                                             <i class='bx bx-hide' id="toggleIcon2"></i>
                                                         </a>
                                                     </div>
+                                                    @error('password')
+                                                        <div class="alert alert-warning py-2 px-3 mt-2">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="country" class="form-label">Zemlja</label>

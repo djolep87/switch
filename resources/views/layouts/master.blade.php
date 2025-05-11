@@ -25,6 +25,7 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	<!-- loader-->
 	<link href="{{ asset('/assets/css/pace.min.css') }}" rel="stylesheet" />
 	<script src="{{ asset('/assets/js/pace.min.js') }}"></script>
@@ -362,6 +363,37 @@
         </section>
     </footer>
     <!--end footer section-->
+
+
+<script>
+    async function confirmDelete(event, productId) {
+        // Preveniranje klasičnog ponašanja linka
+        event.preventDefault();
+
+        // Prikazivanje SweetAlert 2 dijaloga
+        const result = await Swal.fire({
+            title: 'Da li ste sigurni?',
+            text: "Ova radnja će trajno obrisati oglas!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Da, obriši!',
+            cancelButtonText: 'Ne, otkaži!',
+            reverseButtons: true
+        });
+
+        // Ako korisnik potvrdi brisanje, šaljemo formu
+        if (result.isConfirmed) {
+            document.getElementById('frmDelete-' + productId).submit();
+        } else {
+            // Ako korisnik otkaže, prikazujemo obaveštenje da je operacija otkazana
+            Swal.fire(
+                'Otkazano',
+                'Oglas nije obrisan.',
+                'info'
+            );
+        }
+    }
+</script>
 
 
     <script>

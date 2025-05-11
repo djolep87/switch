@@ -20,58 +20,149 @@
                             </ol>
                     
                             <div class="carousel-inner">
-                                <!-- Prvi slajd -->
                                 <div class="carousel-item active bg-dark-gery">
                                     <div class="row d-flex align-items-center">
                                         <div class="col d-none d-lg-flex justify-content-center">
-                                            <div>
-                                                <h3 class="fw-light">Nova šansa za vaše stvari!</h3>
-                                                <h1>Nova šansa za vaše stvari!</h1>
-                                                <p class="pb-3">Swimwear, Tops, Shorts, Sunglasses &amp; much more...</p>
-                                                <a class="btn btn-dark btn-ecomm" href="javascript:;">
-                                                    Shop Now <i class='bx bx-chevron-right'></i>
+                                            <div class="text-white">
+                                                <h2 class="h1 fw-bold mb-4">Zašto razmena?</h2>
+                                
+                                                <div class="d-flex flex-column gap-3">
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-recycle bx-md text-success'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">Održivost na delu</h5>
+                                                            <p class="mb-0 small">Razmenom smanjujemo otpad i produžavamo vek stvarima.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-wallet bx-md text-warning'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">Bez trošenja novca</h5>
+                                                            <p class="mb-0 small">Zameni stvari koje ne koristiš za ono što ti treba.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-group bx-md text-info'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">Zajednica korisnika</h5>
+                                                            <p class="mb-0 small">Poveži se sa ljudima koji razmišljaju kao ti.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                
+                                                <a class="btn btn-success mt-4 px-4 py-2 fw-bold" href="{{ url('/zasto') }}">
+                                                    Saznaj više <i class='bx bx-chevron-right'></i>
                                                 </a>
                                             </div>
                                         </div>
+                                
                                         <div class="col">
-                                            <img src="{{ asset('assets/images/slider/06.jpg') }}" class="img-fluid" alt="Slider Image 1">
+                                            <a href="{{ url('/zasto') }}">
+                                                <img src="{{ asset('assets/images/slider/06.jpg') }}" class="img-fluid rounded shadow-lg" alt="Zašto razmena slika">
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                    
-                                <!-- Drugi slajd -->
+                                
+
                                 <div class="carousel-item bg-dark-gery">
                                     <div class="row d-flex align-items-center">
                                         <div class="col d-none d-lg-flex justify-content-center">
-                                            <div>
-                                                <h3 class="fw-light">Hurry up! Limited time offer.</h3>
-                                                <h1>Women Sportswear Sale</h1>
-                                                <p class="pb-3">Sneakers, Keds, Sweatshirts, Hoodies &amp; much more...</p>
-                                                <a class="btn btn-dark btn-ecomm" href="javascript:;">
-                                                    Shop Now <i class='bx bx-chevron-right'></i>
+                                            <div class="text-white">
+                                                <h2 class="h1 fw-bold mb-4">Šta sve možeš da razmeniš?</h2>
+                                
+                                                <div class="d-flex flex-column gap-3">
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bxs-t-shirt bx-md text-primary'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">Odeća i obuća</h5>
+                                                            <p class="mb-0 small">Moderne stvari koje više ne nosiš mogu biti nečiji novi favorit.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-book bx-md text-warning'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">Knjige i igre</h5>
+                                                            <p class="mb-0 small">Zameni knjige koje si pročitao/la ili društvene igre koje više ne koristiš.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-laptop bx-md text-danger'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">Tehnika i alati</h5>
+                                                            <p class="mb-0 small">Stvari koje stoje mogu nekom drugom biti korisne.</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-dots-horizontal-rounded bx-md text-muted'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">...i još mnogo toga!</h5>
+                                                            <p class="mb-0 small">Istraži kategorije i pronađi neočekivane stvari za razmenu.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                
+                                                <a class="btn btn-primary mt-4 px-4 py-2 fw-bold" href="{{ url('/kategorije') }}">
+                                                    Pogledaj kategorije <i class='bx bx-chevron-right'></i>
                                                 </a>
                                             </div>
                                         </div>
+                                
                                         <div class="col">
-                                            <img src="{{ asset('assets/images/slider/07.jpg') }}" class="img-fluid" alt="Slider Image 2">
+                                            <a href="{{ url('/kategorije') }}">
+                                                <img src="{{ asset('assets/images/slider/07.jpg') }}" class="img-fluid rounded shadow-lg" alt="Kategorije za razmenu">
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                    
+                                
                                 <!-- Treći slajd -->
+                                <!-- Treći slajd - Redizajniran -->
                                 <div class="carousel-item bg-dark-gery">
                                     <div class="row d-flex align-items-center">
+                                        <!-- Levi deo - Tekst + koraci -->
                                         <div class="col d-none d-lg-flex justify-content-center">
-                                            <div>
-                                                <h2 class="h1">Kako funkcioniše?</h2>
-                                                <a class="btn btn-dark btn-ecomm" href="{{ url('/kakoradi') }}">
+                                            <div class="text-white">
+                                                <h2 class="h1 fw-bold mb-4">Kako funkcioniše?</h2>
+
+                                                <!-- 3 koraka -->
+                                                <div class="d-flex flex-column gap-3">
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-upload bx-md text-warning'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">1. Postavi oglas</h5>
+                                                            <p class="mb-0 small">Dodaj stvar koju želiš da razmeniš uz kratak opis i slike.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-search-alt-2 bx-md text-info'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">2. Pronađi razmenu</h5>
+                                                            <p class="mb-0 small">Pretraži oglase drugih korisnika i pronađi ono što ti treba.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <i class='bx bx-handshake bx-md text-success'></i>
+                                                        <div>
+                                                            <h5 class="mb-1">3. Dogovorite razmenu</h5>
+                                                            <p class="mb-0 small">Kontaktiraj korisnika i dogovorite se o razmeni.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Dugme -->
+                                                <a class="btn btn-warning mt-4 px-4 py-2 fw-bold" href="{{ url('/kakoradi') }}">
                                                     Pročitaj više <i class='bx bx-chevron-right'></i>
                                                 </a>
                                             </div>
                                         </div>
+
+                                        <!-- Desni deo - Slika -->
                                         <div class="col">
                                             <a href="{{ url('/kakoradi') }}">
-                                                <img src="{{ asset('assets/images/slider/slider.jpg') }}" class="img-fluid" alt="Slider Image 3">
+                                                <img src="{{ asset('assets/images/slider/slider.jpg') }}" class="img-fluid rounded shadow-lg" alt="Kako funkcioniše slider">
                                             </a>
                                         </div>
                                     </div>
@@ -238,7 +329,7 @@
                                                                 </div>
                                                                 <div class="d-flex align-items-center justify-content gap-3 m-0">
                                                                     <div class="product">
-                                                                        <img width="16px" src="/assets/images/eye1.svg" alt="">
+                                                                        <img width="16px" src="/assets/images/eye.svg" alt="">
                                                                         <span>{{ $product->views }}</span>
                                                                     </div>
                                                                 
