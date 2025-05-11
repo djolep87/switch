@@ -33,6 +33,11 @@
                                         <label for="inputEmailAddress" class="form-label">Email Adresa</label>
                                         <input type="email" class="form-control" name="email" id="inputEmailAddress" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email Adresa">
                                     </div>
+                                    @error('email')
+                                        <div class="alert alert-warning mt-2">
+                                            {{ $message }} <br>
+                                        </div>
+                                    @enderror
                                     <div class="col-12">
                                         <label for="inputChoosePassword" class="form-label">Lozinka</label>
                                         <div class="input-group" id="show_hide_password">
@@ -41,6 +46,11 @@
                                                 <i class='bx bx-hide' id="toggleIcon"></i>
                                             </a>
                                         </div>
+                                        @error('password')
+                                            <div class="alert alert-warning mt-2">
+                                                {{ $message }} <br>
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-check form-switch">
