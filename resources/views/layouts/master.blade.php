@@ -11,6 +11,9 @@
     <meta name="description" content="@yield('meta_description', 'Naša misija je da povežemo ljude širom zemlje kako bi zajedno stvarali održiviji svet. Trange Frange je online platforma koja vam omogućava da delite stvari koje vam više nisu potrebne i pronađete ono što vam treba, umesto da ih bacate. Verujemo da svaki predmet zaslužuje drugu šansu, a naša zajednica pomaže da se stvori novi život za vaše resurse.')">
 
     <link rel="icon" href="/assets/images/logo.svg" type="" />
+
+   
+
     <!--plugins-->
 
     <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -172,16 +175,9 @@
 						</div>
 						<ul class="navbar-nav">
 							<li class="nav-item active"> <a class="nav-link" href="/">Početna</a></li>
-
-							<li class="nav-item"> <a class="nav-link" href="/about">O nama </a>
-							</li>
-
-							{{-- <li class="nav-item"> <a class="nav-link" href="/blog">Blog </a>  --}}
-							</li>
-
-							<li class="nav-item"> <a class="nav-link" href="/kakoradi">Vodič</a> 
-							</li>
-
+							<li class="nav-item"> <a class="nav-link" href="/about">O nama </a></li>
+							<li class="nav-item"> <a class="nav-link" href="/kakoradi">Vodič</a> </li>
+							{{-- <li class="nav-item"> <a class="nav-link" href="/blog">Blog </a> </li> --}}
 							<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle dropdown-toggle-nocaret"
 									href="#" data-bs-toggle="dropdown">Moj Nalog <i class='bx bx-chevron-down'></i></a>
 								<ul class="dropdown-menu">
@@ -303,7 +299,7 @@
                             <h6 class="mb-3 text-uppercase">Društvene mreže</h6>
                             <ul class="list-unstyled">
 
-                                <a href="/uslovi"> <img src="/assets/images/icons/instagram.svg" > </a>
+                                <a href="https://www.instagram.com/trange.frange.rs/"> <img src="/assets/images/icons/instagram.svg" > </a>
                                 <a href="/uslovi"> <img src="/assets/images/icons/facebook.svg" > </a>
                                 
                                 
@@ -363,6 +359,8 @@
         </section>
     </footer>
     <!--end footer section-->
+
+
 
 
 <script>

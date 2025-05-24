@@ -28,27 +28,72 @@
                             </div>
                         </div>
 
+                      {{-- <div class="row mb-3">
+                            <label for="inputChoosePassword" class="col-md-4 col-form-label text-md-end">Lozinka</label>
+                            <div class="col-md-6" id="show_hide_password1">
+                                <input type="password" name="password" required class="form-control border-end-0" id="inputChoosePassword1" placeholder="Lozinka" value="{{ old('password') }}">
+                                <a href="javascript:;" class="input-group-text bg-transparent" id="togglePassword1">
+                                    <i class='bx bx-hide' id="toggleIcon1"></i>
+                                </a>
+                            </div>
+                            @error('password')
+                                <div class="alert alert-warning py-2 px-3 mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Lozinka') }}</label>
+                            <label for="inputConfirmPassword" class="col-md-4 col-form-label text-md-end">Potvrdi lozinku</label>
+                            <div class="col-md-6" id="show_hide_password2">
+                                <input type="password" name="password_confirmation" required class="form-control border-end-0" id="inputConfirmPassword" placeholder="Potvrdi lozinku" value="{{ old('password_confirmation') }}">
+                                <a href="javascript:;" class="input-group-text bg-transparent" id="togglePassword2">
+                                    <i class='bx bx-hide' id="toggleIcon2"></i>
+                                </a>
+                            </div>
+                            @error('password')
+                                <div class="alert alert-warning py-2 px-3 mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div> --}}
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <div class="row mb-3">
+                            <label for="inputChoosePassword" class="col-md-4 col-form-label text-md-end">Lozinka</label>
+                            <div class="col-md-6 position-relative">
+                                <input type="password" name="password" required  class="form-control pr-5"  id="inputChoosePassword1"  placeholder="Lozinka"  value="{{ old('password') }}">
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <span class="position-absolute"  style="top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"  id="togglePassword1">
+                                    <i class='bx bx-hide' id="toggleIcon1"></i>
+                                </span>
+                                <div class="col-12">
+                                    @error('password')
+                                        <div class="alert alert-warning ">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Potvrdi Lozinku') }}</label>
+                            <label for="inputConfirmPassword" class="col-md-4 col-form-label text-md-end">Potvrdi lozinku</label>
+                            <div class="col-md-6 position-relative">
+                                <input type="password" name="password_confirmation" required class="form-control pr-5" id="inputConfirmPassword" placeholder="Potvrdi lozinku" value="{{ old('password_confirmation') }}" style="padding-right: 2.5rem;">
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <span  class="position-absolute"  style="top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"  id="togglePassword2">
+                                    <i class='bx bx-hide' id="toggleIcon2"></i>
+                                </span>
+                                <div class="col-12">
+                                    @error('password')
+                                        <div class="alert alert-warning">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
+
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -64,3 +109,4 @@
     </div>
 </div>
 @endsection
+

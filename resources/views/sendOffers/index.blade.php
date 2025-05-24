@@ -176,11 +176,35 @@
                                                                             Zahtev na čekanju!
                                                                         </div>
                                                                     @endif
-                                                                @endif
+                                                                    <div class="text-center">
+                                                                       <form action="{{ route('offers.destroy', $sendoffer->id) }}" method="POST" style="display: inline;">
+                                                                            @csrf
+                                                                            @method('delete')
+                                                                            <button type="submit" style="
+                                                                                border: none;
+                                                                                background: none;
+                                                                                padding: 0;
+                                                                                margin: 0;
+                                                                                display: inline-flex;
+                                                                                align-items: center;
+                                                                                gap: 6px;
+                                                                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                                                                                font-size: 16px;
+                                                                                color: #ff3b30;
+                                                                                font-weight: 400;
+                                                                                cursor: pointer;
+                                                                                transition: opacity 0.2s ease;
+                                                                            " onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+                                                                                <img src="/assets/images/incorrect.svg" alt="Otkaži" style="width: 17px; height: 17px; margin-top: 1px;">
+                                                                                Otkaži zahtev
+                                                                            </button>
+                                                                        </form>
 
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                         </div>
-
+                                                        
                                                         @if ($sendoffer->sendaccepted == 1)
                                                             @if ($sendoffer->product)
                                                                 Da li je uspešna zamena?

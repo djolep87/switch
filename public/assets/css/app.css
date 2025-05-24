@@ -83,7 +83,7 @@ File: app.css
 	transform: translate(-50%, -50%);
 }
 
-body {
+/* body {
 	font-family: "Rubik", serif;
 	font-optical-sizing: auto;
 	font-weight: <weight>;
@@ -92,6 +92,14 @@ body {
 	letter-spacing: .5px;
 	/* font-family: Roboto, sans-serif; */
 	background-color: #fff;
+} */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -318,6 +326,7 @@ body.offcanvas-active {
 
 .product-categories ul a {
 	color: #212529;
+	font-size: 16px;
 }
 
 .product-grid .card .card-footer a {
