@@ -67,9 +67,9 @@
 								<div class="mobile-toggle-menu d-lg-none d-flex px-lg-2" data-trigger="#navbar_main"><i class='bx bx-menu'></i>
 									
 								</div>
-								<div class="logo-mini d-lg-none d-lg-flex m-2">
+								<div class="logo-icon-mini d-lg-none d-lg-flex m-2">
 									<a href="/">
-										<img src="/assets/images/logo.svg" class="logo-icon" alt="" />
+										<img src="/assets/images/logo.svg" class="logo-icon-mini" alt="" />
 									</a>
 								</div>	
 								<div class="logo d-none d-lg-flex">
@@ -177,7 +177,7 @@
 							<li class="nav-item active"> <a class="nav-link" href="/">Početna</a></li>
 							<li class="nav-item"> <a class="nav-link" href="/about">O nama </a></li>
 							<li class="nav-item"> <a class="nav-link" href="/kakoradi">Vodič</a> </li>
-							{{-- <li class="nav-item"> <a class="nav-link" href="/blog">Blog </a> </li> --}}
+							<li class="nav-item"> <a class="nav-link" href="/blog">Blog </a> </li>
 							<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle dropdown-toggle-nocaret"
 									href="#" data-bs-toggle="dropdown">Moj Nalog <i class='bx bx-chevron-down'></i></a>
 								<ul class="dropdown-menu">
@@ -200,8 +200,19 @@
 												data-bs-toggle="dropdown">
 												{{ Auth::user()->firstName }} <i class='bx bx-chevron-right'></i>
 											</a>
+                                            {{-- @if(Auth::user()->is_admin)
+                                            	<a class="dropdown-item" href="/admin/dashboard"> Admin Dashboard</a>
+                                            @endif --}}
+                                             
+
+                                            <ul class="submenu dropdown-menu">
+                                                <a class="dropdown-item" href="/admin/dasboard">Admin Dashboard</a>
+                                            </ul>
 
 											<ul class="submenu dropdown-menu">
+                                                @if(Auth::user()->is_admin)
+                                            	    <a class="dropdown-item" href="/admin/dashboard"> Admin Dashboard</a>
+                                                @endif
 												<a class="dropdown-item" href="{{ route('logout') }}"
 													onclick="event.preventDefault();
 																									document.getElementById('logout-form').submit();">

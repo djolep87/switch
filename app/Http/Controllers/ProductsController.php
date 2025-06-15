@@ -69,8 +69,8 @@ class ProductsController extends Controller
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
 
-                // Kreiranje instance slike
-                $resizedImage = Image::make($image);
+                // Kreiranje instance slike + ispravljanje orijentacije
+                $resizedImage = Image::make($image)->orientate();
 
                 // Resize slike uz zadržavanje proporcija
                 $resizedImage->resize(400, 300, function ($constraint) {
@@ -81,11 +81,8 @@ class ProductsController extends Controller
                 // Dodavanje bele pozadine ako je potrebno
                 $resizedImage->resizeCanvas(400, 300, 'center', false, 'ffffff');
 
-                // Pretvaranje slike u stream sa zadatim kvalitetom (90)
-                $resizedImage->stream(null, 100);
-
                 // Čuvanje slike na disku
-                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->__toString());
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->encode(null, 100));
 
                 $imagesname[] = $imgName;
             }
@@ -199,7 +196,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
 
         // Rukovanje uploadom slika
-        if ($request->has('images')) {
+       if ($request->has('images')) {
             $imagesname = [];
 
             // Brisanje starih slika osim 'noimage.jpg'
@@ -214,19 +211,22 @@ class ProductsController extends Controller
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
 
-                // Resize i čuvanje slike
+                // Ispravljanje orijentacije + resize + canvas + encode
                 $resizedImage = Image::make($image)
+                    ->orientate()
                     ->resize(400, 300, function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })
                     ->resizeCanvas(400, 300, 'center', false, 'ffffff')
-                    ->stream(null, 100); // Postavljanje kvaliteta na 90
+                    ->encode(null, 100);
 
-                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->__toString());
+                // Snimanje slike
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);
 
                 $imagesname[] = $imgName;
             }
+
             $imagesname = implode(',', $imagesname);
         } else {
             // Zadržavanje starih slika ako nove nisu uploadovane

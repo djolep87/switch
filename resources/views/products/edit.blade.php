@@ -11,18 +11,18 @@
                         <form class="row g-3" action="/products/{{$product->id}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="form-label">Naziv proizvoda</label>
                                 <input type="text" name="name" class="form-control" value="{{$product->name}}">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="form-label">Stanje</label>
                                 <select class="form-select" name="condition" id="inputSelectCountry" aria-label="Default select example">
                                     <option selected value="Polovno">Polovno</option>
                                     <option value="Novo">Novo</option>
                                 </select>
                             </div>
-                            <div class="col-12">
+                            <div class="col-md-4">
                                 <label class="form-label">Kategorija</label>
                                 <select class="form-select" name="category_id" id="inputSelectCountry" aria-label="Default select example">
                                     @foreach ($categories as $category)

@@ -50,7 +50,7 @@
                                                     </div>
                                                 </div>
                                 
-                                                <a class="btn btn-success mt-4 px-4 py-2 fw-bold" href="{{ url('/zasto') }}">
+                                                <a class="btn btn-success mt-4 px-4 py-2 fw-bold" href="{{ url('/about') }}">
                                                     Saznaj više <i class='bx bx-chevron-right'></i>
                                                 </a>
                                             </div>
@@ -104,7 +104,7 @@
                                                 </div>
                                                 
                                 
-                                                <a class="btn btn-primary mt-4 px-4 py-2 fw-bold" href="{{ url('/kategorije') }}">
+                                                <a class="btn btn-primary mt-4 px-4 py-2 fw-bold" href="{{ url('/') }}">
                                                     Pogledaj kategorije <i class='bx bx-chevron-right'></i>
                                                 </a>
                                             </div>

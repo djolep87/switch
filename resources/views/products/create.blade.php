@@ -31,7 +31,6 @@
                                     </option> 
                                 @endforeach
                             </select>
-
                         </div>
                         <div id="container">
                             <div id="editorContainer">

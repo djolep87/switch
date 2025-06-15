@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,7 +79,7 @@ Route::get('/auth.edit/{id}', 'UserController@edit');
 Route::post('/auth/{id}', 'UserController@update')->name('user.update');
 
 Route::get('/blog', 'BlogController@index')->name('blog.index');
-Route::get('/blog.show', 'BlogController@show')->name('blog.show');
+Route::get('/blog/{id}', 'BlogController@show')->name('blog.show');
 
 Route::get('/products.create', 'ProductsController@create');
 Route::post('/products/store', [ProductsController::class, 'store'])->name('products.store');
@@ -92,3 +95,44 @@ Route::get('/wishlist', 'WishlistController@index');
 Route::delete('wishlist.destroy/{id}', 'WishlistController@destroy')->name('wishlist.destroy');
 
 
+
+// Admin panel rute sa auth + isAdmin middleware
+// Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+//     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+//     Route::get('/blog/create', [AdminController::class, 'create'])->name('admin.create');
+//     // Dodaj još admin ruta po potrebi...
+// });
+
+    // Route::get('/admin/dashboard', 'AdminController@index')->name('admin/dashboard');
+    // Route::get('/admin/blog/create', 'AdminController@create')->name('admin/blog/create');
+
+
+    // web.php
+// Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+//     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin/dashboard');
+//     Route::get('/posts', [PostsController::class, 'index'])->name('admin/posts');
+//     Route::get('/posts/create', [PostsController::class, 'create'])->name('admin/posts/create');
+//     Route::post('/posts/store', [PostsController::class, 'store'])->name('admin/posts/store');
+//     // Route::get('/posts/{id}/edit', [PostsController::class, 'edit'])->name('admin/posts/edit');
+//     Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('admin.posts.edit');
+
+//     Route::put('/posts/{post}', [PostsController::class, 'update'])->name('admin.posts.update');
+//     // Route::put('/posts/{post}', [PostsController::class, 'update'])->name('admin.posts.update');
+//     Route::delete('/posts/{id}', [PostsController::class, 'destroy'])->name('admin/posts/destroy');
+//     Route::get('/users', [AdminController::class, 'users'])->name('admin/users');
+//     Route::get('/products', [AdminController::class, 'products'])->name('admin/products');
+// });
+
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+    Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
+    Route::get('/posts/create', [PostsController::class, 'create'])->name('posts.create');
+    Route::post('/posts/store', [PostsController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
+
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/products', [AdminController::class, 'products'])->name('products');
+});
