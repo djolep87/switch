@@ -6,7 +6,7 @@
     <div class="card">
         <h5 class="card-header">Create New Blog Post</h5>
         <div class="card-body">
-            <form method="POST" action="{{ route('admin/posts/store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
