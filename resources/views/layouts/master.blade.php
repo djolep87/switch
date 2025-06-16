@@ -206,7 +206,7 @@
                                              
 
                                             <ul class="submenu dropdown-menu">
-                                                <a class="dropdown-item" href="/admin/dasboard">Admin Dashboard</a>
+                                                <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
                                             </ul>
 
 											<ul class="submenu dropdown-menu">

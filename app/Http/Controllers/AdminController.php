@@ -18,9 +18,11 @@ class AdminController extends Controller
         $offerCount = \App\Models\Offer::count();
         $offers = \App\Models\Offer::all();
         $productCount = \App\Models\Product::count();
+        $posts= \App\Models\Post::all();
+        $postsCount = \App\Models\Post::count();
         $products = \App\Models\Product::paginate(10);
         $users = \App\Models\User::paginate(10);
-       return view('admin.dashboard', compact('users', 'products', 'offers', 'userCount', 'productCount', 'offerCount'));    
+       return view('admin.dashboard', compact('users', 'products', 'offers', 'userCount', 'productCount', 'offerCount', 'postsCount', 'posts'));    
     }
 
     /**

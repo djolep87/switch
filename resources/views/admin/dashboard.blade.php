@@ -125,15 +125,15 @@
                             <div class="card">
                                 <div class="d-flex card-header justify-content-between align-items-center">
                                     <div>
-                                        <h4 class="header-title">Conversion Rate</h4>
+                                        <h4 class="header-title">Total Posts</h4>
                                     </div>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle drop-arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ri-more-2-fill fs-18"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" class="dropdown-item">Performance Report</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Export Data</a>
+                                            <a href="/admin/posts" class="dropdown-item">Posts list</a>
+                                            <a href="/admin/posts/create" class="dropdown-item">Create Post</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Improve Rate</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Action</a>
                                         </div>
@@ -144,7 +144,7 @@
                                     <div class="d-flex align-items-center gap-2 justify-content-between">
                                         <span class="badge bg-info rounded-pill fs-13">3.2% <i class="ti ti-trending-down"></i> </span>
                                         <div class="text-end">
-                                            <h3 class="fw-semibold">7.5%</h3>
+                                            <h3 class="fw-semibold">{{$posts->count()}}</h3>
                                             <p class="text-muted mb-0">Since last month</p>
                                         </div>
                                     </div>
