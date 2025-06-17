@@ -26,7 +26,7 @@
                         <tbody class="table-border-bottom-0">
                             @foreach($users as $key => $user)
                                 <tr>
-                                    <td><strong>{{ $user->firstName }}</strong></td>
+                                    <td>{{ $user->firstName }}</td>
                                     <td>{{ $user->lastName }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->city }}</td>

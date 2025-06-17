@@ -27,7 +27,7 @@
                                             <i class="ri-more-2-fill fs-18"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <a href="/admin/users" class="dropdown-item">Users list</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Revenue Analysis</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Action</a>
@@ -55,14 +55,14 @@
                             <div class="card">
                                 <div class="d-flex card-header justify-content-between align-items-center">
                                     <div>
-                                        <h4 class="header-title">Total Products</h4>
+                                        <h4 class="header-title">Total Advertisement</h4>
                                     </div>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle drop-arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ri-more-2-fill fs-18"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <a href="/admin/products" class="dropdown-item">Add List</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Revenue Analysis</a>
                                             <a href="javascript:void(0);" class="dropdown-item">Action</a>
