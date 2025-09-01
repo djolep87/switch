@@ -39,7 +39,7 @@ class SendOffersController extends Controller
         : collect();
 
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+            $listproducts = Product::where('user_id', auth()->user()->id)->where('status', 'active')->get();
         } else {
             $listproducts = null;
         }

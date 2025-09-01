@@ -39,7 +39,7 @@ class OffersController extends Controller
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->withCount('products')->get();
 
         if (Auth::check()) {
-            $listproducts = Product::where('user_id', auth()->user()->id)->get();
+            $listproducts = Product::where('user_id', auth()->user()->id)->where('status', 'active')->get();
         } else {
             $listproducts = null;
         }
@@ -84,6 +84,24 @@ class OffersController extends Controller
             'acceptorName' => 'required|string|max:255',
             'acceptorNumber' => 'required|string|max:255',
         ]);
+
+        // Check if an offer already exists between these users for these specific products
+        $existingOffer = Offer::where(function ($query) use ($request) {
+            $query->where('user_id', auth()->id())
+                  ->where('acceptor', $request->acceptor)
+                  ->where('product_id', $request->product_id)
+                  ->where('sendproduct_id', $request->sendproduct_id);
+        })->orWhere(function ($query) use ($request) {
+            $query->where('user_id', $request->acceptor)
+                  ->where('acceptor', auth()->id())
+                  ->where('product_id', $request->sendproduct_id)
+                  ->where('sendproduct_id', $request->product_id);
+        })->where('accepted', 0)->first();
+
+        if ($existingOffer) {
+            toast('Već ste poslali zahtev za razmenu ovih proizvoda sa ovim korisnikom!', 'error');
+            return back();
+        }
 
         $offer = new Offer();
         $offer->user_id = auth()->id();
@@ -174,6 +192,15 @@ class OffersController extends Controller
         $user->co2 += $offers->product->co2;
         
         $user->save();
+
+        // Mark products as inactive after successful swap
+        if ($offers->product) {
+            $offers->product->update(['status' => 'inactive']);
+        }
+        if ($offers->sendproduct) {
+            $offers->sendproduct->update(['status' => 'inactive']);
+        }
+
         return redirect('/offers');
     }
     public function confirmation_sendoffer(Request $request, $id)
@@ -188,6 +215,15 @@ class OffersController extends Controller
         $user->co2 += $offers->sendproduct->co2;
 
         $user->save();
+
+        // Mark products as inactive after successful swap
+        if ($offers->product) {
+            $offers->product->update(['status' => 'inactive']);
+        }
+        if ($offers->sendproduct) {
+            $offers->sendproduct->update(['status' => 'inactive']);
+        }
+
         return redirect('/sendOffers');
     }
 

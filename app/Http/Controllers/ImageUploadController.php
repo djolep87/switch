@@ -19,4 +19,8 @@ class ImageUploadController extends Controller
         return response()->json(['error' => 'No file uploaded.'], 400);
     }
 }
+
+public function image_delete(){
+    
+}
 }

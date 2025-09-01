@@ -45,7 +45,7 @@ class HomeController extends Controller
         if (request()->category) {
             $products = Product::with('categories')->whereHas('categories', function ($query) {
                 $query->where('name', request()->category);
-            })->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+            })->where('products.status', 'active')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
                 $query->select('products.id')
                     ->from('products')
                     ->join('users', 'users.id', '=', 'products.user_id')
@@ -79,7 +79,7 @@ class HomeController extends Controller
             $category = $categories->where('name', request()->category)->first();
             $categoryName = $category ? $category->name : '';
         } else {
-            $products = Product::whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+            $products = Product::where('products.status', 'active')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
                 $query->select('products.id')
                     ->from('products')
                     ->join('users', 'users.id', '=', 'products.user_id')
@@ -166,6 +166,34 @@ class HomeController extends Controller
         } else {
             $listproducts = null;
         }
+
+        // Add logic to check for existing offers between current user and product owners
+        if (Auth::check()) {
+            foreach ($products as $product) {
+                // Check if there's an existing offer between these users involving this specific product
+                $hasExistingOffer = DB::table('offers')
+                    ->where(function ($query) use ($product, $userId) {
+                        // Current user is sender, product owner is acceptor, and this product is involved
+                        $query->where('user_id', $userId)
+                              ->where('acceptor', $product->user_id)
+                              ->where(function ($subQuery) use ($product) {
+                                  $subQuery->where('product_id', $product->productid)
+                                          ->orWhere('sendproduct_id', $product->productid);
+                              });
+                    })->orWhere(function ($query) use ($product, $userId) {
+                        // Product owner is sender, current user is acceptor, and this product is involved
+                        $query->where('user_id', $product->user_id)
+                              ->where('acceptor', $userId)
+                              ->where(function ($subQuery) use ($product) {
+                                  $subQuery->where('product_id', $product->productid)
+                                          ->orWhere('sendproduct_id', $product->productid);
+                              });
+                    })->where('accepted', 0)
+                    ->exists();
+                
+                $product->hasExistingOfferWithUser = $hasExistingOffer;
+            }
+        }
         
         return view('/home', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists',));
     }
@@ -178,7 +206,7 @@ class HomeController extends Controller
 
         if (request()->category) {
             $search_text = $_GET['query'];
-            $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+            $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->where('products.status', 'active')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
                 $query->select('products.id')
                     ->from('products')
                     ->join('users', 'users.id', '=', 'products.user_id')
@@ -213,7 +241,7 @@ class HomeController extends Controller
             $categoryName = $category ? $category->name : '';
         } else {
             $search_text = $_GET['query'];
-            $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
+            $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('categories')->where('products.status', 'active')->whereNotIn('products.id', function ($query) { // Specify 'products.id' instead of just 'id'
                 $query->select('products.id')
                     ->from('products')
                     ->join('users', 'users.id', '=', 'products.user_id')
@@ -281,6 +309,34 @@ class HomeController extends Controller
             }
         } else {
             $listproducts = null;
+        }
+
+        // Add logic to check for existing offers between current user and product owners
+        if (Auth::check()) {
+            foreach ($products as $product) {
+                // Check if there's an existing offer between these users involving this specific product
+                $hasExistingOffer = DB::table('offers')
+                    ->where(function ($query) use ($product, $userId) {
+                        // Current user is sender, product owner is acceptor, and this product is involved
+                        $query->where('user_id', $userId)
+                              ->where('acceptor', $product->user_id)
+                              ->where(function ($subQuery) use ($product) {
+                                  $subQuery->where('product_id', $product->productid)
+                                          ->orWhere('sendproduct_id', $product->productid);
+                              });
+                    })->orWhere(function ($query) use ($product, $userId) {
+                        // Product owner is sender, current user is acceptor, and this product is involved
+                        $query->where('user_id', $product->user_id)
+                              ->where('acceptor', $userId)
+                              ->where(function ($subQuery) use ($product) {
+                                  $subQuery->where('product_id', $product->productid)
+                                          ->orWhere('sendproduct_id', $product->productid);
+                              });
+                    })->where('accepted', 0)
+                    ->exists();
+                
+                $product->hasExistingOfferWithUser = $hasExistingOffer;
+            }
         }
         return view('products.search', compact('products', 'categories', 'categoryName', 'listproducts', 'wishlists'));
     }
@@ -354,6 +410,32 @@ class HomeController extends Controller
         Product::find($id)->increment('views');
         $product = Product::find($id);
         $images = $product->images;
+
+        // Add logic to check for existing offers between current user and product owner
+        if (Auth::check()) {
+            $hasExistingOffer = DB::table('offers')
+                ->where(function ($query) use ($product, $userId) {
+                    // Current user is sender, product owner is acceptor, and this product is involved
+                    $query->where('user_id', $userId)
+                          ->where('acceptor', $product->user_id)
+                          ->where(function ($subQuery) use ($product) {
+                              $subQuery->where('product_id', $product->id)
+                                      ->orWhere('sendproduct_id', $product->id);
+                          });
+                })->orWhere(function ($query) use ($product, $userId) {
+                    // Product owner is sender, current user is acceptor, and this product is involved
+                    $query->where('user_id', $product->user_id)
+                          ->where('acceptor', $userId)
+                          ->where(function ($subQuery) use ($product) {
+                              $subQuery->where('product_id', $product->id)
+                                      ->orWhere('sendproduct_id', $product->id);
+                          });
+                })->where('accepted', 0)
+                ->exists();
+            
+            $product->hasExistingOfferWithUser = $hasExistingOffer;
+        }
+
         return view('products.show', compact('product', 'products', 'images', 'listproducts', 'wishlists', 'user', 'comments'));
     }
 

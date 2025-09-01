@@ -13,7 +13,7 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $fillable = ['user_id', 'category_id', 'electricity', 'water', 'co2', 'name', 'condition', 'description', 'image'];
+    protected $fillable = ['user_id', 'category_id', 'electricity', 'water', 'co2', 'name', 'condition', 'description', 'image', 'status'];
 
     public $primaryKey = 'id';
 

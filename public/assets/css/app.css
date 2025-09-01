@@ -119,6 +119,18 @@ a {
 	position: relative
 }
 /* Header */
+.text-gradient {
+    background: linear-gradient(90deg, #ffc107, #0d6efd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.bg-dark-gery {
+    background: #23272b;
+}
+.carousel-inner {
+    border-radius: 1.5rem;
+}
+
 
 .header-wrapper .top-menu .nav-link {
 	font-size: 90%;

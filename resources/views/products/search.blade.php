@@ -269,6 +269,10 @@
                                                                                     {{ csrf_field() }}
                                                                                     @csrf
                                                                                     <input type="hidden" name="user_id" value="{{ Auth()->user()->id }}">
+                                                                                    @php
+                                                                                        $currentProductOwnerId = $product->user_id;
+                                                                                        $currentProductId = $product->productid;
+                                                                                    @endphp
                                                                                     <input type="hidden" name="acceptor" value="{{ $product->user_id }}">
                                                                                     <input type="hidden" name="acceptorName" value="{{ $product->firstName }}">
                                                                                     <input type="hidden" name="acceptorNumber" value="{{ $product->user->phone }}">
@@ -282,13 +286,51 @@
                                                                                         @endphp
                                                                                         <div class="m-2">
                                                                                             <div class="form-check form-check-inline">
+                                                                                                @php
+                                                                                                    // Check if this specific product is already involved in an offer with the current product owner for the specific product being viewed
+                                                                                                    $isInvolvedInSwap = false;
+                                                                                                    if (Auth::check() && $currentProductOwnerId) {
+                                                                                                        // $currentProductId is already set from the outer loop
+                                                                                                        
+                                                                                                        // Check if there's already an offer between current user and product owner involving this specific product AND the current product being viewed
+                                                                                                        $isInvolvedInSwap = DB::table('offers')
+                                                                                                            ->where(function ($query) use ($product, $currentProductOwnerId, $currentProductId) {
+                                                                                                                // Current user is sender, product owner is acceptor
+                                                                                                                $query->where('user_id', Auth::id())
+                                                                                                                      ->where('acceptor', $currentProductOwnerId)
+                                                                                                                      ->where(function ($subQuery) use ($product) {
+                                                                                                                        $subQuery->where('product_id', $product->id)
+                                                                                                                                ->orWhere('sendproduct_id', $product->id);
+                                                                                                                      })
+                                                                                                                      ->where(function ($subQuery) use ($currentProductId) {
+                                                                                                                        $subQuery->where('product_id', $currentProductId)
+                                                                                                                                ->orWhere('sendproduct_id', $currentProductId);
+                                                                                                                      });
+                                                                                                            })
+                                                                                                            ->orWhere(function ($query) use ($product, $currentProductOwnerId, $currentProductId) {
+                                                                                                                // Product owner is sender, current user is acceptor
+                                                                                                                $query->where('user_id', $currentProductOwnerId)
+                                                                                                                      ->where('acceptor', Auth::id())
+                                                                                                                      ->where(function ($subQuery) use ($product) {
+                                                                                                                        $subQuery->where('product_id', $product->id)
+                                                                                                                                ->orWhere('sendproduct_id', $product->id);
+                                                                                                                      })
+                                                                                                                      ->where(function ($subQuery) use ($currentProductId) {
+                                                                                                                        $subQuery->where('product_id', $currentProductId)
+                                                                                                                                ->orWhere('sendproduct_id', $currentProductId);
+                                                                                                                      });
+                                                                                                            })
+                                                                                                            ->where('accepted', 0)
+                                                                                                            ->exists();
+                                                                                                    }
+                                                                                                @endphp
                                                                                                 <input 
                                                                                                 class="form-check-input d-flex" 
                                                                                                 type="radio" 
                                                                                                 name="sendproduct_id" 
                                                                                                 id="inlineRadio{{ $product->id }}" 
                                                                                                 value="{{ $product->id }}" 
-                                                                                                {{ $product->isDisabledForCurrentExchange ? 'disabled' : '' }}>
+                                                                                                {{ $isInvolvedInSwap ? 'disabled' : '' }} title="{{ $isInvolvedInSwap ? 'Already in swap with this user' : 'Available for swap' }}">
 
                                                                                                 <label class="form-check-label d-flex align-items-center" for="inlineRadio{{ $product->id }}">
                                                                                                     <img src="{{ $imageSrc }}" style="width: 30px; height: 30px;" alt="Product Image" class="me-2">
