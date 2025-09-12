@@ -48,13 +48,41 @@
                                                                     $images = explode(',', $offer->product->images);
                                                                 }
                                                         @endphp
-                                                        <div class="product-grid border-1">
+                                                        @php
+                                                            // Check if this specific offer is in exchange
+                                                            $thisOfferInExchange = ($offer->accepted == 1 || $offer->accepted == 3 || $offer->sendaccepted == 1 || $offer->sendaccepted == 3);
+                                                            
+                                                            // Check if the products in this offer are involved in OTHER exchanges
+                                                            $productsInOtherExchanges = false;
+                                                            if (!$thisOfferInExchange && $offer->product && $offer->sendproduct) {
+                                                                $productsInOtherExchanges = \DB::table('offers')
+                                                                    ->where('id', '!=', $offer->id)
+                                                                    ->where(function($query) use ($offer) {
+                                                                        $query->where('product_id', $offer->product_id)
+                                                                              ->orWhere('sendproduct_id', $offer->product_id)
+                                                                              ->orWhere('product_id', $offer->sendproduct_id)
+                                                                              ->orWhere('sendproduct_id', $offer->sendproduct_id);
+                                                                    })
+                                                                    ->whereIn('accepted', [1, 3])
+                                                                    ->orWhereIn('sendaccepted', [1, 3])
+                                                                    ->exists();
+                                                            }
+                                                            
+                                                            $shouldDisable = !$thisOfferInExchange && $productsInOtherExchanges;
+                                                        @endphp
+                                                        <div class="product-grid border-1 {{ $shouldDisable ? 'disabled-exchange' : '' }}">
+                                                            @if ($shouldDisable)
+                                                                <div class="alert alert-warning text-center mb-2" role="alert">
+                                                                    <strong>Oglas je u procesu razmene!</strong><br>
+                                                                    <small>Ovaj oglas je već prihvaćen za razmenu i nije dostupan za dodatne zahteve.</small>
+                                                                </div>
+                                                            @endif
                                                             <div
                                                                 class="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 position-relative">
                                                                 <div class="col">
                                                                     <p class="text-center">{{ $offer->user->firstName }}</p>
                                                                     
-                                                                    <div class="card rounded-0 product-card">
+                                                                    <div class="card rounded-0 product-card {{ $shouldDisable ? 'opacity-50' : '' }}">
                                                                         <div class="card-header bg-transparent border-bottom-0">
                                                                             
                                                                             <div class="d-flex align-items-center justify-content-end gap-3">
@@ -105,7 +133,7 @@
                                                                    
                                                                 <div class="col">
                                                                     <p class="text-center">Moj oglas</p>
-                                                                    <div class="card rounded-0 product-card">
+                                                                    <div class="card rounded-0 product-card {{ $shouldDisable ? 'opacity-50' : '' }}">
                                                                         <div class="card-header bg-transparent border-bottom-0">
                                                                             <div class="d-flex align-items-center justify-content-end gap-3">
                                                                                 <a href="javascript:;"> </a>
@@ -156,7 +184,20 @@
                                                             <!--end row-->
                                                             <div class="product-action mt-2">
                                                                 <div class="d-grid gap-2">
-                                                                    @if ($offer->accepted == 0)
+                                                                    @if ($shouldDisable)
+                                                                        {{-- Show only delete option for offers not in exchange --}}
+                                                                        <div class="alert alert-info text-center mb-2" role="alert">
+                                                                            <small>Oglas je u procesu razmene - dostupno je samo brisanje</small>
+                                                                        </div>
+                                                                        <form class="d-grid gap-2 p-0 m-0" action="{{ route('offers.destroy', $offer->id) }}" method="POST">
+                                                                            {{ csrf_field() }}
+                                                                            {{ method_field('delete') }}
+                                                                            <button style="border:none; transparent:none;" type="submit" class="btn btn-outline-danger btn-sm">
+                                                                                <img style="width: 16px" src="/assets/images/delete.svg" alt="" srcset="">
+                                                                                Obriši oglas
+                                                                            </button>
+                                                                        </form>
+                                                                    @elseif ($offer->accepted == 0)
                                                                         @if ($offer->product && $offer->sendproduct)
                                                                             <div class="row">
                                                                                 <form class="d-grid gap-2 col-6 p-0 m-0" action="{{ url('offers.update', $offer->id) }}" method="POST">

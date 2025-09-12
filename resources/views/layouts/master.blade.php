@@ -42,6 +42,33 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 	<title>@yield('title')</title>
 
+	<style>
+		.disabled-exchange {
+			position: relative;
+		}
+		
+		.disabled-exchange .opacity-50 {
+			opacity: 0.5 !important;
+			pointer-events: none;
+		}
+		
+		.disabled-exchange .product-card {
+			background-color: #f8f9fa;
+			border: 2px dashed #6c757d;
+		}
+		
+		.disabled-exchange .alert-warning {
+			background-color: #fff3cd;
+			border-color: #ffeaa7;
+			color: #856404;
+		}
+		
+		.disabled-exchange .alert-info {
+			background-color: #d1ecf1;
+			border-color: #bee5eb;
+			color: #0c5460;
+		}
+	</style>
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	{{-- <script src="http://unpkg.com/turbolinks"></script> --}}
@@ -174,7 +201,7 @@
 					<nav id="navbar_main" class="mobile-offcanvas navbar navbar-expand-lg">
 						<div class="offcanvas-header">
 							<button class="btn-close float-end"></button>
-							<h5 class="py-2">Navigation</h5>
+							<h5 class="py-2"></h5>
 						</div>
 						<ul class="navbar-nav">
 							<li class="nav-item active"> <a class="nav-link" href="/">Početna</a></li>
