@@ -27,6 +27,7 @@
     <link href="{{ asset('/assets/plugins/nouislider/nouislider.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+    
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	<!-- loader-->
@@ -757,6 +758,54 @@
     <!--app JS-->
     <script src="{{ asset('/assets/js/app.js') }}"></script>
     @include('sweetalert::alert')
+    
+    <script>
+    // Fix notification dropdown positioning on mobile
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationDropdown = document.querySelector('.nav-item.dropdown.dropdown-large');
+        
+        if (notificationDropdown) {
+            const dropdownToggle = notificationDropdown.querySelector('[data-bs-toggle="dropdown"]');
+            const dropdownMenu = notificationDropdown.querySelector('.dropdown-menu');
+            
+            if (dropdownToggle && dropdownMenu) {
+                dropdownToggle.addEventListener('click', function(e) {
+                    // Small delay to ensure dropdown is shown
+                    setTimeout(function() {
+                        if (window.innerWidth <= 768) {
+                            // Force dropdown to be visible on mobile
+                            dropdownMenu.style.position = 'fixed';
+                            dropdownMenu.style.top = 'auto';
+                            dropdownMenu.style.right = '10px';
+                            dropdownMenu.style.zIndex = '99999';
+                            dropdownMenu.style.transform = 'none';
+                        }
+                    }, 10);
+                });
+                
+                // Also handle when dropdown is shown via Bootstrap events
+                notificationDropdown.addEventListener('shown.bs.dropdown', function() {
+                    if (window.innerWidth <= 768) {
+                        dropdownMenu.style.position = 'fixed';
+                        dropdownMenu.style.top = 'auto';
+                        dropdownMenu.style.right = '10px';
+                        dropdownMenu.style.zIndex = '99999';
+                        dropdownMenu.style.transform = 'none';
+                    }
+                });
+                
+                // Reset positioning when dropdown is hidden
+                notificationDropdown.addEventListener('hidden.bs.dropdown', function() {
+                    dropdownMenu.style.position = '';
+                    dropdownMenu.style.top = '';
+                    dropdownMenu.style.right = '';
+                    dropdownMenu.style.zIndex = '';
+                    dropdownMenu.style.transform = '';
+                });
+            }
+        }
+    });
+    </script>
     </body>
 
 </html>
