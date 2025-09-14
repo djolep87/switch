@@ -73,4 +73,39 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class, 'liked_user_id')->where('liked', false)->count();
     }
+
+    /**
+     * Get messages sent by this user
+     */
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    /**
+     * Get messages received by this user
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    /**
+     * Get unread messages for this user
+     */
+    public function unreadMessages()
+    {
+        return $this->receivedMessages()->where('is_read', false);
+    }
+
+    /**
+     * Get count of unread conversations (unique senders with unread messages)
+     */
+    public function unreadConversationsCount()
+    {
+        return $this->receivedMessages()
+            ->where('is_read', false)
+            ->distinct('sender_id')
+            ->count('sender_id');
+    }
 }

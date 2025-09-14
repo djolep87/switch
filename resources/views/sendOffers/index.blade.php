@@ -181,6 +181,13 @@
                                                                                         </div>
                                                                                         <div class="cursor-pointer ms-auto"></div>
                                                                                     </div>
+                                                                                    @if($sendoffer->product && $sendoffer->product->user_id != auth()->id())
+                                                                                        <div class="mt-2">
+                                                                                            <a href="/messages/{{ $sendoffer->product->user_id }}" class="btn btn-primary btn-sm">
+                                                                                                <i class="bx bx-message"></i> Pošalji poruku
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
                                                                                 @endif
                                                                             </div>
                                                                         </div>
@@ -413,5 +420,7 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 @include('sweetalert::alert')

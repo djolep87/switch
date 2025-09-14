@@ -103,7 +103,9 @@
                                                                                 <a href="javascript:;"></a>
                                                                                 <a href="javascript:;">
                                                                                     @if ($offer->sendproduct)
-                                                                                    <a href="javascript:;"> </a>
+                                                                                        <a href="javascript:;">
+                                                                                            <h6 class="product-name mb-2 text-center">{{ $offer->sendproduct->name }}</h6>
+                                                                                        </a>
                                                                                     @else
                                                                                         <p>Oglas više ne postoji!</p>
                                                                                     @endif
@@ -123,6 +125,13 @@
                                                                                         </div>
                                                                                         <div class="cursor-pointer ms-auto"></div>
                                                                                     </div>
+                                                                                    @if($offer->sendproduct && $offer->sendproduct->user_id != auth()->id())
+                                                                                        <div class="mt-2">
+                                                                                            <a href="/messages/{{ $offer->sendproduct->user_id }}" class="btn btn-primary btn-sm">
+                                                                                                <i class="bx bx-message"></i> Pošalji poruku
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
                                                                                 @endif
                                                                             </div>
                                                                         </div>

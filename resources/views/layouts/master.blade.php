@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('meta_description', 'Naša misija je da povežemo ljude širom zemlje kako bi zajedno stvarali održiviji svet. Trange Frange je online platforma koja vam omogućava da delite stvari koje vam više nisu potrebne i pronađete ono što vam treba, umesto da ih bacate. Verujemo da svaki predmet zaslužuje drugu šansu, a naša zajednica pomaže da se stvori novi život za vaše resurse.')">
 
     <link rel="icon" href="/assets/images/logo.svg" type="" />
@@ -134,6 +135,16 @@
 													<i class="bx bx-heart"></i>
 												</a>				
 											</li>
+											@auth
+											<li class="nav-item">
+												<a href="/messages" class="nav-link position-relative cart-link">
+													@if (auth()->user()->unreadConversationsCount() > 0)
+														<span class="alert-count">{{ auth()->user()->unreadConversationsCount() }}</span>
+													@endif
+													<i class="bx bx-message"></i>
+												</a>
+											</li>
+											@endauth
 											<li class="nav-item dropdown dropdown-large">
 												<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">	
 													@if (auth()->user()->unreadNotifications->count())
@@ -257,6 +268,7 @@
 											</ul>
 										</li>
 										<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+										<li><a class="dropdown-item" href="/messages">Poruke</a></li>
 										<li><a class="dropdown-item" href="/offers">Ponude</a></li>
 										<li><a class="dropdown-item" href="/sendOffers">Moji zahtevi</a></li>
 										<li><a class="dropdown-item" href="/wishlist">Oglasi koje pratim</a></li>
@@ -323,6 +335,7 @@
                                 <li class="mb-1"><a href="/kakoradi"><i class='bx bx-chevron-right'></i>Kako radi</a></li>
                                 <li class="mb-1"><a href="/postavioglas"><i class='bx bx-chevron-right'></i>Kako postaviti oglas</a></li>
                                 <li class="mb-1"><a href="/razmena"><i class='bx bx-chevron-right'></i>Uputstvo za razmenu</a></li>
+                                <li class="mb-1"><a href="/messages"><i class='bx bx-chevron-right'></i>Poruke</a></li>
                             </ul>
                         </div>
                     </div>

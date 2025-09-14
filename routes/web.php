@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\MessagingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,14 @@ Route::delete('offers.destroy/{id}', 'OffersController@destroy')->name('offers.d
 
 Route::post('/offers.offer_archived/{offer}', 'OffersController@offer_archived')->name('offers.offer_archived');
 Route::post('/offers.sendoffer_archived/{offer}', 'OffersController@sendoffer_archived')->name('offers.sendoffer_archived');
+
+// Messaging System Routes
+Route::get('/messages', 'MessagingController@index')->name('messages.index');
+Route::get('/messages/{id}', 'MessagingController@show')->name('messages.show');
+Route::post('/messages', 'MessagingController@store')->name('messages.store');
+Route::post('/messages/{id}/read', 'MessagingController@markAsRead')->name('messages.read');
+Route::delete('/messages/{id}', 'MessagingController@destroy')->name('messages.destroy');
+Route::get('/api/messages', 'MessagingController@getMessages')->name('messages.api');
 
 // Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');
 // Route::get('markAsRead/{notificationId}', 'OffersController@markAsRead')->name('markAsRead');
