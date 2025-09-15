@@ -58,6 +58,7 @@ Route::get('/messages/{id}', 'MessagingController@show')->name('messages.show');
 Route::post('/messages', 'MessagingController@store')->name('messages.store');
 Route::post('/messages/{id}/read', 'MessagingController@markAsRead')->name('messages.read');
 Route::delete('/messages/{id}', 'MessagingController@destroy')->name('messages.destroy');
+Route::delete('/messages/delete-conversation/{otherUserId}', 'MessagingController@deleteConversation')->name('messages.delete-conversation');
 Route::get('/api/messages', 'MessagingController@getMessages')->name('messages.api');
 
 // Route::get('markAsRead/', 'OffersController@markAsRead')->name('markAsRead');

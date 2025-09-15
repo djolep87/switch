@@ -15,12 +15,14 @@ class Message extends Model
         'offer_id',
         'message',
         'is_read',
-        'read_at'
+        'read_at',
+        'deleted_by_users'
     ];
 
     protected $casts = [
         'is_read' => 'boolean',
-        'read_at' => 'datetime'
+        'read_at' => 'datetime',
+        'deleted_by_users' => 'array'
     ];
 
     /**
@@ -76,5 +78,35 @@ class Message extends Model
         })->orWhere(function($q) use ($userId1, $userId2) {
             $q->where('sender_id', $userId2)->where('receiver_id', $userId1);
         });
+    }
+
+    /**
+     * Check if a user has deleted this conversation
+     */
+    public function isDeletedByUser($userId)
+    {
+        $deletedByUsers = $this->deleted_by_users ?? [];
+        return in_array($userId, $deletedByUsers);
+    }
+
+    /**
+     * Mark conversation as deleted by a user
+     */
+    public function markDeletedByUser($userId)
+    {
+        $deletedByUsers = $this->deleted_by_users ?? [];
+        if (!in_array($userId, $deletedByUsers)) {
+            $deletedByUsers[] = $userId;
+            $this->update(['deleted_by_users' => $deletedByUsers]);
+        }
+    }
+
+    /**
+     * Check if conversation is deleted by both users
+     */
+    public function isDeletedByBothUsers($user1Id, $user2Id)
+    {
+        $deletedByUsers = $this->deleted_by_users ?? [];
+        return in_array($user1Id, $deletedByUsers) && in_array($user2Id, $deletedByUsers);
     }
 }

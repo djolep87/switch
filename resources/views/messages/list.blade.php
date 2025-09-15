@@ -22,7 +22,11 @@
                     <div class="message-header">
                         <div class="sender-info">
                             <span class="sender-name">{{ $message['sender_name'] }}</span>
-                            <div class="ad-title">{{ $message['ad_title'] }}</div>
+                            @if($message['ad_title'] && $message['ad_title'] !== 'Razmena')
+                                <div class="ad-title">{{ $message['ad_title'] }}</div>
+                            @elseif($message['ad_title'] === 'Razmena')
+                                <div class="ad-title">Razmena proizvoda</div>
+                            @endif
                             @if($message['is_blocked'])
                                 <span class="blocked-status">Blokiran od strane admina.</span>
                             @endif
@@ -30,15 +34,18 @@
                         <div class="message-time">{{ $message['time'] }}</div>
                     </div>
                     <div class="message-subject">{{ $message['subject'] }}</div>
-                    <div class="message-preview">
+                    {{-- <div class="message-preview">
                         @if($message['is_read'])
                             <i class="bx bx-check-double read-icon"></i>
                         @endif
                         {{ $message['preview'] }}
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="message-actions">
-                    <i class="bx bx-star star-icon"></i>
+                    {{-- <i class="bx bx-star star-icon"></i> --}}
+                    <button class="delete-conversation-btn" data-conversation-id="{{ $message['conversation_id'] }}" title="Obriši razgovor">
+                        <i class="bx bx-trash"></i>
+                    </button>
                 </div>
             </div>
         </a>
@@ -229,8 +236,13 @@
     color: #007bff;
     font-size: 13px;
     font-weight: 500;
-    margin-top: 2px;
+    margin-top: 4px;
     opacity: 0.9;
+    background-color: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #007bff;
+    display: inline-block;
 }
 
 .blocked-status {
@@ -280,6 +292,23 @@
 
 .star-icon:hover {
     color: #ffd700;
+}
+
+.delete-conversation-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-left: 10px;
+}
+
+.delete-conversation-btn:hover {
+    background-color: #dc3545;
+    color: #ffffff;
 }
 
 /* Responsive Design */
@@ -340,4 +369,75 @@
     }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle delete conversation button clicks
+    document.querySelectorAll('.delete-conversation-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const conversationId = this.getAttribute('data-conversation-id');
+            const messageItem = this.closest('.message-item');
+            
+            // Show SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Obriši razgovor',
+                text: 'Da li ste sigurni da želite da obrišete ovaj razgovor? Ova akcija se ne može poništiti.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Da, obriši!',
+                cancelButtonText: 'Otkaži'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send delete request
+                    fetch(`/messages/delete-conversation/${conversationId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the message item from the list
+                            messageItem.parentElement.remove();
+                            
+                            // Show success message with SweetAlert
+                            Swal.fire({
+                                title: 'Uspešno!',
+                                text: 'Razgovor je uspešno obrisan.',
+                                icon: 'success',
+                                confirmButtonColor: '#007bff'
+                            });
+                        } else {
+                            // Show error message with SweetAlert
+                            Swal.fire({
+                                title: 'Greška!',
+                                text: data.message || 'Nepoznata greška pri brisanju razgovora.',
+                                icon: 'error',
+                                confirmButtonColor: '#dc3545'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Show error message with SweetAlert
+                        Swal.fire({
+                            title: 'Greška!',
+                            text: 'Greška pri brisanju razgovora. Molimo pokušajte ponovo.',
+                            icon: 'error',
+                            confirmButtonColor: '#dc3545'
+                        });
+                    });
+                }
+            });
+        });
+    });
+});
+</script>
 @endsection

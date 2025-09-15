@@ -22,12 +22,17 @@
             <div class="contact-details">
                 <i class="bx bx-user contact-icon"></i>
                 <div class="contact-name-section">
-                    <span class="contact-name">{{ $contactName ?? 'Goran' }}</span>
-                    <div class="ad-title">{{ $itemTitle ?? 'Razmena' }}</div>
+                    <span class="contact-name">{{ $contactName }}</span>
+                    @if($itemTitle && $itemTitle !== 'Razmena')
+                        <div class="ad-title">{{ $itemTitle }}</div>
+                    @elseif($itemTitle === 'Razmena')
+                        <div class="ad-title">Razmena proizvoda</div>
+                    @endif
                 </div>
             </div>
         </div>
         
+        @if($itemTitle && $itemTitle !== 'Razmena')
         <div class="item-info">
             <div class="item-image">
                 @if($adImage)
@@ -38,11 +43,9 @@
             </div>
             <div class="item-details">
                 <div class="item-name">
-                    <span class="item-title">{{ $itemTitle ?? 'MacBook Pro 15 32GB' }}</span>
-                    
+                    <span class="item-title">{{ $itemTitle }}</span>
                 </div>
                 <div class="item-meta">
-                    
                     {{-- <div class="item-stats">
                         <span class="stat">
                             <i class="bx bx-show"></i>
@@ -57,6 +60,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 
     <!-- Chat Messages Area -->
@@ -83,7 +87,7 @@
             @endforeach
         @else
             <div class="text-center text-muted mt-5">
-                <p>Nema poruka u ovoj konverzaciji.</p>
+                {{-- <p>Nema poruka u ovoj konverzaciji.</p> --}}
             </div>
         @endif
     </div>
@@ -204,6 +208,12 @@
     font-size: 13px;
     font-weight: 500;
     opacity: 0.9;
+    background-color: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #007bff;
+    display: inline-block;
+    margin-top: 2px;
 }
 
 .contact-actions {
