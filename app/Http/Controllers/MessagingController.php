@@ -170,6 +170,23 @@ class MessagingController extends Controller
         
         $itemTitle = $adTitle;
         
+        // Handle AJAX requests for message refresh
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'messages' => $messages->map(function($message) {
+                    return [
+                        'id' => $message->id,
+                        'message' => $message->message,
+                        'sender_id' => $message->sender_id,
+                        'receiver_id' => $message->receiver_id,
+                        'created_at' => $message->created_at->format('H:i'),
+                        'is_read' => $message->is_read
+                    ];
+                })
+            ]);
+        }
+        
         return view('messages.chat', compact('contactName', 'itemTitle', 'adImage', 'messages', 'otherUser', 'wishlists'));
     }
 

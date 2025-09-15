@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.chat')
 
 @section('content')
 <div class="chat-container">
@@ -115,15 +115,16 @@
 <style>
 .chat-container {
     background-color: #ffffff;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 120px);
+    height: calc(100vh - 120px);
     color: #333333;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 /* Header */
@@ -337,9 +338,9 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-height: 50vh;
-    border-radius: 10px;
-    margin: 10px 0;
+    height: calc(100vh - 300px);
+    border-radius: 0;
+    margin: 0;
 }
 
 .date-separator {
@@ -491,9 +492,15 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .chat-container {
-        margin: 10px;
+        margin: 0;
+        padding: 0;
+        min-height: calc(100vh - 100px);
+        height: calc(100vh - 100px);
+    }
+    
+    .chat-messages {
+        height: calc(100vh - 250px);
         padding: 15px;
-        min-height: calc(100vh - 150px);
     }
     
     .contact-actions {
@@ -568,6 +575,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const messageInput = document.querySelector('.message-input');
     const chatMessages = document.getElementById('chatMessages');
+    const sendButton = document.querySelector('.send-button');
+    const otherUserId = '{{ $otherUser->id ?? "" }}';
+    let isSending = false;
     
     // Auto-resize textarea
     messageInput.addEventListener('input', function() {
@@ -591,34 +601,64 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Send button click
+    sendButton.addEventListener('click', sendMessage);
+    
     function sendMessage() {
         const messageText = messageInput.value.trim();
-        if (messageText) {
-            // Send message via AJAX
-            const formData = new FormData();
-            formData.append('message', messageText);
-            formData.append('receiver_id', '{{ $otherUser->id ?? "" }}');
-            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-            
-            fetch('/messages', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    addMessageToChat(messageText, true);
-                    messageInput.value = '';
-                    messageInput.style.height = 'auto';
-                } else {
-                    alert('Greška pri slanju poruke: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Greška pri slanju poruke');
-            });
+        
+        if (!messageText || isSending) {
+            return;
         }
+        
+        isSending = true;
+        sendButton.disabled = true;
+        sendButton.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i><span>Šalje...</span>';
+        
+        // Add message to chat immediately for better UX
+        addMessageToChat(messageText, true);
+        const tempMessageText = messageText;
+        messageInput.value = '';
+        messageInput.style.height = 'auto';
+        
+        // Send message via AJAX
+        const formData = new FormData();
+        formData.append('message', tempMessageText);
+        formData.append('receiver_id', otherUserId);
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        
+        fetch('/messages', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Message was sent successfully, update the message with server data if needed
+                console.log('Message sent successfully');
+            } else {
+                // Remove the message if sending failed
+                const lastMessage = chatMessages.querySelector('.message.sent:last-child');
+                if (lastMessage) {
+                    lastMessage.remove();
+                }
+                toastr.error('Greška pri slanju poruke: ' + (data.message || 'Nepoznata greška'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Remove the message if sending failed
+            const lastMessage = chatMessages.querySelector('.message.sent:last-child');
+            if (lastMessage) {
+                lastMessage.remove();
+            }
+            toastr.error('Greška pri slanju poruke');
+        })
+        .finally(() => {
+            isSending = false;
+            sendButton.disabled = false;
+            sendButton.innerHTML = '<i class="bx bx-send"></i><span>Pošalji</span>';
+        });
     }
     
     function addMessageToChat(text, isSent) {
@@ -636,15 +676,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="message-text">${text}</div>
                 <div class="message-time">${timeString}</div>
             </div>
-            ${!isSent ? '<div class="message-status"><i class="bx bx-check-double"></i></div>' : ''}
         `;
         
         chatMessages.appendChild(messageDiv);
         scrollToBottom();
     }
     
-    // Send button click
-    document.querySelector('.send-button').addEventListener('click', sendMessage);
+    // Auto-refresh messages every 5 seconds
+    setInterval(function() {
+        refreshMessages();
+    }, 5000);
+    
+    function refreshMessages() {
+        fetch(`/messages/{{ $otherUser->id ?? "" }}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.messages) {
+                updateMessages(data.messages);
+            }
+        })
+        .catch(error => {
+            console.error('Error refreshing messages:', error);
+        });
+    }
+    
+    function updateMessages(messages) {
+        const currentMessageCount = chatMessages.querySelectorAll('.message').length;
+        
+        if (messages.length > currentMessageCount) {
+            // Add new messages
+            for (let i = currentMessageCount; i < messages.length; i++) {
+                const message = messages[i];
+                addMessageToChat(message.message, message.sender_id == '{{ auth()->id() }}');
+            }
+        }
+    }
 });
 </script>
 @endsection
