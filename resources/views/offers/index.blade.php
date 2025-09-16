@@ -55,16 +55,23 @@
                                                             // Check if the products in this offer are involved in OTHER exchanges
                                                             $productsInOtherExchanges = false;
                                                             if (!$thisOfferInExchange && $offer->product && $offer->sendproduct) {
+                                                                // Check if BOTH products in this offer are involved in the SAME other exchange
                                                                 $productsInOtherExchanges = \DB::table('offers')
                                                                     ->where('id', '!=', $offer->id)
                                                                     ->where(function($query) use ($offer) {
-                                                                        $query->where('product_id', $offer->product_id)
-                                                                              ->orWhere('sendproduct_id', $offer->product_id)
-                                                                              ->orWhere('product_id', $offer->sendproduct_id)
-                                                                              ->orWhere('sendproduct_id', $offer->sendproduct_id);
+                                                                        // Check if both products are in the same offer (either direction)
+                                                                        $query->where(function($subQuery) use ($offer) {
+                                                                            $subQuery->where('product_id', $offer->product_id)
+                                                                                    ->where('sendproduct_id', $offer->sendproduct_id);
+                                                                        })->orWhere(function($subQuery) use ($offer) {
+                                                                            $subQuery->where('product_id', $offer->sendproduct_id)
+                                                                                    ->where('sendproduct_id', $offer->product_id);
+                                                                        });
                                                                     })
-                                                                    ->whereIn('accepted', [1, 3])
-                                                                    ->orWhereIn('sendaccepted', [1, 3])
+                                                                    ->where(function($query) {
+                                                                        $query->whereIn('accepted', [1, 3])
+                                                                              ->orWhereIn('sendaccepted', [1, 3]);
+                                                                    })
                                                                     ->exists();
                                                             }
                                                             
