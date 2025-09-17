@@ -24,9 +24,9 @@
                 <div class="contact-name-section">
                     <span class="contact-name">{{ $contactName }}</span>
                     @if($itemTitle && $itemTitle !== 'Razmena')
-                        <div class="ad-title">{{ $itemTitle }}</div>
+                        <div class="item-title-right">{{ $itemTitle }}</div>
                     @elseif($itemTitle === 'Razmena')
-                        <div class="ad-title">Razmena proizvoda</div>
+                        <div class="item-title-right">Razmena proizvoda</div>
                     @endif
                 </div>
             </div>
@@ -34,19 +34,19 @@
         
         @if($itemTitle && $itemTitle !== 'Razmena')
         <div class="item-info">
-            <div class="item-image">
+            {{-- <div class="item-image">
                 @if($adImage)
                     <img src="{{ asset('storage/Product_images/' . $adImage) }}" alt="{{ $itemTitle }}" class="product-image">
                 @else
                     <i class="bx bx-image-slash"></i>
                 @endif
-            </div>
-            <div class="item-details">
+            </div> --}}
+            {{-- <div class="item-details">
                 <div class="item-name">
                     <span class="item-title">{{ $itemTitle }}</span>
                 </div>
                 <div class="item-meta">
-                    {{-- <div class="item-stats">
+                    <div class="item-stats">
                         <span class="stat">
                             <i class="bx bx-show"></i>
                             974
@@ -56,9 +56,9 @@
                             19
                         </span>
                         <span class="stat-time">pre 10 meseci</span>
-                    </div> --}}
+                    </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         @endif
     </div>
@@ -132,7 +132,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 8px 15px;
     border-bottom: 1px solid #e0e0e0;
     background-color: #f8f9fa;
 }
@@ -140,7 +140,7 @@
 .header-left {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .back-button {
@@ -169,7 +169,7 @@
 
 /* Contact Section */
 .contact-section {
-    padding: 20px;
+    padding: 10px 15px;
     border-bottom: 1px solid #e0e0e0;
     background-color: #f8f9fa;
 }
@@ -200,8 +200,10 @@
 
 .contact-name-section {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
 
 .ad-title {
@@ -215,6 +217,20 @@
     border-left: 3px solid #007bff;
     display: inline-block;
     margin-top: 2px;
+}
+
+.item-title-right {
+    color: #007bff;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+    background-color: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #007bff;
+    display: inline-block;
+    text-align: right;
+    flex-shrink: 0;
 }
 
 .contact-actions {
@@ -445,6 +461,9 @@
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
 }
 
 .message-input {
@@ -498,8 +517,16 @@
         height: calc(100vh - 100px);
     }
     
+    .chat-header {
+        padding: 6px 12px;
+    }
+    
+    .contact-section {
+        padding: 8px 12px;
+    }
+    
     .chat-messages {
-        height: calc(100vh - 250px);
+        height: calc(100vh - 200px);
         padding: 15px;
     }
     
@@ -534,16 +561,111 @@
     .send-button span {
         display: none;
     }
+    
+    .message-input-section {
+        position: sticky;
+        bottom: 0;
+        background-color: #f8f9fa;
+        z-index: 1000;
+        padding: 15px;
+    }
+    
+    .input-container {
+        padding: 10px;
+        gap: 8px;
+        min-height: 50px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .message-input {
+        min-height: 30px;
+        max-height: 80px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        line-height: 1.4;
+        flex: 1;
+    }
+    
+    .send-button {
+        padding: 8px 12px;
+        font-size: 14px;
+        min-width: 60px;
+        flex-shrink: 0;
+    }
+    
+    .input-actions-right {
+        flex-shrink: 0;
+    }
+    
+    .contact-name-section {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .item-title-right {
+        font-size: 12px;
+        padding: 3px 6px;
+        flex-shrink: 0;
+    }
+}
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .message-input-section {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e0e0e0;
+        z-index: 1000;
+    }
+    
+    .chat-messages {
+        padding-bottom: 100px; /* Space for fixed input */
+    }
+    
+    .input-container {
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    .message-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        -webkit-appearance: none;
+        border-radius: 0;
+    }
+    
+    .send-button {
+        flex-shrink: 0;
+        min-width: 50px;
+    }
+}
+
+/* Keyboard visible state */
+body.keyboard-visible .message-input-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+body.keyboard-visible .chat-messages {
+    padding-bottom: 80px;
 }
 
 /* Very small screens */
 @media (max-height: 600px) {
     .chat-header {
-        padding: 10px 20px;
+        padding: 6px 15px;
     }
     
     .contact-section {
-        padding: 10px 20px;
+        padding: 6px 15px;
     }
     
     .message-input-section {
@@ -592,6 +714,52 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial scroll to bottom
     scrollToBottom();
+    
+    // iOS keyboard handling
+    function handleIOSKeyboard() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (!isIOS) return;
+        
+        let initialViewportHeight = window.innerHeight;
+        
+        // Handle keyboard show/hide
+        window.addEventListener('resize', function() {
+            const currentHeight = window.innerHeight;
+            const heightDifference = initialViewportHeight - currentHeight;
+            
+            if (heightDifference > 150) {
+                // Keyboard is visible
+                document.body.classList.add('keyboard-visible');
+                // Scroll to bottom when keyboard appears
+                setTimeout(scrollToBottom, 100);
+            } else {
+                // Keyboard is hidden
+                document.body.classList.remove('keyboard-visible');
+            }
+        });
+        
+        // Prevent zoom on input focus (iOS)
+        messageInput.addEventListener('focus', function() {
+            if (window.innerWidth < 768) {
+                const viewport = document.querySelector('meta[name=viewport]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                }
+            }
+        });
+        
+        messageInput.addEventListener('blur', function() {
+            if (window.innerWidth < 768) {
+                const viewport = document.querySelector('meta[name=viewport]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                }
+            }
+        });
+    }
+    
+    // Initialize iOS keyboard handling
+    handleIOSKeyboard();
     
     // Handle Enter key for sending messages
     messageInput.addEventListener('keydown', function(e) {
