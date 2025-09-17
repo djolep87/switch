@@ -190,7 +190,7 @@
                                                                                     </div>
                                                                                     @if($sendoffer->product && $sendoffer->product->user_id != auth()->id())
                                                                                         <div class="mt-2">
-                                                                                            <a href="/messages/{{ $sendoffer->product->user_id }}" class="btn btn-primary btn-sm">
+                                                                                            <a href="/messages/{{ $sendoffer->product->user_id }}/{{ $sendoffer->id }}" class="btn btn-primary btn-sm">
                                                                                                 <i class="bx bx-message"></i> Pošalji poruku
                                                                                             </a>
                                                                                         </div>

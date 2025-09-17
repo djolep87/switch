@@ -625,6 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('message', tempMessageText);
         formData.append('receiver_id', otherUserId);
+        formData.append('offer_id', '{{ $offerId ?? "" }}');
         formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         
         fetch('/messages', {
@@ -688,7 +689,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
     
     function refreshMessages() {
-        fetch(`/messages/{{ $otherUser->id ?? "" }}`, {
+        fetch(`/messages/{{ $otherUser->id ?? "" }}/{{ $offerId ?? "" }}`, {
             method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',

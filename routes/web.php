@@ -54,7 +54,7 @@ Route::post('/offers.sendoffer_archived/{offer}', 'OffersController@sendoffer_ar
 
 // Messaging System Routes
 Route::get('/messages', 'MessagingController@index')->name('messages.index');
-Route::get('/messages/{id}', 'MessagingController@show')->name('messages.show');
+Route::get('/messages/{id}/{offerId?}', 'MessagingController@show')->name('messages.show');
 Route::post('/messages', 'MessagingController@store')->name('messages.store');
 Route::post('/messages/{id}/read', 'MessagingController@markAsRead')->name('messages.read');
 Route::delete('/messages/{id}', 'MessagingController@destroy')->name('messages.destroy');

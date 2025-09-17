@@ -16,7 +16,7 @@
     <!-- Messages List -->
     <div class="messages-list">
         @foreach($messages as $index => $message)
-        <a href="/messages/{{ $message['conversation_id'] ?? $index + 1 }}" class="message-item-link">
+        <a href="/messages/{{ $message['conversation_id'] ?? $index + 1 }}/{{ $message['offer_id'] ?? '' }}" class="message-item-link">
             <div class="message-item">
                 <div class="message-content">
                     <div class="message-header">

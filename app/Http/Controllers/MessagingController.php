@@ -18,75 +18,63 @@ class MessagingController extends Controller
      */
     public function index()
     {
-
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         $userId = auth()->id();
         
-        // Get all conversations for the current user (excluding those deleted by current user)
-        $conversations = \App\Models\Message::with(['sender', 'receiver', 'offer'])
+        // Get all offers where the current user is either the creator or acceptor
+        $offers = \App\Models\Offer::with(['product', 'sendproduct', 'user', 'acceptor'])
             ->where(function($query) use ($userId) {
-                $query->where('sender_id', $userId)
-                      ->orWhere('receiver_id', $userId);
+                $query->where('user_id', $userId)
+                      ->orWhere('acceptor', $userId);
             })
-            ->whereRaw("JSON_EXTRACT(deleted_by_users, '$') IS NULL OR JSON_SEARCH(deleted_by_users, 'one', ?) IS NULL", [$userId])
             ->orderBy('created_at', 'desc')
-            ->get()
-            ->groupBy(function($message) use ($userId) {
-                // Group by the other user in the conversation
-                return $message->sender_id == $userId ? $message->receiver_id : $message->sender_id;
-            });
+            ->get();
 
         $messages = [];
         
-        foreach ($conversations as $otherUserId => $conversationMessages) {
-            $latestMessage = $conversationMessages->first();
-            $otherUser = $latestMessage->sender_id == $userId ? $latestMessage->receiver : $latestMessage->sender;
+        foreach ($offers as $offer) {
+            // Get the other user in this exchange
+            $otherUserId = $offer->user_id == $userId ? $offer->acceptor : $offer->user_id;
+            $otherUser = \App\Models\User::find($otherUserId);
             
-            // Get ad title from any message in the conversation that has an offer
-            $adTitle = 'Razmena'; // Default fallback
-            $messageWithOffer = $conversationMessages->first(function($message) {
-                return $message->offer_id !== null;
-            });
+            // Get the latest message for this specific offer
+            $latestMessage = \App\Models\Message::with(['sender', 'receiver'])
+                ->where('offer_id', $offer->id)
+                ->where(function($query) use ($userId) {
+                    $query->where('sender_id', $userId)
+                          ->orWhere('receiver_id', $userId);
+                })
+                ->where(function($query) use ($userId) {
+                    $query->whereNull('deleted_by_users')
+                          ->orWhereRaw("JSON_SEARCH(deleted_by_users, 'one', ?) IS NULL", [$userId]);
+                })
+                ->orderBy('created_at', 'desc')
+                ->first();
             
-            // If no message with offer_id, try to find offers between these users
-            if (!$messageWithOffer || !$messageWithOffer->offer) {
-                $offer = \App\Models\Offer::with(['product', 'sendproduct'])
-                    ->where(function($query) use ($userId, $otherUserId) {
-                        $query->where('user_id', $userId)->where('acceptor', $otherUserId);
-                    })->orWhere(function($query) use ($userId, $otherUserId) {
-                        $query->where('user_id', $otherUserId)->where('acceptor', $userId);
-                    })->orderBy('created_at', 'desc')->first();
-                
-                if ($offer) {
-                    // Show the ad that belongs to the CURRENT user (the one viewing the messages)
-                    if ($offer->user_id == $userId) {
-                        // Current user is the offer creator - show what they're offering (product)
-                        $adTitle = $offer->product ? $offer->product->name : 'Razmena';
-                    } else {
-                        // Other user is the offer creator - show what current user wants (sendproduct)
-                        $adTitle = $offer->sendproduct ? $offer->sendproduct->name : 'Razmena';
-                    }
-                }
+            // Skip if no messages for this offer or other user not found
+            if (!$latestMessage || !$otherUser) {
+                continue;
+            }
+            
+            // Determine the ad title based on the current user's perspective
+            if ($offer->user_id == $userId) {
+                // Current user is the offer creator - show what they're offering (product)
+                $adTitle = $offer->product ? $offer->product->name : 'Razmena';
             } else {
-                // Use the existing logic for messages with offer_id
-                if ($messageWithOffer->offer->user_id == $userId) {
-                    // Current user is the offer creator - show what they're offering (product)
-                    $adTitle = $messageWithOffer->offer->product ? $messageWithOffer->offer->product->name : 'Razmena';
-                } else {
-                    // Other user is the offer creator - show what current user wants (sendproduct)
-                    $adTitle = $messageWithOffer->offer->sendproduct ? $messageWithOffer->offer->sendproduct->name : 'Razmena';
-                }
+                // Other user is the offer creator - show what current user wants (sendproduct)
+                $adTitle = $offer->sendproduct ? $offer->sendproduct->name : 'Razmena';
             }
             
             $messages[] = [
                 'sender_name' => $otherUser->firstName,
                 'ad_title' => $adTitle,
-                'is_blocked' => false, // You can add blocked status logic here
+                'is_blocked' => false,
                 'time' => $latestMessage->created_at->format('d.m.Y. H:i'),
-                'subject' => $latestMessage->offer ? $latestMessage->offer->product->name ?? 'Poruka' : 'Poruka',
+                'subject' => $adTitle,
                 'preview' => \Illuminate\Support\Str::limit($latestMessage->message, 50),
                 'is_read' => $latestMessage->is_read,
-                'conversation_id' => $otherUserId
+                'conversation_id' => $otherUser->id,
+                'offer_id' => $offer->id
             ];
         }
 
@@ -96,76 +84,59 @@ class MessagingController extends Controller
     /**
      * Display a specific chat conversation
      */
-    public function show($id)
+    public function show($id, $offerId = null)
     {
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         $userId = auth()->id();
         
-        // Get the other user in the conversation
-        $otherUser = \App\Models\User::findOrFail($id);
+        // If no offerId provided, redirect to messages list
+        if (!$offerId) {
+            return redirect()->route('messages.index');
+        }
         
-        // Get all messages between current user and the other user (excluding those deleted by current user)
-        $messages = \App\Models\Message::with(['sender', 'receiver', 'offer.product', 'offer.sendproduct'])
-            ->betweenUsers($userId, $id)
-            ->whereRaw("JSON_EXTRACT(deleted_by_users, '$') IS NULL OR JSON_SEARCH(deleted_by_users, 'one', ?) IS NULL", [$userId])
+        // Get the specific offer
+        $offer = \App\Models\Offer::with(['product', 'sendproduct', 'user', 'acceptor'])->findOrFail($offerId);
+        
+        // Get the other user in this exchange
+        $otherUserId = $offer->user_id == $userId ? $offer->acceptor : $offer->user_id;
+        $otherUser = \App\Models\User::findOrFail($otherUserId);
+        
+        // Get all messages for this specific offer
+        $messages = \App\Models\Message::with(['sender', 'receiver'])
+            ->where('offer_id', $offerId)
+            ->where(function($query) use ($userId) {
+                $query->where('sender_id', $userId)
+                      ->orWhere('receiver_id', $userId);
+            })
+            ->where(function($query) use ($userId) {
+                $query->whereNull('deleted_by_users')
+                      ->orWhereRaw("JSON_SEARCH(deleted_by_users, 'one', ?) IS NULL", [$userId]);
+            })
             ->orderBy('created_at', 'asc')
             ->get();
         
         // Mark messages as read
         \App\Models\Message::where('receiver_id', $userId)
-            ->where('sender_id', $id)
+            ->where('sender_id', $otherUser->id)
+            ->where('offer_id', $offerId)
             ->where('is_read', false)
             ->update(['is_read' => true, 'read_at' => now()]);
         
         $contactName = $otherUser->firstName;
         
-        // Get ad title and image based on user perspective
-        $adTitle = null; // No default, will show nothing if no offer
-        $adImage = null; // Default
-        $messageWithOffer = $messages->first(function($message) {
-            return $message->offer_id !== null;
-        });
-        
-        // If no message with offer_id, try to find offers between these users
-        if (!$messageWithOffer || !$messageWithOffer->offer) {
-            $offer = \App\Models\Offer::with(['product', 'sendproduct'])
-                ->where(function($query) use ($userId, $id) {
-                    $query->where('user_id', $userId)->where('acceptor', $id);
-                })->orWhere(function($query) use ($userId, $id) {
-                    $query->where('user_id', $id)->where('acceptor', $userId);
-                })->orderBy('created_at', 'desc')->first();
-            
-            if ($offer) {
-                // Show the ad that belongs to the CURRENT user (the one viewing the chat)
-                if ($offer->user_id == $userId) {
-                    // Current user is the offer creator - show what they're offering (product)
-                    $adTitle = $offer->product ? $offer->product->name : null;
-                    $adImage = $offer->product && !empty($offer->product->images) 
-                        ? $offer->product->images 
-                        : null;
-                } else {
-                    // Other user is the offer creator - show what current user wants (sendproduct)
-                    $adTitle = $offer->sendproduct ? $offer->sendproduct->name : null;
-                    $adImage = $offer->sendproduct && !empty($offer->sendproduct->images) 
-                        ? $offer->sendproduct->images 
-                        : null;
-                }
-            }
+        // Get ad title and image based on the current user's perspective
+        if ($offer->user_id == $userId) {
+            // Current user is the offer creator - show what they're offering (product)
+            $adTitle = $offer->product ? $offer->product->name : null;
+            $adImage = $offer->product && !empty($offer->product->images) 
+                ? $offer->product->images 
+                : null;
         } else {
-            // Use the existing logic for messages with offer_id
-            if ($messageWithOffer->offer->user_id == $userId) {
-                // Current user is the offer creator - show what they're offering (product)
-                $adTitle = $messageWithOffer->offer->product ? $messageWithOffer->offer->product->name : null;
-                $adImage = $messageWithOffer->offer->product && !empty($messageWithOffer->offer->product->images) 
-                    ? $messageWithOffer->offer->product->images 
-                    : null;
-            } else {
-                // Other user is the offer creator - show what current user wants (sendproduct)
-                $adTitle = $messageWithOffer->offer->sendproduct ? $messageWithOffer->offer->sendproduct->name : null;
-                $adImage = $messageWithOffer->offer->sendproduct && !empty($messageWithOffer->offer->sendproduct->images) 
-                    ? $messageWithOffer->offer->sendproduct->images 
-                    : null;
-            }
+            // Other user is the offer creator - show what current user wants (sendproduct)
+            $adTitle = $offer->sendproduct ? $offer->sendproduct->name : null;
+            $adImage = $offer->sendproduct && !empty($offer->sendproduct->images) 
+                ? $offer->sendproduct->images 
+                : null;
         }
         
         $itemTitle = $adTitle;
@@ -187,7 +158,7 @@ class MessagingController extends Controller
             ]);
         }
         
-        return view('messages.chat', compact('contactName', 'itemTitle', 'adImage', 'messages', 'otherUser', 'wishlists'));
+        return view('messages.chat', compact('contactName', 'itemTitle', 'adImage', 'messages', 'otherUser', 'wishlists', 'offerId'));
     }
 
     /**
@@ -198,7 +169,7 @@ class MessagingController extends Controller
         $request->validate([
             'message' => 'required|string|max:1000',
             'receiver_id' => 'required|integer|exists:users,id',
-            'offer_id' => 'nullable|integer|exists:offers,id'
+            'offer_id' => 'required|integer|exists:offers,id'
         ]);
 
         try {
