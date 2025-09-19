@@ -508,5 +508,73 @@
         <!--End Back To Top Button-->
     </div>
 
+<style>
+/* Mobile responsive text handling for product names */
+@media (max-width: 768px) {
+    .product-name {
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        line-height: 1.3;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+    
+    /* Ensure proper text flow */
+    .col-md-8 .card-body .product-info {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .col-md-8 .card-body .product-info a {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Prevent horizontal overflow */
+    .card {
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+    
+    .card-body {
+        overflow: hidden;
+        word-wrap: break-word;
+        padding: 1rem;
+    }
+    
+    /* Ensure the entire row doesn't overflow */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .col-md-8 {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+}
+
+/* For very small screens, make it even more compact */
+@media (max-width: 480px) {
+    .product-name {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    .col-md-8 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+</style>
 
 @endsection

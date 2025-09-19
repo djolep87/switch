@@ -70,6 +70,42 @@
 			border-color: #bee5eb;
 			color: #0c5460;
 		}
+		
+		/* Fix mobile dropdown visibility */
+		@media (max-width: 991.98px) {
+			.submenu.dropdown-menu {
+				position: static !important;
+				transform: none !important;
+				width: 100% !important;
+				box-shadow: none !important;
+				border: none !important;
+				background-color: #f8f9fa !important;
+				margin-top: 0.5rem;
+				padding-left: 1rem;
+			}
+			
+			.submenu.dropdown-menu .dropdown-item {
+				padding: 0.5rem 1rem;
+				border-bottom: 1px solid #e9ecef;
+			}
+			
+			.submenu.dropdown-menu .dropdown-item:last-child {
+				border-bottom: none;
+			}
+			
+			.submenu.dropdown-menu .dropdown-item:hover {
+				background-color: #e9ecef;
+			}
+		}
+		
+		/* Ensure dropdown is visible on all screen sizes */
+		.dropdown-menu.show {
+			display: block !important;
+		}
+		
+		.submenu.dropdown-menu.show {
+			display: block !important;
+		}
 	</style>
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -242,15 +278,6 @@
 												data-bs-toggle="dropdown">
 												{{ Auth::user()->firstName }} <i class='bx bx-chevron-right'></i>
 											</a>
-                                            {{-- @if(Auth::user()->is_admin)
-                                            	<a class="dropdown-item" href="/admin/dashboard"> Admin Dashboard</a>
-                                            @endif --}}
-                                             
-
-                                            <ul class="submenu dropdown-menu">
-                                                <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
-                                            </ul>
-
 											<ul class="submenu dropdown-menu">
                                                 @if(Auth::user()->is_admin)
                                             	    <a class="dropdown-item" href="/admin/dashboard"> Admin Dashboard</a>

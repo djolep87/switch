@@ -172,7 +172,12 @@
                                                 <div class="col-12">
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" name="accepted" type="checkbox" id="flexSwitchCheckChecked" required value="1">
-                                                        <label class="form-check-label" for="flexSwitchCheckChecked"><a href="/uslovi">Slažem se sa uslovima korišćenja</a></label>
+                                                        <label class="form-check-label" for="flexSwitchCheckChecked">
+                                                            <a href="/uslovi">Slažem se sa uslovima korišćenja</a>
+                                                            <span id="termsWarning" class="terms-warning" style="display: none;">
+                                                                <i class="bx bx-error-circle ms-2" title="Morate ponovo potvrditi uslove korišćenja"></i>
+                                                            </span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -196,5 +201,77 @@
 </div>
 
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const termsCheckbox = document.getElementById('flexSwitchCheckChecked');
+    const termsWarning = document.getElementById('termsWarning');
+    
+    // Check if the form was reloaded due to validation errors
+    // This happens when there are old() values or validation errors
+    const hasOldValues = {{ json_encode(old()) ? 'true' : 'false' }};
+    const hasValidationErrors = {{ json_encode($errors->any()) ? 'true' : 'false' }};
+    
+    // Show warning if form was reloaded and checkbox is not checked
+    if ((hasOldValues || hasValidationErrors) && !termsCheckbox.checked) {
+        termsWarning.style.display = 'inline';
+    }
+    
+    // Hide warning when user checks the checkbox
+    termsCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            termsWarning.style.display = 'none';
+        } else if (hasOldValues || hasValidationErrors) {
+            termsWarning.style.display = 'inline';
+        }
+    });
+    
+    // Show warning when form is submitted but checkbox is not checked
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        if (!termsCheckbox.checked) {
+            e.preventDefault();
+            termsWarning.style.display = 'inline';
+            termsCheckbox.focus();
+        }
+    });
+});
+</script>
+
+<style>
+.terms-warning {
+    animation: pulse 1.5s infinite;
+    display: inline-block;
+}
+
+@keyframes pulse {
+    0% { 
+        opacity: 1; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: scale(1.1);
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1);
+    }
+}
+
+.terms-warning i {
+    font-size: 24px;
+    vertical-align: middle;
+    color: #dc3545 !important;
+    text-shadow: 2px 2px 4px rgba(220, 53, 69, 0.5);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.terms-warning:hover i {
+    transform: scale(1.1);
+    text-shadow: 3px 3px 6px rgba(220, 53, 69, 0.7);
+}
+</style>
 
 
