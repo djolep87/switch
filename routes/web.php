@@ -57,6 +57,7 @@ Route::get('/messages', 'MessagingController@index')->name('messages.index');
 Route::get('/messages/{id}/{offerId?}', 'MessagingController@show')->name('messages.show');
 Route::post('/messages', 'MessagingController@store')->name('messages.store');
 Route::post('/messages/{id}/read', 'MessagingController@markAsRead')->name('messages.read');
+Route::post('/messages/mark-conversation-read', 'MessagingController@markConversationAsRead')->name('messages.mark-conversation-read');
 Route::delete('/messages/{id}', 'MessagingController@destroy')->name('messages.destroy');
 Route::delete('/messages/delete-conversation/{otherUserId}', 'MessagingController@deleteConversation')->name('messages.delete-conversation');
 Route::get('/api/messages', 'MessagingController@getMessages')->name('messages.api');
@@ -77,6 +78,17 @@ Route::get('/notifications/mark-as-read/{notificationId}', function ($notificati
 
     return redirect('/offers'); // Ako notifikacija ne postoji, preusmeri na default stranicu
 })->name('markAsRead');
+
+Route::post('/notifications/mark-all-read', function (\Illuminate\Http\Request $request) {
+    $user = auth()->user();
+    $notificationIds = $request->input('notification_ids', []);
+    
+    if (!empty($notificationIds)) {
+        $user->notifications()->whereIn('id', $notificationIds)->update(['read_at' => now()]);
+    }
+    
+    return response()->json(['success' => true]);
+});
 
 Route::get('search', 'HomeController@search');
 

@@ -11,14 +11,18 @@ class Notifications extends Notification
 {
     use Queueable;
 
+    protected $offer;
+    protected $sender;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($offer = null, $sender = null)
     {
-        //
+        $this->offer = $offer;
+        $this->sender = $sender;
     }
 
     /**
@@ -57,9 +61,23 @@ class Notifications extends Notification
      */
     public function toArray($notifiable)
     {
+        $senderName = $this->sender ? $this->sender->firstName . ' ' . $this->sender->lastName : 'Nepoznato';
+        $productName = $this->offer && $this->offer->product ? $this->offer->product->title : 'Proizvod';
+        $offerProductName = $this->offer && $this->offer->sendproduct ? $this->offer->sendproduct->title : 'Vaš proizvod';
+        
         return [
-            'data' => 'Imate novi zahtev za zamenu',
-            'url' => url('/offers'), // Ispravan URL za preusmeravanje
+            'type' => 'exchange_request',
+            'title' => 'Novi zahtev za zamenu',
+            'message' => "{$senderName} je poslao zahtev za zamenu: {$productName} za {$offerProductName}",
+            'sender_name' => $senderName,
+            'sender_id' => $this->sender ? $this->sender->id : null,
+            'product_name' => $productName,
+            'offer_product_name' => $offerProductName,
+            'offer_id' => $this->offer ? $this->offer->id : null,
+            'url' => url('/offers'),
+            'icon' => 'bx bx-exchange',
+            'color' => '#17a2b8',
+            'timestamp' => now()->toISOString(),
         ];
     }
 }

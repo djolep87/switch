@@ -11,14 +11,18 @@ class RejectedNotifications extends Notification
 {
     use Queueable;
 
+    protected $offer;
+    protected $rejector;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($offer = null, $rejector = null)
     {
-        //
+        $this->offer = $offer;
+        $this->rejector = $rejector;
     }
 
     /**
@@ -57,8 +61,23 @@ class RejectedNotifications extends Notification
      */
     public function toArray($notifiable)
     {
+        $rejectorName = $this->rejector ? $this->rejector->firstName . ' ' . $this->rejector->lastName : 'Nepoznato';
+        $productName = $this->offer && $this->offer->product ? $this->offer->product->title : 'Proizvod';
+        $offerProductName = $this->offer && $this->offer->sendproduct ? $this->offer->sendproduct->title : 'Vaš proizvod';
+        
         return [
-            'data' => 'Vaš zahtev je odbijen!',
+            'type' => 'exchange_rejected',
+            'title' => 'Zahtev odbijen',
+            'message' => "Žao nam je, {$rejectorName} je odbio vaš zahtev za zamenu: {$productName} za {$offerProductName}",
+            'rejector_name' => $rejectorName,
+            'rejector_id' => $this->rejector ? $this->rejector->id : null,
+            'product_name' => $productName,
+            'offer_product_name' => $offerProductName,
+            'offer_id' => $this->offer ? $this->offer->id : null,
+            'url' => url('/sendOffers'),
+            'icon' => 'bx bx-x-circle',
+            'color' => '#dc3545',
+            'timestamp' => now()->toISOString(),
         ];
     }
 }

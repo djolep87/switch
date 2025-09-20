@@ -16,39 +16,48 @@
     <!-- Messages List -->
     <div class="messages-list">
         @foreach($messages as $index => $message)
-        <a href="/messages/{{ $message['conversation_id'] ?? $index + 1 }}/{{ $message['offer_id'] ?? '' }}" class="message-item-link">
-            <div class="message-item">
-                <div class="message-content">
-                    <div class="message-header">
-                        <div class="sender-info">
-                            <span class="sender-name">{{ $message['sender_name'] }}</span>
-                            @if($message['ad_title'] && $message['ad_title'] !== 'Razmena')
-                                <div class="ad-title">{{ $message['ad_title'] }}</div>
-                            @elseif($message['ad_title'] === 'Razmena')
-                                <div class="ad-title">Razmena proizvoda</div>
-                            @endif
-                            @if($message['is_blocked'])
-                                <span class="blocked-status">Blokiran od strane admina.</span>
-                            @endif
+        <div class="message-item-wrapper {{ $message['has_unread'] ? 'has-unread' : '' }}">
+            <a href="/messages/{{ $message['conversation_id'] ?? $index + 1 }}/{{ $message['offer_id'] ?? '' }}" class="message-item-link">
+                <div class="message-item">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <div class="sender-info">
+                                <span class="sender-name">{{ $message['sender_name'] }}</span>
+                                @if($message['ad_title'] && $message['ad_title'] !== 'Razmena')
+                                    <div class="ad-title">{{ $message['ad_title'] }}</div>
+                                @elseif($message['ad_title'] === 'Razmena')
+                                    <div class="ad-title">Razmena proizvoda</div>
+                                @endif
+                                @if($message['is_blocked'])
+                                    <span class="blocked-status">Blokiran od strane admina.</span>
+                                @endif
+                            </div>
+                            <div class="message-time">{{ $message['time'] }}</div>
                         </div>
-                        <div class="message-time">{{ $message['time'] }}</div>
-                    </div>
-                    <div class="message-subject">{{ $message['subject'] }}</div>
-                    {{-- <div class="message-preview">
-                        @if($message['is_read'])
-                            <i class="bx bx-check-double read-icon"></i>
+                        <div class="message-subject">{{ $message['subject'] }}</div>
+                        @if($message['has_unread'])
+                            <div class="unread-indicator">
+                                <span class="unread-badge">{{ $message['unread_count'] }}</span>
+                                <span class="unread-text">nepročitane poruke</span>
+                            </div>
                         @endif
-                        {{ $message['preview'] }}
-                    </div> --}}
+                    </div>
+                    <div class="message-actions">
+                        @if($message['has_unread'])
+                            <button class="mark-read-btn" 
+                                    data-conversation-id="{{ $message['conversation_id'] }}" 
+                                    data-offer-id="{{ $message['offer_id'] }}" 
+                                    title="Označi kao pročitano">
+                                <i class="bx bx-check"></i>
+                            </button>
+                        @endif
+                        <button class="delete-conversation-btn" data-conversation-id="{{ $message['conversation_id'] }}" title="Obriši razgovor">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="message-actions">
-                    {{-- <i class="bx bx-star star-icon"></i> --}}
-                    <button class="delete-conversation-btn" data-conversation-id="{{ $message['conversation_id'] }}" title="Obriši razgovor">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </a>
+            </a>
+        </div>
         @endforeach
     </div>
 </div>
@@ -201,6 +210,78 @@
 
 .message-item:hover {
     background-color: #f8f9fa;
+}
+
+/* Unread message styling */
+.message-item-wrapper.has-unread .message-item {
+    background: linear-gradient(90deg, rgba(0, 123, 255, 0.05) 0%, #ffffff 100%);
+    border-left: 4px solid #007bff;
+}
+
+.unread-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.unread-badge {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.unread-text {
+    font-size: 12px;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+/* Mark as read button */
+.mark-read-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 8px;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.mark-read-btn:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+}
+
+.mark-read-btn:active {
+    transform: scale(0.95);
+}
+
+.mark-read-btn i {
+    font-size: 16px;
+}
+
+/* Animation for unread badge */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .message-checkbox {
@@ -372,6 +453,76 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Handle mark as read button clicks
+    document.querySelectorAll('.mark-read-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const conversationId = this.getAttribute('data-conversation-id');
+            const offerId = this.getAttribute('data-offer-id');
+            
+            // Show loading state
+            const originalContent = this.innerHTML;
+            this.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i>';
+            this.disabled = true;
+            
+            fetch('/messages/mark-conversation-read', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    conversation_id: conversationId,
+                    offer_id: offerId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove unread indicators
+                    const messageWrapper = this.closest('.message-item-wrapper');
+                    const unreadIndicator = messageWrapper.querySelector('.unread-indicator');
+                    
+                    if (unreadIndicator) {
+                        unreadIndicator.remove();
+                    }
+                    
+                    // Remove unread styling
+                    messageWrapper.classList.remove('has-unread');
+                    
+                    // Remove mark as read button
+                    this.remove();
+                    
+                    // Show success message
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success('Poruke su označene kao pročitane');
+                    }
+                } else {
+                    // Restore button state on error
+                    this.innerHTML = originalContent;
+                    this.disabled = false;
+                    
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error('Greška pri označavanju poruka');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Restore button state on error
+                this.innerHTML = originalContent;
+                this.disabled = false;
+                
+                if (typeof toastr !== 'undefined') {
+                    toastr.error('Greška pri označavanju poruka');
+                }
+            });
+        });
+    });
+
     // Handle delete conversation button clicks
     document.querySelectorAll('.delete-conversation-btn').forEach(button => {
         button.addEventListener('click', function(e) {

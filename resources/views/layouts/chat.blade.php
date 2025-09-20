@@ -67,6 +67,257 @@
 			border-color: #bee5eb;
 			color: #0c5460;
 		}
+		
+		/* ===== MODERN NOTIFICATION SYSTEM ===== */
+		
+		/* Notification Bell Icon - inherits .cart-link styling to match other header icons */
+		
+		/* Notification badge uses standard .alert-count styling to match other badges */
+		
+		/* Notification Dropdown */
+		.notification-dropdown {
+			width: 380px !important;
+			max-width: 90vw;
+			border: none;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+			border-radius: 12px;
+			padding: 0;
+			overflow: hidden;
+			background: white;
+			animation: slideInDown 0.3s ease;
+		}
+		
+		@keyframes slideInDown {
+			from {
+				opacity: 0;
+				transform: translateY(-10px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		/* Notification Header */
+		.notification-header {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 16px 20px;
+			border-bottom: 1px solid #e9ecef;
+		}
+		
+		.notification-header-icon {
+			font-size: 1.2rem;
+			margin-right: 8px;
+			opacity: 0.9;
+		}
+		
+		.notification-title {
+			font-weight: 600;
+			font-size: 1.1rem;
+		}
+		
+		.notification-actions .btn {
+			border-color: rgba(255, 255, 255, 0.3);
+			color: white;
+			font-size: 0.8rem;
+			padding: 4px 8px;
+		}
+		
+		.notification-actions .btn:hover {
+			background-color: rgba(255, 255, 255, 0.2);
+			border-color: rgba(255, 255, 255, 0.5);
+		}
+		
+		/* Notification List */
+		.notification-list {
+			max-height: 400px;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: #ddd transparent;
+		}
+		
+		.notification-list::-webkit-scrollbar {
+			width: 4px;
+		}
+		
+		.notification-list::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		
+		.notification-list::-webkit-scrollbar-thumb {
+			background: #ddd;
+			border-radius: 2px;
+		}
+		
+		/* Notification Items */
+		.notification-item {
+			display: block;
+			padding: 16px 20px;
+			border-bottom: 1px solid #f8f9fa;
+			text-decoration: none;
+			color: inherit;
+			transition: all 0.2s ease;
+			position: relative;
+			background: white;
+		}
+		
+		.notification-item:hover {
+			background: #f8f9fa;
+			text-decoration: none;
+			color: inherit;
+		}
+		
+		.notification-item.unread {
+			background: linear-gradient(90deg, rgba(0, 123, 255, 0.05) 0%, white 100%);
+		}
+		
+		.notification-item-content {
+			display: flex;
+			align-items: flex-start;
+			gap: 12px;
+		}
+		
+		.notification-icon-wrapper {
+			flex-shrink: 0;
+			width: 40px;
+			height: 40px;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.2rem;
+			transition: all 0.2s ease;
+		}
+		
+		.notification-item:hover .notification-icon-wrapper {
+			transform: scale(1.1);
+		}
+		
+		.notification-text {
+			flex: 1;
+			min-width: 0;
+		}
+		
+		.notification-item-title {
+			font-weight: 600;
+			font-size: 0.95rem;
+			color: #2c3e50;
+			margin-bottom: 4px;
+			line-height: 1.3;
+		}
+		
+		.notification-item-message {
+			font-size: 0.85rem;
+			color: #6c757d;
+			line-height: 1.4;
+			margin-bottom: 6px;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		
+		.notification-item-time {
+			font-size: 0.75rem;
+			color: #adb5bd;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+		
+		.notification-item-time i {
+			font-size: 0.7rem;
+		}
+		
+		.notification-unread-indicator {
+			position: absolute;
+			right: 12px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 8px;
+			height: 8px;
+			background: #007bff;
+			border-radius: 50%;
+			box-shadow: 0 0 0 2px white;
+		}
+		
+		/* Empty State */
+		.notification-empty {
+			padding: 40px 20px;
+		}
+		
+		.notification-empty-icon {
+			font-size: 3rem;
+			color: #dee2e6;
+			margin-bottom: 16px;
+		}
+		
+		.notification-empty-text {
+			color: #6c757d;
+			font-size: 0.9rem;
+			margin: 0;
+		}
+		
+		/* Notification Footer */
+		.notification-footer {
+			padding: 16px 20px;
+			background: #f8f9fa;
+			border-top: 1px solid #e9ecef;
+		}
+		
+		.notification-footer .btn {
+			border-radius: 8px;
+			font-weight: 500;
+			font-size: 0.9rem;
+			padding: 10px;
+		}
+		
+		/* Mobile Responsiveness */
+		@media (max-width: 768px) {
+			.notification-dropdown {
+				width: 320px !important;
+				left: auto !important;
+				right: 0 !important;
+			}
+			
+			.notification-item {
+				padding: 12px 16px;
+			}
+			
+			.notification-icon-wrapper {
+				width: 36px;
+				height: 36px;
+				font-size: 1.1rem;
+			}
+			
+			.notification-item-title {
+				font-size: 0.9rem;
+			}
+			
+			.notification-item-message {
+				font-size: 0.8rem;
+			}
+		}
+		
+		@media (max-width: 480px) {
+			.notification-dropdown {
+				width: 280px !important;
+			}
+			
+			.notification-header {
+				padding: 12px 16px;
+			}
+			
+			.notification-title {
+				font-size: 1rem;
+			}
+			
+			.notification-actions .btn {
+				font-size: 0.75rem;
+				padding: 3px 6px;
+			}
+		}
 	</style>
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -130,30 +381,75 @@
 											</li>
 											@endauth
 											<li class="nav-item dropdown dropdown-large">
-												<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">	
+												<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link notification-toggle" data-bs-toggle="dropdown">	
 													@if (auth()->user()->unreadNotifications->count())
 														<span class="alert-count">{{ auth()->user()->unreadNotifications->count() }}</span>
 													@endif
 													<i class='bx bx-bell'></i>
 												</a>
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="javascript:;">
-														<div class="cart-header">
-															<i class='bx bx-bell' style="margin-right: 5px;"></i>   <p class="cart-header-title mb-0">Obaveštenja</p>
-														
+												<div class="dropdown-menu dropdown-menu-end notification-dropdown">
+													<!-- Notification Header -->
+													<div class="notification-header">
+														<div class="d-flex align-items-center justify-content-between">
+															<div class="d-flex align-items-center">
+																<i class='bx bx-bell notification-header-icon'></i>
+																<h6 class="notification-title mb-0">Obaveštenja</h6>
+															</div>
+															@if (auth()->user()->unreadNotifications->count() > 0)
+																<div class="notification-actions">
+																	<button class="btn btn-sm btn-outline-primary mark-all-read" onclick="markAllAsRead()">
+																		<i class='bx bx-check'></i> Označi sve
+																	</button>
+																</div>
+															@endif
 														</div>
-													</a>
-													@foreach (auth()->user()->unreadNotifications as $notification)
-                                                        <div class="" style="background-color:lightgray;">
-                                                            <a class="dropdown-item" href="{{ route('markAsRead', ['notificationId' => $notification->id]) }}">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="flex-grow-1">
-                                                                        <h6 class="cart-product-title">{{ $notification->data['data'] }}</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div> 
-                                                    @endforeach
+													</div>
+
+													<!-- Notification List -->
+													<div class="notification-list">
+														@forelse (auth()->user()->unreadNotifications as $notification)
+															@php
+																$data = $notification->data;
+																$icon = $data['icon'] ?? 'bx bx-bell';
+																$color = $data['color'] ?? '#6c757d';
+																$title = $data['title'] ?? 'Obaveštenje';
+																$message = $data['message'] ?? $data['data'] ?? '';
+																$timestamp = isset($data['timestamp']) ? \Carbon\Carbon::parse($data['timestamp']) : $notification->created_at;
+															@endphp
+															<a href="{{ route('markAsRead', ['notificationId' => $notification->id]) }}" class="notification-item unread">
+																<div class="notification-item-content">
+																	<div class="notification-icon-wrapper" style="background-color: {{ $color }}20; border-left: 3px solid {{ $color }};">
+																		<i class="{{ $icon }}" style="color: {{ $color }};"></i>
+																	</div>
+																	<div class="notification-text">
+																		<div class="notification-item-title">{{ $title }}</div>
+																		<div class="notification-item-message">{{ $message }}</div>
+																		<div class="notification-item-time">
+																			<i class='bx bx-time'></i>
+																			{{ $timestamp->diffForHumans() }}
+																		</div>
+																	</div>
+																</div>
+																<div class="notification-unread-indicator"></div>
+															</a>
+														@empty
+															<div class="notification-empty">
+																<div class="text-center py-4">
+																	<i class='bx bx-bell-off notification-empty-icon'></i>
+																	<p class="notification-empty-text">Nema novih obaveštenja</p>
+																</div>
+															</div>
+														@endforelse
+													</div>
+
+													<!-- Notification Footer -->
+													@if (auth()->user()->unreadNotifications->count() > 0)
+														<div class="notification-footer">
+															<a href="/offers" class="btn btn-primary btn-sm w-100">
+																<i class='bx bx-list-ul'></i> Pogledaj sva obaveštenja
+															</a>
+														</div>
+													@endif
 												</div>
 											</li>
 										</ul>
@@ -267,6 +563,173 @@
             "timeOut": "5000",
             "extendedTimeOut": "1000"
         };
+    </script>
+
+    <script>
+    // Enhanced notification system functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationDropdown = document.querySelector('.nav-item.dropdown.dropdown-large');
+        
+        if (notificationDropdown) {
+            const dropdownToggle = notificationDropdown.querySelector('[data-bs-toggle="dropdown"]');
+            const dropdownMenu = notificationDropdown.querySelector('.dropdown-menu');
+            
+            if (dropdownToggle && dropdownMenu) {
+                // Mobile positioning fix
+                dropdownToggle.addEventListener('click', function(e) {
+                    setTimeout(function() {
+                        if (window.innerWidth <= 768) {
+                            dropdownMenu.style.position = 'fixed';
+                            dropdownMenu.style.top = 'auto';
+                            dropdownMenu.style.right = '10px';
+                            dropdownMenu.style.zIndex = '99999';
+                            dropdownMenu.style.transform = 'none';
+                        }
+                    }, 10);
+                });
+                
+                notificationDropdown.addEventListener('shown.bs.dropdown', function() {
+                    if (window.innerWidth <= 768) {
+                        dropdownMenu.style.position = 'fixed';
+                        dropdownMenu.style.top = 'auto';
+                        dropdownMenu.style.right = '10px';
+                        dropdownMenu.style.zIndex = '99999';
+                        dropdownMenu.style.transform = 'none';
+                    }
+                    
+                    // Add animation to notification items
+                    const notificationItems = dropdownMenu.querySelectorAll('.notification-item');
+                    notificationItems.forEach((item, index) => {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(-20px)';
+                        setTimeout(() => {
+                            item.style.transition = 'all 0.3s ease';
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, index * 100);
+                    });
+                });
+                
+                notificationDropdown.addEventListener('hidden.bs.dropdown', function() {
+                    dropdownMenu.style.position = '';
+                    dropdownMenu.style.top = '';
+                    dropdownMenu.style.right = '';
+                    dropdownMenu.style.zIndex = '';
+                    dropdownMenu.style.transform = '';
+                });
+            }
+        }
+        
+        // Add click animations to notification items
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Add ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(0, 123, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = e.offsetX + 'px';
+                ripple.style.top = e.offsetY + 'px';
+                ripple.style.width = ripple.style.height = '20px';
+                ripple.style.pointerEvents = 'none';
+                
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    });
+    
+    // Mark all notifications as read
+    function markAllAsRead() {
+        const markAllBtn = document.querySelector('.mark-all-read');
+        if (markAllBtn) {
+            markAllBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Obrađujem...';
+            markAllBtn.disabled = true;
+        }
+        
+        // Get all unread notification IDs
+        const notificationItems = document.querySelectorAll('.notification-item.unread');
+        const notificationIds = Array.from(notificationItems).map(item => {
+            const href = item.getAttribute('href');
+            const match = href.match(/\/notifications\/mark-as-read\/([^\/]+)/);
+            return match ? match[1] : null;
+        }).filter(id => id !== null);
+        
+        if (notificationIds.length === 0) {
+            if (markAllBtn) {
+                markAllBtn.innerHTML = '<i class="bx bx-check"></i> Označi sve';
+                markAllBtn.disabled = false;
+            }
+            return;
+        }
+        
+        // Send AJAX request to mark all as read
+        fetch('/notifications/mark-all-read', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                notification_ids: notificationIds
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove unread styling and update badge
+                notificationItems.forEach(item => {
+                    item.classList.remove('unread');
+                    const indicator = item.querySelector('.notification-unread-indicator');
+                    if (indicator) {
+                        indicator.remove();
+                    }
+                });
+                
+                // Update badge count
+                const badge = document.querySelector('.notification-toggle .alert-count');
+                if (badge) {
+                    badge.remove();
+                }
+                
+                // Hide mark all button
+                const markAllBtn = document.querySelector('.mark-all-read');
+                if (markAllBtn) {
+                    markAllBtn.style.display = 'none';
+                }
+                
+                // Show success message
+                if (typeof toastr !== 'undefined') {
+                    toastr.success('Sva obaveštenja su označena kao pročitana');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error marking notifications as read:', error);
+            if (markAllBtn) {
+                markAllBtn.innerHTML = '<i class="bx bx-check"></i> Označi sve';
+                markAllBtn.disabled = false;
+            }
+        });
+    }
+    
+    // Add ripple animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
     </script>
 
     @yield('scripts')

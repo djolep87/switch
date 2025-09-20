@@ -51,6 +51,16 @@ class MessagingController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->first();
             
+            // Count unread messages in this conversation (messages received by current user that are unread)
+            $unreadCount = \App\Models\Message::where('offer_id', $offer->id)
+                ->where('receiver_id', $userId)
+                ->where('is_read', false)
+                ->where(function($query) use ($userId) {
+                    $query->whereNull('deleted_by_users')
+                          ->orWhereRaw("JSON_SEARCH(deleted_by_users, 'one', ?) IS NULL", [$userId]);
+                })
+                ->count();
+            
             // Skip if no messages for this offer or other user not found
             if (!$latestMessage || !$otherUser) {
                 continue;
@@ -73,12 +83,44 @@ class MessagingController extends Controller
                 'subject' => $adTitle,
                 'preview' => \Illuminate\Support\Str::limit($latestMessage->message, 50),
                 'is_read' => $latestMessage->is_read,
+                'unread_count' => $unreadCount,
+                'has_unread' => $unreadCount > 0,
                 'conversation_id' => $otherUser->id,
                 'offer_id' => $offer->id
             ];
         }
 
         return view('messages.list', compact('messages', 'wishlists'));
+    }
+
+    /**
+     * Mark all messages as read for a specific conversation
+     */
+    public function markConversationAsRead(Request $request)
+    {
+        $request->validate([
+            'conversation_id' => 'required|integer',
+            'offer_id' => 'required|integer'
+        ]);
+
+        $userId = auth()->id();
+        $conversationId = $request->conversation_id;
+        $offerId = $request->offer_id;
+
+        // Mark all unread messages in this conversation as read
+        \App\Models\Message::where('offer_id', $offerId)
+            ->where('receiver_id', $userId)
+            ->where('is_read', false)
+            ->where(function($query) use ($userId) {
+                $query->whereNull('deleted_by_users')
+                      ->orWhereRaw("JSON_SEARCH(deleted_by_users, 'one', ?) IS NULL", [$userId]);
+            })
+            ->update([
+                'is_read' => true,
+                'read_at' => now()
+            ]);
+
+        return response()->json(['success' => true, 'message' => 'Poruke su označene kao pročitane']);
     }
 
     /**

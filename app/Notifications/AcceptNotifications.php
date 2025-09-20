@@ -11,14 +11,18 @@ class AcceptNotifications extends Notification
 {
     use Queueable;
 
+    protected $offer;
+    protected $acceptor;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($offer = null, $acceptor = null)
     {
-        //
+        $this->offer = $offer;
+        $this->acceptor = $acceptor;
     }
 
     /**
@@ -57,9 +61,23 @@ class AcceptNotifications extends Notification
      */
     public function toArray($notifiable)
     {
+        $acceptorName = $this->acceptor ? $this->acceptor->firstName . ' ' . $this->acceptor->lastName : 'Nepoznato';
+        $productName = $this->offer && $this->offer->product ? $this->offer->product->title : 'Proizvod';
+        $offerProductName = $this->offer && $this->offer->sendproduct ? $this->offer->sendproduct->title : 'Vaš proizvod';
+        
         return [
-            'data' => 'Vaš zahtev je prihvaćen!',
-            'url' => url('/sendOffers'), 
+            'type' => 'exchange_accepted',
+            'title' => 'Zahtev prihvaćen! 🎉',
+            'message' => "{$acceptorName} je prihvatio vaš zahtev za zamenu: {$productName} za {$offerProductName}",
+            'acceptor_name' => $acceptorName,
+            'acceptor_id' => $this->acceptor ? $this->acceptor->id : null,
+            'product_name' => $productName,
+            'offer_product_name' => $offerProductName,
+            'offer_id' => $this->offer ? $this->offer->id : null,
+            'url' => url('/sendOffers'),
+            'icon' => 'bx bx-check-circle',
+            'color' => '#28a745',
+            'timestamp' => now()->toISOString(),
         ];
     }
 }

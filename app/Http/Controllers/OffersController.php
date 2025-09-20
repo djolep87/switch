@@ -116,7 +116,7 @@ class OffersController extends Controller
 
         $user = User::find($offer->acceptor);
         if ($user) {
-            $user->notify(new Notifications());
+            $user->notify(new Notifications($offer, auth()->user()));
         }
 
         toast('Vaš zahtev je uspešno poslat!', 'success');
@@ -162,7 +162,9 @@ class OffersController extends Controller
         $offers->save();
         toast('Uspešno ste prihvatili zahtev. Kontaktirajte korisnika radi uspešne razmene. Srećno!', 'success');
         $user = User::find($offers->user_id);
-        User::find($offers->user_id)->notify(new AcceptNotifications);
+        if ($user) {
+            $user->notify(new AcceptNotifications($offers, auth()->user()));
+        }
         return redirect('/offers');
     }
 
@@ -174,7 +176,9 @@ class OffersController extends Controller
         $offers->save();
         toast('Zahtev je odbijen!', 'error');
         $user = User::find($offers->user_id);
-        User::find($offers->user_id)->notify(new RejectedNotifications);
+        if ($user) {
+            $user->notify(new RejectedNotifications($offers, auth()->user()));
+        }
         return redirect('/offers');
     }
 
