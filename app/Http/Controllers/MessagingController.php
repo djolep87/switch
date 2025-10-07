@@ -86,9 +86,15 @@ class MessagingController extends Controller
                 'unread_count' => $unreadCount,
                 'has_unread' => $unreadCount > 0,
                 'conversation_id' => $otherUser->id,
-                'offer_id' => $offer->id
+                'offer_id' => $offer->id,
+                'latest_message_time' => $latestMessage->created_at // Add this for sorting
             ];
         }
+
+        // Sort messages by latest message time (newest first)
+        usort($messages, function($a, $b) {
+            return $b['latest_message_time']->timestamp <=> $a['latest_message_time']->timestamp;
+        });
 
         return view('messages.list', compact('messages', 'wishlists'));
     }
@@ -126,7 +132,7 @@ class MessagingController extends Controller
     /**
      * Display a specific chat conversation
      */
-    public function show($id, $offerId = null)
+    public function show(Request $request, $id, $offerId = null)
     {
         $wishlists = Wishlist::where('user_id', optional(Auth::user())->id)->withCount('products')->get();
         $userId = auth()->id();
@@ -165,6 +171,23 @@ class MessagingController extends Controller
             ->update(['is_read' => true, 'read_at' => now()]);
         
         $contactName = $otherUser->firstName;
+        
+        // If this is an AJAX request, return JSON
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'messages' => $messages->map(function($message) use ($userId) {
+                    return [
+                        'id' => $message->id,
+                        'message' => $message->message,
+                        'sender_id' => $message->sender_id,
+                        'receiver_id' => $message->receiver_id,
+                        'created_at' => $message->created_at->format('H:i'),
+                        'is_read' => $message->is_read
+                    ];
+                })
+            ]);
+        }
         
         // Get ad title and image based on the current user's perspective
         if ($offer->user_id == $userId) {

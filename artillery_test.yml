@@ -1,0 +1,129 @@
+config:
+  target: 'http://127.0.0.1:8000'
+  phases:
+    # Phase 1: Warm up (1 minute)
+    - duration: 60
+      arrivalRate: 2
+      name: 'Warm up phase'
+
+    # Phase 2: Light load (2 minutes)
+    - duration: 120
+      arrivalRate: 5
+      name: 'Light load testing'
+
+    # Phase 3: Medium load (3 minutes)
+    - duration: 180
+      arrivalRate: 15
+      name: 'Medium load testing'
+
+    # Phase 4: Heavy load (2 minutes)
+    - duration: 120
+      arrivalRate: 30
+      name: 'Heavy load testing'
+
+    # Phase 5: Peak load (1 minute)
+    - duration: 60
+      arrivalRate: 50
+      name: 'Peak load testing'
+
+  # Plugin for generating random data
+  plugins:
+    expect: {}
+
+  # Custom functions for test data
+  processor: './test_functions.js'
+
+scenarios:
+  # Scenario 1: Home page browsing (40% of traffic)
+  - name: 'Home page browsing'
+    weight: 40
+    flow:
+      - get:
+          url: '/'
+          expect:
+            - statusCode: 200
+            - contentType: 'text/html'
+      - think: 2 # Wait 2 seconds between requests
+
+  # Scenario 2: Search functionality (25% of traffic)
+  - name: 'Product search'
+    weight: 25
+    flow:
+      - get:
+          url: '/search?query={{ $randomString() }}'
+          expect:
+            - statusCode: 200
+      - think: 3
+
+  # Scenario 3: Category browsing (20% of traffic)
+  - name: 'Category browsing'
+    weight: 20
+    flow:
+      - get:
+          url: "/?category={{ $pick(['Electronics', 'Books', 'Clothing', 'Home', 'Sports']) }}"
+          expect:
+            - statusCode: 200
+      - think: 2
+
+  # Scenario 4: User registration attempt (10% of traffic)
+  - name: 'User registration attempt'
+    weight: 10
+    flow:
+      - get:
+          url: '/register'
+          expect:
+            - statusCode: 200
+      - post:
+          url: '/register'
+          json:
+            firstName: '{{ $randomString() }}'
+            lastName: '{{ $randomString() }}'
+            email: '{{ $randomString() }}@test.com'
+            password: 'password123'
+            password_confirmation: 'password123'
+          expect:
+            - statusCode: [200, 302, 422] # Accept various responses
+      - think: 1
+
+  # Scenario 5: Login attempt (5% of traffic)
+  - name: 'Login attempt'
+    weight: 5
+    flow:
+      - get:
+          url: '/login'
+          expect:
+            - statusCode: 200
+      - post:
+          url: '/login'
+          json:
+            email: 'test@example.com'
+            password: 'password'
+          expect:
+            - statusCode: [200, 302, 401]
+      - think: 1
+
+# Custom variables and functions
+variables:
+  searchTerms:
+    - 'iPhone'
+    - 'laptop'
+    - 'book'
+    - 'shoes'
+    - 'watch'
+    - 'camera'
+    - 'headphones'
+    - 'tablet'
+    - 'guitar'
+    - 'bike'
+
+  categories:
+    - 'Electronics'
+    - 'Books'
+    - 'Clothing'
+    - 'Home'
+    - 'Sports'
+    - 'Toys'
+    - 'Beauty'
+    - 'Automotive'
+
+

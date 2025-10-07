@@ -637,6 +637,9 @@
         font-size: 16px; /* Prevents zoom on iOS */
         -webkit-appearance: none;
         border-radius: 0;
+        /* Keep keyboard open on iOS */
+        -webkit-user-select: text;
+        -webkit-touch-callout: default;
     }
     
     .send-button {
@@ -769,8 +772,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Send button click
-    sendButton.addEventListener('click', sendMessage);
+    // Send button click handler
+    sendButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Keep input focused on iOS when clicking send button
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            // Focus input before sending to keep keyboard open
+            messageInput.focus();
+        }
+        
+        sendMessage();
+    });
+    
+    // Prevent keyboard from hiding when touching send button on iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        sendButton.addEventListener('touchstart', function(e) {
+            // Don't prevent default, just ensure input stays focused
+            messageInput.focus();
+        });
+        
+        // Keep input focused when tapping in chat area
+        chatMessages.addEventListener('touchstart', function(e) {
+            if (e.target === chatMessages || e.target.closest('.message')) {
+                messageInput.focus();
+            }
+        });
+    }
     
     function sendMessage() {
         const messageText = messageInput.value.trim();
@@ -789,6 +817,11 @@ document.addEventListener('DOMContentLoaded', function() {
         messageInput.value = '';
         messageInput.style.height = 'auto';
         
+        // Keep keyboard open on iOS after clearing input
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            messageInput.focus();
+        }
+        
         // Send message via AJAX
         const formData = new FormData();
         formData.append('message', tempMessageText);
@@ -805,6 +838,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 // Message was sent successfully, update the message with server data if needed
                 console.log('Message sent successfully');
+                
+                // Keep keyboard open by refocusing input immediately
+                messageInput.focus();
+                
+                // Additional focus attempt for iOS
+                if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                    setTimeout(() => {
+                        messageInput.focus();
+                        messageInput.click();
+                    }, 50);
+                }
             } else {
                 // Remove the message if sending failed
                 const lastMessage = chatMessages.querySelector('.message.sent:last-child');
@@ -827,6 +871,13 @@ document.addEventListener('DOMContentLoaded', function() {
             isSending = false;
             sendButton.disabled = false;
             sendButton.innerHTML = '<i class="bx bx-send"></i><span>Pošalji</span>';
+            
+            // Keep keyboard open on iOS after sending message
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                setTimeout(() => {
+                    messageInput.focus();
+                }, 100);
+            }
         });
     }
     
