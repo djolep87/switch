@@ -361,6 +361,12 @@
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	{{-- <script src="http://unpkg.com/turbolinks"></script> --}}
+	
+	<!-- PWA  -->
+    <meta name="theme-color" content="#1a1a1a"/>
+    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    {{-- @laravelPWA --}}
 
 </head>
 <body>

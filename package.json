@@ -24,6 +24,7 @@
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^41.4.2",
         "ckeditor": "^4.12.1",
+        "sharp": "^0.34.4",
         "vue": "^3.4.27",
         "vue-loader": "^17.4.2"
     }

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="title" content="Trange Frange - Offline" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a1a" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        height: 100vh;
+        width: 100%;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .offline-container {
+        max-width: 500px;
+        text-align: center;
+        animation: fadeIn 0.6s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .offline-icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+        background: #f8f9fa;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .offline-icon svg {
+        width: 60px;
+        height: 60px;
+        fill: #6c757d;
+      }
+
+      .offline-heading {
+        color: #2c3e50;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .offline-message {
+        color: #6c757d;
+        font-size: 18px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .offline-btn {
+        display: inline-block;
+        padding: 14px 40px;
+        background: #1a1a1a;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(26, 26, 26, 0.2);
+      }
+
+      .offline-btn:hover {
+        background: #333333;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(26, 26, 26, 0.3);
+      }
+
+      .offline-tips {
+        margin-top: 40px;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .offline-tips h3 {
+        color: #2c3e50;
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .offline-tips ul {
+        list-style: none;
+        text-align: left;
+        color: #6c757d;
+      }
+
+      .offline-tips li {
+        padding: 8px 0;
+        font-size: 14px;
+      }
+
+      .offline-tips li:before {
+        content: '✓ ';
+        color: #28a745;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      @media (max-width: 540px) {
+        .offline-heading {
+          font-size: 24px;
+        }
+
+        .offline-message {
+          font-size: 16px;
+        }
+
+        .offline-icon {
+          width: 100px;
+          height: 100px;
+        }
+
+        .offline-icon svg {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="offline-container">
+      <div class="offline-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z" />
+        </svg>
+      </div>
+
+      <h1 class="offline-heading">Niste povezani</h1>
+      <p class="offline-message">Trange Frange trenutno nije dostupna. Proverite internet konekciju i pokušajte ponovo.</p>
+
+      <a href="/" class="offline-btn" onclick="window.location.reload(); return false;"> Pokušaj ponovo </a>
+
+      <div class="offline-tips">
+        <h3>Kako se ponovo povezati:</h3>
+        <ul>
+          <li>Proverite da li je Wi-Fi ili mobilni internet uključen</li>
+          <li>Pokušajte da osvežite stranicu</li>
+          <li>Proverite da li ste povezani na ispravnu mrežu</li>
+          <li>Kontaktirajte svog internet provajdera ako problem i dalje postoji</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
