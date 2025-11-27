@@ -20,6 +20,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class ProductsController extends Controller
 {
@@ -280,5 +281,88 @@ class ProductsController extends Controller
 
         toast('Oglas je obrisan!', 'warning');
         return back();
+    }
+
+    /**
+     * Generate AI description for product based on product name
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function generateDescription(Request $request)
+    {
+        $request->validate([
+            'product_name' => 'required|string|max:255',
+        ]);
+
+        $productName = $request->input('product_name');
+        $apiKey = env('OPENAI_API_KEY');
+
+        if (!$apiKey) {
+            return response()->json([
+                'success' => false,
+                'message' => 'OpenAI API ključ nije konfigurisan. Molimo kontaktirajte administratora.',
+                'description' => ''
+            ], 400);
+        }
+
+        try {
+            $prompt = "Napiši privlačan i profesionalan opis oglasa za proizvod: \"{$productName}\". 
+
+ZAHTEVI ZA FORMATIRANJE:
+- Koristi paragrafe (razmak između paragrafa)
+- Koristi novi red (<br> ili prazan red) za bolju čitljivost
+- Strukturiraj tekst sa kratkim paragrafima (2-3 rečenice po paragrafu)
+- Možeš koristiti liste sa bullet pointovima ako je relevantno
+- Tekst treba da bude na srpskom jeziku
+- Opis treba da bude između 100-200 reči
+- Koristi HTML tagove za formatiranje (<p>, <br>, <ul>, <li>) gde je potrebno
+
+Struktura opisa:
+1. Uvodni paragraf - predstavljanje proizvoda
+2. Glavni deo - karakteristike i prednosti (može biti u paragrafima ili listi)
+3. Zaključak - poziv na akciju ili dodatne informacije";
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $apiKey,
+                'Content-Type' => 'application/json',
+            ])->timeout(30)->post('https://api.openai.com/v1/chat/completions', [
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'Ti si pomoćnik koji piše opise oglasa za proizvode na srpskom jeziku. Opisi treba da budu profesionalni, privlačni i informativni. OBAVEZNO koristi HTML formatiranje (paragrafi sa <p> tagovima, novi redovi sa <br>, liste sa <ul> i <li> tagovima) da bi tekst bio čitljiv i strukturiran. Nikada ne piši tekst kao jedan veliki paragraf - uvek strukturiraj sa razmacima i novim redovima.'
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt
+                    ]
+                ],
+                'max_tokens' => 600,
+                'temperature' => 0.7,
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $description = $data['choices'][0]['message']['content'] ?? '';
+
+                return response()->json([
+                    'success' => true,
+                    'description' => trim($description)
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Greška pri generisanju opisa. Molimo pokušajte ponovo.',
+                    'description' => ''
+                ], 500);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Došlo je do greške: ' . $e->getMessage(),
+                'description' => ''
+            ], 500);
+        }
     }
 }

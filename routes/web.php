@@ -105,6 +105,7 @@ Route::get('/blog/{id}', 'BlogController@show')->name('blog.show');
 
 Route::get('/products.create', 'ProductsController@create');
 Route::post('/products/store', [ProductsController::class, 'store'])->name('products.store');
+Route::post('/products/generate-description', [ProductsController::class, 'generateDescription'])->name('products.generate-description');
 Route::get('/products.show/{id}', 'HomeController@show')->name('products.show');  
 Route::get('/products/{id}/edit', 'ProductsController@edit')->name('products.edit');
 Route::put('/products/{product}', 'ProductsController@update')->name('products.update');
