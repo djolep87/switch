@@ -575,6 +575,12 @@
         padding-right: 0.5rem;
     }
 }
+
+/* Make "Zameni" button always visible (not just on hover) */
+.product-grid .product-card .product-action {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 </style>
 
 @endsection
