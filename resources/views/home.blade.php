@@ -557,6 +557,23 @@
         padding-right: 0;
         max-width: 100%;
     }
+    
+    /* Position wishlist button in the middle right side on mobile */
+    .product-card {
+        position: relative;
+    }
+    
+    .product-card > .d-flex.position-absolute.end-0.top-0 {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin: 0 !important;
+        right: 0.75rem !important;
+    }
+    
+    /* Ensure wishlist button doesn't overlap with text */
+    .product-info {
+        padding-right: 3rem;
+    }
 }
 
 /* For very small screens, make it even more compact */

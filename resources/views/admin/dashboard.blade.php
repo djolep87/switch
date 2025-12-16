@@ -2,198 +2,331 @@
 
 @section('title', 'Admin Dashboard')
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Admin Dashboard</h4>
+<style>
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    .hover-shadow:hover {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075), 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        transform: translateY(-2px);
+        border-color: var(--bs-primary) !important;
+    }
+    .card {
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+</style>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="fw-bold mb-1">Admin Dashboard</h4>
+                    <p class="text-muted mb-0">Dobrodošli u admin panel. Upravljajte korisnicima, oglasima i postovima.</p>
                 </div>
-                <div class="card-header">
-                    <a href="/">Vrati se na sajt</a>
+                <div>
+                    <a href="/" class="btn btn-outline-primary">
+                        <i class="bx bx-home me-1"></i>
+                        Vrati se na sajt
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <!-- Total Users Card -->
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <span class="fw-semibold d-block mb-1">Ukupno Korisnika</span>
+                            <h3 class="card-title mb-2 mt-3">{{ number_format($userCount) }}</h3>
+                            <small class="text-success fw-semibold">
+                                <i class="bx bx-up-arrow-alt"></i> Aktivni korisnici
+                            </small>
+                        </div>
+                        <div class="avatar flex-shrink-0">
+                            <span class="avatar-initial rounded bg-label-primary">
+                                <i class="bx bx-user fs-4"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-top-0">
+                    <a href="/admin/users" class="btn btn-sm btn-label-primary w-100">
+                        Pregled korisnika <i class="bx bx-right-arrow-alt ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Products Card -->
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <span class="fw-semibold d-block mb-1">Ukupno Oglasa</span>
+                            <h3 class="card-title mb-2 mt-3">{{ number_format($productCount) }}</h3>
+                            <small class="text-success fw-semibold">
+                                <i class="bx bx-up-arrow-alt"></i> Aktivni oglasi
+                            </small>
+                        </div>
+                        <div class="avatar flex-shrink-0">
+                            <span class="avatar-initial rounded bg-label-success">
+                                <i class="bx bx-package fs-4"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-top-0">
+                    <a href="/admin/products" class="btn btn-sm btn-label-success w-100">
+                        Pregled oglasa <i class="bx bx-right-arrow-alt ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Offers Card -->
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <span class="fw-semibold d-block mb-1">Ukupno Ponuda</span>
+                            <h3 class="card-title mb-2 mt-3">{{ number_format($offerCount) }}</h3>
+                            <small class="text-warning fw-semibold">
+                                <i class="bx bx-time"></i> Na čekanju
+                            </small>
+                        </div>
+                        <div class="avatar flex-shrink-0">
+                            <span class="avatar-initial rounded bg-label-warning">
+                                <i class="bx bx-gift fs-4"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-top-0">
+                    <a href="javascript:void(0);" class="btn btn-sm btn-label-warning w-100">
+                        Pregled ponuda <i class="bx bx-right-arrow-alt ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Posts Card -->
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <span class="fw-semibold d-block mb-1">Ukupno Postova</span>
+                            <h3 class="card-title mb-2 mt-3">{{ number_format($postsCount) }}</h3>
+                            <small class="text-info fw-semibold">
+                                <i class="bx bx-file"></i> Blog postovi
+                            </small>
+                        </div>
+                        <div class="avatar flex-shrink-0">
+                            <span class="avatar-initial rounded bg-label-info">
+                                <i class="bx bx-news fs-4"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-top-0">
+                    <a href="/admin/posts" class="btn btn-sm btn-label-info w-100">
+                        Pregled postova <i class="bx bx-right-arrow-alt ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Brze Akcije</h5>
                 </div>
                 <div class="card-body">
-                    <p>Welcome to the admin dashboard!</p>
-                    <p>You can manage users, view reports, and perform administrative tasks here.</p>
-                  <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
-                        <div class="col">
-                            <div class="card">
-                                <div class="d-flex card-header justify-content-between align-items-center">
-                                    <div>
-                                        <h4 class="header-title">Total Users</h4>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle drop-arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-2-fill fs-18"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="/admin/users" class="dropdown-item">Users list</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Revenue Analysis</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                        </div>
-                                    </div>
+                    <div class="row g-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{ route('admin.users') }}" class="d-flex align-items-center p-3 border rounded text-decoration-none hover-shadow">
+                                <div class="avatar avatar-md me-3">
+                                    <span class="avatar-initial rounded bg-label-primary">
+                                        <i class="bx bx-user fs-4"></i>
+                                    </span>
                                 </div>
-                    
-                                <div class="card-body pt-0">
-                                    <div class="d-flex align-items-center gap-2 justify-content-between">
-                                        <span class="badge bg-primary rounded-pill fs-13">45% <i class="ti ti-trending-up"></i> </span>
-                                        <div class="text-end">
-                                            <h3 class="fw-semibold">{{$users->count()}}</h3>
-                                            <p class="text-muted mb-0">Since last month</p>
-                                        </div>
-                                    </div>
-                    
-                                    <div class="progress progress-soft progress-sm mt-3">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 text-dark">Korisnici</h6>
+                                    <small class="text-muted">Upravljaj korisnicima</small>
                                 </div>
-                            </div>
-                        </div><!-- end col -->
-                    
-                        <div class="col">
-                            <div class="card">
-                                <div class="d-flex card-header justify-content-between align-items-center">
-                                    <div>
-                                        <h4 class="header-title">Total Advertisement</h4>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle drop-arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-2-fill fs-18"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="/admin/products" class="dropdown-item">Add List</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Revenue Analysis</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                        </div>
-                                    </div>
+                                <i class="bx bx-chevron-right fs-5 text-muted"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{ route('admin.products') }}" class="d-flex align-items-center p-3 border rounded text-decoration-none hover-shadow">
+                                <div class="avatar avatar-md me-3">
+                                    <span class="avatar-initial rounded bg-label-success">
+                                        <i class="bx bx-package fs-4"></i>
+                                    </span>
                                 </div>
-                    
-                                <div class="card-body pt-0">
-                                    <div class="d-flex align-items-center gap-2 justify-content-between">
-                                        <span class="badge bg-success rounded-pill fs-13">28% <i class="ti ti-trending-up"></i> </span>
-                                        <div class="text-end">
-                                            <h3 class="fw-semibold">{{$products->count()}}</h3>
-                                            <p class="text-muted mb-0">Since last month</p>
-                                        </div>
-                                    </div>
-                    
-                                    <div class="progress progress-soft progress-sm mt-3">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 text-dark">Oglasi</h6>
+                                    <small class="text-muted">Upravljaj oglasima</small>
                                 </div>
-                            </div>
-                        </div><!-- end col -->
-                    
-                        <div class="col">
-                            <div class="card">
-                                <div class="d-flex card-header justify-content-between align-items-center">
-                                    <div>
-                                        <h4 class="header-title">Offers</h4>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle drop-arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-2-fill fs-18"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" class="dropdown-item">Customer Insights</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Export Data</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Retention Rate</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                        </div>
-                                    </div>
+                                <i class="bx bx-chevron-right fs-5 text-muted"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{ route('admin.posts.index') }}" class="d-flex align-items-center p-3 border rounded text-decoration-none hover-shadow">
+                                <div class="avatar avatar-md me-3">
+                                    <span class="avatar-initial rounded bg-label-info">
+                                        <i class="bx bx-news fs-4"></i>
+                                    </span>
                                 </div>
-                    
-                                <div class="card-body pt-0">
-                                    <div class="d-flex align-items-center gap-2 justify-content-between">
-                                        <span class="badge bg-warning rounded-pill fs-13">18% <i class="ti ti-trending-up"></i> </span>
-                                        <div class="text-end">
-                                            <h3 class="fw-semibold">{{$offers->count()}}</h3>
-                                            <p class="text-muted mb-0">Since last month</p>
-                                        </div>
-                                    </div>
-                    
-                                    <div class="progress progress-soft progress-sm mt-3">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 text-dark">Postovi</h6>
+                                    <small class="text-muted">Upravljaj blogom</small>
                                 </div>
-                            </div>
-                        </div><!-- end col -->
-                    
-                        <div class="col">
-                            <div class="card">
-                                <div class="d-flex card-header justify-content-between align-items-center">
-                                    <div>
-                                        <h4 class="header-title">Total Posts</h4>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle drop-arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-2-fill fs-18"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="/admin/posts" class="dropdown-item">Posts list</a>
-                                            <a href="/admin/posts/create" class="dropdown-item">Create Post</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Improve Rate</a>
-                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                        </div>
-                                    </div>
+                                <i class="bx bx-chevron-right fs-5 text-muted"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{ route('admin.posts.create') }}" class="d-flex align-items-center p-3 border rounded text-decoration-none hover-shadow">
+                                <div class="avatar avatar-md me-3">
+                                    <span class="avatar-initial rounded bg-label-warning">
+                                        <i class="bx bx-plus-circle fs-4"></i>
+                                    </span>
                                 </div>
-                    
-                                <div class="card-body pt-0">
-                                    <div class="d-flex align-items-center gap-2 justify-content-between">
-                                        <span class="badge bg-info rounded-pill fs-13">3.2% <i class="ti ti-trending-down"></i> </span>
-                                        <div class="text-end">
-                                            <h3 class="fw-semibold">{{$posts->count()}}</h3>
-                                            <p class="text-muted mb-0">Since last month</p>
-                                        </div>
-                                    </div>
-                    
-                                    <div class="progress progress-soft progress-sm mt-3">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 7.5%" aria-valuenow="7.5" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 text-dark">Novi Post</h6>
+                                    <small class="text-muted">Kreiraj novi post</small>
                                 </div>
-                            </div>
-                        </div><!-- end col -->
-                    </div><!-- end row -->
-                                            <div class="col">
-                                                <div class="d-flex justify-content-between align-items-center p-1">
-                                                    <div>
-                                                        <i class="ri-circle-fill fs-12 align-middle me-1 text-primary"></i>
-                                                        <span class="align-middle fw-semibold">Direct</span>
-                                                    </div>
-                                                    <span class="fw-semibold text-muted float-end"><i class="ri-arrow-down-s-fill text-danger"></i> 965</span>
-                                                </div>
+                                <i class="bx bx-chevron-right fs-5 text-muted"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                <div class="d-flex justify-content-between align-items-center p-1">
-                                                    <div>
-                                                        <i class="ri-circle-fill fs-12 text-secondary align-middle me-1"></i>
-                                                        <span class="align-middle fw-semibold">Social</span>
-                                                    </div>
-                                                    <span class="fw-semibold text-muted float-end"><i class="ri-arrow-up-s-fill text-success"></i> 75</span>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="d-flex justify-content-between align-items-center p-1">
-                                                    <div>
-                                                        <i class="ri-circle-fill fs-12 text-success align-middle me-1"></i>
-                                                        <span class="align-middle fw-semibold"> Marketing</span>
-                                                    </div>
-                                                    <span class="fw-semibold text-muted float-end"><i class="ri-arrow-up-s-fill text-success"></i> 102</span>
-                                                </div>
-
-                                                <div class="d-flex justify-content-between align-items-center p-1">
-                                                    <div>
-                                                        <i class="ri-circle-fill fs-12 text-info align-middle me-1"></i>
-                                                        <span class="align-middle fw-semibold">Affiliates</span>
-                                                    </div>
-                                                    <span class="fw-semibold text-muted float-end"><i class="ri-arrow-down-s-fill text-danger"></i> 96</span>
-                                                </div>
-                                            </div>
+    <!-- Recent Activity / Summary -->
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Pregled Sistema</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Tip</th>
+                                    <th>Ukupno</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bx bx-user text-primary me-2"></i>
+                                            <span>Korisnici</span>
                                         </div>
-
-
-
+                                    </td>
+                                    <td><strong>{{ number_format($userCount) }}</strong></td>
+                                    <td><span class="badge bg-label-success">Aktivno</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bx bx-package text-success me-2"></i>
+                                            <span>Oglasi</span>
+                                        </div>
+                                    </td>
+                                    <td><strong>{{ number_format($productCount) }}</strong></td>
+                                    <td><span class="badge bg-label-success">Aktivno</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bx bx-gift text-warning me-2"></i>
+                                            <span>Ponude</span>
+                                        </div>
+                                    </td>
+                                    <td><strong>{{ number_format($offerCount) }}</strong></td>
+                                    <td><span class="badge bg-label-warning">Na čekanju</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bx bx-news text-info me-2"></i>
+                                            <span>Blog Postovi</span>
+                                        </div>
+                                    </td>
+                                    <td><strong>{{ number_format($postsCount) }}</strong></td>
+                                    <td><span class="badge bg-label-info">Aktivno</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Informacije</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar avatar-sm me-3">
+                            <span class="avatar-initial rounded bg-label-primary">
+                                <i class="bx bx-user"></i>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-muted d-block">Prijavljen kao</small>
+                            <strong>{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</strong>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar avatar-sm me-3">
+                            <span class="avatar-initial rounded bg-label-success">
+                                <i class="bx bx-envelope"></i>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-muted d-block">Email</small>
+                            <strong>{{ Auth::user()->email }}</strong>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="avatar avatar-sm me-3">
+                            <span class="avatar-initial rounded bg-label-info">
+                                <i class="bx bx-shield"></i>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-muted d-block">Uloga</small>
+                            <strong>Administrator</strong>
+                        </div>
+                    </div>
+                    <hr class="my-3">
+                    <a href="/" class="btn btn-outline-primary w-100" target="_blank">
+                        <i class="bx bx-globe me-1"></i>
+                        Vrati se na sajt
+                    </a>
                 </div>
             </div>
         </div>

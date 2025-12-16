@@ -158,4 +158,5 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->name('admin.')->group(f
 
     Route::get('/users', [AdminController::class, 'users'])->name('users');
     Route::get('/products', [AdminController::class, 'products'])->name('products');
+    Route::get('/offers', [AdminController::class, 'offers'])->name('offers');
 });
