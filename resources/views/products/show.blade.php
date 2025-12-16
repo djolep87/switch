@@ -3,6 +3,141 @@
 @section('title', 'Detalji')
 
 @section('content')
+<style>
+    .product-image-clickable,
+    .product-thumb-clickable {
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .product-image-clickable:hover,
+    .product-thumb-clickable:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    /* Modal backdrop / Overlay - potpuno tamna pozadina */
+    .modal-backdrop {
+        background-color: #000 !important;
+        opacity: 0 !important;
+        transition: opacity 0.3s ease-in-out !important;
+        z-index: 1040 !important;
+    }
+    
+    .modal-backdrop.show {
+        opacity: 0.95 !important;
+    }
+    
+    .modal-backdrop.fade {
+        opacity: 0 !important;
+    }
+    
+    .modal-backdrop.fade.show {
+        opacity: 0.95 !important;
+    }
+    
+    /* Modal overlay - dodatna tamna pozadina */
+    #imageModal::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+    
+    #imageModal.show::before {
+        opacity: 1;
+    }
+    
+    /* Modal content */
+    #imageModal {
+        z-index: 1055 !important;
+    }
+    
+    #imageModal .modal-content {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    
+    #imageModal .modal-dialog {
+        margin: 0;
+        max-width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #imageModal .modal-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        cursor: pointer;
+    }
+    
+    /* Prevent closing when clicking on image */
+    #imageModal img {
+        cursor: default;
+        pointer-events: auto;
+    }
+    
+    #imageModal img {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+        background: #fff;
+        padding: 15px;
+        border-radius: 12px;
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+    
+    /* Zatamni pozadinu kada je modal otvoren */
+    body.modal-open {
+        overflow: hidden;
+        padding-right: 0 !important;
+    }
+    
+    /* Close button styling */
+    #imageModal .btn-close {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        padding: 0.5rem;
+        opacity: 0.8;
+        transition: all 0.2s ease;
+        z-index: 1056;
+        position: relative;
+    }
+    
+    #imageModal .btn-close:hover {
+        opacity: 1;
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+    }
+    
+    /* Navigation buttons styling */
+    #imageModal .modal-footer button {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        backdrop-filter: blur(10px);
+        transition: all 0.2s ease;
+    }
+    
+    #imageModal .modal-footer button:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+    }
+    
+    #imageModal .modal-footer span {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+</style>
     @php
         $images = explode(',', $product->images);
     @endphp
@@ -17,21 +152,33 @@
                                     <div class="image-zoom-section">
                                         <div class="product-gallery owl-carousel owl-theme border mb-3 p-3"
                                             data-slider-id="1">
-                                            @foreach ($images as $image)
+                                            @foreach ($images as $index => $image)
                                                 @if ($image)
                                                     <div class="item">
                                                         <img src="/storage/Product_images/{{ $image }}"
-                                                            class="" alt="">
+                                                            class="product-image-clickable" 
+                                                            alt="{{ $product->name }}"
+                                                            style="cursor: pointer; width: 100%; height: auto;"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#imageModal"
+                                                            data-image-src="/storage/Product_images/{{ $image }}"
+                                                            data-image-index="{{ $index }}">
                                                     </div>
                                                 @endif
                                             @endforeach
                                         </div>
                                         <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
-                                            @foreach ($images as $image)
+                                            @foreach ($images as $index => $image)
                                                 @if ($image)
-                                                    <button class="owl-thumb-item">
+                                                    <button class="owl-thumb-item" type="button">
                                                         <img src="/storage/Product_images/{{ $image }}"
-                                                            class="" alt="">
+                                                            class="product-thumb-clickable"
+                                                            alt="Thumbnail"
+                                                            style="cursor: pointer;"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#imageModal"
+                                                            data-image-src="/storage/Product_images/{{ $image }}"
+                                                            data-image-index="{{ $index }}">
                                                     </button>
                                                 @endif
                                             @endforeach
@@ -435,6 +582,31 @@
             <!--end product more info-->
         </div>
     </div>
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0" id="modalContent">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0 text-center" id="modalBody">
+                    <img id="modalImage" src="" alt="{{ $product->name }}" class="img-fluid" style="max-height: 80vh; width: auto; border-radius: 8px;">
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-sm btn-light" id="prevImageBtn" style="display: none;">
+                            <i class="bx bx-chevron-left"></i> Prethodna
+                        </button>
+                        <span class="text-white align-self-center" id="imageCounter"></span>
+                        <button type="button" class="btn btn-sm btn-light" id="nextImageBtn" style="display: none;">
+                            Sledeća <i class="bx bx-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function myFunction() {
             var x = document.getElementById("myDIV");
@@ -444,6 +616,168 @@
                 x.style.display = "none";
             }
         }
+
+        // Image Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const imageCounter = document.getElementById('imageCounter');
+            const prevBtn = document.getElementById('prevImageBtn');
+            const nextBtn = document.getElementById('nextImageBtn');
+            
+            // Get all images
+            const allImages = [];
+            document.querySelectorAll('.product-image-clickable, .product-thumb-clickable').forEach(function(img) {
+                allImages.push({
+                    src: img.getAttribute('data-image-src'),
+                    index: parseInt(img.getAttribute('data-image-index'))
+                });
+            });
+            
+            let currentImageIndex = 0;
+            
+            // Ensure backdrop/overlay is dark when modal opens
+            imageModal.addEventListener('show.bs.modal', function(event) {
+                // Force dark backdrop/overlay
+                setTimeout(function() {
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.style.opacity = '0.95';
+                        backdrop.style.backgroundColor = '#000';
+                        backdrop.classList.add('show');
+                    }
+                }, 10);
+                
+                const trigger = event.relatedTarget || event.target.closest('[data-bs-toggle="modal"]');
+                if (trigger) {
+                    const imageSrc = trigger.getAttribute('data-image-src');
+                    const imageIndex = parseInt(trigger.getAttribute('data-image-index'));
+                    
+                    modalImage.src = imageSrc;
+                    currentImageIndex = imageIndex;
+                    updateImageCounter();
+                    updateNavigationButtons();
+                }
+            });
+            
+            // Ensure backdrop/overlay stays dark when modal is shown
+            imageModal.addEventListener('shown.bs.modal', function() {
+                const backdrop = document.querySelector('.modal-backdrop');
+                if (backdrop) {
+                    backdrop.style.opacity = '0.95';
+                    backdrop.style.backgroundColor = '#000';
+                    backdrop.classList.add('show');
+                }
+                
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+                document.body.style.paddingRight = '0';
+            });
+            
+            // Cleanup when modal is hidden
+            imageModal.addEventListener('hidden.bs.modal', function() {
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            });
+            
+            // Close modal when clicking on backdrop or outside the image
+            const modalContent = document.getElementById('modalContent');
+            const modalBody = document.getElementById('modalBody');
+            
+            // Click on backdrop to close
+            imageModal.addEventListener('click', function(event) {
+                // If click is on the modal itself (backdrop), close it
+                if (event.target === imageModal) {
+                    const modalInstance = bootstrap.Modal.getInstance(imageModal);
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                }
+            });
+            
+            // Click on modal body (but not on image) to close
+            modalBody.addEventListener('click', function(event) {
+                // If click is on modal body but not on the image, close modal
+                if (event.target === modalBody || event.target.classList.contains('modal-body')) {
+                    const modalInstance = bootstrap.Modal.getInstance(imageModal);
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                }
+            });
+            
+            // Prevent closing when clicking on the image itself
+            modalImage.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+            
+            // Prevent closing when clicking on navigation buttons or counter
+            prevBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+            nextBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+            imageCounter.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+            
+            // Update image counter
+            function updateImageCounter() {
+                if (allImages.length > 1) {
+                    imageCounter.textContent = `${currentImageIndex + 1} / ${allImages.length}`;
+                } else {
+                    imageCounter.textContent = '';
+                }
+            }
+            
+            // Update navigation buttons
+            function updateNavigationButtons() {
+                if (allImages.length > 1) {
+                    prevBtn.style.display = currentImageIndex > 0 ? 'inline-block' : 'none';
+                    nextBtn.style.display = currentImageIndex < allImages.length - 1 ? 'inline-block' : 'none';
+                } else {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+            }
+            
+            // Previous image
+            prevBtn.addEventListener('click', function() {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    modalImage.src = allImages[currentImageIndex].src;
+                    updateImageCounter();
+                    updateNavigationButtons();
+                }
+            });
+            
+            // Next image
+            nextBtn.addEventListener('click', function() {
+                if (currentImageIndex < allImages.length - 1) {
+                    currentImageIndex++;
+                    modalImage.src = allImages[currentImageIndex].src;
+                    updateImageCounter();
+                    updateNavigationButtons();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (imageModal.classList.contains('show')) {
+                    if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+                        prevBtn.click();
+                    } else if (e.key === 'ArrowRight' && currentImageIndex < allImages.length - 1) {
+                        nextBtn.click();
+                    } else if (e.key === 'Escape') {
+                        const modalInstance = bootstrap.Modal.getInstance(imageModal);
+                        if (modalInstance) {
+                            modalInstance.hide();
+                        }
+                    }
+                }
+            });
+        });
     </script>
 
     {{--  
