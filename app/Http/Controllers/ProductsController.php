@@ -73,17 +73,15 @@ class ProductsController extends Controller
                 // Kreiranje instance slike + ispravljanje orijentacije
                 $resizedImage = Image::make($image)->orientate();
 
-                // Resize slike uz zadržavanje proporcija
-                $resizedImage->resize(400, 300, function ($constraint) {
+                // Resize slike uz zadržavanje proporcija - veća rezolucija za bolji kvalitet
+                // Maksimalna širina 1920px, visina se automatski prilagođava
+                $resizedImage->resize(1920, null, function ($constraint) {
                     $constraint->aspectRatio();
-                    $constraint->upsize();
+                    $constraint->upsize(); // Ne povećava slike koje su manje od 1920px
                 });
 
-                // Dodavanje bele pozadine ako je potrebno
-                $resizedImage->resizeCanvas(400, 300, 'center', false, 'ffffff');
-
-                // Čuvanje slike na disku
-                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->encode(null, 100));
+                // Čuvanje slike na disku sa visokim kvalitetom (95% kvalitet za JPEG)
+                Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage->encode('jpg', 95));
 
                 $imagesname[] = $imgName;
             }
@@ -212,15 +210,14 @@ class ProductsController extends Controller
             foreach ($request->images as $key => $image) {
                 $imgName = time() . $key . '.' . $image->extension();
 
-                // Ispravljanje orijentacije + resize + canvas + encode
+                // Ispravljanje orijentacije + resize sa većom rezolucijom
                 $resizedImage = Image::make($image)
                     ->orientate()
-                    ->resize(400, 300, function ($constraint) {
+                    ->resize(1920, null, function ($constraint) {
                         $constraint->aspectRatio();
-                        $constraint->upsize();
+                        $constraint->upsize(); // Ne povećava slike koje su manje od 1920px
                     })
-                    ->resizeCanvas(400, 300, 'center', false, 'ffffff')
-                    ->encode(null, 100);
+                    ->encode('jpg', 95); // Visok kvalitet (95%)
 
                 // Snimanje slike
                 Storage::disk('public')->put('Product_images/' . $imgName, $resizedImage);

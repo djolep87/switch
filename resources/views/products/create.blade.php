@@ -53,7 +53,12 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label">Galerija proizvoda</label>
-                            <input type="file" name="images[]" class="form-control" multiple>
+                            <input type="file" name="images[]" class="form-control" multiple accept="image/*">
+                            <small class="text-muted d-block mt-1">
+                                <i class="bx bx-info-circle"></i> 
+                                Slike će biti automatski optimizovane sa visokim kvalitetom (maksimalna širina 1920px). 
+                                Preporučujemo slike u formatu JPG, PNG ili WebP.
+                            </small>
                         </div>
                         <div class="col-12">
                             <input class="btn split-bg-warning" type="submit" name="submit" value="Sačuvaj">
