@@ -154,7 +154,7 @@
                                     @endphp
                                     <div class="product-grid">
                                         <div class="card rounded-0 product-card">
-                                            <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 top-0 m-3">
+                                            <div class="d-flex align-items-center justify-content-end gap-3 position-absolute end-0 wishlist-container">
                                                 @if (optional(Auth::user())->id == $product->user_id)
                                                     <!-- Sakrij wishlist dugme za vlasnika proizvoda -->
                                                     <div style="display: none;">
@@ -175,9 +175,9 @@
                                             </div>
                                             <div class="row g-0 product-row">
                                                 @if (!empty($images))
-                                                    <div class="col-md-4">
-                                                        <a href="{{ route('products.show', $product->productid) }}">
-                                                            <img src="/storage/Product_images/{{ $images[0] }}" class="img-fluid" alt="Product Image">
+                                                    <div class="col-md-4 product-image-wrapper">
+                                                        <a href="{{ route('products.show', $product->productid) }}" class="product-image-link">
+                                                            <img src="/storage/Product_images/{{ $images[0] }}" class="img-fluid product-image" alt="Product Image">
                                                         </a>
                                                     </div>
                                                 @endif
@@ -414,4 +414,179 @@
 </div>
 
 @include('sweetalert::alert')
+
+<style>
+/* Mobile responsive text handling for product names */
+@media (max-width: 768px) {
+    .product-name {
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        line-height: 1.3;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+    
+    /* Ensure proper text flow */
+    .col-md-8 .card-body .product-info {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .col-md-8 .card-body .product-info a {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Prevent horizontal overflow */
+    .card {
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+    
+    .card-body {
+        overflow: hidden;
+        word-wrap: break-word;
+        padding: 1rem;
+    }
+    
+    /* Ensure the entire row doesn't overflow */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .col-md-8 {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+}
+
+/* For very small screens, make it even more compact */
+@media (max-width: 480px) {
+    .product-name {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    .col-md-8 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/* Make "Zameni" button always visible (not just on hover) */
+.product-grid .product-card .product-action {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Product card equal height styling */
+.product-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.product-grid {
+    width: 100%;
+}
+
+.product-grid .product-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-grid .product-card .product-row {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+}
+
+/* Image container styling - fixed height for consistency */
+.product-grid .product-card .col-md-4.product-image-wrapper {
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+    height: 220px;
+    flex-shrink: 0;
+}
+
+.product-grid .product-card .product-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-grid .product-card .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Card body styling for equal heights */
+.product-grid .product-card .col-md-8 {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-grid .product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Wishlist button positioning */
+.product-card {
+    position: relative;
+}
+
+/* Desktop and Tablet: top right corner */
+.product-card .wishlist-container {
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    transform: none;
+}
+
+/* Mobile: centered on the right side */
+@media (max-width: 768px) {
+    .product-grid .product-card {
+        min-height: auto;
+    }
+    
+    .product-grid .product-card .col-md-4.product-image-wrapper {
+        height: 180px;
+    }
+    
+    .product-card .wishlist-container {
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid .product-card .col-md-4.product-image-wrapper {
+        height: 150px;
+    }
+    
+    .product-card .wishlist-container {
+        right: 0.5rem;
+    }
+}
+</style>
+
 @endsection
