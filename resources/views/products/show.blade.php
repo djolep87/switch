@@ -4,13 +4,14 @@
 
 @section('content')
 <style>
-    /* Galerija slika - originalna veličina */
+    /* Galerija slika - srazmerne veličine */
     .product-gallery .item img,
     .product-image-clickable {
         width: 100%;
-        height: auto;
+        height: 450px;
         max-width: 100%;
-        object-fit: contain;
+        object-fit: cover;
+        object-position: center;
         transition: transform 0.2s ease, opacity 0.2s ease;
     }
     
@@ -27,7 +28,7 @@
         opacity: 0.9;
     }
     
-    /* Osiguraj da se slike u galeriji prikazuju u originalnoj veličini */
+    /* Osiguraj da se slike u galeriji prikazuju srazmerno */
     .product-gallery .owl-item {
         display: flex;
         align-items: center;
@@ -38,7 +39,42 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 400px;
+        height: 450px;
+        overflow: hidden;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .product-gallery .item img,
+        .product-image-clickable {
+            height: 400px;
+        }
+        
+        .product-gallery .item {
+            height: 400px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .product-gallery .item img,
+        .product-image-clickable {
+            height: 350px;
+        }
+        
+        .product-gallery .item {
+            height: 350px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .product-gallery .item img,
+        .product-image-clickable {
+            height: 300px;
+        }
+        
+        .product-gallery .item {
+            height: 300px;
+        }
     }
     /* Modal backdrop / Overlay - potpuno tamna pozadina */
     .modal-backdrop {
@@ -260,7 +296,7 @@
                                                         <img src="/storage/Product_images/{{ $image }}"
                                                             class="product-image-clickable" 
                                                             alt="{{ $product->name }}"
-                                                            style="cursor: pointer; max-width: 100%; height: auto; object-fit: contain;"
+                                                            style="cursor: pointer;"
                                                             data-bs-toggle="modal" 
                                                             data-bs-target="#imageModal"
                                                             data-image-src="/storage/Product_images/{{ $image }}"
