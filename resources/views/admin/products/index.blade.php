@@ -16,6 +16,24 @@
         padding: 0.35em 0.65em;
         font-size: 0.75rem;
     }
+    /* Filter submit button styling */
+    #filterForm button[type="submit"] {
+        min-width: 120px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    #filterForm button[type="submit"] i {
+        font-size: 1.1rem;
+    }
+    @media (max-width: 768px) {
+        #filterForm button[type="submit"] {
+            min-width: auto;
+            padding: 0.5rem 1rem;
+        }
+    }
 </style>
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -157,8 +175,9 @@
                     <!-- Action Buttons -->
                     <div class="col-md-1 d-flex align-items-end">
                         <div class="d-flex gap-2 w-100">
-                            <button type="submit" class="btn btn-primary flex-grow-1">
-                                <i class="bx bx-filter"></i>
+                            <button type="submit" class="btn btn-primary flex-grow-1" title="Primeni filtere">
+                                <i class="bx bx-search me-1"></i>
+                                <span class="d-none d-md-inline">Pretraži</span>
                             </button>
                             <a href="{{ route('admin.products') }}" class="btn btn-label-secondary" title="Resetuj filtere">
                                 <i class="bx bx-x"></i>

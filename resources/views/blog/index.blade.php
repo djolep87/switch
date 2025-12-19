@@ -13,7 +13,7 @@
                             <img src="{{ asset('storage/Posts_images/' . $post->image) }}" alt="{{ $post->title }}" style="width: 100%; " class="card-img-top mx-auto d-block">
                             <div class="card-body">
                                 <div class="list-inline">	<a href="javascript:;" class="list-inline-item"><i class='bx bx-user me-1'></i>By Admin</a>
-                                    <a href="javascript:;" class="list-inline-item"><i class='bx bx-comment-detail me-1'></i>16 Comments</a>
+                                    {{-- <a href="javascript:;" class="list-inline-item"><i class='bx bx-comment-detail me-1'></i>16 Comments</a> --}}
                                     <a href="javascript:;" class="list-inline-item">
                                         <i class='bx bx-calendar me-1'></i>{{ $post->created_at->format('d.m.Y.') }}
                                     </a>

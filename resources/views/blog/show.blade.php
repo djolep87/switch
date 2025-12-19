@@ -12,8 +12,10 @@
                         <img src="{{ asset('storage/Posts_images/' . $post->image) }}" class="card-img-top mx-auto d-block" style="width: 100%; max-width: 600px;" alt="">
                         <div class="card-body p-0">
                             <div class="list-inline mt-4">	<a href="javascript:;" class="list-inline-item"><i class='bx bx-user me-1'></i>By Admin</a>
-                                <a href="javascript:;" class="list-inline-item"><i class='bx bx-comment-detail me-1'></i>16 Comments</a>
-                                <a href="javascript:;" class="list-inline-item"><i class='bx bx-calendar me-1'></i>November 5, 2021</a>
+                                {{-- <a href="javascript:;" class="list-inline-item"><i class='bx bx-comment-detail me-1'></i>16 Comments</a> --}}
+                                 <a href="javascript:;" class="list-inline-item">
+                                        <i class='bx bx-calendar me-1'></i>{{ $post->created_at->format('d.m.Y.') }}
+                                 </a>
                             </div>
                             <h4 class="mt-4">{{$post->title}}</h4>
                            {!! $post->content !!}
