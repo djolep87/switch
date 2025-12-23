@@ -996,51 +996,132 @@
 
 
     <script>
+        // Proveri da li je jQuery učitano
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery is not loaded!');
+        } else {
+            console.log('jQuery version:', jQuery.fn.jquery);
+        }
+
         $(document).ready(function() {
-            // Obrada klika na wishlist ikonu
-            $('.product-wishlist').on('click', function(e) {
+            console.log('Wishlist script loaded and ready');
+            
+            // Test da li postoje wishlist elementi
+            var wishlistElements = $('.product-wishlist');
+            console.log('Found wishlist elements:', wishlistElements.length);
+            
+            // Obrada klika na wishlist ikonu - koristi event delegation za dinamički sadržaj
+            $(document).on('click', '.product-wishlist', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
 
                 // Uzmi ID proizvoda iz data atributa
                 let productId = $(this).data('product-id');
+                console.log('Wishlist clicked for product:', productId);
+                
+                if (!productId) {
+                    console.error('Product ID not found');
+                    return false;
+                }
+
                 let icon = $('#wishlist-icon-' + productId);
+                let wishlistContainer = $(this);
+
+                if (icon.length === 0) {
+                    console.error('Icon not found for product:', productId, 'Selector:', '#wishlist-icon-' + productId);
+                    return false;
+                }
+
+                // Optimističko ažuriranje - promeni ikonu odmah
+                let isCurrentlyFilled = icon.hasClass('bxs-heart');
+                console.log('Current state - isFilled:', isCurrentlyFilled);
+                
+                // Promeni ikonu ODMAH
+                if (isCurrentlyFilled) {
+                    // Ako je trenutno popunjeno, promeni u prazno odmah
+                    icon.removeClass('bxs-heart').addClass('bx-heart');
+                    console.log('Changed to empty heart immediately');
+                } else {
+                    // Ako je trenutno prazno, promeni u popunjeno odmah
+                    icon.removeClass('bx-heart').addClass('bxs-heart');
+                    console.log('Changed to filled heart immediately');
+                }
+
+                // Onemogući klik dok se ne završi AJAX poziv
+                wishlistContainer.css('pointer-events', 'none');
 
                 $.ajax({
-                    url: '/add/to-wishlist/' +
-                        productId, // Ruta za dodavanje/uklanjanje proizvoda iz wishlist-a
+                    url: '/add/to-wishlist/' + productId,
                     method: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
                     success: function(response) {
-                        // Toggle ikone: ako je prazno, promeni u popunjeno, i obrnuto
-                        if (icon.hasClass('bx-heart')) {
-                            icon.removeClass('bx-heart').addClass(
-                                'bxs-heart'); // Dodaj u wishlist
+                        console.log('AJAX success:', response);
+                        
+                        // Ikona je već promenjena optimistički, samo potvrdi da je sve OK
+                        if (response.status !== 'success') {
+                            // Ako nije success, vrati na prethodno stanje
+                            console.log('Response status is not success, reverting icon');
+                            if (isCurrentlyFilled) {
+                                icon.removeClass('bx-heart').addClass('bxs-heart');
+                            } else {
+                                icon.removeClass('bxs-heart').addClass('bx-heart');
+                            }
                         } else {
-                            icon.removeClass('bxs-heart').addClass(
-                                'bx-heart'); // Ukloni iz wishlist
+                            console.log('Icon state confirmed by server');
                         }
 
                         // Ažuriraj broj stavki u wishlistu
                         if (response.wishlist_count !== undefined) {
-                            // Ažuriraj broj
-                            $('#wishlist-count').text(response.wishlist_count);
-
-                            // Prikazivanje/skrivanje broja na osnovu vrednosti
-                            if (response.wishlist_count > 0) {
-                                $('#wishlist-count').show();
-                            } else {
-                                $('#wishlist-count').hide();
+                            var countElement = $('#wishlist-count');
+                            if (countElement.length) {
+                                countElement.text(response.wishlist_count);
+                                if (response.wishlist_count > 0) {
+                                    countElement.show();
+                                } else {
+                                    countElement.hide();
+                                }
                             }
                         }
 
                         // Prikazivanje toast obaveštenja
                         if (response.toast_message) {
-                            toastr.success(response.toast_message);
+                            if (typeof toastr !== 'undefined') {
+                                toastr.success(response.toast_message);
+                            } else {
+                                console.log('Toast message:', response.toast_message);
+                            }
                         }
                     },
-                    error: function(xhr) {
-                        console.log('Greška:', xhr.responseText);
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', status, error);
+                        console.error('Response:', xhr.responseText);
+                        console.error('Status code:', xhr.status);
+                        
+                        // Vrati ikonu na prethodno stanje ako je došlo do greške
+                        console.log('Reverting icon due to error');
+                        if (isCurrentlyFilled) {
+                            icon.removeClass('bx-heart').addClass('bxs-heart');
+                        } else {
+                            icon.removeClass('bxs-heart').addClass('bx-heart');
+                        }
+                        
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error('Došlo je do greške. Molimo pokušajte ponovo.');
+                        } else {
+                            alert('Došlo je do greške. Molimo pokušajte ponovo.');
+                        }
+                    },
+                    complete: function() {
+                        // Omogući klik ponovo nakon završetka
+                        wishlistContainer.css('pointer-events', 'auto');
+                        console.log('AJAX request completed');
                     }
                 });
+                
+                return false;
             });
         });
     </script>

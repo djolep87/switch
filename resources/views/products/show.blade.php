@@ -28,6 +28,57 @@
         opacity: 0.9;
     }
     
+    /* Thumbnails spacing - prevent overlap with hr */
+    .image-zoom-section {
+        overflow: hidden;
+    }
+    
+    .owl-thumbs {
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0;
+        gap: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .owl-thumb-item {
+        margin: 0.25rem;
+        border: none;
+        border-radius: 4px;
+        padding: 0;
+        background: transparent;
+        transition: all 0.2s ease;
+        overflow: hidden;
+        display: inline-block;
+    }
+    
+    .owl-thumb-item .product-thumb-clickable {
+        display: block;
+        border: none;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+    
+    .owl-thumb-item:hover .product-thumb-clickable {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+    
+    .owl-thumb-item.active .product-thumb-clickable {
+        opacity: 1;
+        box-shadow: 0 0 0 2px #007bff;
+    }
+    
+    .image-zoom-section hr {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        clear: both;
+        border-top: 1px solid #dee2e6;
+    }
+    
     /* Osiguraj da se slike u galeriji prikazuju srazmerno */
     .product-gallery .owl-item {
         display: flex;
