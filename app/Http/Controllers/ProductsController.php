@@ -290,9 +290,11 @@ class ProductsController extends Controller
     {
         $request->validate([
             'product_name' => 'required|string|max:255',
+            'condition' => 'nullable|string|in:Novo,Polovno',
         ]);
 
         $productName = $request->input('product_name');
+        $condition = $request->input('condition', 'Polovno');
         $apiKey = env('OPENAI_API_KEY');
 
         if (!$apiKey) {
@@ -304,21 +306,25 @@ class ProductsController extends Controller
         }
 
         try {
-            $prompt = "Napiši privlačan i profesionalan opis oglasa za proizvod: \"{$productName}\". 
+            // Prirodniji prompt koji zvuči kao da čovek piše svojim rečima
+            $conditionText = $condition === 'Novo' 
+                ? 'novo, nikad korišćeno' 
+                : 'polovno, u dobrom stanju';
+            
+            $prompt = "Napiši opis oglasa za \"{$productName}\" koji je {$conditionText} i koji nudiš za ZAMENU (ne za prodaju). 
 
-ZAHTEVI ZA FORMATIRANJE:
-- Koristi paragrafe (razmak između paragrafa)
-- Koristi novi red (<br> ili prazan red) za bolju čitljivost
-- Strukturiraj tekst sa kratkim paragrafima (2-3 rečenice po paragrafu)
-- Možeš koristiti liste sa bullet pointovima ako je relevantno
-- Tekst treba da bude na srpskom jeziku
+Važno:
+- Piši kao da si vlasnik stvari koji opisuje šta nudiš za zamenu svojim rečima - prirodno, bez previše formalnosti
+- Koristi razgovorni ton, ali i dalje profesionalno
+- Ako je stvar polovno, spomeni da je u dobrom stanju, možda koliko je staro ili zašto je nudiš za zamenu
+- Ako je novo, naglasi da je neotvoreno ili novo u kutiji
+- Ne spominji cenu ili prodaju - ovo je za ZAMENU, ne za prodaju
+- Možeš spomenuti šta bi voleo/la da dobiješ u zamenu (opciono, ali nije obavezno)
 - Opis treba da bude između 100-200 reči
-- Koristi HTML tagove za formatiranje (<p>, <br>, <ul>, <li>) gde je potrebno
-
-Struktura opisa:
-1. Uvodni paragraf - predstavljanje proizvoda
-2. Glavni deo - karakteristike i prednosti (može biti u paragrafima ili listi)
-3. Zaključak - poziv na akciju ili dodatne informacije";
+- Koristi HTML formatiranje: <p> za paragrafe, <br> za novi red, <ul> i <li> za liste ako treba
+- Strukturiraj tekst u kratke paragrafe (2-3 rečenice) za bolju čitljivost
+- Tekst mora biti na srpskom jeziku
+- Budi konkretan i iskren - kao da pričaš sa prijateljem o stvari koju nudiš za zamenu";
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $apiKey,
@@ -328,7 +334,7 @@ Struktura opisa:
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => 'Ti si pomoćnik koji piše opise oglasa za proizvode na srpskom jeziku. Opisi treba da budu profesionalni, privlačni i informativni. OBAVEZNO koristi HTML formatiranje (paragrafi sa <p> tagovima, novi redovi sa <br>, liste sa <ul> i <li> tagovima) da bi tekst bio čitljiv i strukturiran. Nikada ne piši tekst kao jedan veliki paragraf - uvek strukturiraj sa razmacima i novim redovima.'
+                        'content' => 'Ti si pomoćnik koji piše opise oglasa za stvari koje se nude za ZAMENU (ne za prodaju) na srpskom jeziku. Opisi treba da zvuče prirodno, kao da ih piše vlasnik stvari svojim rečima - razgovorno ali profesionalno. NIKADA ne spominji cenu, prodaju ili kupovinu - ovo je platforma za razmenu stvari. OBAVEZNO koristi HTML formatiranje (paragrafi sa <p> tagovima, novi redovi sa <br>, liste sa <ul> i <li> tagovima) da bi tekst bio čitljiv. Nikada ne piši tekst kao jedan veliki paragraf - uvek strukturiraj sa razmacima i novim redovima. Budi iskren i konkretan, kao da pričaš sa prijateljem o stvari koju nudiš za zamenu.'
                     ],
                     [
                         'role' => 'user',
@@ -336,7 +342,7 @@ Struktura opisa:
                     ]
                 ],
                 'max_tokens' => 600,
-                'temperature' => 0.7,
+                'temperature' => 0.8,
             ]);
 
             if ($response->successful()) {

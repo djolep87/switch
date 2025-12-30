@@ -282,10 +282,12 @@
             const generateButton = document.getElementById('generateAiDescription');
             const loadingIndicator = document.getElementById('aiLoading');
             const productNameInput = document.getElementById('productName');
+            const conditionSelect = document.getElementById('inputSelectCountry');
 
             if (generateButton) {
                 generateButton.addEventListener('click', function() {
                     const productName = productNameInput.value.trim();
+                    const condition = conditionSelect ? conditionSelect.value : 'Polovno';
 
                     if (!productName) {
                         alert('Molimo unesite naziv proizvoda pre generisanja opisa.');
@@ -316,7 +318,8 @@
                             'Accept': 'application/json'
                         },
                         body: JSON.stringify({
-                            product_name: productName
+                            product_name: productName,
+                            condition: condition
                         })
                     })
                     .then(response => response.json())
