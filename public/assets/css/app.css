@@ -579,7 +579,7 @@ body.offcanvas-active {
 	margin: 0 4px;
 	padding: 2px;
 	background-color: transparent;
-	border: 1px solid rgb(0 0 0 / 12%);
+	border: none;
 	border-radius: 0%;
 }
 .owl-thumbs .owl-thumb-item:focus {

@@ -69,7 +69,6 @@
     
     .owl-thumb-item.active .product-thumb-clickable {
         opacity: 1;
-        box-shadow: 0 0 0 2px #007bff;
     }
     
     .image-zoom-section hr {
@@ -198,7 +197,7 @@
     #imageModal img {
         cursor: grab;
         pointer-events: auto;
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        transition: none;
         user-select: none;
         -webkit-user-drag: none;
     }
@@ -209,18 +208,7 @@
     
     /* Smooth image transition */
     #imageModal img.fade-in {
-        animation: fadeInImage 0.3s ease-in-out;
-    }
-    
-    @keyframes fadeInImage {
-        from {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+        animation: none;
     }
     
     /* Swipe indicator hint */
@@ -1008,16 +996,9 @@
             
             // Smooth image change with fade effect
             function changeImage(newSrc) {
-                modalImage.classList.remove('fade-in');
-                modalImage.style.opacity = '0.5';
-                
-                setTimeout(function() {
-                    modalImage.src = newSrc;
-                    modalImage.style.opacity = '1';
-                    modalImage.classList.add('fade-in');
-                    updateImageCounter();
-                    updateNavigationButtons();
-                }, 150);
+                modalImage.src = newSrc;
+                updateImageCounter();
+                updateNavigationButtons();
             }
             
             // Touch/Swipe events for mobile devices
@@ -1072,41 +1053,32 @@
             }, { passive: true });
             
             // Wheel/Scroll events for desktop
-            let wheelTimeout = null;
             modalImage.addEventListener('wheel', function(e) {
                 // Prevent default scroll behavior
                 e.preventDefault();
                 
-                // Clear previous timeout
-                if (wheelTimeout) {
-                    clearTimeout(wheelTimeout);
-                }
+                const deltaX = e.deltaX;
+                const deltaY = e.deltaY;
                 
-                // Debounce wheel events
-                wheelTimeout = setTimeout(function() {
-                    const deltaX = e.deltaX;
-                    const deltaY = e.deltaY;
-                    
-                    // Horizontal scroll (trackpad swipe or horizontal mouse wheel)
-                    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                        if (deltaX > 0) {
-                            // Scroll right - next image
-                            goToNextImage();
-                        } else {
-                            // Scroll left - previous image
-                            goToPreviousImage();
-                        }
+                // Horizontal scroll (trackpad swipe or horizontal mouse wheel)
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (deltaX > 0) {
+                        // Scroll right - next image
+                        goToNextImage();
                     } else {
-                        // Vertical scroll - also allow navigation
-                        if (deltaY > 0) {
-                            // Scroll down - next image
-                            goToNextImage();
-                        } else {
-                            // Scroll up - previous image
-                            goToPreviousImage();
-                        }
+                        // Scroll left - previous image
+                        goToPreviousImage();
                     }
-                }, 100); // Debounce delay
+                } else {
+                    // Vertical scroll - also allow navigation
+                    if (deltaY > 0) {
+                        // Scroll down - next image
+                        goToNextImage();
+                    } else {
+                        // Scroll up - previous image
+                        goToPreviousImage();
+                    }
+                }
             }, { passive: false });
             
             // Mouse drag for desktop (optional)
