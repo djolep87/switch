@@ -534,16 +534,34 @@
         max-width: 100%;
     }
     
-    /* Prevent horizontal overflow */
-    .card {
-        overflow: hidden;
+    /* Prevent horizontal overflow only for text - do NOT clip dropdown */
+    .product-grid .product-card .card-body .product-info .description,
+    .product-grid .product-card .card-body .product-info .product-name {
+        overflow-wrap: break-word;
+    }
+    
+    .product-grid .product-card {
+        overflow: visible;
         word-wrap: break-word;
     }
     
-    .card-body {
-        overflow: hidden;
+    .product-grid .product-card .card-body {
+        overflow: visible;
         word-wrap: break-word;
         padding: 1rem;
+    }
+    
+    /* Zameni dropdown: iznad ostalih kartica i vidljiv na mobilnom */
+    .product-grid .product-action .nav-item.dropdown {
+        position: static;
+    }
+    
+    .product-grid .product-action .dropdown-menu {
+        z-index: 1310 !important;
+        max-height: 70vh;
+        overflow-y: auto;
+        position: absolute !important;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     }
     
     /* Ensure the entire row doesn't overflow */
@@ -587,6 +605,12 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+}
+
+@media (max-width: 768px) {
+    .product-wrapper {
+        overflow: visible;
+    }
 }
 
 .product-grid {
